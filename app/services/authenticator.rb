@@ -10,6 +10,8 @@ class Authenticator
   end
 
   def authenticate!(authorization_header)
+    return false unless authorization_header
+
     # Split the header value from format "Basic ENCODED_CREDENTIALS"
     encoded_credentials = authorization_header.split(" ").last
     
@@ -32,8 +34,6 @@ class Authenticator
     # Send an authentication request to the Catalog API
     response = Faraday.post(login_url, request_params)
     
-    puts response.body
-
     parsed_response = JSON.parse(response.body)
 
     catalog_user = parsed_response.try(:[], "opaResponse").try(:[], "user")
@@ -42,14 +42,7 @@ class Authenticator
       @user = find_or_initialize_user(catalog_user)
 
       if @user.save
-        return {
-          user: {
-            name: @user.name,
-            email: @user.email,
-            catalog_attributes: @user.catalog_attributes,
-            access_token: JsonWebToken.encode(user_auth_token: @user.auth_token)
-          }
-        }
+        return @user
       else
         @errors = @user.errors
 

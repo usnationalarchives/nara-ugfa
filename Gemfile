@@ -30,7 +30,6 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'dotenv-rails'
 gem 'faraday'
-gem 'jwt'                                  # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

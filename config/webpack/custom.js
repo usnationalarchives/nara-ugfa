@@ -5,6 +5,13 @@ module.exports = {
     alias: {
       "#": path.resolve(__dirname, "..", "..", "app/javascript/src"),
       "#hooks": path.resolve(__dirname, "..", "..", "app/javascript/src/hooks"),
+      "#api": path.resolve(__dirname, "..", "..", "app/javascript/src/api"),
+      "#contexts": path.resolve(
+        __dirname,
+        "..",
+        "..",
+        "app/javascript/src/contexts"
+      ),
       "#styles": path.resolve(
         __dirname,
         "..",
