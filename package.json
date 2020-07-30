@@ -1,0 +1,27 @@
+{
+  "name": "nara_ugfa",
+  "private": true,
+  "dependencies": {
+    "@babel/preset-react": "^7.10.4",
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.2.2",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "frontline-css-reset": "^3.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.1.1",
+    "turbolinks": "^5.2.0",
+    "what-input": "^5.2.10"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "start": "foreman start -f Procfile.dev"
+  }
+}

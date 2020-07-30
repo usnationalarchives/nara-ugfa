@@ -1,0 +1,26 @@
+@font-face {
+  font-display: swap;
+  font-family: "Public Sans";
+  src: url("./publicsans-bold-webfont.woff2") format("woff2"),
+    url("./publicsans-bold-webfont.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Public Sans";
+  src: url("./publicsans-light-webfont.woff2") format("woff2"),
+    url("./publicsans-light-webfont.woff") format("woff");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "Public Sans";
+  src: url("./publicsans-regular-webfont.woff2") format("woff2"),
+    url("./publicsans-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
