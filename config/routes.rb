@@ -9,6 +9,13 @@ Rails.application.routes.draw do
       post "authenticate", to: "authentication#authenticate"
       delete "logout", to: "authentication#logout"
       get "current-user", to: "users#show"
+
+      scope "/finding-aids" do
+        post "/", to: "finding_aids#create"
+        get "/:id/edit", to: "finding_aids#edit"
+        put "/:id", to: "finding_aids#update"
+        delete "/:id", to: "finding_aids#destroy"
+      end
     end
   end
 

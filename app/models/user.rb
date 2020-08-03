@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   def to_json
     {
+      "id": id,
       "name": name,
       "email": email,
       "catalog_attributes": catalog_attributes,
