@@ -49,9 +49,10 @@ export const VerifiedInfo = styled.div`
 export const VerifiedToolTip = styled.div`
   background-color: ${props => props.theme.colors.darkGrey};
   border-radius: 3px;
-  bottom: 30px;
+  bottom: 35px;
   color: ${props => props.theme.colors.white};
   font-size: 0.8em;
+  left: -75px;
   padding: 10px;
   position: absolute;
   text-transform: uppercase;
@@ -88,13 +89,13 @@ const useHover = () => {
   return [ref, value];
 }
 
-const ResearchGuideCard = () => {
+const ResearchGuideCard = ({image, title}) => {
   const [hoverRef, isHovered] = useHover();
 
   return (
     <Root>
-      <Image/>
-      <Title>Photographs from the Civil Rights Movement</Title>
+      {image ? <Image/> : ''}
+      <Title>{title}</Title>
       <VerifiedInfo ref={hoverRef}>
         {isHovered ? (<VerifiedSolid />) : (<Verified />)}
         {isHovered ? (<VerifiedToolTip>Published By NARA</VerifiedToolTip>) : ('')}

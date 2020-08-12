@@ -47,7 +47,7 @@ const App = () => {
                     redirect="/dashboard"
                   />
                   <AnonymousRoute path="/catalog-search" component={CatalogSearch} />
-                  <Route path="/" component={Home} />
+                  <Route path="/" component={CatalogSearch} />
                 </Switch>
               </Suspense>
 

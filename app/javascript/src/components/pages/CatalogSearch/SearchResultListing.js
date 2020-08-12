@@ -18,6 +18,10 @@ export const Root = styled.div`
   justify-content: space-between;
   padding: 20px 0;
 
+  &:first-of-type {
+    margin-top: 20px;
+  }
+
   @media ${(props) => props.theme.breakpoints.medium} {
     flex-direction: row;
   }
@@ -27,11 +31,17 @@ export const Image = styled.div`
   border: 1px solid ${props => props.theme.colors.mediumGrey};
   content: '';
   height: 100px;
-  width: 15%;
+  width: 10%;
 `;
 
 export const Text = styled.div`
-  width: 60%;
+  margin-bottom: 20px;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    margin-bottom: 0;
+    padding: 0 20px;
+    width: 70%;
+  }
 
   a {
     ${fl_static(css`
@@ -40,7 +50,7 @@ export const Text = styled.div`
   `)}
     ${fl_attention(css`
       text-decoration: underline;
-  `)}
+  `)}g
   }
 `;
 

@@ -44,10 +44,18 @@ const ResearchGuideResults = () => {
         <Text.H3>Research Guides</Text.H3>
         <p>The following research guides published by NARA are related to your search</p>
         <ResearchGuideGrid>
-          <ResearchGuideCard image={true}/>
-          <ResearchGuideCard image={true}/>
-          <ResearchGuideCard image={false}/>
-          <ResearchGuideCard image={true}/>
+          <ResearchGuideCard 
+          title="Photographs from the Civil Rights Movement"
+          image={true}/>
+          <ResearchGuideCard 
+          title="The 1960's in Pictures"
+          image={true}/>
+          <ResearchGuideCard 
+          title="Women in the Civil Rights Movement and Black Power Movements"
+          image={false}/>
+          <ResearchGuideCard 
+          title="The JFK Presidency"
+          image={true}/>
         </ResearchGuideGrid>
         <Layout.Right>
           <Link to="/research-guides">View All</Link>

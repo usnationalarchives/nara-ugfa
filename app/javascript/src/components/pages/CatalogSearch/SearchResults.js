@@ -24,43 +24,43 @@ const SearchResults = () => {
       </Button>
       <SearchResultListing 
       title="March on Washignton Program" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem Ipsum Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={false}/>
       <SearchResultListing 
       title="Night Scene on the Avenue" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem Ipsum"
       added={true}/>
       <SearchResultListing 
       title="White House Subject Files on Human Rights" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem Ipsum Ut enim ad minim veniam."
       added={true}/>
       <SearchResultListing 
       title="March on Washignton for Jobs and Freedom" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={false}/>
       <SearchResultListing 
       title="March on Washignton Program" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={true}/>
       <SearchResultListing 
       title="Night Scene on the Avenue" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={false}/>
       <SearchResultListing 
       title="White House Subject Files on Human Rights" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={false}/>
       <SearchResultListing 
       title="March on Washignton for Jobs and Freedom" 
-      hierarchy="Lorem Ipsum"
-      identifier="Lorem Ipsum"
+      hierarchy="Ut enim ad minim veniam."
+      identifier="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={false}/>
     </Root>
   );

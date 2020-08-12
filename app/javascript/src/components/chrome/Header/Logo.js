@@ -14,7 +14,7 @@ export const Root = styled.div`
 const Logo = () => {
   return (
     <Root>
-      <Link>
+      <Link to="/">
         <CatalogLogo/>
       </Link>
     </Root>
