@@ -10,9 +10,19 @@ export const Root = styled.div`
   -webkit-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
   -moz-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
   box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
-  max-width: 250px;
+  margin-top: 30px;
+  min-height: 250px;
   position: relative;
-  width: 23%;
+  width: 100%;  
+  
+  @media all and (min-width: ${(props) => props.theme.layout.catalogColumnMin}) {
+    width: 48%;  
+  }
+
+  @media all and (min-width: 1000px) {
+    max-width: 250px;
+    width: 23%;
+  }
 `;
 
 export const Image = styled.div`

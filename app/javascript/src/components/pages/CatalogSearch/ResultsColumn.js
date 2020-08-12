@@ -9,7 +9,10 @@ import SearchResults from './SearchResults';
 export const Root = styled.div`
   border-left: 1px solid ${props => props.theme.colors.mediumGrey};
   overflow: hidden;
-  width: 90%;
+
+  @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
+    width: 90%;
+  }
 `;
 
 const ResultsColumn = () => {

@@ -30,15 +30,23 @@ export const NavList = styled.div`
 `;
 
 export const NavListItem = styled.div`
-  font-size: 1.1em;
+  font-size: 1em;
   margin-left: 20px;
+
+  @media all and (min-width: 1000px) {
+    font-size: 1.1em;
+  }
 `;
 
 export const LoginItem = styled.div`
   border-left: 1px solid rgba(255, 255, 255, .3);
-  font-size: 1.1em;
+  font-size: 1em;
   margin-left: 20px;
   padding-left: 20px;
+
+  @media all and (min-width: 1000px) {
+    font-size: 1.1em;
+  }
 `;
 
 const NavLink = styled(Link)`

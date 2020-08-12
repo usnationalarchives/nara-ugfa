@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 // components
 import * as Layout from "#components/shared/Layout";
+import Logo from './Logo';
 import MenuToggle from './MenuToggle';
 import NavBar from './NavBar';
 
@@ -23,7 +24,7 @@ const Header = () => {
       <Layout.Padding>
         <Layout.Wrapper>
           <UtilityNav>
-            <p>National Archives Catalog</p>
+            <Logo/>
             <MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           </UtilityNav>
         </Layout.Wrapper>

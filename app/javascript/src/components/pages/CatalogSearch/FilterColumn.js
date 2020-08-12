@@ -2,9 +2,14 @@ import React from "react";
 import styled from 'styled-components';
 
 export const Root = styled.div`
-  padding: 20px;
-  opacity: 0.2;
-  width: 150px;
+  display: none;
+
+  @media all and (min-width: ${(props) => props.theme.layout.catalogColumnMin}) {
+    display: block;
+    padding: 20px;
+    opacity: 0.2;
+    width: 150px;
+  }
 
   @media all and (min-width: 1000px) {
     width: 200px;

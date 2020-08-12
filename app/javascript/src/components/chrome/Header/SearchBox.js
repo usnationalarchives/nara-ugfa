@@ -8,13 +8,7 @@ import * as Text from "#components/shared/Text";
 export const Root = styled.form`
   align-items: center;
   display: flex;
-  width: 60%
-`;
-
-export const Form = styled.form`
-  display: flex;
-  max-width: 500px;
-  width: 90%;
+  width: 50%
 `;
 
 export const Label = styled.label`
@@ -43,6 +37,7 @@ export const AdvancedSearch = styled.p`
   font-size: 0.9em;
   opacity: 0.3;
   padding-left: 10px;
+  width: 30%;
 `;
 
 const SearchBox = () => {

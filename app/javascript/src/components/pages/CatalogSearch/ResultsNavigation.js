@@ -13,7 +13,19 @@ export const NavList = styled.ul`
 
   li  {
     opacity: 0.3;
-    padding: 20px;
+    padding: 20px 10px;
+  
+    @media all and (min-width: 800px) {
+      padding: 20px;
+    }
+  
+    @media all and (min-width: 900px) {
+      padding: 20px 10px;
+    }
+  
+    @media all and (min-width: 1400px) {
+      padding: 20px;
+    }
 
     &.--active {
       border-bottom: 4px solid ${props => props.theme.colors.red};

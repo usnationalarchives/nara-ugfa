@@ -24,6 +24,7 @@ export const font = {
 };
 
 export const layout = {
+  catalogColumnMin: "650px",
   maxWidth: "1200px",
   maxWidthNarrow: "600px",
   maxWidthMedium: "900px",

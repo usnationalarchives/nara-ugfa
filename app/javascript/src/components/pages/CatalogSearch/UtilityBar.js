@@ -8,8 +8,12 @@ export const Root = styled.div`
 
 export const Utilties = styled.div`
   display: flex;
-  margin-left: 150px;
-  padding: 10px 0;
+  padding: 10px 20px;
+  
+  @media all and (min-width: ${(props) => props.theme.layout.catalogColumnMin}) {
+    margin-left: 150px;
+    padding: 10px 0;
+  }
 
   @media all and (min-width: 1000px) {
     margin-left: 200px;

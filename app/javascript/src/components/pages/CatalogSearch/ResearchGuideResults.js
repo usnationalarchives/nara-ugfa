@@ -33,9 +33,8 @@ export const ResearchGuideGridWrap = styled.div`
 
 export const ResearchGuideGrid = styled.div`
   display: flex;
-  height: 250px;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 30px;
 `;
 
 const ResearchGuideResults = () => {
