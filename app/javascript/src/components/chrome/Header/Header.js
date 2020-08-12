@@ -1,23 +1,35 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import styled from 'styled-components';
 
-// contexts
-import { UserContext } from "#contexts/User";
+// components
+import * as Layout from "#components/shared/Layout";
+import MenuToggle from './MenuToggle';
+import NavBar from './NavBar';
+
+export const Root = styled.div`
+`;
+
+export const UtilityNav = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+`;
 
 const Header = () => {
-  const context = useContext(UserContext);
-
-  const logout = () => {
-    window.location = "/";
-    context.actions.logout();
-  };
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div>
-      <p>Header</p>
-      {context.state.user && <button onClick={logout}>Log Out</button>}
-      {!context.state.user && <Link to="/login">Login</Link>}
-    </div>
+    <Root>
+      <Layout.Padding>
+        <Layout.Wrapper>
+          <UtilityNav>
+            <p>National Archives Catalog</p>
+            <MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+          </UtilityNav>
+        </Layout.Wrapper>
+      </Layout.Padding>
+      <NavBar/>
+    </Root>
   );
 };
 

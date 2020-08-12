@@ -50,3 +50,7 @@ export const Wrapper = styled.div`
 export const Center = styled.div`
   text-align: center;
 `;
+
+export const Right = styled.div`
+  text-align: right;
+`;

@@ -88,6 +88,48 @@ const Button = styled(ButtonBase)`
     `};
 
   ${(props) =>
+    props.scheme === 'green-plus' &&
+    css`
+      align-items: center;
+      border: 1px solid ${(props) => props.theme.colors.mediumGrey};
+      border-radius: 40px;
+      color: ${(props) => props.theme.colors.green};
+      display: flex;
+      font-size: 0.9em;
+      font-weight: normal;
+      justify-content: space-between;
+      padding: 8px 7px 8px 10px;
+      text-transform: uppercase;
+
+      &:focus,
+      &:hover {
+        border: 1px solid ${(props) => props.theme.colors.green};
+      }
+    `};
+
+  ${(props) =>
+    props.scheme === 'blue-check' &&
+    css`
+      align-items: center;
+      border: 1px solid ${(props) => props.theme.colors.mediumGrey};
+      border-radius: 40px;
+      color: ${(props) => props.theme.colors.blue};
+      display: flex;
+      font-size: 0.9em;
+      font-weight: normal;
+      justify-content: space-between;
+      padding: 8px 7px 8px 10px;
+      text-transform: uppercase;
+      width: 160px;
+
+
+      &:focus,
+      &:hover {
+        border: 1px solid ${(props) => props.theme.colors.blue};
+      }
+    `};
+
+  ${(props) =>
     props.disabled === 'true' &&
     css`
       background-color: ${(props) => props.theme.colors.mediumGrey};

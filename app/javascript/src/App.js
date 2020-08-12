@@ -23,6 +23,8 @@ import * as theme from "#styles/theme";
 const Home = lazy(() => import("./components/pages/Home/Home"));
 const Login = lazy(() => import("./components/pages/Login/Login"));
 const Dashboard = lazy(() => import("./components/pages/Dashboard/Dashboard"));
+const ResearchGuides = lazy(() => import("./components/pages/ResearchGuides/ResearchGuides"));
+const CatalogSearch = lazy(() => import("./components/pages/CatalogSearch/CatalogSearch"));
 
 const App = () => {
   return (
@@ -38,11 +40,13 @@ const App = () => {
               <Suspense fallback={<p>Loading...</p>}>
                 <Switch>
                   <PrivateRoute path="/dashboard" component={Dashboard} />
+                  <PrivateRoute path="/research-guides" component={ResearchGuides} />
                   <AnonymousRoute
                     path="/login"
                     component={Login}
                     redirect="/dashboard"
                   />
+                  <AnonymousRoute path="/catalog-search" component={CatalogSearch} />
                   <Route path="/" component={Home} />
                 </Switch>
               </Suspense>

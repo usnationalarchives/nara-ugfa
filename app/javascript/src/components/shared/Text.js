@@ -75,6 +75,10 @@ export const Screenreader = styled.span`
   ${fl_visuallyHidden}
 `;
 
+export const Link = styled.a`
+  color: ${(props) => props.theme.colors.blue};
+`;
+
 export const Rich = styled.div`
   font-size: 1rem;
   line-height: 1.625;

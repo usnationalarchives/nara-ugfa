@@ -4,6 +4,7 @@ export const colors = {
   blue: "#345d96",
   green: "#4d8055",
   yellow: "#fad980",
+  red: "#e31f40",
   darkGrey: "#333333",
   mediumGrey: "#dddddd",
   lightGrey: "#f6f6f6",
@@ -13,6 +14,7 @@ export const breakpoints = {
   small: `(min-width: 320px)`,
   medium: `(min-width: 768px)`,
   large: `(min-width: 900px)`,
+  extraLarge: `(min-width: 1300px)`,
 };
 
 export const font = {
