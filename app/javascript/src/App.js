@@ -10,7 +10,6 @@ import { UserProvider } from "#contexts/User";
 
 // components
 import Header from "#components/chrome/Header/Header";
-import Footer from "#components/chrome/Footer/Footer";
 import ScrollToTop from "#components/shared/ScrollToTop";
 import PrivateRoute from "#components/shared/PrivateRoute";
 import AnonymousRoute from "#components/shared/AnonymousRoute";
@@ -25,6 +24,7 @@ const Login = lazy(() => import("./components/pages/Login/Login"));
 const Dashboard = lazy(() => import("./components/pages/Dashboard/Dashboard"));
 const ResearchGuides = lazy(() => import("./components/pages/ResearchGuides/ResearchGuides"));
 const CatalogSearch = lazy(() => import("./components/pages/CatalogSearch/CatalogSearch"));
+const ResearchGuideEditor = lazy(() => import("./components/pages/ResearchGuideEditor/ResearchGuideEditor"));
 
 const App = () => {
   return (
@@ -41,17 +41,17 @@ const App = () => {
                 <Switch>
                   <PrivateRoute path="/dashboard" component={Dashboard} />
                   <PrivateRoute path="/research-guides" component={ResearchGuides} />
+                  <AnonymousRoute path="/research-guide-editor" component={ResearchGuideEditor} />
                   <AnonymousRoute
                     path="/login"
                     component={Login}
                     redirect="/dashboard"
                   />
                   <AnonymousRoute path="/catalog-search" component={CatalogSearch} />
-                  <Route path="/" component={CatalogSearch} />
+                  <Route path="/" component={Home} />
                 </Switch>
               </Suspense>
-
-              <Footer />
+             
             </Fragment>
           </Router>
         </UserProvider>

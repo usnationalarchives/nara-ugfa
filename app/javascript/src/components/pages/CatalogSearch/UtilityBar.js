@@ -18,6 +18,10 @@ export const Utilties = styled.div`
   @media all and (min-width: 1000px) {
     margin-left: 200px;
   }
+
+  @media all and ${(props) => props.theme.breakpoints.extraLarge} {
+    margin-left: 15%;
+  }
 `;
 
 const UtilityBar = () => {

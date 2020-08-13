@@ -6,8 +6,16 @@ import styled from 'styled-components';
 import CatalogLogo from '#assets/catalog_logo.svg';
 
 export const Root = styled.div`
+  align-items: center;
+  display: flex;
+  width: 60%;
+
   svg {
-    height: 35px;
+    width: 100%;
+    
+    @media all and ${(props) => props.theme.breakpoints.wideNavBP} {
+     max-width: 400px;
+    }
   }
 `;
 

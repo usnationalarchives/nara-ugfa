@@ -8,11 +8,15 @@ import * as Text from "#components/shared/Text";
 export const Root = styled.form`
   align-items: center;
   display: flex;
-  width: 50%
+  width: 100%;
+
+  @media all and ${(props) => props.theme.breakpoints.navBP} {
+    width: 60%;
+  }
 `;
 
 export const Label = styled.label`
-  width: 100%;
+  width: 70%;
 `;
 
 export const Input = styled.input`

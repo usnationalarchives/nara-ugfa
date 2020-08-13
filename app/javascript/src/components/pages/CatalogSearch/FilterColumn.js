@@ -14,6 +14,11 @@ export const Root = styled.div`
   @media all and (min-width: 1000px) {
     width: 200px;
   }
+  }
+
+  @media all and ${(props) => props.theme.breakpoints.extraLarge} {
+    width: 15%;
+  }
 `;
 
 export const FilterHeader = styled.p`

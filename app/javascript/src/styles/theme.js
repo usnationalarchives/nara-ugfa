@@ -15,6 +15,8 @@ export const breakpoints = {
   medium: `(min-width: 768px)`,
   large: `(min-width: 900px)`,
   extraLarge: `(min-width: 1300px)`,
+  navBP: `(min-width: 975px)`,
+  wideNavBP: `(min-width: 1100px)`,
 };
 
 export const font = {
