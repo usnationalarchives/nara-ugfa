@@ -40,6 +40,7 @@ const Burger = styled.div`
 const Label = styled.p`
   font-size: 1.1rem;
   line-height: 2;
+  padding-left: 7px;
 `;
 
 

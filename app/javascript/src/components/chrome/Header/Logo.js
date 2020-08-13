@@ -8,23 +8,24 @@ import CatalogLogo from '#assets/catalog_logo.svg';
 export const Root = styled.div`
   align-items: center;
   display: flex;
-  width: 60%;
+  width: 100%;
 
   svg {
+    max-width: 350px;
     width: 100%;
-    
-    @media all and ${(props) => props.theme.breakpoints.wideNavBP} {
-     max-width: 400px;
-    }
   }
+`;
+
+export const LogoLink = styled(Link)`
+  width: 100%;
 `;
 
 const Logo = () => {
   return (
     <Root>
-      <Link to="/">
+      <LogoLink to="/">
         <CatalogLogo/>
-      </Link>
+      </LogoLink>
     </Root>
   );
 };
