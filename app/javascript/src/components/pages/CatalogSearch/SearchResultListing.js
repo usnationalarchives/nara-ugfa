@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from 'styled-components';
 import { Link } from "react-router-dom";
 
@@ -154,6 +154,7 @@ const SearchResultListing = ({ title, hierarchy, identifier, image, added, recor
           {added ? 'Added' : 'Add to Guide'}
           {added ? (<CheckedCircle/>) : (<PlusCircle/>)}
         </Button>
+        {!added &&
         <AddOptions addOptionsVisible={addOptionsVisible}>
           <ul>
             <li>
@@ -165,9 +166,9 @@ const SearchResultListing = ({ title, hierarchy, identifier, image, added, recor
               <p>Published on Aug 10, 2020 | Public</p>
             </li>
           </ul>
-          <Link>My List</Link>
-          <Link>Create a Guide</Link>
-        </AddOptions>
+          <Link to="/my-list">My List</Link>
+          <Link to="research-guide-editor">Create a Guide</Link>
+        </AddOptions>}
         {added && <Link to="/">View Guide</Link>}
       </ActionWrap>
     </Root>
