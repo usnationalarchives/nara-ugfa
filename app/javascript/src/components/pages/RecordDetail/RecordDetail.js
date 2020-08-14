@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // components
 import UtilityBar from './UtilityBar';
 import FilterColumn from '../../shared/FilterColumn';
-import ResultsColumn from './ResultsColumn';
+import RecordDetailColumn from './RecordDetailColumn';
 
 export const Root = styled.div`
 `;
@@ -13,16 +13,16 @@ export const ColumnWrap = styled.div`
   display: flex;
 `;
 
-const CatalogSearch = () => {
+const RecordDetail = () => {
   return (
     <Root>
-      <UtilityBar/>
+      <UtilityBar />
       <ColumnWrap>
-        <FilterColumn/>
-        <ResultsColumn/>
+        <FilterColumn />
+        <RecordDetailColumn />
       </ColumnWrap>
     </Root>
   );
 };
 
-export default CatalogSearch;
+export default RecordDetail;

@@ -25,6 +25,7 @@ const Dashboard = lazy(() => import("./components/pages/Dashboard/Dashboard"));
 const ResearchGuides = lazy(() => import("./components/pages/ResearchGuides/ResearchGuides"));
 const CatalogSearch = lazy(() => import("./components/pages/CatalogSearch/CatalogSearch"));
 const ResearchGuideEditor = lazy(() => import("./components/pages/ResearchGuideEditor/ResearchGuideEditor"));
+const RecordDetail = lazy(() => import("./components/pages/RecordDetail/RecordDetail"));
 
 const App = () => {
   return (
@@ -48,6 +49,7 @@ const App = () => {
                     redirect="/dashboard"
                   />
                   <AnonymousRoute path="/catalog-search" component={CatalogSearch} />
+                  <Route path="/record-detail" component={RecordDetail} />
                   <Route path="/" component={CatalogSearch} />
                 </Switch>
               </Suspense>

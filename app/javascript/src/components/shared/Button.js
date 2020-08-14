@@ -99,6 +99,7 @@ const Button = styled(ButtonBase)`
       font-weight: normal;
       justify-content: space-between;
       padding: 8px 7px 8px 10px;
+      position: relative;
       text-transform: uppercase;
 
       &:focus,
@@ -125,7 +126,7 @@ const Button = styled(ButtonBase)`
 
       &:focus,
       &:hover {
-        border: 1px solid ${(props) => props.theme.colors.blue};
+        border: 1px solid ${(props) => props.theme.colors.mediumGrey};
       }
     `};
 
