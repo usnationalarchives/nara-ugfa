@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
+
+// components 
 import SlideToggleContent from "../../shared/SlideToggleContent";
 
 // assets
@@ -15,7 +17,8 @@ const Root = styled.div`
   button {
     ${buttonReset}
 
-    background-color: ${props => props.theme.colors.mediumGrey};
+    background-color: ${props => props.theme.colors.lightGrey};
+    border-bottom: 1px solid ${props => props.theme.colors.mediumGrey};
     text-align: left;
     margin-top: 20px;
     padding: 10px;
@@ -54,6 +57,25 @@ const ToggleChev = styled.div`
   }
 `;
 
+const InfoWrap = styled.div`
+  padding-top: 20px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+    p {
+      width: 65%;
+
+      &:first-of-type {
+        text-align: right;
+        width: 30%;
+      }
+    }
+  }
+`;
+
 const InfoToggle = ({ heading }) => {
   const [isVisible, setIsVisible] = useState(false);
   
@@ -66,7 +88,7 @@ const InfoToggle = ({ heading }) => {
         </ToggleChev>
       </button>
       <SlideToggleContent isVisible={isVisible}>
-        <div>
+        <InfoWrap>
           <div>
             <p>National Archives Identifier:</p>
             <p>6188109</p>
@@ -79,7 +101,7 @@ const InfoToggle = ({ heading }) => {
             <p>Creators:</p>
             <p>Department of Housing and Urban Development. Office of the Chief Human Capital Office. Office of Broadcasting Operations. Photo Section. (ca. 2011 - ca. 7/18/2014)  (Most Recent) Department of Housing and Urban Development. Office of the Assistant Secretary for Administration. Office of the Deputy Assistant Secretary for Budget and Administrative Support. Office of Administrative and Management Services. Multimedia Division. Publications Branch. Multimedia Library, (2003 - 2010)  (Predecessor)</p>
           </div>
-        </div>
+        </InfoWrap>
       </SlideToggleContent>
     </Root>
   );

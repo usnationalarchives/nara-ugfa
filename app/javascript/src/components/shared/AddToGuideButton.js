@@ -76,13 +76,27 @@ export const AddOptions = styled.span`
   box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
   display: none;
   font-size: 0.8em;
-  left: -50px;
+  left: 0;
   padding: 20px;
   position: absolute;
   text-align: left !important;
   top: -20px;
   width: 250px;
   z-index: 100;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    left: -100px !important;
+  }
+
+  ${props =>
+    props.menuPositionRight &&
+    css`
+
+    @media all and ${(props) => props.theme.breakpoints.medium} {
+      right: -80px !important;
+      left: initial !important;
+    }
+  `}
 
   ${props =>
     props.addOptionsVisible &&
@@ -99,7 +113,7 @@ export const AddOptions = styled.span`
   }
 `;
 
-const AddToGuideButton = ({ added, text }) => {
+const AddToGuideButton = ({ added, text, menuPosition }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
 
   const toggleAddOptions = () => {
@@ -123,11 +137,11 @@ const AddToGuideButton = ({ added, text }) => {
         {text && text}
         {added ? (<CheckedCircle />) : (<PlusCircle />)}
         {!added &&
-          <AddOptions addOptionsVisible={addOptionsVisible}>
+          <AddOptions addOptionsVisible={addOptionsVisible} menuPositionRight={menuPosition === "right"}>
             <ul>
               <GuideList>
                 <li>
-                  <Link to="/">Women's Voting Rights in the 1920s</Link>
+                <Link to="/">Women's Voting {menuPosition} Rights in the 1920s</Link>
                   <p>Draft | Last Edited on July 16, 2020</p>
                 </li>
                 <li>

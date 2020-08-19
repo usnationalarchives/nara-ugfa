@@ -19,7 +19,7 @@ const SearchResults = () => {
 
   return (
     <Root>
-      <AddToGuideButton added={false} text="Add all to Guide"/>
+      <AddToGuideButton added={false} menuPosition={"right"} text="Add all to Guide"/>
       <SearchResultListing 
       title="March on Washignton Program" 
       hierarchy="Ut enim ad minim veniam."

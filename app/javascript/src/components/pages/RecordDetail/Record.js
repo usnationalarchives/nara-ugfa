@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // components
 import AddToGuideButton from '../../shared/AddToGuideButton';
 import InfoToggle from './InfoToggle';
+import ImageViewer from "./ImageViewer";
 
 export const Root = styled.div`
   max-width: ${(props) => props.theme.layout.maxWidth};
@@ -28,6 +29,7 @@ const Record = () => {
       <AddToGuideButton added={false} text="Add to Guide"/>
       <p>Item</p>
       <InspectArea>
+        <ImageViewer />
       </InspectArea>
       <InfoToggle heading="Additional Information About this Item"/>
       <InfoToggle heading="Details"/>

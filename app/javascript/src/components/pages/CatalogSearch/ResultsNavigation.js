@@ -6,6 +6,7 @@ import Pagination from './Pagination';
 
 export const Root = styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.mediumGrey};
+  max-width: ${(props) => props.theme.layout.maxWidth};
 `;
 
 export const NavList = styled.ul`

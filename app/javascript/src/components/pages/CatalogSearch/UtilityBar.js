@@ -1,8 +1,11 @@
 import React from "react";
 import styled from 'styled-components';
+import { Link } from "react-router-dom";
 
 export const Root = styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.mediumGrey};
+  display: flex;
+  justify-content: space-between;
   font-size: 0.9em;
 `;
 
@@ -24,12 +27,22 @@ export const Utilties = styled.div`
   }
 `;
 
+export const ShareLinks = styled.ul`
+  display: flex;
+  justify-content: space-around;
+`;
+
+
 const UtilityBar = () => {
   return (
     <Root>
       <Utilties>
         <p>1-20 of 345,238 results in 1.38 seconds. Show expanded search terms.</p>
       </Utilties>
+      <ShareLinks>
+        <li><Link to="/">Share</Link></li>
+        <li><Link to="/">Print</Link></li>
+      </ShareLinks>
     </Root>
   );
 };
