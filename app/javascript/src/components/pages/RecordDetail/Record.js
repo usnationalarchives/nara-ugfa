@@ -8,11 +8,36 @@ import ImageViewer from "./ImageViewer";
 
 export const Root = styled.div`
   max-width: ${(props) => props.theme.layout.maxWidth};
-  padding: 40px;
+  padding: 20px;
+
+  @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
+    padding: 40px;
+  }
 
   button {
-    margin-right: 0;
-    margin-left: auto;
+    margin-top: 20px;
+
+    @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
+      margin: 0 auto 0 0;
+    }
+  }
+`;
+
+export const Heading = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  p {
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 75%;
   }
 `;
 
@@ -26,8 +51,10 @@ export const InspectArea = styled.div`
 const Record = () => {
   return (
     <Root>
-      <AddToGuideButton added={false} text="Add to Guide"/>
-      <p>Item</p>
+      <Heading>
+        <p>Civil Rights March on Washington, DC [Leaders marching from the Washington Monument to the Lincoln Memorial.]</p>
+        <AddToGuideButton added={false} text="Add to Guide" />
+      </Heading>
       <InspectArea>
         <ImageViewer />
       </InspectArea>

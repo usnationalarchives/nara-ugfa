@@ -2,6 +2,9 @@ import React from "react";
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
+// components
+import * as Layout from "#components/shared/Layout";
+
 export const Root = styled.div`
   border-bottom: 1px solid ${props => props.theme.colors.mediumGrey};
   display: flex;
@@ -14,22 +17,15 @@ export const Utilties = styled.div`
   flex-direction: column-reverse;
   justify-content: space-between;
   max-width: ${(props) => props.theme.layout.maxWidth};
-  padding: 10px 20px;
-  width: 100%;
+  padding: 10px 0;
   
   @media all and (min-width: ${(props) => props.theme.layout.catalogColumnMin}) {
     flex-direction: row;
-    margin-left: 150px;
-    padding: 10px 20px 10px 0;
-    width: 100%;
+    padding: 10px 0;
 
     p {
       width: 60%;
     }
-  }
-
-  @media all and (min-width: 1000px) {
-    margin-left: 15%;
   }
 `;
 
@@ -57,14 +53,18 @@ export const ShareLinks = styled.ul`
 const UtilityBar = () => {
   return (
     <Root>
-      <Utilties>
-        <p>1-20 of 345,238 results in 1.38 seconds. Show expanded search terms.</p>
-        <ShareLinks>
-          <li>Share |</li>
-          <li>Export |</li>
-          <li>Print</li>
-        </ShareLinks>
-      </Utilties>
+      <Layout.Padding>
+        <Layout.Wrapper>
+        <Utilties>
+          <p>1-20 of 345,238 results in 1.38 seconds. Show expanded search terms.</p>
+          <ShareLinks>
+            <li>Share |</li>
+            <li>Export |</li>
+            <li>Print</li>
+          </ShareLinks>
+        </Utilties>
+        </Layout.Wrapper>
+      </Layout.Padding>
     </Root>
   );
 };
