@@ -92,10 +92,6 @@ export const Hierarchy = styled.div`
 const SearchResultListing = ({ title, hierarchy, identifier, image, added, recordType }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
 
-  const toggleAddOptions = () => {
-    setAddOptionsVisible(!addOptionsVisible);
-  }
-
   const clickedOut = () => {
     setAddOptionsVisible(false);
   }

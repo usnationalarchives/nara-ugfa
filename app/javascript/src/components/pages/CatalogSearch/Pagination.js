@@ -42,6 +42,11 @@ export const Root = styled.div`
 `;
 
 const Pagination = () => {
+
+  const handleChange = () => {
+
+  }
+
   return (
     <Root>
       <ul>
@@ -57,7 +62,7 @@ const Pagination = () => {
         <li>
           <label>
           Page
-            <input type="text" value="1"></input>
+            <input type="text" value="1" onChange={handleChange}></input>
             of 18,000
           </label>
         </li>
@@ -70,7 +75,7 @@ const Pagination = () => {
       </ul>
       <label>
         Results Per Page
-        <input type="text" value="20"></input>
+        <input type="text" value="20" onChange={handleChange}></input>
       </label>
     </Root>
   );

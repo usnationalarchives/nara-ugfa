@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled, { css } from 'styled-components';
 import { Link } from "react-router-dom";
 
 // components
+import RelatedContentAlert from "./RelatedContentAlert";
 import Button from './Button';
 import PlusCircle from './PlusCircle';
 import CheckedCircle from "./CheckedCircle";
@@ -115,19 +116,29 @@ export const AddOptions = styled.span`
 
 const AddToGuideButton = ({ added, text, menuPosition }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
+  const [addCount, setAddCount] = useState(0);
+  const wrapperRef = useRef(null);
+
+  const incrementAddCount = () => {
+    setAddCount(prevAddCount => prevAddCount + 1);
+    console.log(addCount);
+  }
 
   const toggleAddOptions = () => {
     setAddOptionsVisible(!addOptionsVisible);
   }
 
-  const clickedOut = () => {
-    setAddOptionsVisible(false);
+  const clickedOut = (event) => {
+    event.preventDefault;
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      setAddOptionsVisible(false);
+    }
   }
 
   useEffect(() => {
-    document.addEventListener("mousedown", clickedOut);
+    document.addEventListener("mousedown", clickedOut, false);
     return () => {
-      document.removeEventListener("mousedown", clickedOut);
+      document.removeEventListener("mousedown", clickedOut, false);
     };
   }, []);
 
@@ -137,15 +148,15 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
         {text && text}
         {added ? (<CheckedCircle />) : (<PlusCircle />)}
         {!added &&
-          <AddOptions addOptionsVisible={addOptionsVisible} menuPositionRight={menuPosition === "right"}>
+          <AddOptions addOptionsVisible={addOptionsVisible} menuPositionRight={menuPosition === "right"} ref={wrapperRef}>
             <ul>
-              <GuideList>
+              <GuideList onClick={incrementAddCount}>
                 <li>
-                <Link to="/">Women's Voting {menuPosition} Rights in the 1920s</Link>
+                  <Link to="#">Women's Voting Rights in the 1920s</Link>
                   <p>Draft | Last Edited on July 16, 2020</p>
                 </li>
                 <li>
-                  <Link to="/">The JFK Presidency</Link>
+                  <Link to="#">The JFK Presidency</Link>
                   <p>Published on Aug 10, 2020 | Public</p>
                 </li>
               </GuideList>
@@ -153,6 +164,9 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
               <CreateGuideLink to="research-guide-editor">Create a Guide</CreateGuideLink>
             </ul>
           </AddOptions>}
+
+        {(addCount > 2) &&
+          <RelatedContentAlert title="Miscellaneous, Staff and Stringer Photographs, 1961-1974" link="/" />}
       </Button>
     </Root>
   );

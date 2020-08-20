@@ -26,7 +26,7 @@ export const Heading = styled.div`
     flex-direction: row;
   }
 
-  p {
+  h1 {
     font-size: 1.2em;
     font-weight: bold;
     width: 75%;
@@ -52,7 +52,7 @@ const Record = () => {
   return (
     <Root>
       <Heading>
-        <p>Civil Rights March on Washington, DC [Leaders marching from the Washington Monument to the Lincoln Memorial.]</p>
+        <h1>Civil Rights March on Washington, DC [Leaders marching from the Washington Monument to the Lincoln Memorial.]</h1>
         <AddToGuideButton added={false} text="Add to Guide" />
       </Heading>
       <InspectArea>

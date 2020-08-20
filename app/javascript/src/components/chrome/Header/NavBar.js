@@ -6,7 +6,7 @@ import styled, {css} from 'styled-components';
 import * as Layout from "#components/shared/Layout";
 import SearchBox from './SearchBox';
 
-//assets
+// assets
 import Chev from '#assets/icons/chevron.svg';
 
 // contexts

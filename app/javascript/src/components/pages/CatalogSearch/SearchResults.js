@@ -67,7 +67,7 @@ const SearchResults = () => {
       hierarchy="Ut enim ad minim veniam."
       identifier="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
       added={false}
-      recordType="file-unit"/>
+      recordType="file-unit" />
     </Root>
   );
 };
