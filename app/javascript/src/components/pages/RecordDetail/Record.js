@@ -13,14 +13,6 @@ export const Root = styled.div`
   @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
     padding: 40px;
   }
-
-  button {
-    margin-top: 20px;
-
-    @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
-      margin: 0 auto 0 0;
-    }
-  }
 `;
 
 export const Heading = styled.div`
@@ -38,6 +30,14 @@ export const Heading = styled.div`
     font-size: 1.2em;
     font-weight: bold;
     width: 75%;
+  }
+
+  button {
+    margin-top: 20px;
+
+    @media all and (min-width: ${props => props.theme.layout.catalogColumnMin}) {
+      margin: 0 auto 0 0;
+    }
   }
 `;
 
