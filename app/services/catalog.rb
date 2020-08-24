@@ -14,6 +14,11 @@ class Catalog
     while cursor_mark do 
       options["cursor_mark"] = cursor_mark
       response = get(options)
+
+      if !response["opaResponse"]["results"] || response["opaResponse"]["results"]["total"] == 0
+        return []
+      end
+
       results += response["opaResponse"]["results"]["result"]
       cursor_mark = response["opaResponse"]["results"]["nextCursorMark"]
     end 
@@ -23,7 +28,7 @@ class Catalog
 
   def get(options = {})
     response = Faraday.get(@base_url) do |req|
-      req.params["rows"] = 100
+      req.params["rows"] = 1000
       req.params["cursorMark"] = options["cursor_mark"] || "*"
 
       options[:params].each do |key, value|
