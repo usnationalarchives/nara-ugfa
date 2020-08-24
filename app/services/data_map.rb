@@ -1,4 +1,4 @@
-class DataMap
+class CatalogDataMap
 
   def self.naid(record)
     record["naId"]

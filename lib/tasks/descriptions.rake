@@ -55,15 +55,15 @@ namespace :descriptions do
         puts "********************************"
 
         description = Description.find_or_initialize_by(
-          naid: DataMap.naid(result)
+          naid: CatalogDataMap.naid(result)
         )
 
         description.attributes = {
-          naid: DataMap.naid(result),
-          title: DataMap.title(result),
-          level: DataMap.level(result),
-          data: DataMap.data(result),
-          objects: DataMap.objects(result)
+          naid: CatalogDataMap.naid(result),
+          title: CatalogDataMap.title(result),
+          level: CatalogDataMap.level(result),
+          data: CatalogDataMap.data(result),
+          objects: CatalogDataMap.objects(result)
         }
 
         description.save
