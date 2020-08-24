@@ -36,30 +36,8 @@ class CatalogDataMap
     return "na"
   end
 
-  # def self.parent_file_unit_naid(record)
-  # end
-
-  # def self.parent_series_naid(record)
-  # end
-
-  # def self.parent_record_group_naid(record)
-  # end
-
-  # def self.parent_file_unit_title(record)
-  # end
-
-  # def self.parent_series_title(record)
-  # end
-
-  # def self.parent_record_group_title(record)
-  # end
-
-  # def self.scope_content_note(record)
-  #   record["description"]["item"]["scopeAndContentNote"]
-  # end
-
   def self.data(record)
-    record[record["type"]]
+    record["description"][self.level(record)]
   end
 
   def self.objects(record)
