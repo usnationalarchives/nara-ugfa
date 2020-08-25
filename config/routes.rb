@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # Root route
   root to: "root#index";
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       post "authenticate", to: "authentication#authenticate"
       delete "logout", to: "authentication#logout"
@@ -15,6 +15,10 @@ Rails.application.routes.draw do
         get "/:id/edit", to: "finding_aids#edit"
         put "/:id", to: "finding_aids#update"
         delete "/:id", to: "finding_aids#destroy"
+      end
+
+      scope "/descriptions" do
+        get "/", to: "descriptions#index"
       end
     end
   end

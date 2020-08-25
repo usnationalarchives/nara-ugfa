@@ -1,35 +1,35 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // components
-import Pagination from './Pagination';
+import Pagination from "./Pagination";
 
 export const Root = styled.div`
-  border-bottom: 1px solid ${props => props.theme.colors.mediumGrey};
+  border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
 `;
 
 export const NavList = styled.ul`
   display: flex;
 
-  li  {
+  li {
     opacity: 0.3;
     padding: 20px 10px;
-  
+
     @media all and (min-width: 800px) {
       padding: 20px;
     }
-  
+
     @media all and (min-width: 900px) {
       padding: 20px 10px;
     }
-  
+
     @media all and (min-width: 1400px) {
       padding: 20px;
     }
 
     &.--active {
-      border-bottom: 4px solid ${props => props.theme.colors.red};
-      color: ${props => props.theme.colors.red};
+      border-bottom: 4px solid ${(props) => props.theme.colors.red};
+      color: ${(props) => props.theme.colors.red};
       opacity: 1;
     }
   }
@@ -38,7 +38,7 @@ export const NavList = styled.ul`
 export const Wrap = styled.ul`
   display: flex;
   flex-direction: column-reverse;
-  max-width:${(props) => props.theme.layout.maxWidth};
+  max-width: ${(props) => props.theme.layout.maxWidth};
   padding-top: 20px;
 
   @media all and ${(props) => props.theme.breakpoints.extraLarge} {
@@ -48,7 +48,7 @@ export const Wrap = styled.ul`
   }
 `;
 
-const ResultsNavigation = () => {
+const ResultsNavigation = ({ results }) => {
   return (
     <Root>
       <Wrap>
@@ -60,7 +60,7 @@ const ResultsNavigation = () => {
           <li>Images</li>
           <li>Videos</li>
         </NavList>
-        <Pagination/>
+        <Pagination results={results} />
       </Wrap>
     </Root>
   );

@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 // components
-import AddToGuideButton from '../../shared/AddToGuideButton';
+import AddToGuideButton from "../../shared/AddToGuideButton";
 
 // assets
-import SeriesPlaceholder from '#assets/images/series-placeholder.svg';
-import FileUnitPlaceholder from '#assets/images/fileunit-placeholder.svg';
+import SeriesPlaceholder from "#assets/images/series-placeholder.svg";
+import FileUnitPlaceholder from "#assets/images/fileunit-placeholder.svg";
 
 // styles
-import { fl_static } from '#styles/frontline';
-import { fl_attention } from '#styles/frontline';
+import { fl_static } from "#styles/frontline";
+import { fl_attention } from "#styles/frontline";
 
 export const Root = styled.div`
   align-items: flex-start;
@@ -30,8 +30,8 @@ export const Root = styled.div`
 `;
 
 export const Image = styled.div`
-  border: 1px solid ${props => props.theme.colors.mediumGrey};
-  content: '';
+  border: 1px solid ${(props) => props.theme.colors.mediumGrey};
+  content: "";
   height: 100px;
   width: 10%;
 `;
@@ -47,12 +47,12 @@ export const Text = styled.div`
 
   a {
     ${fl_static(css`
-      color: ${props => props.theme.colors.blue};
+      color: ${(props) => props.theme.colors.blue};
       text-decoration: none;
-  `)}
+    `)}
     ${fl_attention(css`
       text-decoration: underline;
-  `)}
+    `)}
   }
 `;
 
@@ -64,15 +64,15 @@ export const ActionWrap = styled.div`
 `;
 
 export const ViewGuideLink = styled(Link)`
-   ${fl_static(css`
-      color: ${props => props.theme.colors.blue};
-      font-size: 0.8em;
-      text-decoration: none;
-      text-transform: uppercase;
-      margin-top: 5px;
+  ${fl_static(css`
+    color: ${(props) => props.theme.colors.blue};
+    font-size: 0.8em;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-top: 5px;
   `)}
-    ${fl_attention(css`
-      text-decoration: underline;
+  ${fl_attention(css`
+    text-decoration: underline;
   `)}
 `;
 
@@ -83,18 +83,23 @@ export const ImageWrap = styled.div`
 `;
 
 export const Hierarchy = styled.div`
-  color: ${props => props.theme.colors.green};
+  color: ${(props) => props.theme.colors.green};
   font-style: italic;
 `;
 
-
-
-const SearchResultListing = ({ title, hierarchy, identifier, image, added, recordType }) => {
+const SearchResultListing = ({
+  title,
+  hierarchy,
+  identifier,
+  image,
+  added,
+  recordType,
+}) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
 
   const clickedOut = () => {
     setAddOptionsVisible(false);
-  }
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", clickedOut);
@@ -106,8 +111,8 @@ const SearchResultListing = ({ title, hierarchy, identifier, image, added, recor
   return (
     <Root>
       <ImageWrap>
-        {recordType == "series" ? <SeriesPlaceholder/> : ''}
-        {recordType == "file-unit" ? <FileUnitPlaceholder/> : ''}
+        {recordType == "series" ? <SeriesPlaceholder /> : ""}
+        {recordType == "fileUnit" ? <FileUnitPlaceholder /> : ""}
       </ImageWrap>
       <Text>
         <Link to="/record-detail">{title}</Link>
@@ -115,7 +120,10 @@ const SearchResultListing = ({ title, hierarchy, identifier, image, added, recor
         <p>{identifier}</p>
       </Text>
       <ActionWrap>
-        <AddToGuideButton added={added} text={added ? 'Added' : 'Add to Guide'}/>
+        <AddToGuideButton
+          added={added}
+          text={added ? "Added" : "Add to Guide"}
+        />
         {added && <ViewGuideLink to="/">View Guide</ViewGuideLink>}
       </ActionWrap>
     </Root>

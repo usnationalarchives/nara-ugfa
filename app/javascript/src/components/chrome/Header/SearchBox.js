@@ -1,6 +1,10 @@
-import React, { useState } from "react";
-import styled from 'styled-components';
-import SearchIcon from '#assets/icons/search.svg';
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import SearchIcon from "#assets/icons/search.svg";
+
+// contexts
+import { SearchContext } from "#contexts/Search";
 
 // components
 import * as Text from "#components/shared/Text";
@@ -45,25 +49,30 @@ export const AdvancedSearch = styled.p`
 `;
 
 const SearchBox = () => {
-  const [query, setQuery] = useState('');
+  const history = useHistory();
+  const searchContext = useContext(SearchContext);
 
-  const updateQuery = (evt) => {
-    setQuery(evt.target.value);
-  }
-
-  const performSearch = (evt) => {
-    evt.preventDefault();
-    console.log(query);
-  }
+  const performSearch = (event) => {
+    event.preventDefault();
+    const query = event.target.elements["query"].value;
+    searchContext.actions.setQuery(query);
+    history.push(`/?q=${query}`);
+  };
 
   return (
-    <Root>
+    <Root onSubmit={performSearch}>
       <Label htmlFor="query">
         <Text.Screenreader>Search the Catalog</Text.Screenreader>
-        <Input type="text" value={query} id="query" onChange={updateQuery}/>
+
+        <Input
+          type="text"
+          defaultValue={searchContext.state.query}
+          name="query"
+          id="query"
+        />
       </Label>
-      <SubmitButton type="submit" value="Submit" onClick={performSearch}>
-        <SearchIcon height="20" fill="currentColor"/>
+      <SubmitButton type="submit" value="Submit">
+        <SearchIcon height="20" fill="currentColor" />
       </SubmitButton>
       <AdvancedSearch>Advanced Search</AdvancedSearch>
     </Root>

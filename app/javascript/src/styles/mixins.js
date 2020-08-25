@@ -11,4 +11,14 @@ export const buttonReset = css`
   text-align: center;
   transition: background-color 150ms ease-in-out, border 150ms ease-in-out,
     color 150ms ease-in-out, transform 50ms ease-in-out;
+
+  [data-whatinput="mouse"] & {
+    outline: none;
+  }
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      opacity: 0.5;
+    `}
 `;

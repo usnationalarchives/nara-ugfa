@@ -7,6 +7,7 @@ import client from "#api/internal/client";
 
 // contexts
 import { UserProvider } from "#contexts/User";
+import { SearchProvider } from "#contexts/Search";
 
 // components
 import Header from "#components/chrome/Header/Header";
@@ -22,10 +23,18 @@ import * as theme from "#styles/theme";
 const Home = lazy(() => import("./components/pages/Home/Home"));
 const Login = lazy(() => import("./components/pages/Login/Login"));
 const Dashboard = lazy(() => import("./components/pages/Dashboard/Dashboard"));
-const ResearchGuides = lazy(() => import("./components/pages/ResearchGuides/ResearchGuides"));
-const CatalogSearch = lazy(() => import("./components/pages/CatalogSearch/CatalogSearch"));
-const ResearchGuideEditor = lazy(() => import("./components/pages/ResearchGuideEditor/ResearchGuideEditor"));
-const RecordDetail = lazy(() => import("./components/pages/RecordDetail/RecordDetail"));
+const ResearchGuides = lazy(() =>
+  import("./components/pages/ResearchGuides/ResearchGuides")
+);
+const CatalogSearch = lazy(() =>
+  import("./components/pages/CatalogSearch/CatalogSearch")
+);
+const ResearchGuideEditor = lazy(() =>
+  import("./components/pages/ResearchGuideEditor/ResearchGuideEditor")
+);
+const RecordDetail = lazy(() =>
+  import("./components/pages/RecordDetail/RecordDetail")
+);
 
 const App = () => {
   return (
@@ -34,27 +43,37 @@ const App = () => {
       <AxiosProvider instance={client}>
         <UserProvider>
           <Router>
-            <ScrollToTop />
-            <Fragment>
-              <Header />
+            <SearchProvider>
+              <ScrollToTop />
+              <Fragment>
+                <Header />
 
-              <Suspense fallback={<p>Loading...</p>}>
-                <Switch>
-                  <PrivateRoute path="/dashboard" component={Dashboard} />
-                  <PrivateRoute path="/research-guides" component={ResearchGuides} />
-                  <AnonymousRoute path="/research-guide-editor" component={ResearchGuideEditor} />
-                  <AnonymousRoute
-                    path="/login"
-                    component={Login}
-                    redirect="/dashboard"
-                  />
-                  <AnonymousRoute path="/catalog-search" component={CatalogSearch} />
-                  <Route path="/record-detail" component={RecordDetail} />
-                  <Route path="/" component={CatalogSearch} />
-                </Switch>
-              </Suspense>
-             
-            </Fragment>
+                <Suspense fallback={<p>Loading...</p>}>
+                  <Switch>
+                    <PrivateRoute path="/dashboard" component={Dashboard} />
+                    <PrivateRoute
+                      path="/research-guides"
+                      component={ResearchGuides}
+                    />
+                    <AnonymousRoute
+                      path="/research-guide-editor"
+                      component={ResearchGuideEditor}
+                    />
+                    <AnonymousRoute
+                      path="/login"
+                      component={Login}
+                      redirect="/dashboard"
+                    />
+                    <AnonymousRoute
+                      path="/catalog-search"
+                      component={CatalogSearch}
+                    />
+                    <Route path="/record-detail" component={RecordDetail} />
+                    <Route path="/" component={CatalogSearch} />
+                  </Switch>
+                </Suspense>
+              </Fragment>
+            </SearchProvider>
           </Router>
         </UserProvider>
       </AxiosProvider>
