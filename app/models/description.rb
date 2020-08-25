@@ -8,7 +8,7 @@ class Description < ApplicationRecord
   }
 
   def scope_content
-    title
+    data.try(:[], "scopeAndContentNote")
   end
 
 end
