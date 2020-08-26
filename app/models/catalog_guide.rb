@@ -1,4 +1,4 @@
-class FindingAid < ApplicationRecord
+class CatalogGuide < ApplicationRecord
 
   belongs_to :user
 
