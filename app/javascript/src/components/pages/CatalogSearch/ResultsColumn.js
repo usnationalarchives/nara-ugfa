@@ -40,9 +40,16 @@ const ResultsColumn = () => {
           } else if (response !== null) {
             return (
               <>
-                <ResultsNavigation results={response.data.results} />
+                <ResultsNavigation
+                  data={{
+                    pages: response.headers["X-Pages"],
+                    page: response.headers["X-Page"],
+                    rows: response.headers["X-Rows"],
+                    total: response.headers["X-Total"],
+                  }}
+                />
                 <ResearchGuideResults />
-                <SearchResults results={response.data.results} />
+                <SearchResults results={response.data.data} />
               </>
             );
           }

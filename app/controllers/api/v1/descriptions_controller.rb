@@ -10,6 +10,15 @@ class API::V1::DescriptionsController < API::V1::BaseController
     @page = params[:page].present? ? params[:page].to_i : 1
 
     @descriptions = @all_descriptions.page(@page).per(@rows)
+
+    response.headers['X-Total'] = @all_descriptions.length
+    response.headers['X-Pages'] = @descriptions.total_pages
+    response.headers['X-Page'] = @page
+    response.headers['X-Rows'] = @rows
+
+    render jsonapi: @descriptions, fields: {
+      descriptions: [:id, :naId, :title, :title, :scopeContent, :level, :data]
+    }
   end
 
 end

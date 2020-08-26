@@ -65,7 +65,7 @@ const Next = styled.button`
   ${buttonReset}
 `;
 
-const Pagination = ({ results }) => {
+const Pagination = ({ data }) => {
   const handleChange = () => {};
   const searchContext = useContext(SearchContext);
   const location = useLocation();
@@ -87,11 +87,11 @@ const Pagination = ({ results }) => {
   };
 
   const handleLast = () => {
-    searchContext.actions.setPage(results.pages);
+    searchContext.actions.setPage(data.pages);
     const { page, ...rest } = params;
 
     const newParams = new URLSearchParams({
-      page: results.pages,
+      page: data.pages,
       ...rest,
     });
 
@@ -99,7 +99,7 @@ const Pagination = ({ results }) => {
   };
 
   const handlePrev = () => {
-    const newPage = results.page - 1;
+    const newPage = data.page - 1;
     searchContext.actions.setPage(newPage);
 
     const { page, ...rest } = params;
@@ -113,7 +113,7 @@ const Pagination = ({ results }) => {
   };
 
   const handleNext = () => {
-    const newPage = results.page + 1;
+    const newPage = data.page + 1;
     searchContext.actions.setPage(newPage);
 
     const { page, ...rest } = params;
@@ -151,12 +151,12 @@ const Pagination = ({ results }) => {
     <Root>
       <ul>
         <li>
-          <First onClick={handleFirst} disabled={results.page === 1}>
+          <First onClick={handleFirst} disabled={data.page === 1}>
             <DoubleChev width="13" />
           </First>
         </li>
         <li>
-          <Prev onClick={handlePrev} disabled={results.page === 1}>
+          <Prev onClick={handlePrev} disabled={data.page === 1}>
             <Chev width="10" />
           </Prev>
         </li>
@@ -169,17 +169,17 @@ const Pagination = ({ results }) => {
                 name="page"
                 defaultValue={searchContext.state.page}
               ></input>
-              of {results.pages}
+              of {data.pages}
             </label>
           </form>
         </li>
         <li>
-          <Next onClick={handleNext} disabled={results.page === results.pages}>
+          <Next onClick={handleNext} disabled={data.page === data.pages}>
             <Chev width="10" style={{ transform: "rotate(180deg)" }} />
           </Next>
         </li>
         <li>
-          <Last onClick={handleLast} disabled={results.page === results.pages}>
+          <Last onClick={handleLast} disabled={data.page === data.pages}>
             <DoubleChev width="13" style={{ transform: "rotate(180deg)" }} />
           </Last>
         </li>

@@ -18,14 +18,14 @@ export const Root = styled.div`
 const SearchResults = ({ results }) => {
   return (
     <Root>
-      {results.descriptions.map((description) => (
+      {results.map((description) => (
         <SearchResultListing
-          key={description.naId}
-          title={description.title}
+          key={description.attributes.naId}
+          title={description.attributes.title}
           hierarchy="Ut enim ad minim veniam."
-          identifier={description.scopeContent}
+          identifier={description.attributes.scopeContent}
           added={false}
-          recordType={description.level}
+          recordType={description.attributes.level}
         />
       ))}
     </Root>
