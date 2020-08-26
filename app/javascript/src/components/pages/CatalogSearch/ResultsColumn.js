@@ -42,10 +42,10 @@ const ResultsColumn = () => {
               <>
                 <ResultsNavigation
                   data={{
-                    pages: response.headers["X-Pages"],
-                    page: response.headers["X-Page"],
-                    rows: response.headers["X-Rows"],
-                    total: response.headers["X-Total"],
+                    pages: response.data.meta.pages,
+                    page: response.data.meta.page,
+                    rows: response.data.meta.rows,
+                    total: response.data.meta.total,
                   }}
                 />
                 <ResearchGuideResults />

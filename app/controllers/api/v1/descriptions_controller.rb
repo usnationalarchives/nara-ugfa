@@ -11,14 +11,16 @@ class API::V1::DescriptionsController < API::V1::BaseController
 
     @descriptions = @all_descriptions.page(@page).per(@rows)
 
-    response.headers['X-Total'] = @all_descriptions.length
-    response.headers['X-Pages'] = @descriptions.total_pages
-    response.headers['X-Page'] = @page
-    response.headers['X-Rows'] = @rows
-
-    render jsonapi: @descriptions, fields: {
-      descriptions: [:id, :naId, :title, :title, :scopeContent, :level, :data]
-    }
+    render jsonapi: @descriptions,
+      fields: {
+        descriptions: [:id, :naId, :title, :title, :scopeContent, :level, :data]
+      },
+      meta: {
+        total: @all_descriptions.length,
+        pages: @descriptions.total_pages,
+        page: @page,
+        rows: @rows
+      }
   end
 
 end
