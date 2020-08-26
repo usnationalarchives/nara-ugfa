@@ -6,4 +6,15 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Audience.create(name: "Researchers")
+@audiences = [
+  "Anyone",
+  "Educators",
+  "Media",
+  "Genealogists/Family Historians",
+  "Students",
+  "Cultural Heritage Professionals"
+]
+
+@audiences.each do |audience|
+  Audience.create(name: audience)
+end
