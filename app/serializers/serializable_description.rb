@@ -13,5 +13,5 @@ class SerializableDescription < JSONAPI::Serializable::Resource
     @object.scope_content
   end
 
-  attribute :data
+  attributes :data, :objects
 end

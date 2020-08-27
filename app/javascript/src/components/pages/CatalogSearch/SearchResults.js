@@ -21,6 +21,7 @@ const SearchResults = ({ results }) => {
       {results.map((description) => (
         <SearchResultListing
           key={description.attributes.naId}
+          naId={description.attributes.naId}
           title={description.attributes.title}
           hierarchy="Ut enim ad minim veniam."
           identifier={description.attributes.scopeContent}
