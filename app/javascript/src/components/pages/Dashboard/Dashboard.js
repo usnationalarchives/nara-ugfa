@@ -22,7 +22,7 @@ const Dashboard = () => {
           <Get url="/current-user">
             {(error, response, isLoading, makeRequest, axios) => {
               if (response) {
-                return <p>{response.data.user.email}</p>;
+                return <p>{response.data.data.attributes.email}</p>;
               }
 
               return <div>Loading...</div>;

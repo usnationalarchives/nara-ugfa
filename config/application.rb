@@ -25,5 +25,9 @@ module NaraUgfa
 
     # Load the secret key from the environment.
     config.secret_key_base = ENV.fetch("SECRET_KEY_BASE")
+
+
+    # Add auto-load paths
+    config.autoload_paths += Dir["#{config.root}/app/serializers"]
   end
 end

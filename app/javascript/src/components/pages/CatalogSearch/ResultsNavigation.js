@@ -48,7 +48,7 @@ export const Wrap = styled.ul`
   }
 `;
 
-const ResultsNavigation = ({ results }) => {
+const ResultsNavigation = ({ data }) => {
   return (
     <Root>
       <Wrap>
@@ -60,7 +60,7 @@ const ResultsNavigation = ({ results }) => {
           <li>Images</li>
           <li>Videos</li>
         </NavList>
-        <Pagination results={results} />
+        <Pagination data={data} />
       </Wrap>
     </Root>
   );

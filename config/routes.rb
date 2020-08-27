@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
       scope "/descriptions" do
         get "/", to: "descriptions#index"
+        get "/:naid", to: "descriptions#show"
       end
     end
   end

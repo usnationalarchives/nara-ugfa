@@ -89,6 +89,7 @@ export const Hierarchy = styled.div`
 
 const SearchResultListing = ({
   title,
+  naId,
   hierarchy,
   identifier,
   image,
@@ -115,7 +116,7 @@ const SearchResultListing = ({
         {recordType == "fileUnit" ? <FileUnitPlaceholder /> : ""}
       </ImageWrap>
       <Text>
-        <Link to="/record-detail">{title}</Link>
+        <Link to={`/${naId}`}>{title}</Link>
         <Hierarchy>{hierarchy}</Hierarchy>
         <p>{identifier}</p>
       </Text>

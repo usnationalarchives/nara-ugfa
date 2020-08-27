@@ -68,7 +68,7 @@ const App = () => {
                       path="/catalog-search"
                       component={CatalogSearch}
                     />
-                    <Route path="/record-detail" component={RecordDetail} />
+                    <Route path="/:naId" component={RecordDetail} />
                     <Route path="/" component={CatalogSearch} />
                   </Switch>
                 </Suspense>
