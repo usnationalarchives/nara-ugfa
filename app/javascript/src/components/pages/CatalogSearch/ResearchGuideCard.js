@@ -1,11 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { Link } from "react-router-dom";
+import { fl_static } from "#styles/frontline";
+import { fl_attention } from "#styles/frontline";
 
 // assets
 import Verified from '#assets/icons/verified.svg';
 import VerifiedSolid from '#assets/icons/verified-solid.svg';
 
-export const Root = styled.div`
+export const Root = styled(Link)`
   background-color: ${props => props.theme.colors.white};
   -webkit-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
   -moz-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
@@ -14,6 +17,10 @@ export const Root = styled.div`
   min-height: 250px;
   position: relative;
   width: 100%;  
+
+  ${fl_attention(css`
+    text-decoration: underline !important;
+  `)}
   
   @media all and (min-width: ${(props) => props.theme.layout.catalogColumnMin}) {
     width: 48%;  
@@ -33,10 +40,11 @@ export const Image = styled.div`
 `;
 
 export const Title = styled.p`
-  color: ${props => props.theme.colors.blue};
-  font-size: 1.1em;
-  font-weight: bold;
-  padding: 20px;
+    color: ${props => props.theme.colors.blue};
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 20px;
+    text-transform: none;
 `;
 
 export const VerifiedInfo = styled.div`
@@ -93,13 +101,13 @@ const ResearchGuideCard = ({image, title}) => {
   const [hoverRef, isHovered] = useHover();
 
   return (
-    <Root>
-      {image ? <Image/> : ''}
-      <Title>{title}</Title>
-      <VerifiedInfo ref={hoverRef}>
-        {isHovered ? (<VerifiedSolid />) : (<Verified />)}
-        {isHovered ? (<VerifiedToolTip>Published By NARA</VerifiedToolTip>) : ('')}
-      </VerifiedInfo>
+    <Root to="/research-guide">
+        {image ? <Image/> : ''}
+        <Title>{title}</Title>
+        <VerifiedInfo ref={hoverRef}>
+          {isHovered ? (<VerifiedSolid />) : (<Verified />)}
+          {isHovered ? (<VerifiedToolTip>Published By NARA</VerifiedToolTip>) : ('')}
+        </VerifiedInfo>
     </Root>
   );
 };

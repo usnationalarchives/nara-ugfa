@@ -35,6 +35,9 @@ const ResearchGuideEditor = lazy(() =>
 const RecordDetail = lazy(() =>
   import("./components/pages/RecordDetail/RecordDetail")
 );
+const ResearchGuide = lazy(() =>
+  import("./components/pages/ResearchGuide/ResearchGuide")
+);
 
 const App = () => {
   return (
@@ -68,6 +71,7 @@ const App = () => {
                       path="/catalog-search"
                       component={CatalogSearch}
                     />
+                    <Route path="/research-guide" component={ResearchGuide} />
                     <Route path="/:naId" component={RecordDetail} />
                     <Route path="/" component={CatalogSearch} />
                   </Switch>

@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 // components
 import SearchResultListing from "./SearchResultListing";
-import AddToGuideButton from "../../shared/AddToGuideButton";
 
 export const Root = styled.div`
   max-width: ${(props) => props.theme.layout.maxWidth};
