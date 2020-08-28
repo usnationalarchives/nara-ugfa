@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from 'styled-components';
 import { Link } from "react-router-dom";
-import AddToGuideButton from "../../shared/AddToGuideButton";
 
 // assets
 import ItemIcon from '#assets/icons/item.svg';
@@ -151,11 +150,6 @@ const SectionItem = ({ item, fileUnit, series, image}) => {
           <InfoItem>
             <InfoLabel>Scope & Content</InfoLabel>
             <Info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Info>
-
-            <AddToGuideButton
-              added={false}
-              text={"Add to Guide"}
-            />
           </InfoItem>
           <InfoItem>
             <InfoLabel>Belongs To</InfoLabel>
