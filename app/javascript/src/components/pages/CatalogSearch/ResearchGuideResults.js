@@ -14,12 +14,17 @@ export const Root = styled.div`
   background-color: ${props => props.theme.colors.lightGrey};
   border-bottom: 1px solid ${props => props.theme.colors.mediumGrey};
 
+  h3 {
+    margin-bottom: 20px;
+  }
+
   a {
     ${fl_allStates(css`
       color: ${props => props.theme.colors.blue};
       text-decoration: none;
   `)}
     display: inline-block;
+    font-size: 0.9em;
     font-weight: bold;
     margin-top: 20px;
     text-transform: uppercase;
@@ -28,7 +33,12 @@ export const Root = styled.div`
 
 export const ResearchGuideGridWrap = styled.div`
   max-width: ${(props) => props.theme.layout.maxWidth};
-  padding: 50px;
+  padding: 20px;
+  
+  @media all and (min-width: ${(props) =>
+    props.theme.layout.catalogColumnMin}) {
+    padding: 50px;
+  }
 `;
 
 export const ResearchGuideGrid = styled.div`

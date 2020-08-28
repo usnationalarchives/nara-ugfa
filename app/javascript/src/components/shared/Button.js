@@ -98,7 +98,7 @@ const Button = styled(ButtonBase)`
       font-size: 0.9em;
       font-weight: normal;
       justify-content: space-between;
-      padding: 8px 7px 8px 10px;
+      padding: 8px 7px 8px 20px;
       position: relative;
       text-transform: uppercase;
 
@@ -119,7 +119,7 @@ const Button = styled(ButtonBase)`
       font-size: 0.9em;
       font-weight: normal;
       justify-content: space-between;
-      padding: 8px 7px 8px 10px;
+      padding: 8px 7px 8px 20px;
       text-transform: uppercase;
       width: 160px;
 

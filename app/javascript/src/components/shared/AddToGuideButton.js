@@ -19,7 +19,7 @@ export const Root = styled.div`
 export const CreateGuideLink = styled(Link)`
   border-top: 1px solid ${props => props.theme.colors.mediumGrey};
   display: block;
-  padding: 10px 0;
+  padding: 10px 0 0 0;
 
   ${fl_static(css`
     color: ${props => props.theme.colors.blue};
@@ -27,7 +27,6 @@ export const CreateGuideLink = styled(Link)`
     font-weight: bold;
     text-decoration: none;
     margin-botton: 0;
-    margin-top: 5px;
 `)}
   ${fl_attention(css`
     text-decoration: underline;
@@ -76,11 +75,12 @@ export const AddOptions = styled.span`
   -moz-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
   box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
   display: none;
-  font-size: 0.8em;
+  font-size: 1em;
   left: 0;
   padding: 20px;
   position: absolute;
   text-align: left !important;
+  text-transform: none;
   top: -20px;
   width: 250px;
   z-index: 100;
@@ -111,6 +111,7 @@ export const AddOptions = styled.span`
 
   p {
     color: #888;
+    font-size: 0.9em;
   }
 `;
 

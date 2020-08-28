@@ -10,7 +10,7 @@ const Root = styled.div`
   display: inline-block;
   height: 30px;
   position: relative;
-  margin-left: 10px;
+  margin-left: 20px;
 
   -ms-transform: rotate(45deg); /* IE 9 */
   -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */

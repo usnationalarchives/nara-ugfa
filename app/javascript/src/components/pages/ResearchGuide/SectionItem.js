@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from 'styled-components';
 import { Link } from "react-router-dom";
+import AddToGuideButton from "../../shared/AddToGuideButton";
 
 // assets
 import ItemIcon from '#assets/icons/item.svg';
@@ -100,6 +101,16 @@ export const Info = styled.p`
   @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
     width: 78%;
   }
+
+  a {
+    ${fl_static(css`
+      color: ${(props) => props.theme.colors.blue};
+      text-decoration: none;
+    `)}
+    ${fl_attention(css`
+      text-decoration: underline;
+    `)}
+  }
 `;
 
 export const Image = styled.div`
@@ -133,11 +144,18 @@ const SectionItem = ({ item, fileUnit, series, image}) => {
           <Title to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</Title>
           <InfoItem>
             <InfoLabel>Creator(s)</InfoLabel>
-            <Info>US Information Agency Press and Puiblications Service</Info>
+            <Info>
+              <Link to="/">US Information Agency Press and Puiblications Service</Link> (Most Recent)
+              </Info>
           </InfoItem>
           <InfoItem>
             <InfoLabel>Scope & Content</InfoLabel>
             <Info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Info>
+
+            <AddToGuideButton
+              added={false}
+              text={"Add to Guide"}
+            />
           </InfoItem>
           <InfoItem>
             <InfoLabel>Belongs To</InfoLabel>

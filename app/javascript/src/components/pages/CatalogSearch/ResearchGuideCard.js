@@ -34,8 +34,8 @@ export const Root = styled(Link)`
 
 export const Image = styled.div`
   background-color: ${props => props.theme.colors.darkGrey};
-  content: '';
-  height: 100px;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  position: relative;
   width: 100%;
 `;
 

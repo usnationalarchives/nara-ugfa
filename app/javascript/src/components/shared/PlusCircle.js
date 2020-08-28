@@ -7,7 +7,7 @@ const Root = styled.div`
   display: inline-block;
   height: 28px;
   position: relative;
-  margin-left: 10px;
+  margin-left: 20px;
   vertical-align: middle;
   width: 28px;
 

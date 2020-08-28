@@ -22,12 +22,10 @@ const Header = () => {
   return (
     <Root>
       <Layout.Padding>
-        <Layout.Wrapper>
-          <UtilityNav>
-            <Logo/>
-            <MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          </UtilityNav>
-        </Layout.Wrapper>
+        <UtilityNav>
+          <Logo/>
+          <MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        </UtilityNav>
       </Layout.Padding>
       <NavBar/>
     </Root>

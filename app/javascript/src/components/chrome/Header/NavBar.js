@@ -165,37 +165,35 @@ const NavBar = () => {
   return (
     <Root>
       <Layout.Padding>
-        <Layout.Wrapper>
-          <NavBarWrap>
-            <SearchBox />
-            <NavList>
-              <NavListItem>
-                <NavLink to="/research-guides">Research Guides</NavLink>
-              </NavListItem>
-              <NavListItem>
-                <NavLink to="/research-guides">Create a Guide</NavLink>
-              </NavListItem>
-              <LoginItem>
-                {context.state.user && (
-                  <button onClick={toggleDropdown}>
-                    {context.state.name}
-                    <DropdownChev dropdownOpen={dropdownOpen} />
-                  </button>
-                )}
-                {context.state.user && dropdownOpen && (
-                  <Dropdown dropdownOpen={dropdownOpen}>
-                    <Link to="/dashoard">Dashboard</Link>
-                    <button onClick={logout}>Logout</button>
-                  </Dropdown>
-                )}
+        <NavBarWrap>
+          <SearchBox />
+          <NavList>
+            <NavListItem>
+              <NavLink to="/research-guides">Research Guides</NavLink>
+            </NavListItem>
+            <NavListItem>
+              <NavLink to="/research-guides">Create a Guide</NavLink>
+            </NavListItem>
+            <LoginItem>
+              {context.state.user && (
+                <button onClick={toggleDropdown}>
+                  {context.state.name}
+                  <DropdownChev dropdownOpen={dropdownOpen} />
+                </button>
+              )}
+              {context.state.user && dropdownOpen && (
+                <Dropdown dropdownOpen={dropdownOpen}>
+                  <Link to="/dashoard">Dashboard</Link>
+                  <button onClick={logout}>Logout</button>
+                </Dropdown>
+              )}
 
-                {!context.state.user && (
-                  <LoginLink to="/login">Login</LoginLink>
-                )}
-              </LoginItem>
-            </NavList>
-          </NavBarWrap>
-        </Layout.Wrapper>
+              {!context.state.user && (
+                <LoginLink to="/login">Login</LoginLink>
+              )}
+            </LoginItem>
+          </NavList>
+        </NavBarWrap>
       </Layout.Padding>
     </Root>
   );

@@ -8,6 +8,7 @@ export const colors = {
   darkGrey: "#333333",
   mediumGrey: "#dddddd",
   lightGrey: "#f6f6f6",
+  textLightGrey: "#585858",
 };
 
 export const breakpoints = {
