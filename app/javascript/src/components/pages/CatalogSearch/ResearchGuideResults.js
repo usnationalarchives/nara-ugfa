@@ -51,7 +51,7 @@ const ResearchGuideResults = () => {
   return (
     <Root>
       <ResearchGuideGridWrap>
-        <Text.H3>Research Guides</Text.H3>
+        <Text.H3>Guides to Records</Text.H3>
         <p>The following research guides published by NARA are related to your search</p>
         <ResearchGuideGrid>
           <ResearchGuideCard 
