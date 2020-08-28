@@ -19,7 +19,7 @@ export const Root = styled.div`
 export const CreateGuideLink = styled(Link)`
   border-top: 1px solid ${props => props.theme.colors.mediumGrey};
   display: block;
-  padding: 10px 0 0 0;
+  padding: 15px 0 0 0;
 
   ${fl_static(css`
     color: ${props => props.theme.colors.blue};
@@ -36,7 +36,7 @@ export const CreateGuideLink = styled(Link)`
 export const MyListLink = styled(Link)`
   border-top: 1px solid ${props => props.theme.colors.mediumGrey};
   display: block;
-  padding: 10px 0;
+  padding: 15px 0;
   
   ${fl_static(css`
       color: ${props => props.theme.colors.darkGrey};
