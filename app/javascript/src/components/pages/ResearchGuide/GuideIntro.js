@@ -1,4 +1,6 @@
 import React from "react";
+import ReactDOM from 'react-dom'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import styled, { css } from 'styled-components';
 import { Link } from "react-router-dom";
 
@@ -73,7 +75,7 @@ export const SectionTitle = styled.h4`
   margin-top: 20px;
 `;
 
-export const SectionItem = styled(Link)`
+export const SectionItem = styled(AnchorLink)`
   display: block;
   margin-top: 15px;
 
@@ -108,15 +110,16 @@ const GuideIntro = () => {
         <IntroSection>
           <IntroHeading>Table of Contents</IntroHeading>
           <SectionTitle>Leaders of the March</SectionTitle>
-          <SectionItem to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
+
+          <SectionItem href="#march">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
+          <SectionItem href="#march-2">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
+          <SectionItem href="#march-3">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
+          <SectionItem href="march-4">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
+          <SectionItem href="march-5">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
           <SectionTitle>Planning Documents</SectionTitle>
-          <SectionItem to="/">March on Washignton Program</SectionItem>
-          <SectionItem to="/">Committee Papers, 1945-1975</SectionItem>
-          <SectionItem to="/">Final Plans for the March on Washington for Jobs and Freedom</SectionItem>
+          <SectionItem href="march-6">March on Washignton Program</SectionItem>
+          <SectionItem href="march-7">Committee Papers, 1945-1975</SectionItem>
+          <SectionItem href="march-8">Final Plans for the March on Washington for Jobs and Freedom</SectionItem>
         </IntroSection>
       </Layout.Wrapper>
     </Root>

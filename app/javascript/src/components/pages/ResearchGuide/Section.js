@@ -37,12 +37,12 @@ const Section = ({ title }) => {
     <Root>
       <Layout.Wrapper narrow={true}>
         <SectionTitle>{ title }</SectionTitle>
-        <SectionItem item={true} image={true}/>
-        <SectionItem fileUnit={true}/>
+        <SectionItem id="march" item={true} image={true}/>
+        <SectionItem id="march-2" fileUnit={true}/>
         <ResearchHighlight />
-        <SectionItem series={true} />
-        <SectionItem fileUnit={true}/>
-        <SectionItem item={true}/>
+        <SectionItem id="march-3" series={true} />
+        <SectionItem id="march-4" fileUnit={true}/>
+        <SectionItem id="march-5" item={true}/>
       </Layout.Wrapper>
     </Root>
   );

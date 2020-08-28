@@ -118,7 +118,7 @@ export const Image = styled.div`
   width: 20%;
 `;
 
-const SectionItem = ({ item, fileUnit, series, image}) => {
+const SectionItem = ({ item, fileUnit, series, image, id }) => {
   return (
     <Root>
       {item &&
@@ -140,7 +140,7 @@ const SectionItem = ({ item, fileUnit, series, image}) => {
           </Label>}
       <ContentWrap>
         <Content image={ image }>
-          <Title to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</Title>
+          <Title to="/" Id={ id }>Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</Title>
           <InfoItem>
             <InfoLabel>Creator(s)</InfoLabel>
             <Info>
