@@ -1,4 +1,4 @@
-class CatalogGuide < ApplicationRecord
+class Guide < ApplicationRecord
 
   include ModalAttributable
 
