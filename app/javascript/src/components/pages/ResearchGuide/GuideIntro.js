@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 // components
 import * as Layout from "#components/shared/Layout";
+import * as Text from "#components/shared/Text";
+import Triangle from "../../shared/Triangle";
+
 
 // styles
 import { fl_static } from "#styles/frontline";
@@ -16,7 +19,7 @@ export const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
   padding: 0 20px;
 
-  @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+  @media all and (min-width: 820px) {
     padding: 0;
   }
 `;
@@ -30,7 +33,11 @@ export const IntroSection = styled.div`
   }
 
   & + & {
-    border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
+    border-top: none;
+
+    @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+      border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
+    }
   }
 `;
 
@@ -88,6 +95,41 @@ export const SectionItem = styled(AnchorLink)`
   `)}
 `;
 
+export const SectionSelect = styled.select`
+  background-color: ${(props) => props.theme.colors.lightGrey};
+  border-color: ${(props) => props.theme.colors.textlightGrey};
+  border-radius: 30px;
+  color: ${(props) => props.theme.colors.textlightGrey};
+  max-width: 400px;
+  padding: 10px;
+  width: 100%;
+
+  dropdownIndicator {
+    margin-left: 20px;
+  }
+
+  ${fl_attention(css` 
+    border-color: ${(props) => props.theme.colors.darkGrey};
+  `)}
+
+`;
+
+export const Desktop = styled.div`
+  display: none;
+
+  @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+    display: block;
+  }
+`;
+
+export const Mobile = styled.div`
+  display: block;
+
+  @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+    display: none;
+  }
+`;
+
 const GuideIntro = () => {
   return (
     <Root>
@@ -108,18 +150,30 @@ const GuideIntro = () => {
           </BackgroundItem>
         </IntroSection>
         <IntroSection>
-          <IntroHeading>Table of Contents</IntroHeading>
-          <SectionTitle>Leaders of the March</SectionTitle>
-
-          <SectionItem href="#march">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem href="#march-2">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem href="#march-3">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem href="march-4">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionItem href="march-5">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-          <SectionTitle>Planning Documents</SectionTitle>
-          <SectionItem href="march-6">March on Washignton Program</SectionItem>
-          <SectionItem href="march-7">Committee Papers, 1945-1975</SectionItem>
-          <SectionItem href="march-8">Final Plans for the March on Washington for Jobs and Freedom</SectionItem>
+          <Mobile>
+            <Layout.Center>
+              <label>
+                <Text.Screenreader>Jump to a Section</Text.Screenreader>
+              </label>
+              <SectionSelect>
+                <option>Jump to a section</option>
+                <option>March on Washignton Program</option>
+                <option>Committee Papers, 1945-1975</option>
+                <option>Final Plans for the March on Washington for Jobs and Freedom</option>
+              </SectionSelect>
+            </Layout.Center>
+          </Mobile>
+          <Desktop>
+            <IntroHeading>Table of Contents</IntroHeading>
+            <SectionTitle>Leaders of the March</SectionTitle>
+            <SectionItem href="#march">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
+            <SectionItem href="#march-2">Civil Rights March on Washignton Civil Rights March on Washignton Civil Rights March on Washignton</SectionItem>
+            <SectionItem href="#march-3">Photograph of Meeting with Leaders of the March on Washington Aug 28, 1963</SectionItem>
+            <SectionTitle>Planning Documents</SectionTitle>
+            <SectionItem href="march-4">March on Washignton Program</SectionItem>
+            <SectionItem href="march-5">Committee Papers, 1945-1975</SectionItem>
+            <SectionItem href="march-6">Final Plans for the March on Washington for Jobs and Freedom</SectionItem>
+          </Desktop>
         </IntroSection>
       </Layout.Wrapper>
     </Root>

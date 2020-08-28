@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from 'styled-components';
 import { Link } from "react-router-dom";
+
+// components 
+import ItemInfo from "./ItemInfo";
+import SlideToggleContent from "../../shared/SlideToggleContent";
+import Triangle from "../../shared/Triangle";
 
 // assets
 import ItemIcon from '#assets/icons/item.svg';
@@ -11,11 +16,12 @@ import SeriesIcon from '#assets/icons/series.svg';
 import * as Layout from "#components/shared/Layout";
 import { fl_static } from "#styles/frontline";
 import { fl_attention } from "#styles/frontline";
+import { buttonReset } from '#styles/mixins';
 
 export const Root = styled.div`
   padding: 0 20px;
 
-  @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+  @media all and (min-width: 820px) {
     padding: 0;
   }
 
@@ -43,6 +49,21 @@ export const Content = styled.div`
     css`
       width: 75%;
     `}
+
+  button {
+    ${buttonReset}
+
+    color: ${(props) => props.theme.colors.blue};
+    display: block;
+    font-size: 0.8em;
+    margin-top: 20px;
+    text-align: left;
+    text-transform: uppercase;
+
+    @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+      display: none;
+    }
+  }
 `;
 
 export const Label = styled.p`
@@ -72,55 +93,43 @@ export const Title = styled(Link)`
   `)}
 `;
 
-export const InfoItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 20px;
+export const DesktopInfo = styled.div`
+  display: none;
 
   @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
-    flex-direction: row;
+    display: block;
   }
 `;
 
-export const InfoLabel = styled.p`
-  color: ${(props) => props.theme.colors.darkGrey};
-  font-size: 0.8em;
-  text-transform: uppercase;
-  opacity: 0.7;
+
+
+export const Image = styled.div`
+  display: none;
 
   @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+    background-color: ${(props) => props.theme.colors.mediumGrey};
+    display: block;
+    height: 100px;
     width: 20%;
   }
 `;
 
-export const Info = styled.p`
-  color: ${(props) => props.theme.colors.darkGrey};
+export const MobileImage = styled.div`
+  background-color: ${(props) => props.theme.colors.mediumGrey};
+  height: 150px;
+  margin-top: 20px;
+  width: 150px;
 
   @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
-    width: 78%;
+    display: none;
   }
-
-  a {
-    ${fl_static(css`
-      color: ${(props) => props.theme.colors.blue};
-      text-decoration: none;
-    `)}
-    ${fl_attention(css`
-      text-decoration: underline;
-    `)}
-  }
-`;
-
-export const Image = styled.div`
-  background-color: ${(props) => props.theme.colors.mediumGrey};
-  height: 100px;
-  width: 20%;
 `;
 
 const SectionItem = ({ item, fileUnit, series, image, id }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
-    <Root>
+    <Root id={id}>
       {item &&
         <Label>
           <ItemIcon />
@@ -140,21 +149,25 @@ const SectionItem = ({ item, fileUnit, series, image, id }) => {
           </Label>}
       <ContentWrap>
         <Content image={ image }>
-          <Title to="/" Id={ id }>Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</Title>
-          <InfoItem>
-            <InfoLabel>Creator(s)</InfoLabel>
-            <Info>
-              <Link to="/">US Information Agency Press and Puiblications Service</Link> (Most Recent)
-              </Info>
-          </InfoItem>
-          <InfoItem>
-            <InfoLabel>Scope & Content</InfoLabel>
-            <Info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Info>
-          </InfoItem>
-          <InfoItem>
-            <InfoLabel>Belongs To</InfoLabel>
-            <Info>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Info>
-          </InfoItem>
+          <Title to="/">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</Title>
+          {image &&
+            <MobileImage></MobileImage>
+          }
+
+          {/* Mobile view for item info */}
+          <button type="button" onClick={() => setIsVisible(!isVisible)}>
+            Metadata
+            <Triangle toggleOpen={isVisible}></Triangle>
+          </button>
+          <SlideToggleContent isVisible={isVisible}>
+            <ItemInfo/>
+          </SlideToggleContent>
+
+          {/* Desktop view for item info */}
+          <DesktopInfo>
+            <ItemInfo />
+          </DesktopInfo>
+
         </Content>
         {image && 
           <Image></Image>

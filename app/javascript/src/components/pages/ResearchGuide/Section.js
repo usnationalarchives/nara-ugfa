@@ -41,8 +41,6 @@ const Section = ({ title }) => {
         <SectionItem id="march-2" fileUnit={true}/>
         <ResearchHighlight />
         <SectionItem id="march-3" series={true} />
-        <SectionItem id="march-4" fileUnit={true}/>
-        <SectionItem id="march-5" item={true}/>
       </Layout.Wrapper>
     </Root>
   );
