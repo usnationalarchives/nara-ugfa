@@ -16,7 +16,7 @@ class API::V1::DescriptionsController < API::V1::BaseController
         descriptions: [:id, :naId, :title, :scopeContent, :level, :data]
       },
       meta: {
-        total: @all_descriptions.length,
+        # total: @all_descriptions.length,
         pages: @descriptions.total_pages,
         page: @page,
         rows: @rows

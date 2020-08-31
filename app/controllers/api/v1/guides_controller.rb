@@ -17,7 +17,7 @@ class API::V1::GuidesController < API::V1::BaseController
         guides: [:id, :title, :background_color, :about, :purpose, :looking_for_collaborators, :complete_or_wip, :author, :updated]
       },
       meta: {
-        total: @all_guides.length,
+        # total: @all_guides.length,
         pages: @guides.total_pages,
         page: @page,
         rows: @rows
