@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   validates_presence_of :name, :email, :catalog_id
 
+  has_many :guides
+
   def to_json
     {
       "id": id,
