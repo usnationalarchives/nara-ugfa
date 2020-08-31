@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   validates_presence_of :name, :email, :catalog_id
 
+  has_many :guides
+
   def to_json
     {
       "id": id,
@@ -11,6 +13,10 @@ class User < ApplicationRecord
       "email": email,
       "catalog_attributes": catalog_attributes,
     }.to_json
+  end
+
+  def role
+    catalog_attributes.try(:[], "isNaraStaff") ? "NARA Staff" : "Citizen Archivist"
   end
 
   private

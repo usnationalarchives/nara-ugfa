@@ -22,6 +22,7 @@ export const Root = styled.div`
 
 const ResultsColumn = () => {
   const searchContext = useContext(SearchContext);
+
   return (
     <Root>
       <Get

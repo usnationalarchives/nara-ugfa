@@ -21,6 +21,11 @@ Rails.application.routes.draw do
         get "/", to: "descriptions#index"
         get "/:naid", to: "descriptions#show"
       end
+
+      scope "/guides" do
+        get "/", to: "guides#index"
+        get "/:id", to: "guides#show"
+      end
     end
   end
 

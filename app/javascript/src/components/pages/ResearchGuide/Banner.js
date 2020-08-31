@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // components
 import * as Layout from "#components/shared/Layout";
@@ -8,12 +8,12 @@ export const Root = styled.div`
   align-items: stretch;
   background-color: ${(props) => props.theme.colors.darkGrey};
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: space-between;
   min-height: 300px;
 
   @media all and (min-width: 700px) {
-    flex-direction: row; 
+    flex-direction: row;
   }
 `;
 
@@ -70,14 +70,16 @@ export const Image = styled.div`
   }
 `;
 
-const ResearchGuide = () => {
+const Banner = ({ data }) => {
   return (
     <Root>
       <Content>
         <Layout.Padding>
-          <Title>The March on Washington for Jobs and Freedom</Title>
-          <Attribution>Margaret Norton, Citizen Activist</Attribution>
-          <PublishedDate>Last Edit July 22, 2020</PublishedDate>
+          <Title>{data.attributes.title}</Title>
+          <Attribution>
+            {data.attributes.author.name}, {data.attributes.author.role}
+          </Attribution>
+          <PublishedDate>Last Edit {data.attributes.updated}</PublishedDate>
         </Layout.Padding>
       </Content>
       <Image></Image>
@@ -85,4 +87,4 @@ const ResearchGuide = () => {
   );
 };
 
-export default ResearchGuide;
+export default Banner;

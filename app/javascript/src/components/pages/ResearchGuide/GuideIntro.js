@@ -1,14 +1,13 @@
 import React from "react";
-import ReactDOM from 'react-dom'
-import AnchorLink from 'react-anchor-link-smooth-scroll'
-import styled, { css } from 'styled-components';
+import ReactDOM from "react-dom";
+import AnchorLink from "react-anchor-link-smooth-scroll";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 // components
 import * as Layout from "#components/shared/Layout";
 import * as Text from "#components/shared/Text";
 import Triangle from "../../shared/Triangle";
-
 
 // styles
 import { fl_static } from "#styles/frontline";
@@ -35,7 +34,8 @@ export const IntroSection = styled.div`
   & + & {
     border-top: none;
 
-    @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
+    @media all and (min-width: ${(props) =>
+        props.theme.layout.maxWidthNarrow}) {
       border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
     }
   }
@@ -108,10 +108,9 @@ export const SectionSelect = styled.select`
     margin-left: 20px;
   }
 
-  ${fl_attention(css` 
+  ${fl_attention(css`
     border-color: ${(props) => props.theme.colors.darkGrey};
   `)}
-
 `;
 
 export const Desktop = styled.div`
@@ -130,24 +129,26 @@ export const Mobile = styled.div`
   }
 `;
 
-const GuideIntro = () => {
+const GuideIntro = ({ data }) => {
   return (
     <Root>
       <Layout.Wrapper narrow={true}>
         <IntroSection>
           <IntroHeading>Guide Background</IntroHeading>
           <BackgroundItem>
-            <Label>Topic</Label>
-            <BackgroundInfo>March on Washington</BackgroundInfo>
+            <Label>About</Label>
+            <BackgroundInfo>{data.attributes.about}</BackgroundInfo>
           </BackgroundItem>
           <BackgroundItem>
             <Label>Purpose</Label>
-            <BackgroundInfo>I want to gather records of this historic event, including images and speeches, as well as any records related to the planning of the march, national response to the march, and what took place afterward.</BackgroundInfo>
+            <BackgroundInfo>{data.attributes.purpose}</BackgroundInfo>
           </BackgroundItem>
-          <BackgroundItem>
-            <Label>Audience</Label>
-            <BackgroundInfo>Anyone</BackgroundInfo>
-          </BackgroundItem>
+          {data.attributes.audience_names && (
+            <BackgroundItem>
+              <Label>Audience</Label>
+              <BackgroundInfo>{data.attributes.audience_names}</BackgroundInfo>
+            </BackgroundItem>
+          )}
         </IntroSection>
         <IntroSection>
           <Mobile>
@@ -159,20 +160,37 @@ const GuideIntro = () => {
                 <option>Jump to a section</option>
                 <option>March on Washignton Program</option>
                 <option>Committee Papers, 1945-1975</option>
-                <option>Final Plans for the March on Washington for Jobs and Freedom</option>
+                <option>
+                  Final Plans for the March on Washington for Jobs and Freedom
+                </option>
               </SectionSelect>
             </Layout.Center>
           </Mobile>
           <Desktop>
             <IntroHeading>Table of Contents</IntroHeading>
             <SectionTitle>Leaders of the March</SectionTitle>
-            <SectionItem href="#march">Civil Rights March on Washignton [Leaders Marching from the Washington Monument to the Lincoln Memorial]</SectionItem>
-            <SectionItem href="#march-2">Civil Rights March on Washignton Civil Rights March on Washignton Civil Rights March on Washignton</SectionItem>
-            <SectionItem href="#march-3">Photograph of Meeting with Leaders of the March on Washington Aug 28, 1963</SectionItem>
+            <SectionItem href="#march">
+              Civil Rights March on Washignton [Leaders Marching from the
+              Washington Monument to the Lincoln Memorial]
+            </SectionItem>
+            <SectionItem href="#march-2">
+              Civil Rights March on Washignton Civil Rights March on Washignton
+              Civil Rights March on Washignton
+            </SectionItem>
+            <SectionItem href="#march-3">
+              Photograph of Meeting with Leaders of the March on Washington Aug
+              28, 1963
+            </SectionItem>
             <SectionTitle>Planning Documents</SectionTitle>
-            <SectionItem href="march-4">March on Washignton Program</SectionItem>
-            <SectionItem href="march-5">Committee Papers, 1945-1975</SectionItem>
-            <SectionItem href="march-6">Final Plans for the March on Washington for Jobs and Freedom</SectionItem>
+            <SectionItem href="march-4">
+              March on Washignton Program
+            </SectionItem>
+            <SectionItem href="march-5">
+              Committee Papers, 1945-1975
+            </SectionItem>
+            <SectionItem href="march-6">
+              Final Plans for the March on Washington for Jobs and Freedom
+            </SectionItem>
           </Desktop>
         </IntroSection>
       </Layout.Wrapper>

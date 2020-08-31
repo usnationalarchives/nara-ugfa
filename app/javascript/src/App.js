@@ -54,10 +54,7 @@ const App = () => {
                 <Suspense fallback={<p>Loading...</p>}>
                   <Switch>
                     <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute
-                      path="/research-guides"
-                      component={ResearchGuides}
-                    />
+                    <Route path="/research-guides" component={ResearchGuides} />
                     <AnonymousRoute
                       path="/research-guide-editor"
                       component={ResearchGuideEditor}
@@ -67,11 +64,7 @@ const App = () => {
                       component={Login}
                       redirect="/dashboard"
                     />
-                    <AnonymousRoute
-                      path="/catalog-search"
-                      component={CatalogSearch}
-                    />
-                    <Route path="/research-guide" component={ResearchGuide} />
+                    <Route path="/guides/:id" component={ResearchGuide} />
                     <Route path="/:naId" component={RecordDetail} />
                     <Route path="/" component={CatalogSearch} />
                   </Switch>
