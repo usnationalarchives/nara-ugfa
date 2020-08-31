@@ -7,6 +7,6 @@ class Audience < ApplicationRecord
     uniqueness: true
   }
 
-  has_and_belongs_to_many :catalog_guides
+  has_and_belongs_to_many :guides
 
 end
