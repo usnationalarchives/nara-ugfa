@@ -16,5 +16,5 @@
 ]
 
 @audiences.each do |audience|
-  Audience.create(name: audience)
+  Audience.find_or_create_by(name: audience)
 end
