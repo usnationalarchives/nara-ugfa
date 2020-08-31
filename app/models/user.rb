@@ -15,6 +15,10 @@ class User < ApplicationRecord
     }.to_json
   end
 
+  def role
+    catalog_attributes.try(:[], "isNaraStaff") ? "NARA Staff" : "Citizen Archivist"
+  end
+
   private
 
   def initialize_auth_token!

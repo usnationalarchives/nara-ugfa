@@ -5,7 +5,18 @@ class SerializableGuide < JSONAPI::Serializable::Resource
 
   belongs_to :user
 
-  attribute :author_name do
-    @object.user.name
+  attribute :updated do
+    @object.updated_at.strftime("%B %-d, %Y")
+  end
+
+  attribute :author do
+    {
+      name: @object.user.name,
+      role: @object.user.role
+    }
+  end
+
+  attribute :audience_names do
+    @object.audiences.map(&:name).join(", ")
   end
 end

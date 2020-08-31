@@ -2,6 +2,12 @@ class Guide < ApplicationRecord
 
   include Publishable
   include ModalAttributable
+  include FulltextSearchable
+
+  has_fulltext_search plan: {
+    A: [:title],
+    B: [:about, :purpose]
+  }
 
   belongs_to :user
 
