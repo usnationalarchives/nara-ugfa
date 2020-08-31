@@ -24,7 +24,7 @@ class API::V1::DescriptionsController < API::V1::BaseController
   end
 
   def show
-    @description = Description.find_by_naid(params[:naid]) or http404
+    @description = Description.find_by_naid(params[:naid]) or return http404
 
     render jsonapi: @description,
       fields: {

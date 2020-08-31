@@ -1,5 +1,6 @@
 class Guide < ApplicationRecord
 
+  include Publishable
   include ModalAttributable
 
   belongs_to :user

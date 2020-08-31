@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_28_165437) do
+ActiveRecord::Schema.define(version: 2020_08_31_181824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 2020_08_28_165437) do
     t.bigint "guide_id", null: false
     t.index ["audience_id"], name: "index_audiences_guides_on_audience_id"
     t.index ["guide_id"], name: "index_audiences_guides_on_guide_id"
+  end
+
+  create_table "blocks", force: :cascade do |t|
+    t.jsonb "data", default: "{}", null: false
+    t.string "block_type", default: "catalog_description", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "descriptions", force: :cascade do |t|
@@ -47,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_08_28_165437) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "looking_for_collaborators", default: "no", null: false
     t.string "complete_or_wip", default: "wip", null: false
+    t.string "status", default: "draft", null: false
     t.index ["user_id"], name: "index_guides_on_user_id"
   end
 
