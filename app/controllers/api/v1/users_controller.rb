@@ -6,7 +6,7 @@ class API::V1::UsersController < API::V1::BaseController
         include: :guides,
         fields: {
           guides: [:id, :title, :status, :updated],
-          users: [:id, :name, :email, :catalog_attributes, :role, :guides]
+          users: [:id, :name, :email, :catalog_attributes, :role, :gravatar, :guides]
         }
     else
       render json: { error: "No current user" }, status: 401

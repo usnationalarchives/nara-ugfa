@@ -16,7 +16,7 @@ import { fl_allStates } from "#styles/frontline";
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.darkBlue};
   color: ${(props) => props.theme.colors.white};
-  padding: 40px 0 0;
+  padding: 60px 0 0;
 `;
 
 const Nav = styled.ul`
@@ -53,7 +53,19 @@ const SignOut = styled.button`
   ${buttonStyles}
 `;
 
-const Banner = ({ name, email, role, guides }) => {
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Avatar = styled.img`
+  border-radius: 100%;
+  margin-right: 1rem;
+`;
+
+const Name = styled.div``;
+
+const Banner = ({ name, gravatar, role, guides }) => {
   const userContext = useContext(UserContext);
 
   const handleLogOut = () => {
@@ -65,8 +77,18 @@ const Banner = ({ name, email, role, guides }) => {
     <Root>
       <Layout.Padding>
         <Layout.Wrapper medium>
-          <Text.H1>{name}</Text.H1>
-          <p>{role}</p>
+          <UserInfo>
+            <Avatar
+              src={gravatar}
+              alt=""
+              aria-hidden="true"
+              role="presentation"
+            />
+            <Name>
+              <Text.H1>{name}</Text.H1>
+              <p>{role}</p>
+            </Name>
+          </UserInfo>
 
           <Nav>
             <NavItem>
