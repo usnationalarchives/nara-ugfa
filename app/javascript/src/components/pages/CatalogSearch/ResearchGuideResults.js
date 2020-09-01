@@ -9,7 +9,7 @@ import { SearchContext } from "#contexts/Search";
 // components
 import * as Layout from "#components/shared/Layout";
 import * as Text from "#components/shared/Text";
-import ResearchGuideCard from "./ResearchGuideCard";
+import ResearchGuideCard from "#components/shared/ResearchGuideCard";
 
 // styles
 import { fl_allStates } from "#styles/frontline";

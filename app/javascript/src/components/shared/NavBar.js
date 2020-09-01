@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 
 // components
 import * as Layout from "#components/shared/Layout";
+import * as Text from "#components/shared/Text";
 import SearchBox from "./SearchBox";
 
 // assets
@@ -149,7 +150,7 @@ const Dropdown = styled.div`
   }
 `;
 
-const NavBar = () => {
+const NavBar = ({ title }) => {
   const context = useContext(UserContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -166,7 +167,8 @@ const NavBar = () => {
     <Root>
       <Layout.Padding>
         <NavBarWrap>
-          <SearchBox />
+          {title && <Text.H3 style={{ padding: "5px 0" }}>{title}</Text.H3>}
+          {!title && <SearchBox />}
           <NavList>
             <NavListItem>
               <NavLink to="/research-guides">Research Guides</NavLink>
@@ -177,20 +179,18 @@ const NavBar = () => {
             <LoginItem>
               {context.state.user && (
                 <button onClick={toggleDropdown}>
-                  {context.state.name}
+                  {context.state.user.name}
                   <DropdownChev dropdownOpen={dropdownOpen} />
                 </button>
               )}
               {context.state.user && dropdownOpen && (
                 <Dropdown dropdownOpen={dropdownOpen}>
-                  <Link to="/dashoard">Dashboard</Link>
+                  <Link to="/dashboard">Dashboard</Link>
                   <button onClick={logout}>Logout</button>
                 </Dropdown>
               )}
 
-              {!context.state.user && (
-                <LoginLink to="/login">Login</LoginLink>
-              )}
+              {!context.state.user && <LoginLink to="/login">Login</LoginLink>}
             </LoginItem>
           </NavList>
         </NavBarWrap>

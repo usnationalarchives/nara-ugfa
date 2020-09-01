@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  include ModalAttributable
+
   before_create :initialize_auth_token!
 
   validates_presence_of :name, :email, :catalog_id
