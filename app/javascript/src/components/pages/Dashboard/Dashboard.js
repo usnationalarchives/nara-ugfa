@@ -19,7 +19,7 @@ const Dashboard = () => {
               <Fragment>
                 <Banner
                   name={response.data.data.attributes.name}
-                  email={response.data.data.attributes.email}
+                  gravatar={response.data.data.attributes.gravatar}
                   role={response.data.data.attributes.role}
                   guides={response.data.data.relationships.guides.data}
                 />
