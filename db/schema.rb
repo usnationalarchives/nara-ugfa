@@ -26,13 +26,6 @@ ActiveRecord::Schema.define(version: 2020_08_31_201257) do
     t.index ["guide_id"], name: "index_audiences_guides_on_guide_id"
   end
 
-  create_table "blocks", force: :cascade do |t|
-    t.jsonb "data", default: "{}", null: false
-    t.string "block_type", default: "catalog_description", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "descriptions", force: :cascade do |t|
     t.integer "naid", null: false
     t.string "title", null: false
