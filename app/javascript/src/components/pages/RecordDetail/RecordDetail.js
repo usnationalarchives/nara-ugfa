@@ -6,6 +6,7 @@ import { Get } from "react-axios";
 import UtilityBar from "./UtilityBar";
 import FilterColumn from "../../shared/FilterColumn";
 import RecordDetailColumn from "./RecordDetailColumn";
+import NavBar from "#components/shared/NavBar";
 
 export const Root = styled.div``;
 
@@ -18,6 +19,7 @@ const RecordDetail = ({ ...props }) => {
 
   return (
     <Root>
+      <NavBar />
       <UtilityBar />
       <ColumnWrap>
         <FilterColumn />

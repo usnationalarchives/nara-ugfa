@@ -7,6 +7,10 @@ class API::V1::GuidesController < API::V1::BaseController
       @all_guides = Guide.published
     end
 
+    if params[:user_guides].to_i == 1
+      @all_guides = current_user.try(:guides)
+    end
+
     @rows = params[:rows].present? ? params[:rows].to_i : 20
     @page = params[:page].present? ? params[:page].to_i : 1
 

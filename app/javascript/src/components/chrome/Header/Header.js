@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import styled from 'styled-components';
+import styled from "styled-components";
 
 // components
 import * as Layout from "#components/shared/Layout";
-import Logo from './Logo';
-import MenuToggle from './MenuToggle';
-import NavBar from './NavBar';
+import Logo from "./Logo";
+import MenuToggle from "./MenuToggle";
 
-export const Root = styled.div`
-`;
+export const Root = styled.div``;
 
 export const UtilityNav = styled.div`
   display: flex;
@@ -23,11 +21,10 @@ const Header = () => {
     <Root>
       <Layout.Padding>
         <UtilityNav>
-          <Logo/>
+          <Logo />
           <MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </UtilityNav>
       </Layout.Padding>
-      <NavBar/>
     </Root>
   );
 };

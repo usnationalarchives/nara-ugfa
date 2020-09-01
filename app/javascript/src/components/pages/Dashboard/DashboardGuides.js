@@ -8,7 +8,7 @@ import Banner from "./Banner";
 import Guides from "./Guides";
 import PageWrapper from "#components/shared/PageWrapper";
 
-const Dashboard = () => {
+const DashboardGuides = () => {
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
@@ -26,7 +26,7 @@ const Dashboard = () => {
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
-                      <Guides guides={response.data.included.slice(0, 3)} />
+                      <Guides guides={response.data.included} />
                     </PageWrapper>
                   </Layout.Wrapper>
                 </Layout.Padding>
@@ -41,4 +41,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardGuides;

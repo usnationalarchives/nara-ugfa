@@ -6,6 +6,7 @@ import { Get } from "react-axios";
 import Banner from "./Banner";
 import GuideIntro from "./GuideIntro";
 import Section from "./Section";
+import NavBar from "#components/shared/NavBar";
 
 export const Root = styled.div``;
 
@@ -14,6 +15,8 @@ const ResearchGuide = ({ ...props }) => {
 
   return (
     <Root>
+      <NavBar />
+
       <Get url={`/guides/${id}`}>
         {(error, response, isLoading) => {
           if (error) {

@@ -23,6 +23,12 @@ import * as theme from "#styles/theme";
 const Home = lazy(() => import("./components/pages/Home/Home"));
 const Login = lazy(() => import("./components/pages/Login/Login"));
 const Dashboard = lazy(() => import("./components/pages/Dashboard/Dashboard"));
+const DashboardGuides = lazy(() =>
+  import("./components/pages/Dashboard/DashboardGuides")
+);
+const DashboardSettings = lazy(() =>
+  import("./components/pages/Dashboard/DashboardSettings")
+);
 const ResearchGuides = lazy(() =>
   import("./components/pages/ResearchGuides/ResearchGuides")
 );
@@ -53,6 +59,14 @@ const App = () => {
 
                 <Suspense fallback={<p>Loading...</p>}>
                   <Switch>
+                    <PrivateRoute
+                      path="/dashboard/guides"
+                      component={DashboardGuides}
+                    />
+                    <PrivateRoute
+                      path="/dashboard/settings"
+                      component={DashboardSettings}
+                    />
                     <PrivateRoute path="/dashboard" component={Dashboard} />
                     <Route path="/research-guides" component={ResearchGuides} />
                     <AnonymousRoute
