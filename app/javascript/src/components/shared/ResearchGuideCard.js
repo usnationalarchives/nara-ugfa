@@ -95,17 +95,24 @@ const useHover = () => {
   return [ref, value];
 };
 
-const ResearchGuideCard = ({ image, title, link }) => {
+const ResearchGuideCard = ({ image, title, link, approved }) => {
   const [hoverRef, isHovered] = useHover();
 
   return (
     <Root to={link}>
       {image ? <Image /> : ""}
       <Title>{title}</Title>
-      <VerifiedInfo ref={hoverRef}>
-        {isHovered ? <VerifiedSolid /> : <Verified />}
-        {isHovered ? <VerifiedToolTip>Published By NARA</VerifiedToolTip> : ""}
-      </VerifiedInfo>
+
+      {approved && (
+        <VerifiedInfo ref={hoverRef}>
+          {isHovered ? <VerifiedSolid /> : <Verified />}
+          {isHovered ? (
+            <VerifiedToolTip>Published By NARA</VerifiedToolTip>
+          ) : (
+            ""
+          )}
+        </VerifiedInfo>
+      )}
     </Root>
   );
 };

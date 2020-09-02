@@ -18,7 +18,18 @@ class API::V1::GuidesController < API::V1::BaseController
 
     render jsonapi: @guides,
       fields: {
-        guides: [:id, :title, :background_color, :about, :purpose, :looking_for_collaborators, :complete_or_wip, :author, :updated]
+        guides: [
+          :id,
+          :title,
+          :background_color,
+          :about,
+          :purpose,
+          :looking_for_collaborators,
+          :complete_or_wip,
+          :author,
+          :updated,
+          :nara_approved
+        ]
       },
       meta: {
         # total: @all_guides.length,
@@ -43,7 +54,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :complete_or_wip,
           :author,
           :audience_names,
-          :updated
+          :updated,
+          :nara_approved
         ]
       }
   end

@@ -1,8 +1,8 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
-import { buttonReset } from '#styles/mixins';
-import tinycolor from 'tinycolor2';
+import React from "react";
+import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
+import { buttonReset } from "#styles/mixins";
+import tinycolor from "tinycolor2";
 
 export const buttonStyles = css`
   ${buttonReset}
@@ -12,7 +12,7 @@ export const buttonStyles = css`
   font-size: 0.75rem;
   font-weight: bold;
   line-height: 1rem;
-  padding: 16px 22px;
+  padding: 15px 22px;
   text-decoration: none;
   text-transform: uppercase;
 
@@ -62,7 +62,7 @@ const Button = styled(ButtonBase)`
   ${buttonStyles}
 
   ${(props) =>
-    props.scheme === 'green' &&
+    props.scheme === "green" &&
     css`
       background-color: ${(props) => props.theme.colors.green};
       color: #fff;
@@ -75,7 +75,7 @@ const Button = styled(ButtonBase)`
     `};
 
   ${(props) =>
-    props.scheme === 'blue' &&
+    props.scheme === "blue" &&
     css`
       background-color: ${(props) => props.theme.colors.blue};
       color: #fff;
@@ -88,7 +88,7 @@ const Button = styled(ButtonBase)`
     `};
 
   ${(props) =>
-    props.scheme === 'green-plus' &&
+    props.scheme === "green-plus" &&
     css`
       align-items: center;
       border: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -109,7 +109,7 @@ const Button = styled(ButtonBase)`
     `};
 
   ${(props) =>
-    props.scheme === 'blue-check' &&
+    props.scheme === "blue-check" &&
     css`
       align-items: center;
       border: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -123,7 +123,6 @@ const Button = styled(ButtonBase)`
       text-transform: uppercase;
       width: 160px;
 
-
       &:focus,
       &:hover {
         border: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -131,7 +130,7 @@ const Button = styled(ButtonBase)`
     `};
 
   ${(props) =>
-    props.disabled === 'true' &&
+    props.disabled === "true" &&
     css`
       background-color: ${(props) => props.theme.colors.mediumGrey};
 

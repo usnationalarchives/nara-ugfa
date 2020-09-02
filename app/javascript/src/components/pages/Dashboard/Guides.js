@@ -16,6 +16,7 @@ const Guides = ({ guides }) => {
             title={guide.attributes.title}
             image={true}
             link={`/guides/${guide.attributes.id}`}
+            approved={guide.attributes.nara_approved}
           />
         ))}
       </ResearchGuideGrid>

@@ -51,6 +51,7 @@ const ItemMeta = styled.span`
 
 const SignOut = styled.button`
   ${buttonStyles}
+  transform: translateY(-30%);
 `;
 
 const UserInfo = styled.div`

@@ -31,4 +31,8 @@ class Guide < ApplicationRecord
     blue: "Blue",
   }
 
+  def nara_approved
+    user.role == "NARA Staff"
+  end
+
 end
