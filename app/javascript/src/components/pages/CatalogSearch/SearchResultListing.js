@@ -125,7 +125,7 @@ const SearchResultListing = ({
           added={added}
           text={added ? "Added" : "Add to Guide"}
         />
-        {added && <ViewGuideLink to="/">View Guide</ViewGuideLink>}
+        {added && <ViewGuideLink to="/search">View Guide</ViewGuideLink>}
       </ActionWrap>
     </Root>
   );
