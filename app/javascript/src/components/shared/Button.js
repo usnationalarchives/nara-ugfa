@@ -29,37 +29,6 @@ export const buttonStyles = css`
   &:focus {
     outline: none;
   }
-`;
-
-export const ButtonLink = styled.a`
-  ${buttonStyles}
-`;
-
-/**
- * Button Component
- */
-const ButtonBase = ({ className, onClick, disabled, style, children }) => {
-  return (
-    <button
-      className={className}
-      onClick={onClick}
-      disabled={disabled}
-      style={style}
-    >
-      {children}
-    </button>
-  );
-};
-
-ButtonBase.propTypes = {
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
-  style: PropTypes.object,
-  children: PropTypes.node,
-};
-
-const Button = styled(ButtonBase)`
-  ${buttonStyles}
 
   ${(props) =>
     props.scheme === "green" &&
@@ -130,6 +99,13 @@ const Button = styled(ButtonBase)`
     `};
 
   ${(props) =>
+    props.scheme === "outline" &&
+    css`
+      border: 1px solid ${(props) => props.theme.colors.blue};
+      color: ${(props) => props.theme.colors.blue};
+    `};
+
+  ${(props) =>
     props.disabled === "true" &&
     css`
       background-color: ${(props) => props.theme.colors.mediumGrey};
@@ -140,6 +116,21 @@ const Button = styled(ButtonBase)`
           tinycolor(props.theme.colors.mediumGrey).darken(3).toString()};};
       }
     `};
+
+  ${(props) =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+    `}
+`;
+
+export const ButtonLink = styled.a`
+  ${buttonStyles}
+`;
+
+const Button = styled.button`
+  ${buttonStyles}
 `;
 
 export default Button;

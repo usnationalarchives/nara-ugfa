@@ -6,16 +6,14 @@ import styled, { css } from "styled-components";
 import * as Layout from "#components/shared/Layout";
 import * as Text from "#components/shared/Text";
 import SearchBox from "./SearchBox";
-
-// assets
-import Chev from "#assets/icons/chevron.svg";
+import DropdownMenu, { DropdownLink } from "#components/shared/DropdownMenu";
+import Button, { ButtonLink } from "#components/shared/Button";
 
 // contexts
 import { UserContext } from "#contexts/User";
 
 // styles
 import { fl_allStates } from "#styles/frontline";
-import { buttonReset } from "#styles/mixins";
 
 export const Root = styled.div`
   background-color: ${(props) => props.theme.colors.blue};
@@ -65,25 +63,10 @@ export const LoginItem = styled.div`
   line-height: 1.25;
   margin-left: 20px;
   padding-left: 20px;
-  position: relative;
 
   @media all and ${(props) => props.theme.breakpoints.wideNavBP} {
     font-size: 1.1em;
   }
-
-  button {
-    ${buttonReset}
-    display: block;
-    line-height: 1.25;
-    position: relative;
-  }
-`;
-
-const NavLink = styled(Link)`
-  ${fl_allStates(css`
-    color: ${(props) => props.theme.colors.white};
-    text-decoration: none;
-  `)}
 `;
 
 const LoginLink = styled(Link)`
@@ -93,74 +76,12 @@ const LoginLink = styled(Link)`
   `)}
 `;
 
-const DropdownChev = styled(Chev)`
-  position: absolute;
-  right: 0;
-  transition: transform 0.5s;
-
-  ${(props) =>
-    !props.dropdownOpen &&
-    css`
-      -ms-transform: rotate(-90deg); /* IE 9 */
-      -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
-      transform: rotate(-90deg);
-    `}
-
-  ${(props) =>
-    props.dropdownOpen &&
-    css`
-      -ms-transform: rotate(-90deg) rotateY(180deg); /* IE 9 */
-      -webkit-transform: rotate(-90deg) rotateY(180deg); /* Chrome, Safari, Opera */
-      transform: rotate(-90deg) rotateY(180deg);
-    `}
-
-  path {
-    stroke: ${(props) => props.theme.colors.white};
-  }
-`;
-
-const Dropdown = styled.div`
-  background-color: ${(props) => props.theme.colors.blue};
-  bottom: -80px;
-  display: none;
-  left: 0;
-  padding: 15px;
-  position: absolute;
-
-  ${(props) =>
-    props.dropdownOpen &&
-    css`
-      display: block;
-    `}
-
-  a {
-    ${fl_allStates(css`
-      color: ${(props) => props.theme.colors.white};
-      text-decoration: none;
-    `)}
-    display: block;
-    font-size: 0.8em;
-    padding-bottom: 10px;
-  }
-
-  button {
-    ${buttonReset}
-    display: block;
-    font-size: 0.8em;
-  }
-`;
-
 const NavBar = ({ title }) => {
   const context = useContext(UserContext);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const logout = () => {
     window.location = "/";
     context.actions.logout();
-  };
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
   };
 
   return (
@@ -171,23 +92,41 @@ const NavBar = ({ title }) => {
           {!title && <SearchBox />}
           <NavList>
             <NavListItem>
-              <NavLink to="/research-guides">Research Guides</NavLink>
-            </NavListItem>
-            <NavListItem>
-              <NavLink to="/research-guides">Create a Guide</NavLink>
+              <DropdownMenu label="Guides to Records">
+                <DropdownLink to="/research-guides">
+                  Explore Guides to Records
+                </DropdownLink>
+                <DropdownLink to="/research-guides">
+                  Getting Started
+                </DropdownLink>
+
+                <ButtonLink
+                  style={{ marginTop: "20px" }}
+                  block
+                  scheme="outline"
+                  href="/research-guides"
+                >
+                  Create a Guide
+                </ButtonLink>
+              </DropdownMenu>
             </NavListItem>
             <LoginItem>
               {context.state.user && (
-                <button onClick={toggleDropdown}>
-                  {context.state.user.name}
-                  <DropdownChev dropdownOpen={dropdownOpen} />
-                </button>
-              )}
-              {context.state.user && dropdownOpen && (
-                <Dropdown dropdownOpen={dropdownOpen}>
-                  <Link to="/dashboard">Dashboard</Link>
-                  <button onClick={logout}>Logout</button>
-                </Dropdown>
+                <DropdownMenu label={context.state.user.name}>
+                  <DropdownLink to="/dashboard">Dashboard</DropdownLink>
+                  <DropdownLink to="/dashboard/guides">
+                    My Guides to Records
+                  </DropdownLink>
+                  <DropdownLink to="/dashboard/settings">Settings</DropdownLink>
+                  <Button
+                    style={{ marginTop: "20px" }}
+                    block
+                    scheme="outline"
+                    onClick={logout}
+                  >
+                    Sign Out
+                  </Button>
+                </DropdownMenu>
               )}
 
               {!context.state.user && <LoginLink to="/login">Login</LoginLink>}

@@ -1,14 +1,12 @@
 import React from "react";
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 // styles
 import { fl_static } from "#styles/frontline";
 import { fl_attention } from "#styles/frontline";
 
-export const Root = styled.div`
- 
-`;
+export const Root = styled.div``;
 
 export const InfoItem = styled.div`
   display: flex;
@@ -50,24 +48,26 @@ export const Info = styled.p`
   }
 `;
 
-
 const ItemInfo = () => {
-
   return (
     <>
       <InfoItem>
         <InfoLabel>Creator(s)</InfoLabel>
         <Info>
-          <Link to="/">US Information Agency Press and Puiblications Service</Link> (Most Recent)
-                </Info>
+          <Link to="/">
+            US Information Agency Press and Puiblications Service
+          </Link>{" "}
+          (Most Recent)
+        </Info>
       </InfoItem>
       <InfoItem>
         <InfoLabel>Scope & Content</InfoLabel>
-        <Info>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Info>
-      </InfoItem>
-      <InfoItem>
-        <InfoLabel>Belongs To</InfoLabel>
-        <Info>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Info>
+        <Info>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </Info>
       </InfoItem>
     </>
   );
