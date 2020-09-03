@@ -71,11 +71,12 @@ const StyledChevron = styled(Chev)`
 const Content = styled.div`
   background-color: white;
   border: 1px solid ${(props) => props.theme.colors.mediumGrey};
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   padding: 20px 30px 40px;
-  width: 300px;
   position: absolute;
-  top: 41px;
   right: 0;
+  top: 41px;
+  width: 300px;
   z-index: 500;
 `;
 
