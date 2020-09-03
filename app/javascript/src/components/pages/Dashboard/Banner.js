@@ -107,11 +107,6 @@ const Banner = ({ name, gravatar, role, guides }) => {
               </StyledNavLink>
             </NavItem>
             <NavItem>
-              <StyledNavLink exact to="/dashboard/list">
-                My List
-              </StyledNavLink>
-            </NavItem>
-            <NavItem>
               <StyledNavLink exact to="/dashboard/settings">
                 Settings
               </StyledNavLink>

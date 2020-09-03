@@ -1,79 +1,79 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 // components
 import RelatedContentAlert from "./RelatedContentAlert";
-import Button from './Button';
-import PlusCircle from './PlusCircle';
+import Button from "./Button";
+import PlusCircle from "./PlusCircle";
 import CheckedCircle from "./CheckedCircle";
 
 // styles
-import { fl_static } from '#styles/frontline';
-import { fl_attention } from '#styles/frontline';
+import { fl_static } from "#styles/frontline";
+import { fl_attention } from "#styles/frontline";
 
 export const Root = styled.div`
   position: relative;
 `;
 
 export const CreateGuideLink = styled(Link)`
-  border-top: 1px solid ${props => props.theme.colors.mediumGrey};
+  border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
   display: block;
   padding: 15px 0 0 0;
 
   ${fl_static(css`
-    color: ${props => props.theme.colors.blue};
+    color: ${(props) => props.theme.colors.blue};
     font-size: 1em;
     font-weight: bold;
     text-decoration: none;
     margin-botton: 0;
-`)}
+  `)}
   ${fl_attention(css`
     text-decoration: underline;
-`)}
+  `)}
 `;
 
 export const MyListLink = styled(Link)`
-  border-top: 1px solid ${props => props.theme.colors.mediumGrey};
+  border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
   display: block;
   padding: 15px 0;
-  
+
   ${fl_static(css`
-      color: ${props => props.theme.colors.darkGrey};
-      font-size: 1em;
-      font-weight: bold;
-      text-decoration: none;
-      margin-botton: 0;
-      margin-top: 5px;
+    color: ${(props) => props.theme.colors.darkGrey};
+    font-size: 1em;
+    font-weight: bold;
+    text-decoration: none;
+    margin-botton: 0;
+    margin-top: 5px;
   `)}
-    ${fl_attention(css`
-      text-decoration: underline;
+  ${fl_attention(css`
+    text-decoration: underline;
   `)}
 `;
 
 export const GuideList = styled.ul`
   a {
     ${fl_static(css`
-      color: ${props => props.theme.colors.darkGrey};
+      color: ${(props) => props.theme.colors.darkGrey};
       font-size: 1em;
       font-weight: bold;
       text-decoration: none;
       margin-botton: 0;
       margin-top: 5px;
-  `)}
+    `)}
     ${fl_attention(css`
       text-decoration: underline;
-  `)}
+    `)}
   }
 `;
 
 export const AddOptions = styled.span`
-  background-color: ${props => props.theme.colors.white};
-  border: 1px solid ${props => props.theme.colors.mediumGrey};
+  background-color: ${(props) => props.theme.colors.white};
+  border: 1px solid ${(props) => props.theme.colors.mediumGrey};
   border-radius: 10px;
-  -webkit-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
-  box-shadow: 0px 0px 17px 2px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
   display: none;
   font-size: 1em;
   left: 0;
@@ -89,21 +89,20 @@ export const AddOptions = styled.span`
     left: -100px !important;
   }
 
-  ${props =>
+  ${(props) =>
     props.menuPositionRight &&
     css`
+      @media all and ${(props) => props.theme.breakpoints.medium} {
+        right: -80px !important;
+        left: initial !important;
+      }
+    `}
 
-    @media all and ${(props) => props.theme.breakpoints.medium} {
-      right: -80px !important;
-      left: initial !important;
-    }
-  `}
-
-  ${props =>
+  ${(props) =>
     props.addOptionsVisible &&
     css`
-    display: block;
-  `}
+      display: block;
+    `}
 
   li {
     padding-bottom: 15px;
@@ -121,20 +120,20 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
   const wrapperRef = useRef(null);
 
   const incrementAddCount = () => {
-    setAddCount(prevAddCount => prevAddCount + 1);
+    setAddCount((prevAddCount) => prevAddCount + 1);
     console.log(addCount);
-  }
+  };
 
   const toggleAddOptions = () => {
     setAddOptionsVisible(!addOptionsVisible);
-  }
+  };
 
   const clickedOut = (event) => {
     event.preventDefault;
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       setAddOptionsVisible(false);
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener("mousedown", clickedOut, false);
@@ -145,11 +144,18 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
 
   return (
     <Root>
-      <Button scheme={added ? 'blue-check' : 'green-plus'} onClick={toggleAddOptions}>
+      <Button
+        scheme={added ? "blue-check" : "green-plus"}
+        onClick={toggleAddOptions}
+      >
         {text && text}
-        {added ? (<CheckedCircle />) : (<PlusCircle />)}
-        {!added &&
-          <AddOptions addOptionsVisible={addOptionsVisible} menuPositionRight={menuPosition === "right"} ref={wrapperRef}>
+        {added ? <CheckedCircle /> : <PlusCircle />}
+        {!added && (
+          <AddOptions
+            addOptionsVisible={addOptionsVisible}
+            menuPositionRight={menuPosition === "right"}
+            ref={wrapperRef}
+          >
             <ul>
               <GuideList onClick={incrementAddCount}>
                 <li>
@@ -161,13 +167,19 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
                   <p>Published on Aug 10, 2020 | Public</p>
                 </li>
               </GuideList>
-              <MyListLink to="/my-list">My List</MyListLink>
-              <CreateGuideLink to="research-guide-editor">Create a Guide</CreateGuideLink>
+              <CreateGuideLink to="research-guide-editor">
+                Create a Guide
+              </CreateGuideLink>
             </ul>
-          </AddOptions>}
+          </AddOptions>
+        )}
 
-        {(addCount > 2) &&
-          <RelatedContentAlert title="Miscellaneous, Staff and Stringer Photographs, 1961-1974" link="/" />}
+        {addCount > 2 && (
+          <RelatedContentAlert
+            title="Miscellaneous, Staff and Stringer Photographs, 1961-1974"
+            link="/"
+          />
+        )}
       </Button>
     </Root>
   );
