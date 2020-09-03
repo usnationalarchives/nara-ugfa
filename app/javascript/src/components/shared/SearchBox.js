@@ -56,7 +56,7 @@ const SearchBox = () => {
     event.preventDefault();
     const query = event.target.elements["query"].value;
     searchContext.actions.setQuery(query);
-    history.push(`/?q=${query}`);
+    history.push(`/search?q=${query}`);
   };
 
   return (
