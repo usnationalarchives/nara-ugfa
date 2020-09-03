@@ -79,8 +79,9 @@ const App = () => {
                       redirect="/dashboard"
                     />
                     <Route path="/guides/:id" component={ResearchGuide} />
+                    <Route path="/search" component={CatalogSearch} />
                     <Route path="/:naId" component={RecordDetail} />
-                    <Route path="/" component={CatalogSearch} />
+                    <Route path="/" component={Home} />
                   </Switch>
                 </Suspense>
               </Fragment>
