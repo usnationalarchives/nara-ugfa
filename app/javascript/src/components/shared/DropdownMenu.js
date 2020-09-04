@@ -9,7 +9,7 @@ import Chev from "#assets/icons/chevron.svg";
 import { buttonReset } from "#styles/mixins";
 import { fl_allStates } from "#styles/frontline";
 
-const Root = styled.span`
+const Root = styled.div`
   position: relative;
 `;
 
@@ -19,6 +19,8 @@ const StyledButton = styled.button`
   border-radius: 0;
   padding-right: 20px;
   position: relative;
+  font-size: 1.1rem !important;
+  line-height: 1;
 
   [data-whatinput="mouse"] & {
     outline: 0;
@@ -75,7 +77,7 @@ const Content = styled.div`
   padding: 20px 30px 40px;
   position: absolute;
   right: 0;
-  top: 41px;
+  top: 38px;
   width: 300px;
   z-index: 500;
 `;
