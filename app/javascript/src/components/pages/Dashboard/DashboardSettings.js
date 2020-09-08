@@ -1,12 +1,16 @@
 import React, { Fragment } from "react";
 import { Get } from "react-axios";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+// components
 import * as Text from "#components/shared/Text";
 import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import Banner from "./Banner";
 import PageWrapper from "#components/shared/PageWrapper";
+
+// sytles
+import { fl_allStates } from "#styles/frontline";
 
 const Properties = styled.dl``;
 
@@ -26,6 +30,14 @@ const Columns = styled.div`
 
 const Column = styled.div`
   width: 50%;
+`;
+
+const SettingsLink = styled.a`
+  text-decoration: none;
+
+  ${fl_allStates(css`
+    color: ${(props) => props.theme.colors.blue};
+  `)}
 `;
 
 const DashboardSettings = () => {
@@ -82,12 +94,12 @@ const DashboardSettings = () => {
                           </Properties>
                         </Column>
                         <Column>
-                          <a
+                          <SettingsLink
                             target="_blank"
-                            href={`https://catalog.archives.gov/accounts/${response.data.data.attributes.catalog_attributes.id}`}
+                            href="https://catalog.archives.gov/login"
                           >
                             Manage your account
-                          </a>
+                          </SettingsLink>
                         </Column>
                       </Columns>
                     </PageWrapper>
