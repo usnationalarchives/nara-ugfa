@@ -67,8 +67,8 @@ const ResearchGuideResults = () => {
               <ResearchGuideGridWrap>
                 <Text.H3>Guides to Records</Text.H3>
                 <p>
-                  The following research guides published by NARA are related to
-                  your search
+                  The following guides to records are related to your search
+                  topic.
                 </p>
                 <ResearchGuideGrid>
                   {response.data.data.map((guide) => (
