@@ -83,7 +83,7 @@ const Pagination = ({ data }) => {
       ...rest,
     });
 
-    history.push(`/?${newParams}`);
+    history.push(`/search?${newParams}`);
   };
 
   const handleLast = () => {
@@ -95,7 +95,7 @@ const Pagination = ({ data }) => {
       ...rest,
     });
 
-    history.push(`/?${newParams}`);
+    history.push(`/search?${newParams}`);
   };
 
   const handlePrev = () => {
@@ -109,7 +109,7 @@ const Pagination = ({ data }) => {
       ...rest,
     });
 
-    history.push(`/?${newParams}`);
+    history.push(`/search?${newParams}`);
   };
 
   const handleNext = () => {
@@ -123,7 +123,7 @@ const Pagination = ({ data }) => {
       ...rest,
     });
 
-    history.push(`/?${newParams}`);
+    history.push(`/search?${newParams}`);
   };
 
   const handleSubmit = (event) => {
