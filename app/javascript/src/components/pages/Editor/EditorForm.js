@@ -60,6 +60,7 @@ const EditorForm = ({ guide }) => {
           on a guide, you can indicate that so other users of the Catalog or
           History Hub can request to participate in updating the guide.
         </label>
+        <br />
         <Select
           id="looking_for_collaborators"
           defaultValue={guide.data.attributes.looking_for_collaborators}
@@ -78,6 +79,7 @@ const EditorForm = ({ guide }) => {
         <label htmlFor="looking_for_collaborators">
           Is your guide to records complete or in progress?
         </label>
+        <br />
         <Select
           id="complete_or_wip"
           defaultValue={guide.data.attributes.complete_or_wip}
@@ -92,6 +94,7 @@ const EditorForm = ({ guide }) => {
 
       <div style={{ marginTop: "20px", marginBottom: "20px" }}>
         <label htmlFor="publishing_status">Publishing Status</label>
+        <br />
         <Select
           id="publishing_status"
           defaultValue={guide.data.attributes.status}

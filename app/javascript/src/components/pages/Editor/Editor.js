@@ -4,6 +4,7 @@ import { Get } from "react-axios";
 import { Link } from "react-router-dom";
 
 // components
+import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import EditorForm from "./EditorForm";
 
@@ -21,10 +22,15 @@ const Editor = ({ ...props }) => {
             return <div>Loading...</div>;
           } else if (response !== null) {
             return (
-              <Fragment>
-                <EditorForm guide={response.data} />
-                <Link to={`/guides/${response.data.data.id}`}>Preview</Link>
-              </Fragment>
+              <Layout.Padding>
+                <Layout.Wrapper
+                  medium
+                  style={{ marginTop: "40px", marginBottom: "40px" }}
+                >
+                  <EditorForm guide={response.data} />
+                  <Link to={`/guides/${response.data.data.id}`}>Preview</Link>
+                </Layout.Wrapper>
+              </Layout.Padding>
             );
           }
 
