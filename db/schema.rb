@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_150418) do
+ActiveRecord::Schema.define(version: 2020_09_11_185937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 2020_09_10_150418) do
     t.tsvector "search_vector"
     t.index ["naid"], name: "index_descriptions_on_naid", unique: true
     t.index ["search_vector"], name: "index_descriptions_on_search_vector", using: :gin
+  end
+
+  create_table "guide_section_descriptions", force: :cascade do |t|
+    t.bigint "guide_section_id", null: false
+    t.bigint "description_id", null: false
+    t.index ["description_id"], name: "index_guide_section_descriptions_on_description_id"
+    t.index ["guide_section_id"], name: "index_guide_section_descriptions_on_guide_section_id"
   end
 
   create_table "guide_sections", force: :cascade do |t|

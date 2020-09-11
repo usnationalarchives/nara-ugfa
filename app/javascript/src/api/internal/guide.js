@@ -1,11 +1,7 @@
 import client from "./client";
 
-// TODO: accept parameters for descriptions that are added at creationi
-export const createGuide = () => {
-  return client.post(
-    "/guides",
-    {} // no request body
-  );
+export const createGuide = (attributes) => {
+  return client.post("/guides", { guide: attributes });
 };
 
 export const updateGuide = (id, attributes) => {

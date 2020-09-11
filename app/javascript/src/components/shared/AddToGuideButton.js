@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Get } from "react-axios";
 import { startCase } from "lodash";
 
@@ -10,6 +10,9 @@ import Button from "./Button";
 import PlusCircle from "./PlusCircle";
 import CheckedCircle from "./CheckedCircle";
 
+// API
+import { createGuide } from "#api/internal/guide";
+
 // styles
 import { fl_static, fl_attention } from "#styles/frontline";
 import { buttonReset } from "#styles/mixins";
@@ -18,7 +21,8 @@ export const Root = styled.div`
   position: relative;
 `;
 
-export const CreateGuideLink = styled(Link)`
+export const CreateGuide = styled.button`
+  ${buttonReset}
   border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
   display: block;
   padding: 15px 0 0 0;
@@ -92,9 +96,10 @@ const Guide = styled.button`
   line-height: 1.4;
 `;
 
-const AddToGuideButton = ({ added, text, menuPosition }) => {
+const AddToGuideButton = ({ added, text, menuPosition, descriptionId }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const wrapperRef = useRef(null);
+  const history = useHistory();
 
   const toggleAddOptions = () => {
     setAddOptionsVisible(!addOptionsVisible);
@@ -113,6 +118,23 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
       document.removeEventListener("mousedown", clickedOut, false);
     };
   }, []);
+
+  const handleCreateGuide = () => {
+    createGuide({
+      guide_sections_attributes: [
+        {
+          description_ids: [descriptionId],
+        },
+      ],
+    })
+      .then((response) => {
+        const id = response.data.data.id;
+        history.push(`/guides/${id}/edit`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const addToGuide = () => {};
 
@@ -153,9 +175,9 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
                           </li>
                         ))}
                     </GuideList>
-                    <CreateGuideLink to="research-guide-editor">
+                    <CreateGuide onClick={(event) => handleCreateGuide()}>
                       Create a Guide
-                    </CreateGuideLink>
+                    </CreateGuide>
                   </Fragment>
                 );
               }

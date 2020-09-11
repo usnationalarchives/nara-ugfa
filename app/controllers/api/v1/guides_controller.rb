@@ -37,8 +37,11 @@ class API::V1::GuidesController < API::V1::BaseController
   end
 
   def create
-    #TODO: parse params for potential descriptions that might be added on creation
-    @guide = Guide.create(user_id: current_user.id)
+    if params[:guide] != {}
+      @guide = current_user.guides.create(guide_params)
+    else
+      @guide = current_user.guides.create
+    end
 
     puts @guide.errors.messages
 
@@ -79,7 +82,7 @@ class API::V1::GuidesController < API::V1::BaseController
     @guide = current_user.guides.find_by_id(params[:id]) or return http404
 
     render jsonapi: @guide,
-      include: :guide_sections,
+      include: [guide_sections: [:descriptions]],
       fields: {
         guides: [
           :id,
@@ -97,7 +100,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_ids,
           :guide_sections
         ],
-        guide_sections: [:id, :title, :weight]
+        descriptions: [:title, :naid],
+        guide_sections: [:id, :title, :weight, :descriptions]
       }
   end
 
@@ -145,7 +149,8 @@ class API::V1::GuidesController < API::V1::BaseController
       guide_sections_attributes: [
         :id,
         :_destroy,
-        :title
+        :title,
+        description_ids: []
       ]
     )
   end

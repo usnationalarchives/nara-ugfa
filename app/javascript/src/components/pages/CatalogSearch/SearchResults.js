@@ -20,6 +20,7 @@ const SearchResults = ({ results }) => {
       {results.map((description) => (
         <SearchResultListing
           key={description.attributes.naId}
+          id={description.id}
           naId={description.attributes.naId}
           title={description.attributes.title}
           hierarchy="Ut enim ad minim veniam."

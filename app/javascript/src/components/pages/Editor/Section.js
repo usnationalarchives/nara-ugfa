@@ -15,6 +15,14 @@ const Root = styled.div`
 `;
 
 const Section = ({ guide, section, dispatchSections, first, last }) => {
+  const descriptionIds = section.relationships.descriptions.data.map(
+    (r) => r.id
+  );
+
+  const descriptions = guide.included.filter(
+    (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
+  );
+
   const handleChange = debounce((property, value) => {
     updateGuideSection(guide.data.id, section.id, {
       [property]: value,
@@ -69,6 +77,10 @@ const Section = ({ guide, section, dispatchSections, first, last }) => {
       <button disabled={last} onClick={moveDown}>
         Move Down
       </button>
+
+      {descriptions.map((d) => (
+        <p key={d.id}>{d.attributes.title}</p>
+      ))}
     </Root>
   );
 };
