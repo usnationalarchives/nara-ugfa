@@ -8,6 +8,7 @@ import { updateGuide } from "#api/internal/guide";
 import Select from "#components/shared/Select";
 import BackgroundColor from "./BackgroundColor";
 import AudienceSelect from "./AudienceSelect";
+import Sections from "./Sections";
 
 const EditorForm = ({ guide }) => {
   const handleChange = debounce((property, value) => {
@@ -104,6 +105,8 @@ const EditorForm = ({ guide }) => {
           <option value="published">Published</option>
         </Select>
       </div>
+
+      <Sections guide={guide} />
     </div>
   );
 };
