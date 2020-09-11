@@ -76,7 +76,7 @@ class API::V1::GuidesController < API::V1::BaseController
 
   def edit
     #TODO: only find within guides that belong to the current user or by collaborations
-    @guide = Guide.find_by_id(params[:id]) or return http404
+    @guide = current_user.guides.find_by_id(params[:id]) or return http404
 
     render jsonapi: @guide,
       fields: {
