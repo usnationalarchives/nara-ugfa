@@ -7,10 +7,6 @@ class API::V1::GuidesController < API::V1::BaseController
       @all_guides = Guide.published
     end
 
-    if params[:user_guides].to_i == 1
-      @all_guides = current_user.try(:guides)
-    end
-
     @rows = params[:rows].present? ? params[:rows].to_i : 20
     @page = params[:page].present? ? params[:page].to_i : 1
 
@@ -28,7 +24,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :complete_or_wip,
           :author,
           :updated,
-          :nara_approved
+          :nara_approved,
+          :audience_ids
         ]
       },
       meta: {
@@ -39,8 +36,47 @@ class API::V1::GuidesController < API::V1::BaseController
       }
   end
 
-  def show
-    @guide = Guide.published.find_by_id(params[:id]) or return http404
+  def create
+    #TODO: parse params for potential descriptions that might be added on creation
+    @guide = Guide.create(user_id: current_user.id)
+
+    puts @guide.errors.messages
+
+    render jsonapi: @guide,
+      fields: {
+        guides: [
+          :id
+        ]
+      }
+  end
+
+  def update
+    @guide = Guide.find_by_id(params[:id])
+
+    if @guide.update(guide_params)
+      render jsonapi: @guide,
+        fields: {
+          guides: [
+            :id,
+            :title,
+            :background_color,
+            :about,
+            :purpose,
+            :looking_for_collaborators,
+            :complete_or_wip,
+            :author,
+            :audience_names,
+            :updated,
+            :nara_approved,
+            :audience_ids
+          ]
+        }
+    end
+  end
+
+  def edit
+    #TODO: only find within guides that belong to the current user or by collaborations
+    @guide = Guide.find_by_id(params[:id]) or return http404
 
     render jsonapi: @guide,
       fields: {
@@ -55,9 +91,52 @@ class API::V1::GuidesController < API::V1::BaseController
           :author,
           :audience_names,
           :updated,
-          :nara_approved
+          :status,
+          :nara_approved,
+          :audience_ids
         ]
       }
+  end
+
+  def show
+    @guide = Guide.published.find_by_id(params[:id])
+
+    unless @guide
+      @guide = current_user.guides.find_by_id(params[:id]) or return http404
+    end
+
+    render jsonapi: @guide,
+      fields: {
+        guides: [
+          :id,
+          :title,
+          :background_color,
+          :about,
+          :purpose,
+          :looking_for_collaborators,
+          :complete_or_wip,
+          :author,
+          :audience_names,
+          :updated,
+          :nara_approved,
+          :audience_ids,
+        ]
+      }
+  end
+
+  private
+
+  def guide_params
+    params.require(:guide).permit(
+      :title,
+      :background_color,
+      :about,
+      :purpose,
+      :complete_or_wip,
+      :looking_for_collaborators,
+      :status,
+      audience_ids: [],
+    )
   end
 
 end

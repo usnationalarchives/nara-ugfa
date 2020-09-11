@@ -1,13 +1,16 @@
 import React, { useContext } from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // contexts
 import { UserContext } from "#contexts/User";
 
 // components
 import DropdownMenu, { DropdownLink } from "#components/shared/DropdownMenu";
-import Button, { ButtonLink } from "#components/shared/Button";
+import Button from "#components/shared/Button";
+
+// api
+import { createGuide } from "#api/internal/guide";
 
 // styles
 import { fl_allStates } from "#styles/frontline";
@@ -43,10 +46,22 @@ const LoginLink = styled(Link)`
 
 const DesktopUserNav = () => {
   const userContext = useContext(UserContext);
+  const history = useHistory();
 
   const logout = () => {
     window.location = "/";
     userContext.actions.logout();
+  };
+
+  const handleCreate = () => {
+    createGuide()
+      .then((response) => {
+        const id = response.data.data.id;
+        history.push(`/guides/${id}/edit`);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -58,14 +73,15 @@ const DesktopUserNav = () => {
           </DropdownLink>
           <DropdownLink to="/research-guides">Getting Started</DropdownLink>
 
-          <ButtonLink
+          <Button
+            onClick={handleCreate}
             style={{ marginTop: "20px" }}
             block
             scheme="outline"
             href="/research-guides"
           >
             Create a Guide
-          </ButtonLink>
+          </Button>
         </DropdownMenu>
       </Item>
       <Item>

@@ -1,7 +1,7 @@
 class SerializableGuide < JSONAPI::Serializable::Resource
   type 'guides'
 
-  attributes :id, :title, :background_color, :about, :purpose, :looking_for_collaborators, :complete_or_wip, :status, :nara_approved
+  attributes :id, :title, :background_color, :about, :purpose, :looking_for_collaborators, :complete_or_wip, :status, :nara_approved, :audience_ids
 
   belongs_to :user
 
