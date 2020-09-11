@@ -24,8 +24,13 @@ Rails.application.routes.draw do
 
       scope "/guides" do
         get "/", to: "guides#index"
+        post "/", to: "guides#create"
         get "/:id", to: "guides#show"
+        put "/:id", to: "guides#update"
+        get "/:id/edit", to: "guides#edit"
       end
+
+      get "/audiences", to: "audiences#index"
     end
   end
 

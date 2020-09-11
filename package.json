@@ -12,6 +12,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "frontline-css-reset": "^3.0.1",
     "js-cookie": "^2.2.1",
+    "lodash": "^4.17.20",
     "openseadragon": "^2.4.2",
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",

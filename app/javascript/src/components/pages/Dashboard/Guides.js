@@ -13,9 +13,9 @@ const Guides = ({ guides }) => {
         {guides.map((guide) => (
           <ResearchGuideCard
             key={guide.attributes.id}
-            title={guide.attributes.title}
+            title={guide.attributes.title || "Untitled Guide"}
             image={true}
-            link={`/guides/${guide.attributes.id}`}
+            link={`/guides/${guide.attributes.id}/edit`}
             approved={guide.attributes.nara_approved}
           />
         ))}

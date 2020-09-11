@@ -13,7 +13,9 @@ class Guide < ApplicationRecord
 
   has_and_belongs_to_many :audiences
 
-  validates_presence_of :title, :user
+  has_many :guide_sections
+
+  validates_presence_of :user
 
   modal_attribute :looking_for_collaborators, {
     no: "No",
@@ -27,8 +29,15 @@ class Guide < ApplicationRecord
 
   modal_attribute :background_color, {
     grey: "Grey",
+    dark_grey: "Dark Grey",
+    dark_blue: "Dark Blue",
+    teal: "Teal",
+    green: "Green",
+    violet: "Violet",
+    magenta: "Magenta",
+    red: "Red",
+    light_blue: "Light Blue",
     yellow: "Yellow",
-    blue: "Blue",
   }
 
   def nara_approved

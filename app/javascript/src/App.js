@@ -35,9 +35,7 @@ const ResearchGuides = lazy(() =>
 const CatalogSearch = lazy(() =>
   import("./components/pages/CatalogSearch/CatalogSearch")
 );
-const ResearchGuideEditor = lazy(() =>
-  import("./components/pages/ResearchGuideEditor/ResearchGuideEditor")
-);
+const Editor = lazy(() => import("./components/pages/Editor/Editor"));
 const RecordDetail = lazy(() =>
   import("./components/pages/RecordDetail/RecordDetail")
 );
@@ -68,16 +66,13 @@ const App = () => {
                       component={DashboardSettings}
                     />
                     <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <Route path="/research-guides" component={ResearchGuides} />
-                    <AnonymousRoute
-                      path="/research-guide-editor"
-                      component={ResearchGuideEditor}
-                    />
+                    <PrivateRoute path="/guides/:id/edit" component={Editor} />
                     <AnonymousRoute
                       path="/login"
                       component={Login}
                       redirect="/dashboard"
                     />
+                    <Route path="/research-guides" component={ResearchGuides} />
                     <Route path="/guides/:id" component={ResearchGuide} />
                     <Route path="/search" component={CatalogSearch} />
                     <Route path="/:naId" component={RecordDetail} />
