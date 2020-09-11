@@ -13,7 +13,8 @@ class Guide < ApplicationRecord
 
   has_and_belongs_to_many :audiences
 
-  has_many :guide_sections
+  has_many :guide_sections, lambda { order(weight: :asc) }
+  accepts_nested_attributes_for :guide_sections, allow_destroy: true
 
   validates_presence_of :user
 

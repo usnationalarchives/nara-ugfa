@@ -79,6 +79,7 @@ class API::V1::GuidesController < API::V1::BaseController
     @guide = current_user.guides.find_by_id(params[:id]) or return http404
 
     render jsonapi: @guide,
+      include: :guide_sections,
       fields: {
         guides: [
           :id,
@@ -93,8 +94,10 @@ class API::V1::GuidesController < API::V1::BaseController
           :updated,
           :status,
           :nara_approved,
-          :audience_ids
-        ]
+          :audience_ids,
+          :guide_sections
+        ],
+        guide_sections: [:id, :title, :weight]
       }
   end
 
@@ -106,6 +109,7 @@ class API::V1::GuidesController < API::V1::BaseController
     end
 
     render jsonapi: @guide,
+      include: :guide_sections,
       fields: {
         guides: [
           :id,
@@ -120,7 +124,9 @@ class API::V1::GuidesController < API::V1::BaseController
           :updated,
           :nara_approved,
           :audience_ids,
-        ]
+          :guide_sections
+        ],
+        guide_sections: [:id, :title, :weight]
       }
   end
 
@@ -136,6 +142,11 @@ class API::V1::GuidesController < API::V1::BaseController
       :looking_for_collaborators,
       :status,
       audience_ids: [],
+      guide_sections_attributes: [
+        :id,
+        :_destroy,
+        :title
+      ]
     )
   end
 

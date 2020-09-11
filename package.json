@@ -8,6 +8,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "@svgr/webpack": "^5.4.0",
+    "array-move": "^3.0.1",
     "axios": "^0.19.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "frontline-css-reset": "^3.0.1",

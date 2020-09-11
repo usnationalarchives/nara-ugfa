@@ -5,6 +5,8 @@ class SerializableGuide < JSONAPI::Serializable::Resource
 
   belongs_to :user
 
+  has_many :guide_sections
+
   attribute :updated do
     @object.updated_at.strftime("%B %-d, %Y")
   end
