@@ -1,6 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { Fragment, useState, useRef, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { Get } from "react-axios";
+import { startCase } from "lodash";
 
 // components
 import RelatedContentAlert from "./RelatedContentAlert";
@@ -9,8 +11,8 @@ import PlusCircle from "./PlusCircle";
 import CheckedCircle from "./CheckedCircle";
 
 // styles
-import { fl_static } from "#styles/frontline";
-import { fl_attention } from "#styles/frontline";
+import { fl_static, fl_attention } from "#styles/frontline";
+import { buttonReset } from "#styles/mixins";
 
 export const Root = styled.div`
   position: relative;
@@ -33,38 +35,20 @@ export const CreateGuideLink = styled(Link)`
   `)}
 `;
 
-export const MyListLink = styled(Link)`
-  border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
-  display: block;
-  padding: 15px 0;
+export const GuideList = styled.ul``;
 
-  ${fl_static(css`
-    color: ${(props) => props.theme.colors.darkGrey};
-    font-size: 1em;
-    font-weight: bold;
-    text-decoration: none;
-    margin-botton: 0;
-    margin-top: 5px;
-  `)}
-  ${fl_attention(css`
-    text-decoration: underline;
-  `)}
+export const GuideTitle = styled.p`
+  color: ${(props) => props.theme.colors.blue};
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: none;
+  margin-bottom: 0;
+  margin-top: 5px;
 `;
 
-export const GuideList = styled.ul`
-  a {
-    ${fl_static(css`
-      color: ${(props) => props.theme.colors.darkGrey};
-      font-size: 1em;
-      font-weight: bold;
-      text-decoration: none;
-      margin-botton: 0;
-      margin-top: 5px;
-    `)}
-    ${fl_attention(css`
-      text-decoration: underline;
-    `)}
-  }
+export const GuideMeta = styled.p`
+  font-size: 0.8rem;
+  color: #888888;
 `;
 
 export const AddOptions = styled.span`
@@ -74,8 +58,7 @@ export const AddOptions = styled.span`
   -webkit-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
-  display: none;
-  font-size: 1em;
+  font-size: 0.9em;
   left: 0;
   padding: 20px;
   position: absolute;
@@ -98,31 +81,20 @@ export const AddOptions = styled.span`
       }
     `}
 
-  ${(props) =>
-    props.addOptionsVisible &&
-    css`
-      display: block;
-    `}
-
   li {
     padding-bottom: 15px;
   }
+`;
 
-  p {
-    color: #888;
-    font-size: 0.9em;
-  }
+const Guide = styled.button`
+  ${buttonReset}
+  text-align: left;
+  line-height: 1.4;
 `;
 
 const AddToGuideButton = ({ added, text, menuPosition }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
-  const [addCount, setAddCount] = useState(0);
   const wrapperRef = useRef(null);
-
-  const incrementAddCount = () => {
-    setAddCount((prevAddCount) => prevAddCount + 1);
-    console.log(addCount);
-  };
 
   const toggleAddOptions = () => {
     setAddOptionsVisible(!addOptionsVisible);
@@ -142,45 +114,62 @@ const AddToGuideButton = ({ added, text, menuPosition }) => {
     };
   }, []);
 
+  const addToGuide = () => {};
+
   return (
     <Root>
       <Button
         scheme={added ? "blue-check" : "green-plus"}
         onClick={toggleAddOptions}
       >
-        {text && text}
+        {text}
         {added ? <CheckedCircle /> : <PlusCircle />}
-        {!added && (
-          <AddOptions
-            addOptionsVisible={addOptionsVisible}
-            menuPositionRight={menuPosition === "right"}
-            ref={wrapperRef}
-          >
-            <ul>
-              <GuideList onClick={incrementAddCount}>
-                <li>
-                  <Link to="#">Women's Voting Rights in the 1920s</Link>
-                  <p>Draft | Last Edited on July 16, 2020</p>
-                </li>
-                <li>
-                  <Link to="#">The JFK Presidency</Link>
-                  <p>Published on Aug 10, 2020 | Public</p>
-                </li>
-              </GuideList>
-              <CreateGuideLink to="research-guide-editor">
-                Create a Guide
-              </CreateGuideLink>
-            </ul>
-          </AddOptions>
-        )}
-
-        {addCount > 2 && (
-          <RelatedContentAlert
-            title="Miscellaneous, Staff and Stringer Photographs, 1961-1974"
-            link="/"
-          />
-        )}
       </Button>
+
+      {addOptionsVisible && (
+        <AddOptions
+          menuPositionRight={menuPosition === "right"}
+          ref={wrapperRef}
+        >
+          <Get url="/current-user">
+            {(error, response, isLoading) => {
+              if (response) {
+                return (
+                  <Fragment>
+                    <GuideList>
+                      {response.data.included
+                        .filter((i) => i.type === "guides")
+                        .map((guide) => (
+                          <li key={guide.id}>
+                            <Guide onClick={addToGuide(guide.id)}>
+                              <GuideTitle>
+                                {guide.attributes.title || "Untitled Guide"}
+                              </GuideTitle>
+                              <GuideMeta>
+                                {startCase(guide.attributes.status)} | Last
+                                Edited on {guide.attributes.updated}
+                              </GuideMeta>
+                            </Guide>
+                          </li>
+                        ))}
+                    </GuideList>
+                    <CreateGuideLink to="research-guide-editor">
+                      Create a Guide
+                    </CreateGuideLink>
+                  </Fragment>
+                );
+              }
+
+              return null;
+            }}
+          </Get>
+        </AddOptions>
+      )}
+
+      {/* <RelatedContentAlert
+          title="Miscellaneous, Staff and Stringer Photographs, 1961-1974"
+          link="/"
+        /> */}
     </Root>
   );
 };

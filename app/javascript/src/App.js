@@ -50,37 +50,37 @@ const App = () => {
       <AxiosProvider instance={client}>
         <UserProvider>
           <Router>
-            <SearchProvider>
-              <ScrollToTop />
-              <Fragment>
-                <Header />
+            <ScrollToTop />
+            <Fragment>
+              <Header />
 
-                <Suspense fallback={<p>Loading...</p>}>
-                  <Switch>
-                    <PrivateRoute
-                      path="/dashboard/guides"
-                      component={DashboardGuides}
-                    />
-                    <PrivateRoute
-                      path="/dashboard/settings"
-                      component={DashboardSettings}
-                    />
-                    <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute path="/guides/:id/edit" component={Editor} />
-                    <AnonymousRoute
-                      path="/login"
-                      component={Login}
-                      redirect="/dashboard"
-                    />
-                    <Route path="/research-guides" component={ResearchGuides} />
-                    <Route path="/guides/:id" component={ResearchGuide} />
-                    <Route path="/search" component={CatalogSearch} />
+              <Suspense fallback={<p>Loading...</p>}>
+                <Switch>
+                  <PrivateRoute
+                    path="/dashboard/guides"
+                    component={DashboardGuides}
+                  />
+                  <PrivateRoute
+                    path="/dashboard/settings"
+                    component={DashboardSettings}
+                  />
+                  <PrivateRoute path="/dashboard" component={Dashboard} />
+                  <PrivateRoute path="/guides/:id/edit" component={Editor} />
+                  <AnonymousRoute
+                    path="/login"
+                    component={Login}
+                    redirect="/dashboard"
+                  />
+                  <Route path="/research-guides" component={ResearchGuides} />
+                  <Route path="/guides/:id" component={ResearchGuide} />
+                  <SearchProvider>
+                    <Route path="/search" exact component={CatalogSearch} />
                     <Route path="/:naId" component={RecordDetail} />
                     <Route path="/" component={Home} />
-                  </Switch>
-                </Suspense>
-              </Fragment>
-            </SearchProvider>
+                  </SearchProvider>
+                </Switch>
+              </Suspense>
+            </Fragment>
           </Router>
         </UserProvider>
       </AxiosProvider>
