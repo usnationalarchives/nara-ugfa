@@ -74,9 +74,11 @@ const App = () => {
                   <Route path="/research-guides" component={ResearchGuides} />
                   <Route path="/guides/:id" component={ResearchGuide} />
                   <SearchProvider>
-                    <Route path="/search" exact component={CatalogSearch} />
-                    <Route path="/:naId" component={RecordDetail} />
-                    <Route path="/" component={Home} />
+                    <Switch>
+                      <Route path="/search" component={CatalogSearch} />
+                      <Route path="/:naId" component={RecordDetail} />
+                      <Route path="/" component={Home} />
+                    </Switch>
                   </SearchProvider>
                 </Switch>
               </Suspense>

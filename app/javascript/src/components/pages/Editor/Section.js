@@ -15,9 +15,11 @@ const Root = styled.div`
 `;
 
 const Section = ({ guide, section, dispatchSections, first, last }) => {
-  const descriptionIds = section.relationships.descriptions.data.map(
-    (r) => r.id
-  );
+  let descriptionIds;
+
+  if (section.relationships) {
+    descriptionIds = section.relationships.descriptions.data.map((r) => r.id);
+  }
 
   const descriptions = guide.included.filter(
     (i) => i.type === "descriptions" && descriptionIds.includes(i.id)

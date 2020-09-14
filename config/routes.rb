@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         post "/", to: "guides#create"
         get "/:id", to: "guides#show"
         put "/:id", to: "guides#update"
+        put "/:id/add-descriptions", to: "guides#add_descriptions"
         get "/:id/edit", to: "guides#edit"
         post "/:id/sections", to: "guide_sections#create"
         put "/:id/sections/:section_id", to: "guide_sections#update"

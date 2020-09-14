@@ -11,7 +11,7 @@ import PlusCircle from "./PlusCircle";
 import CheckedCircle from "./CheckedCircle";
 
 // API
-import { createGuide } from "#api/internal/guide";
+import { createGuide, addDescriptions } from "#api/internal/guide";
 
 // styles
 import { fl_static, fl_attention } from "#styles/frontline";
@@ -23,9 +23,7 @@ export const Root = styled.div`
 
 export const CreateGuide = styled.button`
   ${buttonReset}
-  border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
   display: block;
-  padding: 15px 0 0 0;
 
   ${fl_static(css`
     color: ${(props) => props.theme.colors.blue};
@@ -39,7 +37,10 @@ export const CreateGuide = styled.button`
   `)}
 `;
 
-export const GuideList = styled.ul``;
+export const GuideList = styled.ul`
+  border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
+  margin: 0 0 15px;
+`;
 
 export const GuideTitle = styled.p`
   color: ${(props) => props.theme.colors.blue};
@@ -136,7 +137,15 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionId }) => {
       });
   };
 
-  const addToGuide = () => {};
+  const handleAddToGuide = (id) => {
+    addDescriptions(id, [descriptionId])
+      .then((response) => {
+        history.push(`/guides/${id}/edit`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Root>
@@ -158,23 +167,25 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionId }) => {
               if (response) {
                 return (
                   <Fragment>
-                    <GuideList>
-                      {response.data.included
-                        .filter((i) => i.type === "guides")
-                        .map((guide) => (
-                          <li key={guide.id}>
-                            <Guide onClick={addToGuide(guide.id)}>
-                              <GuideTitle>
-                                {guide.attributes.title || "Untitled Guide"}
-                              </GuideTitle>
-                              <GuideMeta>
-                                {startCase(guide.attributes.status)} | Last
-                                Edited on {guide.attributes.updated}
-                              </GuideMeta>
-                            </Guide>
-                          </li>
-                        ))}
-                    </GuideList>
+                    {response.data.included && (
+                      <GuideList>
+                        {response.data.included
+                          .filter((i) => i.type === "guides")
+                          .map((guide) => (
+                            <li key={guide.id}>
+                              <Guide onClick={() => handleAddToGuide(guide.id)}>
+                                <GuideTitle>
+                                  {guide.attributes.title || "Untitled Guide"}
+                                </GuideTitle>
+                                <GuideMeta>
+                                  {startCase(guide.attributes.status)} | Last
+                                  Edited on {guide.attributes.updated}
+                                </GuideMeta>
+                              </Guide>
+                            </li>
+                          ))}
+                      </GuideList>
+                    )}
                     <CreateGuide onClick={(event) => handleCreateGuide()}>
                       Create a Guide
                     </CreateGuide>
