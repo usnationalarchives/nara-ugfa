@@ -123,7 +123,7 @@ const SearchResultListing = ({
       </Text>
       <ActionWrap>
         <AddToGuideButton
-          descriptionId={id}
+          descriptionIds={[id]}
           added={added}
           text={added ? "Added" : "Add to Guide"}
         />

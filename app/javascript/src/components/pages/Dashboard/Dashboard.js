@@ -26,7 +26,9 @@ const Dashboard = () => {
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
-                      <Guides guides={response.data.included.slice(0, 3)} />
+                      {response.data.included && (
+                        <Guides guides={response.data.included.slice(0, 3)} />
+                      )}
                     </PageWrapper>
                   </Layout.Wrapper>
                 </Layout.Padding>

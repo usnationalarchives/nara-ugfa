@@ -97,7 +97,7 @@ const Guide = styled.button`
   line-height: 1.4;
 `;
 
-const AddToGuideButton = ({ added, text, menuPosition, descriptionId }) => {
+const AddToGuideButton = ({ added, text, menuPosition, descriptionIds }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const wrapperRef = useRef(null);
   const history = useHistory();
@@ -124,7 +124,7 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionId }) => {
     createGuide({
       guide_sections_attributes: [
         {
-          description_ids: [descriptionId],
+          description_ids: descriptionIds,
         },
       ],
     })
@@ -138,7 +138,7 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionId }) => {
   };
 
   const handleAddToGuide = (id) => {
-    addDescriptions(id, [descriptionId])
+    addDescriptions(id, descriptionIds)
       .then((response) => {
         history.push(`/guides/${id}/edit`);
       })
