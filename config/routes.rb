@@ -27,13 +27,16 @@ Rails.application.routes.draw do
         post "/", to: "guides#create"
         get "/:id", to: "guides#show"
         put "/:id", to: "guides#update"
-        put "/:id/add-descriptions", to: "guides#add_descriptions"
         get "/:id/edit", to: "guides#edit"
+
         post "/:id/sections", to: "guide_sections#create"
         put "/:id/sections/:section_id", to: "guide_sections#update"
         put "/:id/sections/:section_id/move-up", to: "guide_sections#move_up"
         put "/:id/sections/:section_id/move-down", to: "guide_sections#move_down"
         delete "/:id/sections/:section_id", to: "guide_sections#destroy"
+
+        put "/:id/add-descriptions", to: "guide_section_descriptions#add"
+        put "/:id/remove-descriptions/:section_id", to: "guide_section_descriptions#remove"
       end
 
       get "/audiences", to: "audiences#index"

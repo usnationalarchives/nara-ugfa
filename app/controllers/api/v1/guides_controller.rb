@@ -134,19 +134,6 @@ class API::V1::GuidesController < API::V1::BaseController
       }
   end
 
-  def add_descriptions
-    @guide = current_user.guides.find_by_id(params[:id]) or return http404
-    @section = @guide.guide_sections.where(title: nil).first || @guide.guide_sections.create
-    @section.description_ids = @section.description_ids += params[:description_ids].map(&:to_i)
-
-    render jsonapi: @guide,
-      fields: {
-        guides: [
-          :id
-        ]
-      }
-  end
-
   private
 
   def guide_params

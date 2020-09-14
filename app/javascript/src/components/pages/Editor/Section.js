@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useReducer } from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
+
+// components
+import Description from "./Description";
 
 // API
 import {
@@ -16,13 +19,26 @@ const Root = styled.div`
 
 const Section = ({ guide, section, dispatchSections, first, last }) => {
   let descriptionIds;
-
   if (section.relationships) {
     descriptionIds = section.relationships.descriptions.data.map((r) => r.id);
   }
 
-  const descriptions = guide.included.filter(
-    (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
+  const [descriptions, dispatchDescriptions] = useReducer(
+    (descriptions, { type, value }) => {
+      switch (type) {
+        case "add":
+          return [...descriptions, value];
+        case "remove":
+          return descriptions.filter((d) => d.id !== value.id);
+        default:
+          return descriptions;
+      }
+    },
+    guide.included
+      ? guide.included.filter(
+          (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
+        )
+      : []
   );
 
   const handleChange = debounce((property, value) => {
@@ -80,8 +96,14 @@ const Section = ({ guide, section, dispatchSections, first, last }) => {
         Move Down
       </button>
 
-      {descriptions.map((d) => (
-        <p key={d.id}>{d.attributes.title}</p>
+      {descriptions.map((description) => (
+        <Description
+          key={description.id}
+          guide={guide}
+          section={section}
+          description={description}
+          dispatchDescriptions={dispatchDescriptions}
+        />
       ))}
     </Root>
   );
