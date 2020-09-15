@@ -1,5 +1,5 @@
 
-class SerializableGuideSection < JSONAPI::Serializable::Resource
+class SerializableGuideSectionDescription < JSONAPI::Serializable::Resource
   type 'guide_section_descriptions'
 
   attributes :id
