@@ -7,6 +7,7 @@ import Section from "./Section";
 
 // API
 import { createGuideSection } from "#api/internal/guideSection";
+import { size } from "lodash";
 
 const Sections = ({ guide }) => {
   const [sections, dispatchSections] = useReducer(
@@ -17,6 +18,10 @@ const Sections = ({ guide }) => {
           return [...sections, value];
         case "remove":
           return sections.filter((s) => s.id !== value.id);
+        case "update":
+          const updatedIndex = sections.findIndex((s) => s.id === value.id);
+          sections[updatedIndex] = value;
+          return sections;
         case "moveUp":
           currentIndex = sections.findIndex((s) => s.id === value.id);
           return arrayMove(sections, currentIndex, currentIndex - 1);
@@ -30,6 +35,44 @@ const Sections = ({ guide }) => {
     guide.included
       ? guide.included.filter((s) => s.type === "guide_sections")
       : []
+  );
+
+  let initialDescriptions = {};
+  for (let section of sections) {
+    let descriptionIds = [];
+    if (section.relationships) {
+      descriptionIds = section.relationships.descriptions.data.map((r) => r.id);
+    }
+    if (guide.included) {
+      initialDescriptions[section.id] = guide.included.filter(
+        (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
+      );
+    }
+  }
+
+  const [descriptions, dispatchDescriptions] = useReducer(
+    (descriptions, { type, sectionId, value }) => {
+      switch (type) {
+        case "add":
+          return {
+            ...descriptions,
+            [sectionId]: descriptions[sectionId]
+              ? [...descriptions[sectionId], value]
+              : [value],
+          };
+        case "remove":
+          return {
+            ...descriptions,
+            [sectionId]: descriptions[sectionId].filter(
+              (d) => d.id !== value.id
+            ),
+          };
+
+        default:
+          return descriptions;
+      }
+    },
+    initialDescriptions
   );
 
   const addSection = () => {
@@ -51,6 +94,9 @@ const Sections = ({ guide }) => {
           key={section.id}
           guide={guide}
           section={section}
+          sections={sections}
+          descriptions={descriptions[section.id] || []}
+          dispatchDescriptions={dispatchDescriptions}
           dispatchSections={dispatchSections}
         />
       ))}

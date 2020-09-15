@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
 
@@ -17,34 +17,26 @@ const Root = styled.div`
   margin: 20px 0;
 `;
 
-const Section = ({ guide, section, dispatchSections, first, last }) => {
-  let descriptionIds;
-  if (section.relationships) {
-    descriptionIds = section.relationships.descriptions.data.map((r) => r.id);
-  }
-
-  const [descriptions, dispatchDescriptions] = useReducer(
-    (descriptions, { type, value }) => {
-      switch (type) {
-        case "add":
-          return [...descriptions, value];
-        case "remove":
-          return descriptions.filter((d) => d.id !== value.id);
-        default:
-          return descriptions;
-      }
-    },
-    guide.included
-      ? guide.included.filter(
-          (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
-        )
-      : []
-  );
-
+const Section = ({
+  guide,
+  section,
+  sections,
+  descriptions,
+  dispatchDescriptions,
+  dispatchSections,
+  first,
+  last,
+}) => {
   const handleChange = debounce((property, value) => {
     updateGuideSection(guide.data.id, section.id, {
       [property]: value,
-    });
+    })
+      .then((response) => {
+        dispatchSections({ type: "update", value: response.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, 300);
 
   const removeSection = () => {
@@ -101,6 +93,7 @@ const Section = ({ guide, section, dispatchSections, first, last }) => {
           key={description.id}
           guide={guide}
           section={section}
+          sections={sections}
           description={description}
           dispatchDescriptions={dispatchDescriptions}
         />

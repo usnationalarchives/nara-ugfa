@@ -13,10 +13,3 @@ export const addDescriptions = (id, descriptionIds) => {
     description_ids: descriptionIds,
   });
 };
-
-export const removeDescriptions = (id, sectionId, descriptionIds) => {
-  console.log(descriptionIds);
-  return client.put(`/guides/${id}/remove-descriptions/${sectionId}`, {
-    description_ids: descriptionIds,
-  });
-};

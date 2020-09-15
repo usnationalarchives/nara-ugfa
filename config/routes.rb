@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
         put "/:id/add-descriptions", to: "guide_section_descriptions#add"
         put "/:id/remove-descriptions/:section_id", to: "guide_section_descriptions#remove"
+        put "/:id/add-descriptions/:section_id", to: "guide_section_descriptions#add_to_section"
       end
 
       get "/audiences", to: "audiences#index"
