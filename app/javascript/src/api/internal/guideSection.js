@@ -1,26 +1,38 @@
 import client from "./client";
 
-export const createGuideSection = (guide_id) => {
+export const createGuideSection = (guideId) => {
   return client.post(
-    `/guides/${guide_id}/sections`,
+    `/guides/${guideId}/sections`,
     {} // no request body
   );
 };
 
-export const updateGuideSection = (guide_id, section_id, attributes) => {
-  return client.put(`/guides/${guide_id}/sections/${section_id}`, {
+export const updateGuideSection = (guideId, sectionId, attributes) => {
+  return client.put(`/guides/${guideId}/sections/${sectionId}`, {
     guide_section: attributes,
   });
 };
 
-export const deleteGuideSection = (guide_id, section_id) => {
-  return client.delete(`/guides/${guide_id}/sections/${section_id}`);
+export const deleteGuideSection = (guideId, sectionId) => {
+  return client.delete(`/guides/${guideId}/sections/${sectionId}`);
 };
 
-export const moveUpGuideSection = (guide_id, section_id) => {
-  return client.put(`/guides/${guide_id}/sections/${section_id}/move-up`);
+export const moveUpGuideSection = (guideId, sectionId) => {
+  return client.put(`/guides/${guideId}/sections/${sectionId}/move-up`);
 };
 
-export const moveDownGuideSection = (guide_id, section_id) => {
-  return client.put(`/guides/${guide_id}/sections/${section_id}/move-down`);
+export const moveDownGuideSection = (guideId, sectionId) => {
+  return client.put(`/guides/${guideId}/sections/${sectionId}/move-down`);
+};
+
+export const addDescriptions = (guideId, sectionId, descriptionIds) => {
+  return client.put(`/guides/${guideId}/add-descriptions/${sectionId}`, {
+    description_ids: descriptionIds,
+  });
+};
+
+export const removeDescriptions = (guideId, sectionId, descriptionIds) => {
+  return client.put(`/guides/${guideId}/remove-descriptions/${sectionId}`, {
+    description_ids: descriptionIds,
+  });
 };

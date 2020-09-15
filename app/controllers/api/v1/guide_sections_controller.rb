@@ -8,15 +8,16 @@ class API::V1::GuideSectionsController < API::V1::BaseController
 
     render jsonapi: @section,
       fields: {
-        guide_sections: [:id, :title, :weight]
+        guide_sections: [:title, :weight]
       }
   end
 
   def update
     if @section.update(guide_section_params)
       render jsonapi: @section,
+        include: [:descriptions],
         fields: {
-          guide_sections: [:id, :title, :weight]
+          guide_sections: [:id, :title, :weight, :descriptions]
         }
     end
   end
@@ -25,7 +26,7 @@ class API::V1::GuideSectionsController < API::V1::BaseController
     if @section.move_up_in_collection!
       render jsonapi: @section,
         fields: {
-          guide_sections: [:id, :title, :weight]
+          guide_sections: [:title, :weight]
         }
     end
   end
@@ -34,7 +35,7 @@ class API::V1::GuideSectionsController < API::V1::BaseController
     if @section.move_down_in_collection!
       render jsonapi: @section,
         fields: {
-          guide_sections: [:id, :title, :weight]
+          guide_sections: [:title, :weight]
         }
     end
   end
@@ -43,7 +44,7 @@ class API::V1::GuideSectionsController < API::V1::BaseController
     if @section.destroy
       render jsonapi: @guide,
         fields: {
-          guide: [:id, :title]
+          guide: [:title]
         }
     end
   end

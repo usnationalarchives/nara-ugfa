@@ -9,17 +9,19 @@ const Guides = ({ guides }) => {
   return (
     <Fragment>
       <Text.H2>My Guides to Records</Text.H2>
-      <ResearchGuideGrid>
-        {guides.map((guide) => (
-          <ResearchGuideCard
-            key={guide.attributes.id}
-            title={guide.attributes.title || "Untitled Guide"}
-            image={true}
-            link={`/guides/${guide.attributes.id}/edit`}
-            approved={guide.attributes.nara_approved}
-          />
-        ))}
-      </ResearchGuideGrid>
+      {guides && (
+        <ResearchGuideGrid>
+          {guides.map((guide) => (
+            <ResearchGuideCard
+              key={guide.attributes.id}
+              title={guide.attributes.title || "Untitled Guide"}
+              image={true}
+              link={`/guides/${guide.attributes.id}/edit`}
+              approved={guide.attributes.nara_approved}
+            />
+          ))}
+        </ResearchGuideGrid>
+      )}
     </Fragment>
   );
 };

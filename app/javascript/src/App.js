@@ -8,6 +8,7 @@ import client from "#api/internal/client";
 // contexts
 import { UserProvider } from "#contexts/User";
 import { SearchProvider } from "#contexts/Search";
+import { EditorProvider } from "#contexts/Editor";
 
 // components
 import Header from "#components/chrome/Header/Header";
@@ -49,8 +50,8 @@ const App = () => {
       <BaseStyles />
       <AxiosProvider instance={client}>
         <UserProvider>
-          <Router>
-            <SearchProvider>
+          <EditorProvider>
+            <Router>
               <ScrollToTop />
               <Fragment>
                 <Header />
@@ -65,23 +66,42 @@ const App = () => {
                       path="/dashboard/settings"
                       component={DashboardSettings}
                     />
-                    <PrivateRoute path="/dashboard" component={Dashboard} />
-                    <PrivateRoute path="/guides/:id/edit" component={Editor} />
+                    <PrivateRoute
+                      exact
+                      path="/dashboard"
+                      component={Dashboard}
+                    />
                     <AnonymousRoute
                       path="/login"
                       component={Login}
                       redirect="/dashboard"
                     />
-                    <Route path="/research-guides" component={ResearchGuides} />
-                    <Route path="/guides/:id" component={ResearchGuide} />
-                    <Route path="/search" component={CatalogSearch} />
-                    <Route path="/:naId" component={RecordDetail} />
-                    <Route path="/" component={Home} />
+                    <PrivateRoute
+                      exact
+                      path="/guides/:id/edit"
+                      component={Editor}
+                    />
+                    <SearchProvider>
+                      <Switch>
+                        <Route
+                          path="/research-guides"
+                          component={ResearchGuides}
+                        />
+                        <Route
+                          exact
+                          path="/guides/:id"
+                          component={ResearchGuide}
+                        />
+                        <Route exact path="/search" component={CatalogSearch} />
+                        <Route exact path="/:naId" component={RecordDetail} />
+                        <Route exact path="/" exact component={Home} />
+                      </Switch>
+                    </SearchProvider>
                   </Switch>
                 </Suspense>
               </Fragment>
-            </SearchProvider>
-          </Router>
+            </Router>
+          </EditorProvider>
         </UserProvider>
       </AxiosProvider>
     </ThemeProvider>

@@ -88,6 +88,7 @@ export const Hierarchy = styled.div`
 `;
 
 const SearchResultListing = ({
+  id,
   title,
   naId,
   hierarchy,
@@ -122,6 +123,7 @@ const SearchResultListing = ({
       </Text>
       <ActionWrap>
         <AddToGuideButton
+          descriptionIds={[id]}
           added={added}
           text={added ? "Added" : "Add to Guide"}
         />
