@@ -1,5 +1,6 @@
 import React, { Fragment, useReducer } from "react";
 import arrayMove from "array-move";
+import { uniqBy } from "lodash";
 
 // components
 import Button from "#components/shared/Button";
@@ -57,7 +58,7 @@ const Sections = ({ guide }) => {
           return {
             ...descriptions,
             [sectionId]: descriptions[sectionId]
-              ? [...descriptions[sectionId], value]
+              ? uniqBy([...descriptions[sectionId], value], (d) => d.id)
               : [value],
           };
         case "remove":

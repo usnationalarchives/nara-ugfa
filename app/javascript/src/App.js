@@ -8,6 +8,7 @@ import client from "#api/internal/client";
 // contexts
 import { UserProvider } from "#contexts/User";
 import { SearchProvider } from "#contexts/Search";
+import { EditorProvider } from "#contexts/Editor";
 
 // components
 import Header from "#components/chrome/Header/Header";
@@ -49,41 +50,58 @@ const App = () => {
       <BaseStyles />
       <AxiosProvider instance={client}>
         <UserProvider>
-          <Router>
-            <ScrollToTop />
-            <Fragment>
-              <Header />
+          <EditorProvider>
+            <Router>
+              <ScrollToTop />
+              <Fragment>
+                <Header />
 
-              <Suspense fallback={<p>Loading...</p>}>
-                <Switch>
-                  <PrivateRoute
-                    path="/dashboard/guides"
-                    component={DashboardGuides}
-                  />
-                  <PrivateRoute
-                    path="/dashboard/settings"
-                    component={DashboardSettings}
-                  />
-                  <PrivateRoute path="/dashboard" component={Dashboard} />
-                  <PrivateRoute path="/guides/:id/edit" component={Editor} />
-                  <AnonymousRoute
-                    path="/login"
-                    component={Login}
-                    redirect="/dashboard"
-                  />
-                  <Route path="/research-guides" component={ResearchGuides} />
-                  <Route path="/guides/:id" component={ResearchGuide} />
-                  <SearchProvider>
-                    <Switch>
-                      <Route path="/search" component={CatalogSearch} />
-                      <Route path="/:naId" component={RecordDetail} />
-                      <Route path="/" component={Home} />
-                    </Switch>
-                  </SearchProvider>
-                </Switch>
-              </Suspense>
-            </Fragment>
-          </Router>
+                <Suspense fallback={<p>Loading...</p>}>
+                  <Switch>
+                    <PrivateRoute
+                      path="/dashboard/guides"
+                      component={DashboardGuides}
+                    />
+                    <PrivateRoute
+                      path="/dashboard/settings"
+                      component={DashboardSettings}
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/dashboard"
+                      component={Dashboard}
+                    />
+                    <AnonymousRoute
+                      path="/login"
+                      component={Login}
+                      redirect="/dashboard"
+                    />
+                    <PrivateRoute
+                      exact
+                      path="/guides/:id/edit"
+                      component={Editor}
+                    />
+                    <SearchProvider>
+                      <Switch>
+                        <Route
+                          path="/research-guides"
+                          component={ResearchGuides}
+                        />
+                        <Route
+                          exact
+                          path="/guides/:id"
+                          component={ResearchGuide}
+                        />
+                        <Route exact path="/search" component={CatalogSearch} />
+                        <Route exact path="/:naId" component={RecordDetail} />
+                        <Route exact path="/" exact component={Home} />
+                      </Switch>
+                    </SearchProvider>
+                  </Switch>
+                </Suspense>
+              </Fragment>
+            </Router>
+          </EditorProvider>
         </UserProvider>
       </AxiosProvider>
     </ThemeProvider>

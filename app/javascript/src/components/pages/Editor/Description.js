@@ -7,7 +7,9 @@ import MoveTo from "./MoveTo";
 // API
 import { removeDescriptions } from "#api/internal/guideSection";
 
-const Root = styled.div``;
+const Root = styled.div`
+  margin-top: 20px;
+`;
 
 const Remove = styled.button``;
 
