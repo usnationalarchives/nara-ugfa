@@ -4,7 +4,7 @@ const EditorContext = React.createContext();
 
 const EditorProvider = ({ children }) => {
   const [activeSection, setActiveSection] = useState();
-  const [addingRecords, setAddingRecords] = useState(true);
+  const [addingRecords, setAddingRecords] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const state = {
