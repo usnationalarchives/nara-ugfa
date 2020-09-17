@@ -31,7 +31,6 @@ const Editor = ({ ...props }) => {
                 {addingRecords && (
                   <Layout.Padding>
                     <Layout.Wrapper
-                      medium
                       style={{ marginTop: "40px", marginBottom: "40px" }}
                     >
                       <Search />
