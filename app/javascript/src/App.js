@@ -49,39 +49,39 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <BaseStyles />
       <AxiosProvider instance={client}>
-        <UserProvider>
-          <EditorProvider>
-            <Router>
-              <ScrollToTop />
-              <Fragment>
-                <Header />
+        <Router>
+          <UserProvider>
+            <EditorProvider>
+              <SearchProvider>
+                <ScrollToTop />
+                <Fragment>
+                  <Header />
 
-                <Suspense fallback={<p>Loading...</p>}>
-                  <Switch>
-                    <PrivateRoute
-                      path="/dashboard/guides"
-                      component={DashboardGuides}
-                    />
-                    <PrivateRoute
-                      path="/dashboard/settings"
-                      component={DashboardSettings}
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/dashboard"
-                      component={Dashboard}
-                    />
-                    <AnonymousRoute
-                      path="/login"
-                      component={Login}
-                      redirect="/dashboard"
-                    />
-                    <PrivateRoute
-                      exact
-                      path="/guides/:id/edit"
-                      component={Editor}
-                    />
-                    <SearchProvider>
+                  <Suspense fallback={<p>Loading...</p>}>
+                    <Switch>
+                      <PrivateRoute
+                        path="/dashboard/guides"
+                        component={DashboardGuides}
+                      />
+                      <PrivateRoute
+                        path="/dashboard/settings"
+                        component={DashboardSettings}
+                      />
+                      <PrivateRoute
+                        exact
+                        path="/dashboard"
+                        component={Dashboard}
+                      />
+                      <AnonymousRoute
+                        path="/login"
+                        component={Login}
+                        redirect="/dashboard"
+                      />
+                      <PrivateRoute
+                        exact
+                        path="/guides/:id/edit"
+                        component={Editor}
+                      />
                       <Switch>
                         <Route
                           path="/research-guides"
@@ -96,13 +96,13 @@ const App = () => {
                         <Route exact path="/:naId" component={RecordDetail} />
                         <Route exact path="/" exact component={Home} />
                       </Switch>
-                    </SearchProvider>
-                  </Switch>
-                </Suspense>
-              </Fragment>
-            </Router>
-          </EditorProvider>
-        </UserProvider>
+                    </Switch>
+                  </Suspense>
+                </Fragment>
+              </SearchProvider>
+            </EditorProvider>
+          </UserProvider>
+        </Router>
       </AxiosProvider>
     </ThemeProvider>
   );
