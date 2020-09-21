@@ -17,6 +17,7 @@ const Root = styled.div`
     display: flex;
     justify-content: space-between;
     margin: 30px 0;
+    padding: 0 50px;
 
     &:before,
     &:after {

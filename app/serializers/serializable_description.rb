@@ -14,4 +14,16 @@ class SerializableDescription < JSONAPI::Serializable::Resource
   end
 
   attributes :data, :objects
+
+  attribute :thumbnailUrl do
+    @object.objects.first["thumbnail"]["url"]
+  end
+
+  attribute :creators do
+    if @object.data["parentSeries"]["creatingOrganizationArray"].class.name == "Array"
+      @object.data["parentSeries"]["creatingOrganizationArray"].map{ |o| o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")}.join(", ")
+    else
+      @object.data["parentSeries"]["creatingOrganizationArray"].try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")
+    end
+  end
 end

@@ -24,12 +24,16 @@ const Inner = styled.div`
   padding: 20px 16px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 100px;
+    padding: 20px 50px;
   }
 `;
 
 const TitleWrapper = styled.div`
   position: relative;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    margin: 0 50px;
+  }
 `;
 
 const TitleInput = styled.input`
