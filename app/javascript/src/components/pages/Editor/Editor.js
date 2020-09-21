@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from "react";
+import styled from "styled-components";
 import { Get } from "react-axios";
 import { Link } from "react-router-dom";
 
@@ -10,6 +11,10 @@ import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import EditorForm from "./EditorForm";
 import Search from "./Search";
+
+const Root = styled.div`
+  background-color: ${(props) => props.theme.colors.lightGrey};
+`;
 
 const Editor = ({ ...props }) => {
   const id = props.match.params.id;
@@ -39,17 +44,19 @@ const Editor = ({ ...props }) => {
                 )}
 
                 {!addingRecords && (
-                  <Layout.Padding>
-                    <Layout.Wrapper
-                      medium
-                      style={{ marginTop: "40px", marginBottom: "40px" }}
-                    >
-                      <EditorForm guide={response.data} />
-                      <Link to={`/guides/${response.data.data.id}`}>
-                        Preview
-                      </Link>
-                    </Layout.Wrapper>
-                  </Layout.Padding>
+                  <Root>
+                    <Layout.Padding>
+                      <Layout.Wrapper
+                        medium
+                        style={{ paddingTop: "40px", paddingBottom: "40px" }}
+                      >
+                        <EditorForm guide={response.data} />
+                        <Link to={`/guides/${response.data.data.id}`}>
+                          Preview
+                        </Link>
+                      </Layout.Wrapper>
+                    </Layout.Padding>
+                  </Root>
                 )}
               </Fragment>
             );

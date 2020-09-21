@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { Get } from "react-axios";
 
 // hooks
@@ -6,6 +7,16 @@ import useCheckboxes from "#hooks/useCheckboxes";
 
 // API
 import { updateGuide } from "#api/internal/guide";
+
+const Legend = styled.legend`
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+`;
+
+const Label = styled.label`
+  margin-left: 10px;
+`;
 
 const AudienceSelect = ({ guide }) => {
   const [audiences, dispatchAudiences] = useCheckboxes(
@@ -24,7 +35,7 @@ const AudienceSelect = ({ guide }) => {
         if (response) {
           return (
             <fieldset>
-              <legend>This guide to records will be most helpful for:</legend>
+              <Legend>Who is the intended audience for this guide?</Legend>
 
               {response.data.data.map((audience) => (
                 <div key={audience.id}>
@@ -43,9 +54,9 @@ const AudienceSelect = ({ guide }) => {
                       })
                     }
                   />
-                  <label htmlFor={`audience-${audience.id}`}>
+                  <Label htmlFor={`audience-${audience.id}`}>
                     {audience.attributes.name}
-                  </label>
+                  </Label>
                 </div>
               ))}
             </fieldset>

@@ -16,12 +16,6 @@ export const buttonStyles = css`
   text-decoration: none;
   text-transform: uppercase;
 
-  // > * {
-  //   position: relative;
-  //   line-height: 1;
-  //   vertical-align: middle;
-  // }
-
   svg:last-child {
     margin-left: 5px;
   }

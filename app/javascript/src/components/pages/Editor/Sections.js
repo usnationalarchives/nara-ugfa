@@ -1,14 +1,41 @@
 import React, { Fragment, useReducer } from "react";
+import styled from "styled-components";
 import arrayMove from "array-move";
 import { uniqBy } from "lodash";
 
 // components
-import Button from "#components/shared/Button";
 import Section from "./Section";
+import Button from "#components/shared/Button";
+import PlusCircle from "#components/shared/PlusCircle";
 
 // API
 import { createGuideSection } from "#api/internal/guideSection";
-import { size } from "lodash";
+
+const StyledButton = styled(Button)`
+  align-items: center;
+  border: 0;
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  line-height: 1;
+  padding: 0;
+  width: 100%;
+  margin-top: 20px;
+
+  span {
+    align-items: center;
+    display: flex;
+  }
+
+  &:before,
+  &:after {
+    background-color: ${(props) => props.theme.colors.textLightGrey};
+    content: "";
+    display: inline-block;
+    height: 1px;
+    width: calc(50% - 85px);
+  }
+`;
 
 const Sections = ({ guide }) => {
   const [sections, dispatchSections] = useReducer(
@@ -102,9 +129,12 @@ const Sections = ({ guide }) => {
         />
       ))}
 
-      <Button onClick={addSection} scheme="outline">
-        Add Section
-      </Button>
+      <StyledButton onClick={addSection}>
+        <span>
+          Add Section
+          <PlusCircle grey />
+        </span>
+      </StyledButton>
     </Fragment>
   );
 };

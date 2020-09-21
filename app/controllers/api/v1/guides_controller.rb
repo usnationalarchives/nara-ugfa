@@ -100,7 +100,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_ids,
           :guide_sections
         ],
-        descriptions: [:title, :naid],
+        descriptions: [:title, :naId, :thumbnailUrl, :level, :creators],
         guide_sections: [:id, :title, :weight, :descriptions]
       }
   end

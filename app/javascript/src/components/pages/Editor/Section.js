@@ -1,50 +1,69 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
 
-// context
-import { EditorContext } from "#contexts/Editor";
-
 // components
+import * as Text from "#components/shared/Text";
 import Description from "./Description";
+import SectionActions from "./SectionActions";
+import SectionAuthoring from "./SectionAuthoring";
 
 // API
-import {
-  updateGuideSection,
-  deleteGuideSection,
-  moveUpGuideSection,
-  moveDownGuideSection,
-} from "#api/internal/guideSection";
+import { updateGuideSection } from "#api/internal/guideSection";
+
+// assets
+import EditIcon from "#assets/icons/edit.svg";
 
 const Root = styled.div`
+  background-color: ${(props) => props.theme.colors.white};
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   margin: 20px 0;
-  border: 1px solid ${(props) => props.theme.colors.blue};
 `;
 
 const Inner = styled.div`
-  padding: 20px;
-`;
+  padding: 20px 16px;
 
-const Actions = styled.div`
-  background-color: ${(props) => props.theme.colors.mediumGrey};
-  padding: 10px;
-  text-align: right;
-
-  button {
-    padding: 4px 8px;
-    margin-left: 10px;
-    font-size: 0.8rem;
+  @media ${(props) => props.theme.breakpoints.medium} {
+    padding: 20px 50px;
   }
 `;
 
-const Authoring = styled.div`
-  margin: 20px 20px 0;
-  text-align: center;
+const TitleWrapper = styled.div`
+  position: relative;
 
-  button {
-    padding: 4px 8px;
-    margin: 0 6px;
+  @media ${(props) => props.theme.breakpoints.medium} {
+    margin: 0 50px;
   }
+`;
+
+const TitleInput = styled.input`
+  background: transparent;
+  border: 0;
+  border-bottom: 1px dashed ${(props) => props.theme.colors.darkGrey};
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.625;
+  outline: 0;
+  padding: 4px 0;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    font-size: 1.375rem;
+    line-height: 1.18;
+  }
+`;
+
+const StyledEditIcon = styled(EditIcon)`
+  fill: ${(props) => props.theme.colors.textLightGrey};
+  height: 20px;
+  position: absolute;
+  opacity: 0.7;
+  right: 0;
+  top: 6px;
+  width: 20px;
 `;
 
 const Section = ({
@@ -57,8 +76,6 @@ const Section = ({
   first,
   last,
 }) => {
-  const editorContext = useContext(EditorContext);
-
   const handleChange = debounce((property, value) => {
     updateGuideSection(guide.data.id, section.id, {
       [property]: value,
@@ -71,69 +88,32 @@ const Section = ({
       });
   }, 300);
 
-  const removeSection = () => {
-    deleteGuideSection(guide.data.id, section.id)
-      .then((response) => {
-        dispatchSections({ type: "remove", value: section });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const moveUp = () => {
-    moveUpGuideSection(guide.data.id, section.id)
-      .then((response) => {
-        dispatchSections({ type: "moveUp", value: section });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const moveDown = () => {
-    moveDownGuideSection(guide.data.id, section.id)
-      .then((response) => {
-        dispatchSections({ type: "moveDown", value: section });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const handleAddRecords = (activeSectionId) => {
-    editorContext.actions.setAddingRecords(true);
-    editorContext.actions.setActiveSection(activeSectionId);
-  };
-
   return (
     <Root>
-      <Actions>
-        <button onClick={removeSection}>Delete</button>
-        <button disabled={first} onClick={moveUp}>
-          Move Up
-        </button>
-        <button disabled={last} onClick={moveDown}>
-          Move Down
-        </button>
-      </Actions>
+      <SectionActions
+        guide={guide}
+        section={section}
+        dispatchSections={dispatchSections}
+        first={first}
+        last={last}
+      />
 
       <Inner>
-        <label htmlFor={`section-title-${section.id}`}>Title</label>
-        <br />
-        <input
-          id={`section-title-${section.id}`}
-          type="text"
-          defaultValue={section.attributes.title}
-          onChange={(event) => handleChange("title", event.target.value)}
-        />
+        <TitleWrapper>
+          <label htmlFor={`section-title-${section.id}`}>
+            <Text.Screenreader>Title</Text.Screenreader>
+          </label>
+          <TitleInput
+            id={`section-title-${section.id}`}
+            type="text"
+            defaultValue={section.attributes.title}
+            onChange={(event) => handleChange("title", event.target.value)}
+            placeholder="Add a Section Title"
+          />
+          <StyledEditIcon />
+        </TitleWrapper>
 
-        <Authoring>
-          <button>Add Context</button>
-          <button onClick={(event) => handleAddRecords(section.id)}>
-            Add Records
-          </button>
-        </Authoring>
+        <SectionAuthoring section={section} />
 
         <div style={{ marginTop: "20px" }}>
           {descriptions.map((description) => (
