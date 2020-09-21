@@ -162,11 +162,49 @@ const GuideFields = ({ guide }) => {
           />
         </div>
 
+        <div style={{ marginBottom: "40px" }}>
+          <Label htmlFor="looking_for_collaborators">
+            Are you looking for collaborators from the Catalog / History Hub
+            community to help with your guide to records? If you are seeking
+            help on a guide, you can indicate that so other users of the Catalog
+            or History Hub can request to participate in updating the guide.
+          </Label>
+          <Select
+            style={{ width: "50%" }}
+            id="looking_for_collaborators"
+            defaultValue={guide.data.attributes.looking_for_collaborators}
+            onChange={(event) =>
+              handleChange("looking_for_collaborators", event.target.value)
+            }
+          >
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </Select>
+        </div>
+
         <AudienceSelect guide={guide} />
+
+        <div style={{ marginTop: "40px", marginBottom: "40px" }}>
+          <Label htmlFor="looking_for_collaborators">
+            Is your guide to records complete or in progress?
+          </Label>
+          <Select
+            style={{ width: "50%" }}
+            id="complete_or_wip"
+            defaultValue={guide.data.attributes.complete_or_wip}
+            onChange={(event) =>
+              handleChange("complete_or_wip", event.target.value)
+            }
+          >
+            <option value="wip">In Progress</option>
+            <option value="complete">Complete</option>
+          </Select>
+        </div>
 
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
           <Label htmlFor="publishing_status">Publishing Status</Label>
           <Select
+            style={{ width: "50%" }}
             id="publishing_status"
             defaultValue={guide.data.attributes.status}
             onChange={(event) => handleChange("status", event.target.value)}

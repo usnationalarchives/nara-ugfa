@@ -20,6 +20,7 @@ const StyledButton = styled(Button)`
   line-height: 1;
   padding: 0;
   width: 100%;
+  margin-top: 20px;
 
   span {
     align-items: center;
