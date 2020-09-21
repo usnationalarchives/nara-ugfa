@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Popover } from "react-tiny-popover";
+import Popover from "react-tiny-popover";
 import styled from "styled-components";
 
 // API
