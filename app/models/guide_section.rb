@@ -2,7 +2,7 @@ class GuideSection < ApplicationRecord
 
   include CollectionPrioritizable
 
-  belongs_to :guide, optional: true
+  belongs_to :guide, optional: true, touch: true
 
   has_many :guide_section_descriptions, dependent: :destroy
   has_many :descriptions, through: :guide_section_descriptions

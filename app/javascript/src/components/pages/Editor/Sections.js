@@ -1,7 +1,10 @@
-import React, { Fragment, useReducer } from "react";
+import React, { useContext, Fragment, useReducer } from "react";
 import styled from "styled-components";
 import arrayMove from "array-move";
 import { uniqBy } from "lodash";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import Section from "./Section";
@@ -38,6 +41,8 @@ const StyledButton = styled(Button)`
 `;
 
 const Sections = ({ guide }) => {
+  const editorContext = useContext(EditorContext);
+
   const [sections, dispatchSections] = useReducer(
     (sections, { type, value }) => {
       let currentIndex;
@@ -104,12 +109,21 @@ const Sections = ({ guide }) => {
   );
 
   const addSection = () => {
+    editorContext.actions.setSaving(true);
     createGuideSection(guide.data.id)
       .then((response) => {
         dispatchSections({ type: "add", value: response.data.data });
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
+        editorContext.actions.setSaving(false);
       })
       .catch((error) => {
         console.log(error);
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
+        editorContext.actions.setSaving(false);
       });
   };
 

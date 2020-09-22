@@ -49,9 +49,10 @@ const MoveToSection = styled.button`
   color: ${(props) => props.theme.colors.blue};
   font-size: 1em;
   font-weight: bold;
-  text-decoration: none;
   margin-bottom: 0;
-  margin-top: 5px;
+  margin-top: 10px;
+  text-align: left;
+  text-decoration: none;
 `;
 
 const MoveTo = ({

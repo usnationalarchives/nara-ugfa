@@ -11,6 +11,10 @@ const Root = styled.div`
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
   }
+
+  &:last-child {
+    border: 0;
+  }
 `;
 
 const Inner = styled.div`
