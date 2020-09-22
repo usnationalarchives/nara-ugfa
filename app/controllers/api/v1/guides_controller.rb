@@ -70,6 +70,7 @@ class API::V1::GuidesController < API::V1::BaseController
             :author,
             :audience_names,
             :updated,
+            :updatedAgo,
             :nara_approved,
             :audience_ids
           ]
@@ -95,6 +96,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :author,
           :audience_names,
           :updated,
+          :updatedAgo,
           :status,
           :nara_approved,
           :audience_ids,

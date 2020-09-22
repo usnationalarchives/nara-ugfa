@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
 
@@ -7,6 +7,9 @@ import useCheckboxes from "#hooks/useCheckboxes";
 
 // API
 import { updateGuide } from "#api/internal/guide";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 const Legend = styled.legend`
   display: block;
@@ -19,13 +22,21 @@ const Label = styled.label`
 `;
 
 const AudienceSelect = ({ guide }) => {
+  const editorContext = useContext(EditorContext);
+
   const [audiences, dispatchAudiences] = useCheckboxes(
     guide.data.attributes.audience_ids
   );
 
   useEffect(() => {
+    editorContext.actions.setSaving(true);
     updateGuide(guide.data.id, {
       audience_ids: audiences.map((a) => parseInt(a)),
+    }).then((response) => {
+      editorContext.actions.setLastSaved(
+        response.data.data.attributes.updatedAgo
+      );
+      editorContext.actions.setSaving(false);
     });
   }, [audiences]);
 

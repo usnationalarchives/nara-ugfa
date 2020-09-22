@@ -11,6 +11,10 @@ class SerializableGuide < JSONAPI::Serializable::Resource
     @object.updated_at.strftime("%B %-d, %Y")
   end
 
+  attribute :updatedAgo do
+    ActionView::Helpers::DateHelper.time_ago_in_words(@object.updated_at)
+  end
+
   attribute :author do
     {
       name: @object.user.name,

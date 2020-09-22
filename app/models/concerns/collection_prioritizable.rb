@@ -61,8 +61,8 @@ module CollectionPrioritizable
         other_weight = other_item.weight
         self_weight = self.weight
 
-        self.update_columns(weight: other_weight)
-        other_item.update_columns(weight: self_weight)
+        self.update_columns(weight: other_weight, updated_at: Time.now)
+        other_item.update_columns(weight: self_weight, updated_at: Time.now)
       end
 
       def init_weight

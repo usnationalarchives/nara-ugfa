@@ -1,6 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import styled from "styled-components";
 import Popover from "react-tiny-popover";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Text from "#components/shared/Text";
@@ -91,20 +94,27 @@ const BackgroundColor = ({
   textColor,
   setTextColor,
 }) => {
+  const editorContext = useContext(EditorContext);
   const [open, setOpen] = useState(false);
   const popoverEl = useRef();
 
   const handleBackgroundColor = (event) => {
     const value = event.target.value;
 
+    editorContext.actions.setSaving(true);
     updateGuide(guide.data.id, {
       background_color: value,
-    }).then(() => {
+    }).then((response) => {
       const code = backgroundColors.filter((c) => c.value === value)[0].code;
       const textCode = backgroundColors.filter((c) => c.value === value)[0]
         .text;
       setBackgroundColor(code);
       setTextColor(textCode);
+
+      editorContext.actions.setSaving(false);
+      editorContext.actions.setLastSaved(
+        response.data.data.attributes.updatedAgo
+      );
     });
   };
 
