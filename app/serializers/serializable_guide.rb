@@ -1,3 +1,5 @@
+include ActionView::Helpers::DateHelper
+
 class SerializableGuide < JSONAPI::Serializable::Resource
   type 'guides'
 
@@ -12,7 +14,7 @@ class SerializableGuide < JSONAPI::Serializable::Resource
   end
 
   attribute :updatedAgo do
-    ActionView::Helpers::DateHelper.time_ago_in_words(@object.updated_at)
+    time_ago_in_words(@object.updated_at)
   end
 
   attribute :author do
