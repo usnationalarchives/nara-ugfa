@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Text from "#components/shared/Text";
@@ -76,15 +79,23 @@ const Section = ({
   first,
   last,
 }) => {
+  const editorContext = useContext(EditorContext);
+
   const handleChange = debounce((property, value) => {
+    editorContext.actions.setSaving(true);
     updateGuideSection(guide.data.id, section.id, {
       [property]: value,
     })
       .then((response) => {
         dispatchSections({ type: "update", value: response.data.data });
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
+        editorContext.actions.setSaving(false);
       })
       .catch((error) => {
         console.log(error);
+        editorContext.actions.setSaving(false);
       });
   }, 300);
 

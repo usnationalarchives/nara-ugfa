@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Text from "#components/shared/Text";
@@ -37,33 +40,53 @@ const ActionButton = styled.button`
 `;
 
 const SectionActions = ({ guide, section, dispatchSections, first, last }) => {
+  const editorContext = useContext(EditorContext);
+
   const removeSection = () => {
+    editorContext.actions.setSaving(true);
     deleteGuideSection(guide.data.id, section.id)
       .then((response) => {
         dispatchSections({ type: "remove", value: section });
+        editorContext.actions.setSaving(false);
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
       })
       .catch((error) => {
+        editorContext.actions.setSaving(false);
         console.log(error);
       });
   };
 
   const moveUp = () => {
+    editorContext.actions.setSaving(true);
     moveUpGuideSection(guide.data.id, section.id)
       .then((response) => {
         dispatchSections({ type: "moveUp", value: section });
+        editorContext.actions.setSaving(false);
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
       })
       .catch((error) => {
         console.log(error);
+        editorContext.actions.setSaving(false);
       });
   };
 
   const moveDown = () => {
+    editorContext.actions.setSaving(true);
     moveDownGuideSection(guide.data.id, section.id)
       .then((response) => {
         dispatchSections({ type: "moveDown", value: section });
+        editorContext.actions.setSaving(false);
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
       })
       .catch((error) => {
         console.log(error);
+        editorContext.actions.setSaving(false);
       });
   };
 

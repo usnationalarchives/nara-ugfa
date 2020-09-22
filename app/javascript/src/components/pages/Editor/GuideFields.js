@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { debounce } from "lodash";
 import styled from "styled-components";
 import TextareaAutosize from "react-textarea-autosize";
@@ -14,6 +14,9 @@ import * as Text from "#components/shared/Text";
 import Select from "#components/shared/Select";
 import BackgroundColor from "./BackgroundColor";
 import AudienceSelect from "./AudienceSelect";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -93,11 +96,14 @@ const Textarea = styled.textarea`
 `;
 
 const GuideFields = ({ guide }) => {
+  const editorContext = useContext(EditorContext);
+
   const [backgroundColor, setBackgroundColor] = useState(
     backgroundColors.filter(
       (c) => c.value === guide.data.attributes.background_color
     )[0].code
   );
+
   const [textColor, setTextColor] = useState(
     backgroundColors.filter(
       (c) => c.value === guide.data.attributes.background_color
@@ -105,8 +111,14 @@ const GuideFields = ({ guide }) => {
   );
 
   const handleChange = debounce((property, value) => {
+    editorContext.actions.setSaving(true);
     updateGuide(guide.data.id, {
       [property]: value,
+    }).then((response) => {
+      editorContext.actions.setSaving(false);
+      editorContext.actions.setLastSaved(
+        response.data.data.attributes.updatedAgo
+      );
     });
   }, 300);
 

@@ -8,7 +8,8 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
     render jsonapi: @guide,
       fields: {
         guides: [
-          :id
+          :id,
+          :updatedAgo
         ]
       }
   end
@@ -21,7 +22,8 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
     render jsonapi: @guide,
       fields: {
         guides: [
-          :id
+          :id,
+          :updatedAgo
         ]
       }
   end
@@ -36,7 +38,8 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
     render jsonapi: @guide,
       fields: {
         guides: [
-          :id
+          :id,
+          :updatedAgo
         ]
       }
 

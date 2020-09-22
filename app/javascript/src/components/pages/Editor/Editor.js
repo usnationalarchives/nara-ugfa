@@ -11,6 +11,7 @@ import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import EditorForm from "./EditorForm";
 import Search from "./Search";
+import UtilityBar from "./UtilityBar";
 
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
@@ -51,11 +52,9 @@ const Editor = ({ ...props }) => {
                         style={{ paddingTop: "40px", paddingBottom: "40px" }}
                       >
                         <EditorForm guide={response.data} />
-                        <Link to={`/guides/${response.data.data.id}`}>
-                          Preview
-                        </Link>
                       </Layout.Wrapper>
                     </Layout.Padding>
+                    <UtilityBar guide={response.data} />
                   </Root>
                 )}
               </Fragment>

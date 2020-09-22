@@ -18,9 +18,9 @@ const StyledButton = styled(Button)`
   display: flex;
   justify-content: space-between;
   line-height: 1;
+  margin: 20px 0 80px;
   padding: 0;
   width: 100%;
-  margin-top: 20px;
 
   span {
     align-items: center;
