@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
 
@@ -23,21 +23,25 @@ const Label = styled.label`
 
 const AudienceSelect = ({ guide }) => {
   const editorContext = useContext(EditorContext);
+  const [initialized, setInitialized] = useState(false);
 
   const [audiences, dispatchAudiences] = useCheckboxes(
     guide.data.attributes.audience_ids
   );
 
   useEffect(() => {
-    editorContext.actions.setSaving(true);
-    updateGuide(guide.data.id, {
-      audience_ids: audiences.map((a) => parseInt(a)),
-    }).then((response) => {
-      editorContext.actions.setLastSaved(
-        response.data.data.attributes.updatedAgo
-      );
-      editorContext.actions.setSaving(false);
-    });
+    if (initialized) {
+      editorContext.actions.setSaving(true);
+      updateGuide(guide.data.id, {
+        audience_ids: audiences.map((a) => parseInt(a)),
+      }).then((response) => {
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
+        editorContext.actions.setSaving(false);
+      });
+    }
+    setInitialized(true);
   }, [audiences]);
 
   return (

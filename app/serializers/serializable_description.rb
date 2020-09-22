@@ -16,14 +16,14 @@ class SerializableDescription < JSONAPI::Serializable::Resource
   attributes :data, :objects
 
   attribute :thumbnailUrl do
-    @object.objects.first["thumbnail"]["url"]
+    @object.objects.first.try(:[], "thumbnail").try(:[], "url")
   end
 
   attribute :creators do
-    if @object.data["parentSeries"]["creatingOrganizationArray"].class.name == "Array"
+    if @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:class).try(:name) == "Array"
       @object.data["parentSeries"]["creatingOrganizationArray"].map{ |o| o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")}.join(", ")
     else
-      @object.data["parentSeries"]["creatingOrganizationArray"].try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")
+      @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")
     end
   end
 end

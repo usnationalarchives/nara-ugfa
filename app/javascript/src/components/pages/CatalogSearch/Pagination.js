@@ -184,7 +184,10 @@ const Pagination = ({ data }) => {
           </Last>
         </li>
       </ul>
-      <form onSubmit={handleRows}>
+      <form
+        style={{ display: "flex", alignItems: "center" }}
+        onSubmit={handleRows}
+      >
         <label>
           Results Per Page
           <input

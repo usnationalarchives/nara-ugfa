@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
 // contexts
@@ -9,6 +10,10 @@ import * as Layout from "#components/shared/Layout";
 import * as Text from "#components/shared/Text";
 import Form, { Label, TextInput } from "#components/shared/Form";
 import Button from "#components/shared/Button";
+
+const Inner = styled.div`
+  margin: 100px 0;
+`;
 
 const Login = ({ ...props }) => {
   const userContext = useContext(UserContext);
@@ -30,31 +35,37 @@ const Login = ({ ...props }) => {
   return (
     <Layout.Padding>
       <Layout.Wrapper>
-        <Text.H1>Login</Text.H1>
+        <Inner>
+          <Text.H1 style={{ marginBottom: "20px" }}>Login</Text.H1>
 
-        {error && <p>{error}</p>}
+          {error && <p>{error}</p>}
 
-        <Form onSubmit={handleSubmit(authenticate)}>
-          <Label>Username</Label>
-          <TextInput
-            type="text"
-            name="username"
-            ref={register({ required: true })}
-          />
+          <Form onSubmit={handleSubmit(authenticate)}>
+            <div style={{ marginBottom: "20px" }}>
+              <Label htmlFor="username">Username</Label>
+              <TextInput
+                id="username"
+                type="text"
+                name="username"
+                ref={register({ required: true })}
+              />
+            </div>
 
-          <Label>Password</Label>
-          <TextInput
-            type="password"
-            name="password"
-            ref={register({ required: true })}
-          />
+            <div style={{ marginBottom: "20px" }}>
+              <Label htmlFor="password">Password</Label>
+              <TextInput
+                id="password"
+                type="password"
+                name="password"
+                ref={register({ required: true })}
+              />
+            </div>
 
-          <div style={{ marginTop: "2rem" }}>
             <Button type="submit" scheme="green">
               Login
             </Button>
-          </div>
-        </Form>
+          </Form>
+        </Inner>
       </Layout.Wrapper>
     </Layout.Padding>
   );
