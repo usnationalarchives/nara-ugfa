@@ -43,6 +43,13 @@ const Title = styled.p`
   font-weight: bold;
 `;
 
+const Ancestors = styled.ol`
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+`;
+
+const Ancestor = styled.li``;
+
 const DesktopThumbnail = styled.img`
   display: none;
   float: right;
@@ -113,6 +120,14 @@ const Description = ({
             dispatchDescriptions={dispatchDescriptions}
           />
         )}
+
+        <Ancestors>
+          {description.attributes.ancestors.map((ancestor) => (
+            <Ancestor key={ancestor.naId}>
+              {ancestor.level}: {ancestor.title}
+            </Ancestor>
+          ))}
+        </Ancestors>
 
         <Level>{description.attributes.level} </Level>
 
