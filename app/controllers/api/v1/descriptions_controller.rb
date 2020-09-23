@@ -28,7 +28,7 @@ class API::V1::DescriptionsController < API::V1::BaseController
 
     render jsonapi: @description,
       fields: {
-        description: [:id, :naId, :title, :scopeContent, :level, :data, :objects]
+        description: [:id, :naId, :title, :scopeContent, :level, :data, :objects, :ancestors]
       }
   end
 
