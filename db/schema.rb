@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_185937) do
+ActiveRecord::Schema.define(version: 2020_09_23_141915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 2020_09_11_185937) do
   create_table "guide_section_descriptions", force: :cascade do |t|
     t.bigint "guide_section_id", null: false
     t.bigint "description_id", null: false
+    t.integer "weight", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["description_id"], name: "index_guide_section_descriptions_on_description_id"
     t.index ["guide_section_id"], name: "index_guide_section_descriptions_on_guide_section_id"
   end
@@ -51,6 +54,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_185937) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["guide_id"], name: "index_guide_sections_on_guide_id"
+    t.index ["weight"], name: "index_guide_sections_on_weight"
   end
 
   create_table "guides", force: :cascade do |t|

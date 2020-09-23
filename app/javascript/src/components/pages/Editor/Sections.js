@@ -85,6 +85,7 @@ const Sections = ({ guide }) => {
 
   const [descriptions, dispatchDescriptions] = useReducer(
     (descriptions, { type, sectionId, value }) => {
+      let currentIndex;
       switch (type) {
         case "add":
           return {
@@ -100,7 +101,32 @@ const Sections = ({ guide }) => {
               (d) => d.id !== value.id
             ),
           };
+        case "moveUp":
+          currentIndex = descriptions[sectionId].findIndex(
+            (d) => d.id === value.id
+          );
 
+          return {
+            ...descriptions,
+            [sectionId]: arrayMove(
+              descriptions[sectionId],
+              currentIndex,
+              currentIndex - 1
+            ),
+          };
+        case "moveDown":
+          currentIndex = descriptions[sectionId].findIndex(
+            (d) => d.id === value.id
+          );
+
+          return {
+            ...descriptions,
+            [sectionId]: arrayMove(
+              descriptions[sectionId],
+              currentIndex,
+              currentIndex + 1
+            ),
+          };
         default:
           return descriptions;
       }
