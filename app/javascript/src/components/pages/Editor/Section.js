@@ -127,7 +127,7 @@ const Section = ({
         <SectionAuthoring section={section} />
 
         <div style={{ marginTop: "20px" }}>
-          {descriptions.map((description) => (
+          {descriptions.map((description, i) => (
             <Description
               key={description.id}
               guide={guide}
@@ -135,6 +135,8 @@ const Section = ({
               sections={sections}
               description={description}
               dispatchDescriptions={dispatchDescriptions}
+              first={i === 0}
+              last={i === descriptions.length - 1}
             />
           ))}
         </div>

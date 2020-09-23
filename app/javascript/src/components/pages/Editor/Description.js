@@ -102,14 +102,16 @@ const Description = ({
   sections,
   description,
   dispatchDescriptions,
+  first,
+  last,
 }) => {
   const [hovering, setHovering] = useState(false);
 
   return (
     <Root>
       <Inner
-        onMouseEnter={(event) => setHovering(true)}
-        onMouseLeave={(event) => setHovering(false)}
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
       >
         {hovering && (
           <DescriptionActions
@@ -118,6 +120,8 @@ const Description = ({
             sections={sections}
             description={description}
             dispatchDescriptions={dispatchDescriptions}
+            first={first}
+            last={last}
           />
         )}
 
