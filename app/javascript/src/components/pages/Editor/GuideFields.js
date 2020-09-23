@@ -212,19 +212,6 @@ const GuideFields = ({ guide }) => {
             <option value="complete">Complete</option>
           </Select>
         </div>
-
-        <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-          <Label htmlFor="publishing_status">Publishing Status</Label>
-          <Select
-            style={{ width: "50%" }}
-            id="publishing_status"
-            defaultValue={guide.data.attributes.status}
-            onChange={(event) => handleChange("status", event.target.value)}
-          >
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-          </Select>
-        </div>
       </Fieldset>
     </Root>
   );
