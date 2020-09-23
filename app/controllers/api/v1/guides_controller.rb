@@ -72,7 +72,8 @@ class API::V1::GuidesController < API::V1::BaseController
             :updated,
             :updatedAgo,
             :nara_approved,
-            :audience_ids
+            :audience_ids,
+            :status
           ]
         }
     end

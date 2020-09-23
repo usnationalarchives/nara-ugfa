@@ -1,19 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
+// contexts
+import { EditorContext } from "#contexts/Editor";
+
 // components
 import * as Layout from "#components/shared/Layout";
+import VisibilitySettings from "./VisibilitySettings";
 
 // styles
-import { fl_allStates } from "#styles/frontline";
+import { fl_allStates, fl_absoluteFill } from "#styles/frontline";
+import { buttonReset } from "#styles/mixins";
 
 const Root = styled.div`
-  align-items: center;
   background-color: ${(props) => props.theme.colors.darkGrey};
   bottom: 0;
-  display: flex;
-  height: 60px;
   left: 0;
   position: fixed;
   right: 0;
@@ -22,15 +24,94 @@ const Root = styled.div`
 `;
 
 const Inner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  text-align: center;
+  position: relative;
+  padding: 5px 0;
 `;
 
-const Status = styled.p`
+const Status = styled.div`
   color: ${(props) => props.theme.colors.white};
   font-size: 0.8rem;
+  left: 0;
+  position: absolute;
   text-transform: uppercase;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const MobileStatus = styled.div`
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: none;
+  }
+`;
+const DesktopStatus = styled.div`
+  display: none;
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: block;
+  }
+`;
+
+const ShareHelp = styled.div`
+  color: ${(props) => props.theme.colors.white};
+  font-size: 0.8rem;
+  right: 0;
+  position: absolute;
+  text-transform: uppercase;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const ShareHelpOpen = styled.button`
+  ${buttonReset}
+
+  ${(props) =>
+    props.shareHelpOpen &&
+    css`
+      display: none;
+    `}
+
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: none;
+  }
+`;
+
+const ShareHelpClose = styled.button`
+  ${buttonReset}
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: none;
+  }
+`;
+
+const MobileShareHelpMenu = styled.div`
+  display: none;
+  ${(props) =>
+    props.shareHelpOpen &&
+    css`
+      background-color: ${(props) => props.theme.colors.black};
+      bottom; 0;
+      color: ${(props) => props.theme.colors.white};
+      display: block;
+      height: 60px;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+    `}
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: none !important;
+  }
+`;
+
+const DesktopShareHelpMenu = styled.div`
+  display: none;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: block;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -43,10 +124,8 @@ const StyledLink = styled(Link)`
   `)}
 `;
 
-// contexts
-import { EditorContext } from "#contexts/Editor";
-
 const UtilityBar = ({ guide }) => {
+  const [shareHelpOpen, setShareHelpOpen] = useState(false);
   const editorContext = useContext(EditorContext);
 
   useEffect(() => {
@@ -57,15 +136,47 @@ const UtilityBar = ({ guide }) => {
     <Root>
       <Layout.Padding>
         <Inner>
-          {editorContext.state.saving && <Status>Saving...</Status>}
-          {!editorContext.state.saving && (
-            <Status>Last saved {editorContext.state.lastSaved} ago</Status>
-          )}
+          <Status>
+            <MobileStatus>
+              {/* TODO: add spinner */}
+              {editorContext.state.saving && <p>...</p>}
+            </MobileStatus>
+
+            <DesktopStatus>
+              {editorContext.state.saving && <p>Saving...</p>}
+              {!editorContext.state.saving && (
+                <p>Last saved {editorContext.state.lastSaved} ago</p>
+              )}
+            </DesktopStatus>
+          </Status>
+
           <div>
             <StyledLink to={`/guides/${guide.data.id}`}>Preview</StyledLink>
+            <VisibilitySettings guide={guide} />
           </div>
+
+          <ShareHelp>
+            <ShareHelpOpen
+              shareHelpOpen={shareHelpOpen}
+              onClick={() => setShareHelpOpen(true)}
+            >
+              ...
+            </ShareHelpOpen>
+
+            <DesktopShareHelpMenu shareHelpOpen={shareHelpOpen}>
+              <p>Help</p>
+            </DesktopShareHelpMenu>
+          </ShareHelp>
         </Inner>
       </Layout.Padding>
+
+      <MobileShareHelpMenu shareHelpOpen={shareHelpOpen}>
+        <p>Help</p>
+
+        <ShareHelpClose onClick={() => setShareHelpOpen(false)}>
+          X
+        </ShareHelpClose>
+      </MobileShareHelpMenu>
     </Root>
   );
 };
