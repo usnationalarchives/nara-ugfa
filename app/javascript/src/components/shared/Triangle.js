@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Root = styled.div`
+const Triangle = styled.span`
   display: inline-block;
   height: 0;
   border-style: solid;
@@ -18,10 +18,12 @@ const Root = styled.div`
       -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
       transform: rotateX(180deg);
     `}
-`;
 
-const Triangle = ({ toggleOpen }) => {
-  return <Root toggleOpen={toggleOpen}></Root>;
-};
+  ${(props) =>
+    props.small &&
+    css`
+      border-width: 5px 5px 0;
+    `}
+`;
 
 export default Triangle;
