@@ -21,9 +21,19 @@ class SerializableDescription < JSONAPI::Serializable::Resource
 
   attribute :creators do
     if @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:class).try(:name) == "Array"
-      @object.data["parentSeries"]["creatingOrganizationArray"].map{ |o| o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")}.join(", ")
+      @object.data["parentSeries"]["creatingOrganizationArray"].map { |o|
+        { 
+          name: o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName"),
+          naId: o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "naId")
+        }
+      }
     else
-      @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName")
+      [
+        {
+          name: @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName"),
+          naId: @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "naId")
+        }
+      ]
     end
   end
 

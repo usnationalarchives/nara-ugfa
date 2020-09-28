@@ -95,14 +95,18 @@ const LevelInner = styled.span`
 
 const DescriptionHierarchy = ({ description }) => {
   const guideContext = useContext(GuideContext);
-  const [isExpanded, setExpanded] = useState(guideContext.state.showHierarchy);
+  const [isExpanded, setExpanded] = useState(
+    (guideContext || { state: {} }).state.showHierarchy || true
+  );
   const { getCollapseProps, getToggleProps } = useCollapse({
     isExpanded,
   });
 
-  useEffect(() => {
-    setExpanded(guideContext.state.showHierarchy);
-  }, [guideContext.state.showHierarchy]);
+  if (guideContext) {
+    useEffect(() => {
+      setExpanded(guideContext.state.showHierarchy);
+    }, [guideContext.state.showHierarchy]);
+  }
 
   const Icon = ({ level }) => {
     switch (level) {
