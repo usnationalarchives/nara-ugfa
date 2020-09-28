@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
-// contexts
-import { GuideProvider } from "#contexts/Guide";
 
 // components
 import Banner from "./Banner";
@@ -16,31 +14,29 @@ const ResearchGuide = ({ ...props }) => {
   const id = props.match.params.id;
 
   return (
-    <GuideProvider>
-      <Root>
-        <NavBar />
+    <Root>
+      <NavBar />
 
-        <Get url={`/guides/${id}`}>
-          {(error, response, isLoading) => {
-            if (error) {
-              return <div>Error</div>;
-            } else if (isLoading) {
-              return <div>Loading...</div>;
-            } else if (response !== null) {
-              return (
-                <Fragment>
-                  <Banner data={response.data.data} />
-                  <GuideIntro guide={response.data} />
-                  <Sections guide={response.data} />
-                </Fragment>
-              );
-            }
-
+      <Get url={`/guides/${id}`}>
+        {(error, response, isLoading) => {
+          if (error) {
+            return <div>Error</div>;
+          } else if (isLoading) {
             return <div>Loading...</div>;
-          }}
-        </Get>
-      </Root>
-    </GuideProvider>
+          } else if (response !== null) {
+            return (
+              <Fragment>
+                <Banner data={response.data.data} />
+                <GuideIntro guide={response.data} />
+                <Sections guide={response.data} />
+              </Fragment>
+            );
+          }
+
+          return <div>Loading...</div>;
+        }}
+      </Get>
+    </Root>
   );
 };
 

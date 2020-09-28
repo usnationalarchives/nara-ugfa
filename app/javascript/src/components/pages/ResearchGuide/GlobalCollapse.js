@@ -39,9 +39,37 @@ const StyledButton = styled(Button)`
     margin-left: 20px;
     margin-top: 0;
   }
+
+  ${(props) =>
+    props.inline &&
+    css`
+      border: 0;
+      float: none;
+      padding-bottom: 0;
+      padding-left: 20px;
+      padding-top: 0;
+      position: relative;
+
+      ${fl_allStates(css`
+        color: ${(props) => props.theme.colors.white};
+      `)}
+
+      &:before {
+        background-color: ${(props) => props.theme.colors.white};
+        content: "";
+        display: block;
+        height: 40px;
+        left: 0;
+        opacity: 0.3;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+      }
+    `}
 `;
 
-const GlobalCollapse = () => {
+const GlobalCollapse = ({ inline }) => {
   const guideContext = useContext(GuideContext);
 
   const handleHierarchy = () => {
@@ -49,7 +77,7 @@ const GlobalCollapse = () => {
   };
 
   return (
-    <StyledButton scheme="outline" onClick={handleHierarchy}>
+    <StyledButton inline={inline} scheme="outline" onClick={handleHierarchy}>
       {guideContext.state.showHierarchy && (
         <Fragment>
           Collapse Hierarchy

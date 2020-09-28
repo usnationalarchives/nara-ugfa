@@ -9,6 +9,7 @@ import client from "#api/internal/client";
 import { UserProvider } from "#contexts/User";
 import { SearchProvider } from "#contexts/Search";
 import { EditorProvider } from "#contexts/Editor";
+import { GuideProvider } from "#contexts/Guide";
 
 // components
 import Header from "#components/chrome/Header/Header";
@@ -53,52 +54,58 @@ const App = () => {
           <UserProvider>
             <EditorProvider>
               <SearchProvider>
-                <ScrollToTop />
-                <Fragment>
-                  <Header />
+                <GuideProvider>
+                  <ScrollToTop />
+                  <Fragment>
+                    <Header />
 
-                  <Suspense fallback={<p>Loading...</p>}>
-                    <Switch>
-                      <PrivateRoute
-                        path="/dashboard/guides"
-                        component={DashboardGuides}
-                      />
-                      <PrivateRoute
-                        path="/dashboard/settings"
-                        component={DashboardSettings}
-                      />
-                      <PrivateRoute
-                        exact
-                        path="/dashboard"
-                        component={Dashboard}
-                      />
-                      <AnonymousRoute
-                        path="/login"
-                        component={Login}
-                        redirect="/dashboard"
-                      />
-                      <PrivateRoute
-                        exact
-                        path="/guides/:id/edit"
-                        component={Editor}
-                      />
+                    <Suspense fallback={<p>Loading...</p>}>
                       <Switch>
-                        <Route
-                          path="/research-guides"
-                          component={ResearchGuides}
+                        <PrivateRoute
+                          path="/dashboard/guides"
+                          component={DashboardGuides}
                         />
-                        <Route
+                        <PrivateRoute
+                          path="/dashboard/settings"
+                          component={DashboardSettings}
+                        />
+                        <PrivateRoute
                           exact
-                          path="/guides/:id"
-                          component={ResearchGuide}
+                          path="/dashboard"
+                          component={Dashboard}
                         />
-                        <Route exact path="/search" component={CatalogSearch} />
-                        <Route exact path="/:naId" component={RecordDetail} />
-                        <Route exact path="/" exact component={Home} />
+                        <AnonymousRoute
+                          path="/login"
+                          component={Login}
+                          redirect="/dashboard"
+                        />
+                        <PrivateRoute
+                          exact
+                          path="/guides/:id/edit"
+                          component={Editor}
+                        />
+                        <Switch>
+                          <Route
+                            path="/research-guides"
+                            component={ResearchGuides}
+                          />
+                          <Route
+                            exact
+                            path="/guides/:id"
+                            component={ResearchGuide}
+                          />
+                          <Route
+                            exact
+                            path="/search"
+                            component={CatalogSearch}
+                          />
+                          <Route exact path="/:naId" component={RecordDetail} />
+                          <Route exact path="/" exact component={Home} />
+                        </Switch>
                       </Switch>
-                    </Switch>
-                  </Suspense>
-                </Fragment>
+                    </Suspense>
+                  </Fragment>
+                </GuideProvider>
               </SearchProvider>
             </EditorProvider>
           </UserProvider>
