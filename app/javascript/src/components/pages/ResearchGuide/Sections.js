@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
 
 // components
-import Section from "./Section";
 import * as Layout from "#components/shared/Layout";
+import Section from "./Section";
+import GlobalCollapse from "./GlobalCollapse";
 
 const Sections = ({ guide }) => {
   const sections = (guide.included || []).filter(
@@ -13,6 +14,7 @@ const Sections = ({ guide }) => {
     <Layout.Padding>
       <Layout.Wrapper narrow>
         <Fragment>
+          <GlobalCollapse />
           {sections.map((section) => (
             <Section key={section.id} guide={guide} section={section} />
           ))}

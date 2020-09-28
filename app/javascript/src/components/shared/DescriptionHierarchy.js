@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import useCollapse from "react-collapsed";
+
+// contexts
+import { GuideContext } from "#contexts/Guide";
 
 // components
 import Triangle from "#components/shared/Triangle";
@@ -91,10 +94,15 @@ const LevelInner = styled.span`
 `;
 
 const DescriptionHierarchy = ({ description }) => {
-  const [isExpanded, setExpanded] = useState(true);
+  const guideContext = useContext(GuideContext);
+  const [isExpanded, setExpanded] = useState(guideContext.state.showHierarchy);
   const { getCollapseProps, getToggleProps } = useCollapse({
     isExpanded,
   });
+
+  useEffect(() => {
+    setExpanded(guideContext.state.showHierarchy);
+  }, [guideContext.state.showHierarchy]);
 
   const Icon = ({ level }) => {
     switch (level) {
