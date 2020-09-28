@@ -5,6 +5,7 @@ import useCollapse from "react-collapsed";
 // components
 import * as Layout from "#components/shared/Layout";
 import Triangle from "#components/shared/Triangle";
+import Creators from "#components/shared/Creators";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
 
 // styles
@@ -71,7 +72,9 @@ const Description = ({ description }) => {
         <MetaDefinition>{naId}</MetaDefinition>
 
         <MetaTerm>Creator(s)</MetaTerm>
-        <MetaDefinition>{creators}</MetaDefinition>
+        <MetaDefinition>
+          <Creators creators={creators} />
+        </MetaDefinition>
 
         {scopeContent && (
           <Fragment>
