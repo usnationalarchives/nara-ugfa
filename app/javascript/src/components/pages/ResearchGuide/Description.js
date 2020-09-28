@@ -100,7 +100,9 @@ const Description = ({ description }) => {
           />
         )}
 
-        <Title>{title}</Title>
+        <Title>
+          <a href={`/${naId}`}>{title}</a>
+        </Title>
 
         {thumbnailUrl && (
           <MobileThumbnail

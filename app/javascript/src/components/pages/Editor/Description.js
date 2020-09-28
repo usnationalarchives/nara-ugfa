@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import useCollapse from "react-collapsed";
 
 // components
@@ -11,6 +11,7 @@ import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
 
 // styles
 import { buttonReset } from "#styles/mixins";
+import { fl_attention, fl_allStates } from "#styles/frontline";
 
 const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -41,9 +42,20 @@ const Inner = styled.div`
 `;
 
 export const Title = styled.p`
-  color: ${(props) => props.theme.colors.blue};
   font-size: 1.1rem;
   font-weight: bold;
+
+  a {
+    ${fl_allStates(css`
+      color: ${(props) => props.theme.colors.blue};
+      text-decoration: none;
+    `)}
+
+    ${fl_attention(css`
+      color: ${(props) => props.theme.colors.blue};
+      text-decoration: underline;
+    `)}
+  }
 `;
 
 export const DesktopThumbnail = styled.img`
@@ -174,7 +186,9 @@ const Description = ({
           />
         )}
 
-        <Title>{title}</Title>
+        <Title>
+          <a href={`/${naId}`}>{title}</a>
+        </Title>
 
         {thumbnailUrl && (
           <MobileThumbnail
