@@ -9,7 +9,6 @@ import client from "#api/internal/client";
 import { UserProvider } from "#contexts/User";
 import { SearchProvider } from "#contexts/Search";
 import { EditorProvider } from "#contexts/Editor";
-import { GuideProvider } from "#contexts/Guide";
 
 // components
 import Header from "#components/chrome/Header/Header";
@@ -88,13 +87,11 @@ const App = () => {
                           path="/research-guides"
                           component={ResearchGuides}
                         />
-                        <GuideProvider>
-                          <Route
-                            exact
-                            path="/guides/:id"
-                            component={ResearchGuide}
-                          />
-                        </GuideProvider>
+                        <Route
+                          exact
+                          path="/guides/:id"
+                          component={ResearchGuide}
+                        />
                         <Route exact path="/search" component={CatalogSearch} />
                         <Route exact path="/:naId" component={RecordDetail} />
                         <Route exact path="/" exact component={Home} />
