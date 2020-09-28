@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { fl_clearfix } from '#styles/frontline';
+import styled, { css } from "styled-components";
+import { fl_clearfix } from "#styles/frontline";
 
 export const Padding = styled.div`
   width: 100%;
@@ -53,4 +53,17 @@ export const Center = styled.div`
 
 export const Right = styled.div`
   text-align: right;
+`;
+
+export const Mobile = styled.div`
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: none;
+  }
+`;
+
+export const Desktop = styled.div`
+  display: none;
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: block;
+  }
 `;

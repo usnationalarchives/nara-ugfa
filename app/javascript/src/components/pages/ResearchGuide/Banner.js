@@ -4,9 +4,12 @@ import styled from "styled-components";
 // components
 import * as Layout from "#components/shared/Layout";
 
+// modules
+import backgroundColors from "#modules/backgroundColors";
+
 export const Root = styled.div`
   align-items: stretch;
-  background-color: ${(props) => props.theme.colors.darkGrey};
+  background-color: ${(props) => props.backgroundColor};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -71,8 +74,12 @@ export const Image = styled.div`
 `;
 
 const Banner = ({ data }) => {
+  const backgroundColor = backgroundColors.filter(
+    (c) => c.value === data.attributes.background_color
+  )[0].code;
+
   return (
-    <Root>
+    <Root backgroundColor={backgroundColor}>
       <Content>
         <Layout.Padding>
           <Title>{data.attributes.title}</Title>

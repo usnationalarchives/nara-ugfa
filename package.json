@@ -20,6 +20,7 @@
     "react": "^16.13.1",
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-axios": "^2.0.3",
+    "react-collapsed": "^3.0.1",
     "react-dom": "^16.13.1",
     "react-hook-form": "^6.2.0",
     "react-router-dom": "^5.2.0",

@@ -1,17 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
 
 // components
 import * as Layout from "#components/shared/Layout";
-import * as Text from "#components/shared/Text";
-import Triangle from "../../shared/Triangle";
-
-// styles
-import { fl_static } from "#styles/frontline";
-import { fl_attention } from "#styles/frontline";
+import TableOfContents from "./TableOfContents";
+import SectionSelect from "./SectionSelect";
 
 export const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
@@ -76,122 +69,36 @@ export const BackgroundInfo = styled.p`
   }
 `;
 
-export const SectionTitle = styled.h4`
-  color: ${(props) => props.theme.colors.darkGrey};
-  font-weight: bold;
-  margin-top: 20px;
-`;
-
-export const SectionItem = styled(AnchorLink)`
-  display: block;
-  margin-top: 15px;
-
-  ${fl_static(css`
-    color: ${(props) => props.theme.colors.blue};
-    text-decoration: none;
-  `)}
-  ${fl_attention(css`
-    text-decoration: underline;
-  `)}
-`;
-
-export const SectionSelect = styled.select`
-  background-color: ${(props) => props.theme.colors.lightGrey};
-  border-color: ${(props) => props.theme.colors.textlightGrey};
-  border-radius: 30px;
-  color: ${(props) => props.theme.colors.textlightGrey};
-  max-width: 400px;
-  padding: 10px;
-  width: 100%;
-
-  dropdownIndicator {
-    margin-left: 20px;
-  }
-
-  ${fl_attention(css`
-    border-color: ${(props) => props.theme.colors.darkGrey};
-  `)}
-`;
-
-export const Desktop = styled.div`
-  display: none;
-
-  @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
-    display: block;
-  }
-`;
-
-export const Mobile = styled.div`
-  display: block;
-
-  @media all and (min-width: ${(props) => props.theme.layout.maxWidthNarrow}) {
-    display: none;
-  }
-`;
-
-const GuideIntro = ({ data }) => {
+const GuideIntro = ({ guide }) => {
   return (
     <Root>
       <Layout.Wrapper narrow={true}>
         <IntroSection>
           <IntroHeading>Guide Background</IntroHeading>
-          <BackgroundItem>
-            <Label>About</Label>
-            <BackgroundInfo>{data.attributes.about}</BackgroundInfo>
-          </BackgroundItem>
-          <BackgroundItem>
-            <Label>Purpose</Label>
-            <BackgroundInfo>{data.attributes.purpose}</BackgroundInfo>
-          </BackgroundItem>
-          {data.attributes.audience_names && (
+          {guide.data.attributes.about && (
+            <BackgroundItem>
+              <Label>About</Label>
+              <BackgroundInfo>{guide.data.attributes.about}</BackgroundInfo>
+            </BackgroundItem>
+          )}
+          {guide.data.attributes.purpose && (
+            <BackgroundItem>
+              <Label>Purpose</Label>
+              <BackgroundInfo>{guide.data.attributes.purpose}</BackgroundInfo>
+            </BackgroundItem>
+          )}
+          {guide.data.attributes.audience_names && (
             <BackgroundItem>
               <Label>Audience</Label>
-              <BackgroundInfo>{data.attributes.audience_names}</BackgroundInfo>
+              <BackgroundInfo>
+                {guide.data.attributes.audience_names}
+              </BackgroundInfo>
             </BackgroundItem>
           )}
         </IntroSection>
         <IntroSection>
-          <Mobile>
-            <Layout.Center>
-              <label>
-                <Text.Screenreader>Jump to a Section</Text.Screenreader>
-              </label>
-              <SectionSelect>
-                <option>Jump to a section</option>
-                <option>March on Washignton Program</option>
-                <option>Committee Papers, 1945-1975</option>
-                <option>
-                  Final Plans for the March on Washington for Jobs and Freedom
-                </option>
-              </SectionSelect>
-            </Layout.Center>
-          </Mobile>
-          <Desktop>
-            <IntroHeading>Table of Contents</IntroHeading>
-            <SectionTitle>Leaders of the March</SectionTitle>
-            <SectionItem href="#march">
-              Civil Rights March on Washignton [Leaders Marching from the
-              Washington Monument to the Lincoln Memorial]
-            </SectionItem>
-            <SectionItem href="#march-2">
-              Civil Rights March on Washignton Civil Rights March on Washignton
-              Civil Rights March on Washignton
-            </SectionItem>
-            <SectionItem href="#march-3">
-              Photograph of Meeting with Leaders of the March on Washington Aug
-              28, 1963
-            </SectionItem>
-            <SectionTitle>Planning Documents</SectionTitle>
-            <SectionItem href="march-4">
-              March on Washignton Program
-            </SectionItem>
-            <SectionItem href="march-5">
-              Committee Papers, 1945-1975
-            </SectionItem>
-            <SectionItem href="march-6">
-              Final Plans for the March on Washington for Jobs and Freedom
-            </SectionItem>
-          </Desktop>
+          <SectionSelect guide={guide} />
+          <TableOfContents guide={guide} />
         </IntroSection>
       </Layout.Wrapper>
     </Root>
