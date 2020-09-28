@@ -8,9 +8,10 @@ import { EditorContext } from "#contexts/Editor";
 // components
 import * as Layout from "#components/shared/Layout";
 import VisibilitySettings from "./VisibilitySettings";
+import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
 
 // styles
-import { fl_allStates, fl_absoluteFill } from "#styles/frontline";
+import { fl_allStates } from "#styles/frontline";
 import { buttonReset } from "#styles/mixins";
 
 const Root = styled.div`
@@ -40,14 +41,15 @@ const Status = styled.div`
 `;
 
 const MobileStatus = styled.div`
-  @media all and ${(props) => props.theme.breakpoints.medium} {
+  @media all and ${(props) => props.theme.breakpoints.larger} {
     display: none;
   }
 `;
 const DesktopStatus = styled.div`
   display: none;
-  @media all and ${(props) => props.theme.breakpoints.medium} {
-    display: block;
+
+  @media all and ${(props) => props.theme.breakpoints.larger} {
+    display: flex;
   }
 `;
 
@@ -147,6 +149,7 @@ const UtilityBar = ({ guide }) => {
               {!editorContext.state.saving && (
                 <p>Last saved {editorContext.state.lastSaved} ago</p>
               )}
+              <GlobalCollapse inline />
             </DesktopStatus>
           </Status>
 
