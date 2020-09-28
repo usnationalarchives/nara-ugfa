@@ -103,7 +103,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_ids,
           :guide_sections
         ],
-        descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors],
+        descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent],
         guide_sections: [:id, :title, :weight, :descriptions]
       }
   end
@@ -116,7 +116,7 @@ class API::V1::GuidesController < API::V1::BaseController
     end
 
     render jsonapi: @guide,
-      include: :guide_sections,
+      include: [guide_sections: [:descriptions]],
       fields: {
         guides: [
           :id,
@@ -133,7 +133,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_ids,
           :guide_sections
         ],
-        guide_sections: [:id, :title, :weight]
+        descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent],
+        guide_sections: [:id, :title, :weight, :descriptions]
       }
   end
 

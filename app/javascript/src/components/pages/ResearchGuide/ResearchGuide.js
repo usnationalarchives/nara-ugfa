@@ -5,7 +5,7 @@ import { Get } from "react-axios";
 // components
 import Banner from "./Banner";
 import GuideIntro from "./GuideIntro";
-import Section from "./Section";
+import Sections from "./Sections";
 import NavBar from "#components/shared/NavBar";
 
 export const Root = styled.div``;
@@ -27,9 +27,8 @@ const ResearchGuide = ({ ...props }) => {
             return (
               <Fragment>
                 <Banner data={response.data.data} />
-                <GuideIntro data={response.data.data} />
-                <Section title="Leaders of the March" />
-                <Section title="Planning Documents" />
+                <GuideIntro guide={response.data} />
+                <Sections guide={response.data} />
               </Fragment>
             );
           }
