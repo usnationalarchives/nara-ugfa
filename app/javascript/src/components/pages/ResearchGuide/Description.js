@@ -5,14 +5,12 @@ import useCollapse from "react-collapsed";
 // components
 import * as Layout from "#components/shared/Layout";
 import Triangle from "#components/shared/Triangle";
+import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
 
 // styles
 import { buttonReset } from "#styles/mixins";
 import {
-  Ancestor,
-  Ancestors,
   DesktopThumbnail,
-  Level,
   Meta,
   MetaDefinition,
   MetaTerm,
@@ -55,9 +53,7 @@ const ExpandToggle = styled.button`
 
 const Description = ({ description }) => {
   const {
-    ancestors,
     creators,
-    level,
     naId,
     scopeContent,
     thumbnailUrl,
@@ -90,15 +86,7 @@ const Description = ({ description }) => {
   return (
     <Root id={`description-${description.id}`}>
       <Inner>
-        <Ancestors>
-          {ancestors.map((ancestor) => (
-            <Ancestor key={ancestor.naId}>
-              {ancestor.level}: {ancestor.title}
-            </Ancestor>
-          ))}
-        </Ancestors>
-
-        <Level>{level} </Level>
+        <DescriptionHierarchy description={description} />
 
         {thumbnailUrl && (
           <DesktopThumbnail

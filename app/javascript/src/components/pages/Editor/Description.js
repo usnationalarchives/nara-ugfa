@@ -6,6 +6,7 @@ import useCollapse from "react-collapsed";
 import * as Layout from "#components/shared/Layout";
 import DescriptionActions from "./DescriptionActions";
 import Triangle from "#components/shared/Triangle";
+import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -38,24 +39,11 @@ const Inner = styled.div`
   }
 `;
 
-export const Level = styled.p`
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-`;
-
 export const Title = styled.p`
   color: ${(props) => props.theme.colors.blue};
   font-size: 1.1rem;
   font-weight: bold;
 `;
-
-export const Ancestors = styled.ol`
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-`;
-
-export const Ancestor = styled.li``;
 
 export const DesktopThumbnail = styled.img`
   display: none;
@@ -128,9 +116,7 @@ const Description = ({
   });
 
   const {
-    ancestors,
     creators,
-    level,
     naId,
     scopeContent,
     thumbnailUrl,
@@ -174,15 +160,7 @@ const Description = ({
           />
         )}
 
-        <Ancestors>
-          {ancestors.map((ancestor) => (
-            <Ancestor key={ancestor.naId}>
-              {ancestor.level}: {ancestor.title}
-            </Ancestor>
-          ))}
-        </Ancestors>
-
-        <Level>{level} </Level>
+        <DescriptionHierarchy description={description} />
 
         {thumbnailUrl && (
           <DesktopThumbnail
