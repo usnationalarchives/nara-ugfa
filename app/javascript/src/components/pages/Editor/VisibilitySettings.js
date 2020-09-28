@@ -61,8 +61,8 @@ const VisibilitySettings = ({ guide }) => {
           defaultValue={status}
           onChange={(event) => handleChange("status", event.target.value)}
         >
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
+          <option value="draft">Private</option>
+          <option value="published">Public</option>
         </Select>
       </SettingsWrapper>
     );
