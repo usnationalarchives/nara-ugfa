@@ -7,11 +7,15 @@ import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Layout from "#components/shared/Layout";
+import * as Text from "#components/shared/Text";
 import VisibilitySettings from "./VisibilitySettings";
 import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
 
+// assets
+import HelpIcon from "#assets/icons/help.svg";
+
 // styles
-import { fl_allStates } from "#styles/frontline";
+import { fl_allStates, fl_attention } from "#styles/frontline";
 import { buttonReset } from "#styles/mixins";
 
 const Root = styled.div`
@@ -112,7 +116,31 @@ const DesktopShareHelpMenu = styled.div`
   display: none;
 
   @media all and ${(props) => props.theme.breakpoints.medium} {
-    display: block;
+    align-items: center;
+    display: flex;
+    opacity: 0.75;
+
+    a {
+      align-items: center;
+      display: flex;
+
+      ${fl_allStates(css`
+        color: ${(props) => props.theme.colors.white};
+        text-decoration: none;
+      `)}
+
+      ${fl_attention(css`
+        text-decoration: underline;
+      `)}
+    }
+
+    svg {
+      margin-left: 15px;
+      width: 30px;
+      height: 30px;
+      fill: ${(props) => props.theme.colors.white};
+      vertical-align: middle;
+    }
   }
 `;
 
@@ -167,14 +195,18 @@ const UtilityBar = ({ guide }) => {
             </ShareHelpOpen>
 
             <DesktopShareHelpMenu shareHelpOpen={shareHelpOpen}>
-              <p>Help</p>
+              <Link to="#">
+                Help
+                <HelpIcon />
+              </Link>
             </DesktopShareHelpMenu>
           </ShareHelp>
         </Inner>
       </Layout.Padding>
 
       <MobileShareHelpMenu shareHelpOpen={shareHelpOpen}>
-        <p>Help</p>
+        <Text.Screenreader>Help</Text.Screenreader>
+        <HelpIcon />
 
         <ShareHelpClose onClick={() => setShareHelpOpen(false)}>
           X
