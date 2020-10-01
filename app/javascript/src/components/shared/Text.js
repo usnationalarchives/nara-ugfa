@@ -151,7 +151,6 @@ export const Rich = styled.div`
     ol,
     ul {
       margin-bottom: 1em;
-      overflow: hidden; // Prevent custom bullets from overlapping floated elements
       padding-left: fs-rem(30px);
 
       ul,
