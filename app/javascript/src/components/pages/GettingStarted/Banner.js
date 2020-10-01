@@ -9,7 +9,6 @@ export const Root = styled.div`
   align-items: stretch;
   background-color: ${(props) => props.theme.colors.darkBlue};
   color: ${(props) => props.theme.colors.white};
-  min-height: 300px;
 
   @media all and (min-width: 700px) {
     flex-direction: row;

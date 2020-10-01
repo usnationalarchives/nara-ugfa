@@ -54,9 +54,12 @@ const VisualAid = styled.img`
   width: 100%;
 
   &.--right-aligned {
-    float: right;
-    padding-left: 1em;
-    width: 50%;
+
+    @media all and (min-width: 700px) {
+      float: right;
+      padding-left: 1em;
+      width: 65%;
+    }
   }
 `;
 
