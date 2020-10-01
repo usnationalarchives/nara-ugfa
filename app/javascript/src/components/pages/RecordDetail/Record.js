@@ -58,7 +58,7 @@ const Record = ({ data }) => {
         <h1>{data.attributes.title}</h1>
         <AddToGuideButton added={false} text="Add to Guide" />
       </Heading>
-      {data.attributes.objects && (
+      {data.attributes.objects[0].imageTiles && (
         <InspectArea>
           <ImageViewer objects={data.attributes.objects} />
         </InspectArea>

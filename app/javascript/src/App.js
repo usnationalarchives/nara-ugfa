@@ -44,6 +44,9 @@ const RecordDetail = lazy(() =>
 const ResearchGuide = lazy(() =>
   import("./components/pages/ResearchGuide/ResearchGuide")
 );
+const GettingStarted = lazy(() =>
+  import("./components/pages/GettingStarted/GettingStarted")
+);
 
 const App = () => {
   return (
@@ -85,6 +88,10 @@ const App = () => {
                           component={Editor}
                         />
                         <Switch>
+                          <Route
+                            path="/getting-started"
+                            component={GettingStarted}
+                          />
                           <Route
                             path="/research-guides"
                             component={ResearchGuides}

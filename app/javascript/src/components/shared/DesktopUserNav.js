@@ -71,7 +71,7 @@ const DesktopUserNav = () => {
           <DropdownLink to="/research-guides">
             Explore Guides to Records
           </DropdownLink>
-          <DropdownLink to="/research-guides">Getting Started</DropdownLink>
+          <DropdownLink to="/getting-started">Getting Started</DropdownLink>
 
           <Button
             onClick={handleCreate}

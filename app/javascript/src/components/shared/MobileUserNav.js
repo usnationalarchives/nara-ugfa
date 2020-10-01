@@ -65,7 +65,7 @@ const MobileUserNav = () => {
                 Explore Guides to Records
               </DropdownLink>
 
-              <DropdownLink to="/research-guides">Getting Started</DropdownLink>
+              <DropdownLink to="/getting-started">Getting Started</DropdownLink>
 
               <ButtonLink
                 style={{ marginTop: "20px" }}

@@ -5,7 +5,7 @@ const ImageViewer = ({ objects }) => {
   const [viewer, setViewer] = useState();
 
   useEffect(() => {
-    if (objects && viewer) {
+    if (objects[0].imageTiles && viewer) {
       const tileSources = objects
         .map((object) => object.imageTiles.url)
         .map((url) =>
