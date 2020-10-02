@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const ToggleContent = ({ toggle, content }) => {
-  const [isShown, setIsShown] = useState(true);
+  const [isShown, setIsShown] = useState(false);
   const hide = () => setIsShown(false);
   const show = () => setIsShown(true);
 

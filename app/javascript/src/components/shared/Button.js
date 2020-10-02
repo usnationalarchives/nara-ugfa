@@ -33,7 +33,29 @@ export const buttonStyles = css`
       &:focus,
       &:hover {
         background-color: ${(props) =>
-          tinycolor(props.theme.colors.green).darken(10).toString()};
+        tinycolor(props.theme.colors.green).darken(10).toString()};
+      }
+    `};
+
+
+  ${(props) =>
+    props.scheme === "green-outline" &&
+    css`
+      align-items: center;
+      border: 1px solid ${(props) => props.theme.colors.mediumGrey};
+      border-radius: 40px;
+      color: ${(props) => props.theme.colors.green};
+      display: flex;
+      font-size: 0.9em;
+      font-weight: bold;
+      justify-content: space-between;
+      padding: 10px 15px;
+      position: relative;
+      text-transform: uppercase;
+
+      &:focus,
+      &:hover {
+        border: 1px solid ${(props) => props.theme.colors.green};
       }
     `};
 

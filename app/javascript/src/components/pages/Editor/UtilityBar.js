@@ -10,6 +10,7 @@ import * as Layout from "#components/shared/Layout";
 import * as Text from "#components/shared/Text";
 import VisibilitySettings from "./VisibilitySettings";
 import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
+import CollaborationModal from "#components/shared/CollaborationModal";
 
 // assets
 import HelpIcon from "#assets/icons/help.svg";
@@ -57,8 +58,17 @@ const DesktopStatus = styled.div`
   }
 `;
 
+const ShareButtons = styled.div`
+  align-items: center;
+  border-right: 1px solid ${(props) => props.theme.colors.gray};
+  display: flex;
+  margin-right: 20px;
+  padding: 0 20px;
+`;
+
 const ShareHelp = styled.div`
   color: ${(props) => props.theme.colors.white};
+  display: flex;
   font-size: 0.8rem;
   right: 0;
   position: absolute;
@@ -186,7 +196,12 @@ const UtilityBar = ({ guide }) => {
             <VisibilitySettings guide={guide} />
           </div>
 
+
           <ShareHelp>
+            <ShareButtons>
+              <CollaborationModal />
+            </ShareButtons>
+
             <ShareHelpOpen
               shareHelpOpen={shareHelpOpen}
               onClick={() => setShareHelpOpen(true)}
@@ -203,6 +218,7 @@ const UtilityBar = ({ guide }) => {
           </ShareHelp>
         </Inner>
       </Layout.Padding>
+
 
       <MobileShareHelpMenu shareHelpOpen={shareHelpOpen}>
         <Text.Screenreader>Help</Text.Screenreader>
