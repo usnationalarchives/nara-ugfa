@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useReducer, Fragment } from "react";
 import styled, { css } from "styled-components";
 import useCollapse from "react-collapsed";
 
@@ -8,6 +8,7 @@ import DescriptionActions from "./DescriptionActions";
 import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
+import Context from "./Context";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -211,6 +212,8 @@ const Description = ({
         <Layout.Desktop>
           <Metadata />
         </Layout.Desktop>
+
+        <Context guide={guide} description={description} />
       </Inner>
     </Root>
   );
