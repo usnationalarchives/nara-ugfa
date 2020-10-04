@@ -40,7 +40,7 @@ const StyledCheck = styled(Check)`
 const StyledButton = styled.button`
   ${buttonReset}
 
-  color: ${(props) => props.color};
+  color: ${(props) => props.buttonColor || props.color};
   display: inline-block;
   font-size: 0.75rem;
   position: relative;
@@ -49,7 +49,7 @@ const StyledButton = styled.button`
 
   &:after {
     /* don't reorder these border properties */
-    border: 5px solid ${(props) => props.color};
+    border: 5px solid ${(props) => props.buttonColor || props.color};
 
     border-bottom-color: transparent;
     border-left-color: transparent;
@@ -83,6 +83,7 @@ const MenuItem = styled.div`
 
 const BackgroundColor = ({
   backgroundColor,
+  buttonColor,
   textColor,
   handleChange,
   backgroundColorValue,
@@ -137,6 +138,7 @@ const BackgroundColor = ({
         <StyledButton
           type="button"
           color={textColor}
+          buttonColor={buttonColor}
           onClick={() => setOpen(!open)}
         >
           Change Background Color

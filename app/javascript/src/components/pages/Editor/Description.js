@@ -1,4 +1,4 @@
-import React, { useState, useReducer, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import styled, { css } from "styled-components";
 import useCollapse from "react-collapsed";
 
@@ -19,7 +19,7 @@ const Root = styled.div`
   margin-top: 8px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 25px;
+    padding: 20px 0;
   }
 
   &:last-child {
@@ -29,12 +29,12 @@ const Root = styled.div`
 
 const Inner = styled.div`
   border: 1px solid transparent;
-  padding: 20px 0;
+  padding: 20px 25px;
   position: relative;
   transition: border-color 200ms ease-in-out;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 25px;
+    padding: 20px 50px;
   }
 
   &:hover {
@@ -212,9 +212,9 @@ const Description = ({
         <Layout.Desktop>
           <Metadata />
         </Layout.Desktop>
-
-        <Context guide={guide} description={description} />
       </Inner>
+
+      <Context guide={guide} description={description} />
     </Root>
   );
 };

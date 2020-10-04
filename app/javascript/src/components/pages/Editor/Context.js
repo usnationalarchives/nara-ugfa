@@ -1,10 +1,13 @@
 import React, { useEffect, Fragment, useReducer } from "react";
+import styled from "styled-components";
 
 // API
 import { createBlock } from "#api/internal/block";
 
 // components
 import Block from "./Block";
+
+const Root = styled.div``;
 
 const Context = ({ guide, description }) => {
   const sectionDescription = guide.included.filter(
@@ -47,24 +50,23 @@ const Context = ({ guide, description }) => {
   };
 
   return (
-    <Fragment>
+    <Root>
       {blocks.map((block) => (
         <Block
           key={block.id}
           block={block}
           dispatchBlocks={dispatchBlocks}
-          sectionDescriptionId={sectionDescription.id}
+          blockableId={sectionDescription.id}
           initialBlock={initialBlocks
             .map((ib) => parseInt(ib.id))
             .includes(parseInt(block.id))}
         />
       ))}
-      <br />
       <button onClick={() => addBlock({ type: "summary" })}>Add Summary</button>
       <button onClick={() => addBlock({ type: "research_highlight" })}>
         Add Research Highlight
       </button>
-    </Fragment>
+    </Root>
   );
 };
 
