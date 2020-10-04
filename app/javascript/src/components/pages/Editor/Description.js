@@ -32,6 +32,7 @@ const Inner = styled.div`
   padding: 20px 25px;
   position: relative;
   transition: border-color 200ms ease-in-out;
+  margin-bottom: 25px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 50px;
