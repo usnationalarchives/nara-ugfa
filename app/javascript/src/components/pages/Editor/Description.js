@@ -8,6 +8,7 @@ import DescriptionActions from "./DescriptionActions";
 import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
+import Context from "./Context";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -18,7 +19,7 @@ const Root = styled.div`
   margin-top: 8px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 25px;
+    padding: 20px 0;
   }
 
   &:last-child {
@@ -28,12 +29,13 @@ const Root = styled.div`
 
 const Inner = styled.div`
   border: 1px solid transparent;
-  padding: 20px 0;
+  padding: 20px 25px;
   position: relative;
   transition: border-color 200ms ease-in-out;
+  margin-bottom: 25px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 25px;
+    padding: 20px 50px;
   }
 
   &:hover {
@@ -212,6 +214,8 @@ const Description = ({
           <Metadata />
         </Layout.Desktop>
       </Inner>
+
+      <Context guide={guide} description={description} />
     </Root>
   );
 };

@@ -1,9 +1,6 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import Popover from "react-tiny-popover";
-
-// contexts
-import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Text from "#components/shared/Text";
@@ -17,9 +14,6 @@ import { fl_visuallyHidden } from "#styles/frontline";
 
 // assets
 import Check from "#assets/icons/check.svg";
-
-// API
-import { updateGuide } from "#api/internal/guide";
 
 const Radio = styled.input`
   ${fl_visuallyHidden}
@@ -46,7 +40,7 @@ const StyledCheck = styled(Check)`
 const StyledButton = styled.button`
   ${buttonReset}
 
-  color: ${(props) => props.color};
+  color: ${(props) => props.buttonColor || props.color};
   display: inline-block;
   font-size: 0.75rem;
   position: relative;
@@ -55,7 +49,7 @@ const StyledButton = styled.button`
 
   &:after {
     /* don't reorder these border properties */
-    border: 5px solid ${(props) => props.color};
+    border: 5px solid ${(props) => props.buttonColor || props.color};
 
     border-bottom-color: transparent;
     border-left-color: transparent;
@@ -88,35 +82,14 @@ const MenuItem = styled.div`
 `;
 
 const BackgroundColor = ({
-  guide,
   backgroundColor,
-  setBackgroundColor,
+  buttonColor,
   textColor,
-  setTextColor,
+  handleChange,
+  backgroundColorValue,
 }) => {
-  const editorContext = useContext(EditorContext);
   const [open, setOpen] = useState(false);
   const popoverEl = useRef();
-
-  const handleBackgroundColor = (event) => {
-    const value = event.target.value;
-
-    editorContext.actions.setSaving(true);
-    updateGuide(guide.data.id, {
-      background_color: value,
-    }).then((response) => {
-      const code = backgroundColors.filter((c) => c.value === value)[0].code;
-      const textCode = backgroundColors.filter((c) => c.value === value)[0]
-        .text;
-      setBackgroundColor(code);
-      setTextColor(textCode);
-
-      editorContext.actions.setSaving(false);
-      editorContext.actions.setLastSaved(
-        response.data.data.attributes.updatedAgo
-      );
-    });
-  };
 
   const PopoverContent = () => {
     return (
@@ -128,14 +101,18 @@ const BackgroundColor = ({
               id={`background-${color.value}`}
               value={color.value}
               name="background-color"
-              onChange={handleBackgroundColor}
-              defaultChecked={backgroundColor === color.code}
+              onChange={handleChange}
+              defaultChecked={
+                backgroundColorValue === color.value ||
+                backgroundColor === color.code
+              }
             />
             <label
               style={{ backgroundColor: color.code }}
               htmlFor={`background-${color.value}`}
             >
-              {backgroundColor === color.code && (
+              {(backgroundColorValue === color.value ||
+                backgroundColor === color.code) && (
                 <StyledCheck stroke={textColor} />
               )}
               <Text.Screenreader>{color.name}</Text.Screenreader>
@@ -158,7 +135,12 @@ const BackgroundColor = ({
       containerStyle={{ overflow: "visible", zIndex: "100" }}
     >
       <div style={{ position: "relative", display: "inline-block" }}>
-        <StyledButton color={textColor} onClick={() => setOpen(!open)}>
+        <StyledButton
+          type="button"
+          color={textColor}
+          buttonColor={buttonColor}
+          onClick={() => setOpen(!open)}
+        >
           Change Background Color
         </StyledButton>
         <div ref={popoverEl}></div>

@@ -43,6 +43,12 @@ Rails.application.routes.draw do
         put "/:id/sections/:section_id/descriptions/:description_id/move-down", to: "guide_section_descriptions#move_down"
       end
 
+      scope "/blocks" do
+        post "/", to: "blocks#create"
+        put "/:id", to: "blocks#update"
+        delete "/:id", to: "blocks#destroy"
+      end
+
       get "/audiences", to: "audiences#index"
     end
   end

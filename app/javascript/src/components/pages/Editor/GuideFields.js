@@ -104,6 +104,10 @@ const GuideFields = ({ guide }) => {
     )[0].code
   );
 
+  const [backgroundColorValue, setBackgroundColorValue] = useState(
+    guide.data.attributes.background_color
+  );
+
   const [textColor, setTextColor] = useState(
     backgroundColors.filter(
       (c) => c.value === guide.data.attributes.background_color
@@ -121,6 +125,26 @@ const GuideFields = ({ guide }) => {
       );
     });
   }, 300);
+
+  const handleBackgroundColor = (event) => {
+    const value = event.target.value;
+
+    editorContext.actions.setSaving(true);
+    updateGuide(guide.data.id, {
+      background_color: value,
+    }).then((response) => {
+      const code = backgroundColors.filter((c) => c.value === value)[0].code;
+      const textCode = backgroundColors.filter((c) => c.value === value)[0]
+        .text;
+      setBackgroundColor(code);
+      setTextColor(textCode);
+
+      editorContext.actions.setSaving(false);
+      editorContext.actions.setLastSaved(
+        response.data.data.attributes.updatedAgo
+      );
+    });
+  };
 
   return (
     <Root>
@@ -141,11 +165,9 @@ const GuideFields = ({ guide }) => {
           </div>
 
           <BackgroundColor
-            guide={guide}
             backgroundColor={backgroundColor}
-            setBackgroundColor={setBackgroundColor}
             textColor={textColor}
-            setTextColor={setTextColor}
+            handleChange={handleBackgroundColor}
           />
         </HeroInner>
       </Hero>
