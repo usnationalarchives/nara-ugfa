@@ -6,7 +6,6 @@ import { EditorContext } from "#contexts/Editor";
 
 // components
 import Button from "#components/shared/Button";
-
 import PlusCircle from "#components/shared/PlusCircle";
 
 const Root = styled.div`
