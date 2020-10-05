@@ -19,7 +19,7 @@ const Root = styled.div`
   margin-top: 8px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 0;
+    padding: 20px 25px;
   }
 
   &:last-child {
@@ -29,13 +29,12 @@ const Root = styled.div`
 
 const Inner = styled.div`
   border: 1px solid transparent;
-  padding: 20px 25px;
+  padding: 20px 25px 0;
   position: relative;
   transition: border-color 200ms ease-in-out;
-  margin-bottom: 25px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    padding: 20px 50px;
+    padding: 20px 25px;
   }
 
   &:hover {
@@ -126,6 +125,7 @@ const Description = ({
   last,
 }) => {
   const [hovering, setHovering] = useState(false);
+  const [hoveringDescription, setHoveringDescription] = useState(false);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
     defaultExpanded: false,
   });
@@ -160,7 +160,10 @@ const Description = ({
   };
 
   return (
-    <Root>
+    <Root
+      onMouseEnter={() => setHoveringDescription(true)}
+      onMouseLeave={() => setHoveringDescription(false)}
+    >
       <Inner
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
