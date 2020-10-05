@@ -34,7 +34,7 @@ export const layout = {
   catalogColumnMin: "650px",
   maxWidth: "1200px",
   maxWidthNarrow: "800px",
-  maxWidthMedium: "900px",
+  maxWidthMedium: "1000px",
   maxWidthWide: "1400px",
   minPadding: "15px",
   maxPadding: "20px",
