@@ -8,7 +8,7 @@ import * as Text from "#components/shared/Text";
 // API
 import {
   removeDescriptions,
-  addDescriptions,
+  addDescriptionsToSection,
 } from "#api/internal/guideSection";
 
 // styles
@@ -76,7 +76,9 @@ const MoveTo = ({
           value: description,
         });
 
-        addDescriptions(guide.data.id, targetSectionId, [description.id])
+        addDescriptionsToSection(guide.data.id, targetSectionId, [
+          description.id,
+        ])
           .then(() => {
             dispatchDescriptions({
               type: "add",

@@ -9,7 +9,7 @@ import Button from "#components/shared/Button";
 import PlusCircle from "#components/shared/PlusCircle";
 
 const Root = styled.div`
-  margin: 20px 0;
+  margin: 20px 0 0;
 
   @media all and ${(props) => props.theme.breakpoints.medium} {
     align-items: center;
@@ -24,7 +24,7 @@ const Root = styled.div`
       content: "";
       display: inline-block;
       height: 1px;
-      width: calc(50% - 200px);
+      width: calc(50% - 100px);
     }
   }
 `;
@@ -56,20 +56,21 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const SectionAuthoring = ({ section }) => {
+const SectionAuthoring = ({ section, guide }) => {
   const editorContext = useContext(EditorContext);
 
   const handleAddRecords = (activeSectionId) => {
+    editorContext.actions.setActiveGuide(guide.data.id);
     editorContext.actions.setAddingRecords(true);
     editorContext.actions.setActiveSection(activeSectionId);
   };
   return (
     <Root>
       <Inner>
-        <StyledButton scheme="outline">
+        {/* <StyledButton scheme="outline">
           Add Context
           <PlusCircle grey />
-        </StyledButton>
+        </StyledButton> */}
         <StyledButton
           scheme="outline"
           onClick={(event) => handleAddRecords(section.id)}

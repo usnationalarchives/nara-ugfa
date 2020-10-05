@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
+import { useHistory } from "react-router-dom";
 
 // context
 import { EditorContext } from "#contexts/Editor";
@@ -86,10 +87,14 @@ const Search = () => {
   const [page, setPage] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const editorContext = useContext(EditorContext);
+  const history = useHistory();
 
   const handleClose = () => {
-    editorContext.actions.setAddingRecords(false);
     editorContext.actions.setActiveSection(null);
+    editorContext.actions.setActiveGuide(null);
+
+    // force a page reload to bring in any new descriptions added
+    window.location = `/guides/${editorContext.state.activeGuide}/edit`;
   };
 
   const handleChange = (event) => {
@@ -140,7 +145,10 @@ const Search = () => {
                         rows={response.data.meta.rows}
                         total={response.data.meta.total}
                       />
-                      <SearchResults results={response.data.data} />
+                      <SearchResults
+                        response={response}
+                        results={response.data.data}
+                      />
                     </>
                   );
                 }

@@ -7,6 +7,10 @@ class SerializableDescription < JSONAPI::Serializable::Resource
     @object.naid
   end
 
+  attribute :current_user do
+    current_user
+  end
+
   attributes :level, :title
 
   attribute :scopeContent do
@@ -22,7 +26,7 @@ class SerializableDescription < JSONAPI::Serializable::Resource
   attribute :creators do
     if @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:class).try(:name) == "Array"
       @object.data["parentSeries"]["creatingOrganizationArray"].map { |o|
-        { 
+        {
           name: o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName"),
           naId: o.try(:[], "creatingOrganization").try(:[], "creator").try(:[], "naId")
         }

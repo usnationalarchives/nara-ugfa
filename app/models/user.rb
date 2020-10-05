@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   has_many :guides
   has_many :guide_sections, through: :guides
+  has_many :guide_section_descriptions, through: :guide_sections
 
   def to_json
     {
@@ -27,6 +28,5 @@ class User < ApplicationRecord
   def initialize_auth_token!
     self.auth_token ||= SecureRandom.base64(32).delete('+/=')[0..31]
   end
-
 
 end

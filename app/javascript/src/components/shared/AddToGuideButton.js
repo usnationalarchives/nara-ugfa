@@ -1,17 +1,26 @@
-import React, { Fragment, useState, useRef, useEffect } from "react";
+import React, {
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import styled, { css } from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Get } from "react-axios";
 import { startCase } from "lodash";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import RelatedContentAlert from "./RelatedContentAlert";
 import Button from "./Button";
 import PlusCircle from "./PlusCircle";
-import CheckedCircle from "./CheckedCircle";
 
 // API
 import { createGuide, addDescriptions } from "#api/internal/guide";
+import { addDescriptionsToSection } from "#api/internal/guideSection";
 
 // styles
 import { fl_static, fl_attention } from "#styles/frontline";
@@ -44,7 +53,7 @@ export const GuideList = styled.ul`
 
 export const GuideTitle = styled.p`
   color: ${(props) => props.theme.colors.blue};
-  font-size: 1em;
+  font-size: 0.9rem;
   font-weight: bold;
   text-decoration: none;
   margin-bottom: 0;
@@ -91,19 +100,49 @@ export const AddOptions = styled.span`
   }
 `;
 
-const Guide = styled.button`
+export const Guide = styled.button`
   ${buttonReset}
   text-align: left;
   line-height: 1.4;
 `;
 
-const AddToGuideButton = ({ added, text, menuPosition, descriptionIds }) => {
+const AddToGuideButton = ({
+  menuPosition,
+  descriptionIds,
+  guides,
+  setGuides,
+  context,
+  text = "Add to Guide",
+}) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const wrapperRef = useRef(null);
   const history = useHistory();
+  const editorContext = useContext(EditorContext);
 
-  const toggleAddOptions = () => {
-    setAddOptionsVisible(!addOptionsVisible);
+  const handleAdd = (event) => {
+    if (editorContext.state.addingRecords) {
+      console.log("adding");
+      addDescriptionsToSection(
+        editorContext.state.activeGuide,
+        editorContext.state.activeSection,
+        descriptionIds
+      )
+        .then((response) => {
+          const newGuide = {
+            guide_id: response.data.data.id,
+            guide_title: response.data.data.attributes.title,
+            status: response.data.data.attributes.status,
+            updated: response.data.data.attributes.updated,
+          };
+          setAddOptionsVisible(false);
+          setGuides([...guides, newGuide]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setAddOptionsVisible(!addOptionsVisible);
+    }
   };
 
   const clickedOut = (event) => {
@@ -140,7 +179,14 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionIds }) => {
   const handleAddToGuide = (id) => {
     addDescriptions(id, descriptionIds)
       .then((response) => {
-        history.push(`/guides/${id}/edit`);
+        const newGuide = {
+          guide_id: response.data.data.id,
+          guide_title: response.data.data.attributes.title,
+          status: response.data.data.attributes.status,
+          updated: response.data.data.attributes.updated,
+        };
+        setAddOptionsVisible(false);
+        setGuides([...guides, newGuide]);
       })
       .catch((error) => {
         console.log(error);
@@ -149,12 +195,9 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionIds }) => {
 
   return (
     <Root>
-      <Button
-        scheme={added ? "blue-check" : "green-plus"}
-        onClick={toggleAddOptions}
-      >
+      <Button scheme="green-plus" onClick={handleAdd}>
         {text}
-        {added ? <CheckedCircle /> : <PlusCircle />}
+        <PlusCircle />
       </Button>
 
       {addOptionsVisible && (
@@ -173,7 +216,15 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionIds }) => {
                           .filter((i) => i.type === "guides")
                           .map((guide) => (
                             <li key={guide.id}>
-                              <Guide onClick={() => handleAddToGuide(guide.id)}>
+                              <Guide
+                                disabled={
+                                  context !== "addAll" &&
+                                  guides
+                                    .map((g) => parseInt(g.guide_id))
+                                    .includes(parseInt(guide.id))
+                                }
+                                onClick={() => handleAddToGuide(guide.id)}
+                              >
                                 <GuideTitle>
                                   {guide.attributes.title || "Untitled Guide"}
                                 </GuideTitle>
@@ -187,7 +238,7 @@ const AddToGuideButton = ({ added, text, menuPosition, descriptionIds }) => {
                       </GuideList>
                     )}
                     <CreateGuide onClick={(event) => handleCreateGuide()}>
-                      Create a Guide
+                      Add to a New Guide
                     </CreateGuide>
                   </Fragment>
                 );
