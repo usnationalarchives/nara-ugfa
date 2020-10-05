@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 // components
 import AddToGuideButton from "../../shared/AddToGuideButton";
+import ExistingGuides from "./ExistingGuides";
 
 // assets
 import SeriesPlaceholder from "#assets/images/series-placeholder.svg";
@@ -94,10 +95,15 @@ const SearchResultListing = ({
   hierarchy,
   identifier,
   image,
-  added,
   recordType,
+  response,
 }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
+  const [guides, setGuides] = useState(
+    response.data.meta.guide_descriptions.filter(
+      (d) => d.description_id === parseInt(id)
+    ) || []
+  );
 
   const clickedOut = () => {
     setAddOptionsVisible(false);
@@ -123,11 +129,11 @@ const SearchResultListing = ({
       </Text>
       <ActionWrap>
         <AddToGuideButton
+          guides={guides}
+          setGuides={setGuides}
           descriptionIds={[id]}
-          added={added}
-          text={added ? "Added" : "Add to Guide"}
         />
-        {added && <ViewGuideLink to="/search">View Guide</ViewGuideLink>}
+        <ExistingGuides guides={guides} />
       </ActionWrap>
     </Root>
   );

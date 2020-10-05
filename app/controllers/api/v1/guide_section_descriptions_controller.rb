@@ -11,6 +11,9 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
       fields: {
         guides: [
           :id,
+          :status,
+          :title,
+          :updated,
           :updatedAgo
         ]
       }
@@ -23,6 +26,9 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
       fields: {
         guides: [
           :id,
+          :status,
+          :title,
+          :updated,
           :updatedAgo
         ]
       }
@@ -36,6 +42,9 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
       fields: {
         guides: [
           :id,
+          :status,
+          :title,
+          :updated,
           :updatedAgo
         ]
       }
@@ -43,7 +52,7 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
 
   def move_up
     @guide_section_description = @section.guide_section_descriptions.find_by_description_id(params[:description_id]) or return http404
-    
+
     if @guide_section_description.move_up_in_collection!
       render jsonapi: @guide,
         fields: {
@@ -54,7 +63,7 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
 
   def move_down
     @guide_section_description = @section.guide_section_descriptions.find_by_description_id(params[:description_id]) or return http404
-    
+
     if @guide_section_description.move_down_in_collection!
       render jsonapi: @guide,
         fields: {

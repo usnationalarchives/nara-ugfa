@@ -50,7 +50,10 @@ const ResultsColumn = () => {
                   }}
                 />
                 <ResearchGuideResults />
-                <SearchResults results={response.data.data} />
+                <SearchResults
+                  response={response}
+                  results={response.data.data}
+                />
               </>
             );
           }

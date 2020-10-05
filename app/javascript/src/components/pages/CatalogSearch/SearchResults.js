@@ -15,7 +15,7 @@ export const Root = styled.div`
   }
 `;
 
-const SearchResults = ({ results }) => {
+const SearchResults = ({ results, response }) => {
   return (
     <Root>
       <div
@@ -27,6 +27,7 @@ const SearchResults = ({ results }) => {
       >
         {results.length > 1 && (
           <AddToGuideButton
+            context="addAll"
             menuPosition="right"
             descriptionIds={results.map((r) => r.id)}
             text="Add all to Guide"
@@ -43,6 +44,7 @@ const SearchResults = ({ results }) => {
           identifier={description.attributes.scopeContent}
           added={false}
           recordType={description.attributes.level}
+          response={response}
         />
       ))}
     </Root>

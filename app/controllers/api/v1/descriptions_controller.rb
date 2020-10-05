@@ -11,6 +11,10 @@ class API::V1::DescriptionsController < API::V1::BaseController
 
     @descriptions = @all_descriptions.page(@page).per(@rows)
 
+    if current_user
+      @guide_descriptions = current_user.guide_section_descriptions.where(description_id: @descriptions.map(&:id))
+    end
+
     render jsonapi: @descriptions,
       fields: {
         descriptions: [:id, :naId, :title, :scopeContent, :level, :data]
@@ -19,7 +23,8 @@ class API::V1::DescriptionsController < API::V1::BaseController
         # total: @all_descriptions.length,
         pages: @descriptions.total_pages,
         page: @page,
-        rows: @rows
+        rows: @rows,
+        guide_descriptions: @guide_descriptions.map(&:to_json)
       }
   end
 
