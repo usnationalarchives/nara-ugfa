@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import styled, { css } from 'styled-components';
-import ToggleContent from './ToggleContent';
-import Modal from './Modal';
+import Modal from 'react-modal';
 import useClipboard from "react-use-clipboard";
 
 // components
 import Button from "#components/shared/Button";
-import Form, { Label, TextInput } from "#components/shared/Form";
+import Form, { TextInput } from "#components/shared/Form";
 
 // styles
 import * as Text from "#components/shared/Text";
@@ -16,6 +15,10 @@ import { buttonReset } from '#styles/mixins';
 import Headshot from "#assets/images/headshot.png";
 import Close from '#assets/icons/close-x.svg';
 import Share from '#assets/icons/share.svg';
+
+const Root = styled.div`
+   background-color: rgba(0,0,0,0, 0.5);
+`;
 
 const ModalContent = styled.div`
   background-color:#fff;
@@ -58,15 +61,18 @@ const AddCollaborator = styled(Form)`
   margin: 20px 0;
 
   input {
-    @media ${(props) => props.theme.breakpoints.medium} {
+    width: 100%;
+
+    @media (min-width: 530px) {
       width: 75%;
     }
   }
 
   button {
     margin-top: 10px;
+    width: 50%;
 
-    @media (min-width: 500px) {
+    @media (min-width: 530px) {
       margin-left: 20px;
       margin-top: 0;
       width: 20%;
@@ -95,7 +101,11 @@ const Collaborator = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 20px 0;
-  width: 48%;
+  width: 100%;
+
+  @media (min-width: 450px) {
+    width: 48%;
+  }
 
   @media ${(props) => props.theme.breakpoints.medium} {
     flex-direction: row;
@@ -132,8 +142,36 @@ const CollaboratorInfo = styled.div`
   }
 `;
 
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-40%',
+    overflow: 'initial',
+    padding: '0',
+    transform: 'translate(-50%, -50%)'
+  }
+};
+
+Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.7)';
+
 const CollabortaionModal = ({ publicLink }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
   const [isCopied, setCopied] = useClipboard(publicLink);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   const copyToClipboard = (event) => {
     event.preventDefault();
@@ -145,89 +183,89 @@ const CollabortaionModal = ({ publicLink }) => {
   };
 
   return (
-    <>
-      <ToggleContent
-        toggle={show =>
-          <OpenButton onClick={show}>
-            <Share />
-          </OpenButton>
-        }
-        content={hide => (
-          <Modal>
-            <ModalContent>
-              <CloseButton onClick={hide}>
-                <Close />
-              </CloseButton>
-              <Text.H3>Share with Collaborators</Text.H3>
-              <AddCollaborator>
-                <TextInput 
-                  id="collaboratorEmail"
-                  type="text"
-                  name="collaboratorEmail"
-                  placeholder="Enter Email Address"
-                />
-                <Button scheme="green" onClick={AddCollaboratorEmail}>Add</Button>
-              </AddCollaborator>
-              <Text.H4>Current Collaborators</Text.H4>
-              <Collaborators>
-                  <Collaborator>
-                      <CollaboratorHeadshot
-                        src={Headshot}
-                        alt=""
-                        aria-hidden="true"
-                        role="presentation"
-                      />
-                      <CollaboratorInfo>
-                        <p>Alex Patel</p>
-                      <CollaboratorEmail>apatel@gmu.com</CollaboratorEmail>
-                      </CollaboratorInfo>
-                    <Button type="submit" scheme="green-outline">Remove</Button>
-                  </Collaborator>
-                  <Collaborator>
-                      <CollaboratorHeadshot
-                        src={Headshot}
-                        alt=""
-                        aria-hidden="true"
-                        role="presentation"
-                      />
-                      <CollaboratorInfo>
-                        <p>Jessica Alvarez</p>
-                      <CollaboratorEmail>Jalvarez@gmail.com</CollaboratorEmail>
-                      </CollaboratorInfo>
-                    <Button scheme="green-outline">Remove</Button>
-                  </Collaborator>
-                  <Collaborator>
-                      <CollaboratorHeadshot
-                        src={Headshot}
-                        alt=""
-                        aria-hidden="true"
-                        role="presentation"
-                      />
-                      <CollaboratorInfo>
-                        <p>Keirsten Lange</p>
-                      <CollaboratorEmail>keirsten.lange.72@gmail.com</CollaboratorEmail>
-                      </CollaboratorInfo>
-                    <Button type="submit" scheme="green-outline">Remove</Button>
-                  </Collaborator>
-                </Collaborators>
-              <Text.H3>Share via a Public Link</Text.H3>
-              <AddCollaborator>
-                <TextInput
-                  id="publicLink"
-                  type="text"
-                  name="publicLink"
-                  value={publicLink}
-                  readOnly
-                />
-                <Button scheme="green" onClick={copyToClipboard}>{isCopied ? "Copied!" : "Copy"}</Button>
-              </AddCollaborator>
-              <DetailText>The public share link allows people to view your guide wthout giving them access to the collaboration features.</DetailText>
+    <Root>
+      <OpenButton onClick={openModal}>
+        <Share />
+      </OpenButton>
+      
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Collaboration Modal">
+        <ModalContent>
+          <CloseButton onClick={closeModal}>
+            <Close />
+          </CloseButton>
+          <Text.H3>Share with Collaborators</Text.H3>
+          <AddCollaborator>
+            <TextInput 
+              id="collaboratorEmail"
+              type="text"
+              name="collaboratorEmail"
+              placeholder="Enter Email Address"
+            />
+            <Button scheme="green" onClick={AddCollaboratorEmail}>Add</Button>
+          </AddCollaborator>
+          <Text.H4>Current Collaborators</Text.H4>
+          <Collaborators>
+              <Collaborator>
+                  <CollaboratorHeadshot
+                    src={Headshot}
+                    alt=""
+                    aria-hidden="true"
+                    role="presentation"
+                  />
+                  <CollaboratorInfo>
+                    <p>Alex Patel</p>
+                  <CollaboratorEmail>apatel@gmu.com</CollaboratorEmail>
+                  </CollaboratorInfo>
+                <Button type="submit" scheme="green-outline">Remove</Button>
+              </Collaborator>
+              <Collaborator>
+                  <CollaboratorHeadshot
+                    src={Headshot}
+                    alt=""
+                    aria-hidden="true"
+                    role="presentation"
+                  />
+                  <CollaboratorInfo>
+                    <p>Jessica Alvarez</p>
+                  <CollaboratorEmail>Jalvarez@gmail.com</CollaboratorEmail>
+                  </CollaboratorInfo>
+                <Button scheme="green-outline">Remove</Button>
+              </Collaborator>
+              <Collaborator>
+                  <CollaboratorHeadshot
+                    src={Headshot}
+                    alt=""
+                    aria-hidden="true"
+                    role="presentation"
+                  />
+                  <CollaboratorInfo>
+                    <p>Keirsten Lange</p>
+                  <CollaboratorEmail>keirsten.lange.72@gmail.com</CollaboratorEmail>
+                  </CollaboratorInfo>
+                <Button type="submit" scheme="green-outline">Remove</Button>
+              </Collaborator>
+            </Collaborators>
+          <Text.H3>Share via a Public Link</Text.H3>
+          <AddCollaborator>
+            <TextInput
+              id="publicLink"
+              type="text"
+              name="publicLink"
+              value={publicLink}
+              readOnly
+            />
+            <Button scheme="green" onClick={copyToClipboard}>{isCopied ? "Copied!" : "Copy"}</Button>
+          </AddCollaborator>
+          <DetailText>The public share link allows people to view your guide wthout giving them access to the collaboration features.</DetailText>
 
-            </ModalContent>
-          </Modal>
-        )}
-      />
-    </>
+        </ModalContent>
+      </Modal>
+    </Root>
   );
 };
 
