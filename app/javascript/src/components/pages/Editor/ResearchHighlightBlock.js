@@ -29,6 +29,12 @@ const DisplayRoot = styled.div`
       background-image: url(${(props) => props.backgroundImageUrl});
       background-size: cover;
     `}
+
+  ${(props) =>
+    props.editing &&
+    css`
+      padding-bottom: 0;
+    `}
 `;
 
 const Content = styled.p`
@@ -144,6 +150,7 @@ const ResearchHighlightBlock = ({
           <DisplayRoot
             backgroundImage={backgroundImage}
             backgroundColor={backgroundColorCode}
+            editing={editing}
           >
             <Label textColor={textColor}>Research Highlight</Label>
             <Textarea
