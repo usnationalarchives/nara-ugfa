@@ -25,7 +25,11 @@ export const moveDownGuideSection = (guideId, sectionId) => {
   return client.put(`/guides/${guideId}/sections/${sectionId}/move-down`);
 };
 
-export const addDescriptions = (guideId, sectionId, descriptionIds) => {
+export const addDescriptionsToSection = (
+  guideId,
+  sectionId,
+  descriptionIds
+) => {
   return client.put(`/guides/${guideId}/add-descriptions/${sectionId}`, {
     description_ids: descriptionIds,
   });

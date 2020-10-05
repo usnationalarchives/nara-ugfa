@@ -4,11 +4,13 @@ const EditorContext = React.createContext();
 
 const EditorProvider = ({ children }) => {
   const [activeSection, setActiveSection] = useState();
+  const [activeGuide, setActiveGuide] = useState();
   const [addingRecords, setAddingRecords] = useState(false);
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState();
 
   const state = {
+    activeGuide,
     activeSection,
     addingRecords,
     saving,
@@ -16,6 +18,7 @@ const EditorProvider = ({ children }) => {
   };
 
   const actions = {
+    setActiveGuide,
     setActiveSection,
     setAddingRecords,
     setSaving,

@@ -1,8 +1,17 @@
-import React, { Fragment, useState, useRef, useEffect } from "react";
+import React, {
+  Fragment,
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { Get } from "react-axios";
 import { startCase } from "lodash";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import RelatedContentAlert from "./RelatedContentAlert";
@@ -11,6 +20,7 @@ import PlusCircle from "./PlusCircle";
 
 // API
 import { createGuide, addDescriptions } from "#api/internal/guide";
+import { addDescriptionsToSection } from "#api/internal/guideSection";
 
 // styles
 import { fl_static, fl_attention } from "#styles/frontline";
@@ -107,9 +117,32 @@ const AddToGuideButton = ({
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const wrapperRef = useRef(null);
   const history = useHistory();
+  const editorContext = useContext(EditorContext);
 
-  const toggleAddOptions = () => {
-    setAddOptionsVisible(!addOptionsVisible);
+  const handleAdd = (event) => {
+    if (editorContext.state.addingRecords) {
+      console.log("adding");
+      addDescriptionsToSection(
+        editorContext.state.activeGuide,
+        editorContext.state.activeSection,
+        descriptionIds
+      )
+        .then((response) => {
+          const newGuide = {
+            guide_id: response.data.data.id,
+            guide_title: response.data.data.attributes.title,
+            status: response.data.data.attributes.status,
+            updated: response.data.data.attributes.updated,
+          };
+          setAddOptionsVisible(false);
+          setGuides([...guides, newGuide]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setAddOptionsVisible(!addOptionsVisible);
+    }
   };
 
   const clickedOut = (event) => {
@@ -162,7 +195,7 @@ const AddToGuideButton = ({
 
   return (
     <Root>
-      <Button scheme="green-plus" onClick={toggleAddOptions}>
+      <Button scheme="green-plus" onClick={handleAdd}>
         {text}
         <PlusCircle />
       </Button>

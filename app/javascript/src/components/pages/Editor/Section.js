@@ -124,7 +124,7 @@ const Section = ({
           <StyledEditIcon />
         </TitleWrapper>
 
-        <SectionAuthoring section={section} />
+        <SectionAuthoring guide={guide} section={section} />
 
         <div style={{ marginTop: "20px" }}>
           {descriptions.map((description, i) => (

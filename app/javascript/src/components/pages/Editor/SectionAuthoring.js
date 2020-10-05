@@ -56,10 +56,11 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const SectionAuthoring = ({ section }) => {
+const SectionAuthoring = ({ section, guide }) => {
   const editorContext = useContext(EditorContext);
 
   const handleAddRecords = (activeSectionId) => {
+    editorContext.actions.setActiveGuide(guide.data.id);
     editorContext.actions.setAddingRecords(true);
     editorContext.actions.setActiveSection(activeSectionId);
   };
