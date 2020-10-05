@@ -16,6 +16,10 @@ import { fl_static, fl_attention } from "#styles/frontline";
 const Root = styled.div`
   border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
   padding: 40px 25px;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    margin: 0 -25px;
+  }
 `;
 
 const Inner = styled.div`

@@ -17,27 +17,19 @@ import { buttonReset } from "#styles/mixins";
 import SummaryIcon from "#assets/icons/summary.svg";
 import StarIcon from "#assets/icons/star.svg";
 
-const Root = styled.div``;
+const Root = styled.div`
+  position: relative;
+  z-index: 500;
+`;
 
 const AddContextRoot = styled.div`
-  margin: 20px 0;
-
-  @media all and ${(props) => props.theme.breakpoints.medium} {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin: 30px 0;
-    padding: 0 50px;
-
-    &:before,
-    &:after {
-      background-color: ${(props) => props.theme.colors.mediumGrey};
-      content: "";
-      display: inline-block;
-      height: 1px;
-      width: calc(50% - 100px);
-    }
-  }
+  background-color: ${(props) => props.theme.colors.white};
+  bottom: -42px;
+  left: 50%;
+  min-height: 40px;
+  padding: 0 10px;
+  position: absolute;
+  transform: translateX(-50%);
 `;
 
 const AddContextPopover = styled.div`
@@ -172,7 +164,7 @@ const Context = ({ guide, description }) => {
           content={<PopoverContent />}
           contentDestination={popoverEl.current}
           contentLocation={{ top: -30, left: -20 }}
-          containerStyle={{ overflow: "visible", zIndex: "100" }}
+          containerStyle={{ overflow: "visible", zIndex: "500" }}
         >
           <div style={{ position: "relative" }}>
             <StyledButton scheme="outline" onClick={() => setOpen(!open)}>
