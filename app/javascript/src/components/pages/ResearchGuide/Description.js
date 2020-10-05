@@ -7,6 +7,7 @@ import * as Layout from "#components/shared/Layout";
 import Triangle from "#components/shared/Triangle";
 import Creators from "#components/shared/Creators";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
+import Context from "./Context";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -52,7 +53,7 @@ const ExpandToggle = styled.button`
   vertical-align: middle;
 `;
 
-const Description = ({ description }) => {
+const Description = ({ description, guide }) => {
   const {
     creators,
     naId,
@@ -127,6 +128,8 @@ const Description = ({ description }) => {
           <Metadata />
         </Layout.Desktop>
       </Inner>
+
+      <Context guide={guide} description={description} />
     </Root>
   );
 };

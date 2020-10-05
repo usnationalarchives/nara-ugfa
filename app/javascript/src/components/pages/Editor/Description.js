@@ -17,19 +17,20 @@ import { fl_attention, fl_allStates } from "#styles/frontline";
 const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
   margin-top: 8px;
+  padding: 20px 0;
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
   }
 
   &:last-child {
-    border: 0;
+    margin-bottom: 20px;
   }
 `;
 
 const Inner = styled.div`
   border: 1px solid transparent;
-  padding: 20px 25px 0;
+  padding: 20px 25px;
   position: relative;
   transition: border-color 200ms ease-in-out;
 

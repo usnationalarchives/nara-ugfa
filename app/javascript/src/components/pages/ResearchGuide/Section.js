@@ -35,7 +35,11 @@ const Section = ({ guide, section }) => {
     <Root>
       <Title>{title}</Title>
       {descriptions.map((description) => (
-        <Description key={description.id} description={description} />
+        <Description
+          key={description.id}
+          description={description}
+          guide={guide}
+        />
       ))}
     </Root>
   );
