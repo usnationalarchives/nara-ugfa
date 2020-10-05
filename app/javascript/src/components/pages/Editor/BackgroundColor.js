@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import Popover from "react-tiny-popover";
 
 // components
@@ -64,6 +64,12 @@ const StyledButton = styled.button`
     vertical-align: middle;
     margin-left: 6px;
   }
+
+  ${(props) =>
+    props.disabled &&
+    css`
+      opacity: 0.5;
+    `}
 `;
 
 const MenuWrapper = styled.div`
@@ -87,6 +93,7 @@ const BackgroundColor = ({
   textColor,
   handleChange,
   backgroundColorValue,
+  backgroundImage,
 }) => {
   const [open, setOpen] = useState(false);
   const popoverEl = useRef();
@@ -140,6 +147,7 @@ const BackgroundColor = ({
           color={textColor}
           buttonColor={buttonColor}
           onClick={() => setOpen(!open)}
+          disabled={backgroundImage ? true : false}
         >
           Change Background Color
         </StyledButton>

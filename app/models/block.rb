@@ -3,6 +3,8 @@ class Block < ApplicationRecord
   include CollectionPrioritizable
   include ModalAttributable
 
+  after_save :build_data
+
   belongs_to :blockable, polymorphic: true
 
   def prioritizable_collection
@@ -14,4 +16,16 @@ class Block < ApplicationRecord
     research_highlight: "Research Highlight"
   }
 
+  private
+
+  def build_data
+    if block_type == "research_highlight" && data["background_image"].present?
+      naid = data["background_image"].split("/").last.gsub("/", "").to_i
+      desc = Description.find_by_naid(naid)
+      image_url = desc.objects.first.try(:[], "files").try(:first).try(:[], "url")
+      new_data = data
+      new_data["background_image_url"] = image_url
+      self.update_columns(data: new_data)
+    end
+  end
 end

@@ -26,7 +26,7 @@ const Root = styled.div`
   position: fixed;
   right: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 500;
 `;
 
 const Inner = styled.div`
@@ -198,7 +198,6 @@ const UtilityBar = ({ guide }) => {
             <VisibilitySettings guide={guide} />
           </div>
 
-
           <ShareHelp>
             <ShareButtons>
               <CollaborationModal publicLink={`${urlArray[0] + "//" + urlArray[2]}/public/${guide.data.attributes.uuid}`}/>
@@ -220,7 +219,6 @@ const UtilityBar = ({ guide }) => {
           </ShareHelp>
         </Inner>
       </Layout.Padding>
-
 
       <MobileShareHelpMenu shareHelpOpen={shareHelpOpen}>
         <Text.Screenreader>Help</Text.Screenreader>
