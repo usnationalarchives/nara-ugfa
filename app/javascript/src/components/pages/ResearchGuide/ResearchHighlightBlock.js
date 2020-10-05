@@ -56,7 +56,7 @@ const ResearchHighlightBlock = ({ block }) => {
   )[0].code;
 
   const textColor =
-    (backgroundImageUrl && !editing ? "#ffffff" : null) ||
+    (backgroundImageUrl ? "#ffffff" : null) ||
     (backgroundColors.filter((c) => c.value === backgroundColor)[0] || {}).text;
 
   return (

@@ -34,7 +34,7 @@ export const Content = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.textColor};
   font-size: 1.5em;
   font-weight: bold;
   line-height: 1.25;
@@ -51,11 +51,11 @@ export const Title = styled.h1`
 `;
 
 export const Attribution = styled.p`
-  color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.textColor};
 `;
 
 export const PublishedDate = styled.p`
-  color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.textColor};
   font-size: 0.8em;
   margin-top: 20px;
   text-transform: uppercase;
@@ -78,15 +78,21 @@ const Banner = ({ data }) => {
     (c) => c.value === data.attributes.background_color
   )[0].code;
 
+  const textColor = backgroundColors.filter(
+    (c) => c.value === data.attributes.background_color
+  )[0].text;
+
   return (
     <Root backgroundColor={backgroundColor}>
       <Content>
         <Layout.Padding>
-          <Title>{data.attributes.title}</Title>
-          <Attribution>
+          <Title textColor={textColor}>{data.attributes.title}</Title>
+          <Attribution textColor={textColor}>
             {data.attributes.author.name}, {data.attributes.author.role}
           </Attribution>
-          <PublishedDate>Last Edit {data.attributes.updated}</PublishedDate>
+          <PublishedDate textColor={textColor}>
+            Last Edit {data.attributes.updated}
+          </PublishedDate>
         </Layout.Padding>
       </Content>
       <Image></Image>
