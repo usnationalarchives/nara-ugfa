@@ -3,6 +3,7 @@ class Guide < ApplicationRecord
   include Publishable
   include ModalAttributable
   include FulltextSearchable
+  include UniquelyIdentifiable
 
   has_fulltext_search plan: {
     A: [:title],

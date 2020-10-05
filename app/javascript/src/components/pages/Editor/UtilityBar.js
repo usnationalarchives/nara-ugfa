@@ -167,6 +167,8 @@ const StyledLink = styled(Link)`
 const UtilityBar = ({ guide }) => {
   const [shareHelpOpen, setShareHelpOpen] = useState(false);
   const editorContext = useContext(EditorContext);
+  const currentURL = window.location.href;
+  const urlArray = currentURL.split("/");
 
   useEffect(() => {
     editorContext.actions.setLastSaved(guide.data.attributes.updatedAgo);
@@ -199,7 +201,7 @@ const UtilityBar = ({ guide }) => {
 
           <ShareHelp>
             <ShareButtons>
-              <CollaborationModal />
+              <CollaborationModal publicLink={`${urlArray[0] + "//" + urlArray[2]}/public/${guide.data.attributes.uuid}`}/>
             </ShareButtons>
 
             <ShareHelpOpen

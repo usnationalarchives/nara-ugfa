@@ -132,12 +132,12 @@ const CollaboratorInfo = styled.div`
   }
 `;
 
-const RelatedContentAlert = ({ title, link }) => {
-  const [isCopied, setCopied] = useClipboard('https://nara-ugfa.herokuapp.com');
+const CollabortaionModal = ({ publicLink }) => {
+  const [isCopied, setCopied] = useClipboard(publicLink);
 
   const copyToClipboard = (event) => {
     event.preventDefault();
-    setCopied('https://nara-ugfa.herokuapp.com');
+    setCopied( publicLink );
   };
 
   const AddCollaboratorEmail = (event) => {
@@ -216,7 +216,7 @@ const RelatedContentAlert = ({ title, link }) => {
                   id="publicLink"
                   type="text"
                   name="publicLink"
-                  value="https://nara-ugfa.herokuapp.com"
+                  value={publicLink}
                   readOnly
                 />
                 <Button scheme="green" onClick={copyToClipboard}>{isCopied ? "Copied!" : "Copy"}</Button>
@@ -231,4 +231,4 @@ const RelatedContentAlert = ({ title, link }) => {
   );
 };
 
-export default RelatedContentAlert;
+export default CollabortaionModal;

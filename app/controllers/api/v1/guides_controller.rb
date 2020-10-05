@@ -25,7 +25,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :author,
           :updated,
           :nara_approved,
-          :audience_ids
+          :audience_ids,
+          :uuid
         ]
       },
       meta: {
@@ -48,7 +49,8 @@ class API::V1::GuidesController < API::V1::BaseController
     render jsonapi: @guide,
       fields: {
         guides: [
-          :id
+          :id,
+          :uuid
         ]
       }
   end
@@ -73,7 +75,8 @@ class API::V1::GuidesController < API::V1::BaseController
             :updatedAgo,
             :nara_approved,
             :audience_ids,
-            :status
+            :status,
+            :uuid
           ]
         }
     end
@@ -101,7 +104,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :status,
           :nara_approved,
           :audience_ids,
-          :guide_sections
+          :guide_sections,
+          :uuid
         ],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
         guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions],
@@ -133,7 +137,35 @@ class API::V1::GuidesController < API::V1::BaseController
           :updated,
           :nara_approved,
           :audience_ids,
-          :guide_sections
+          :guide_sections,
+          :uuid
+        ],
+        descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent],
+        guide_sections: [:id, :title, :weight, :descriptions]
+      }
+  end
+
+  def public
+    @guide = Guide.find_by_uuid(params[:uuid]) or return http404
+
+    render jsonapi: @guide,
+      include: [guide_sections: [:descriptions]],
+      fields: {
+        guides: [
+          :id,
+          :title,
+          :background_color,
+          :about,
+          :purpose,
+          :looking_for_collaborators,
+          :complete_or_wip,
+          :author,
+          :audience_names,
+          :updated,
+          :nara_approved,
+          :audience_ids,
+          :guide_sections,
+          :uuid
         ],
         descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent],
         guide_sections: [:id, :title, :weight, :descriptions]
