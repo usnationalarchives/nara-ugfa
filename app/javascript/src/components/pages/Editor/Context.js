@@ -24,12 +24,15 @@ const Root = styled.div`
 
 const AddContextRoot = styled.div`
   background-color: ${(props) => props.theme.colors.white};
-  bottom: -42px;
   left: 50%;
   min-height: 40px;
   padding: 0 10px;
   position: absolute;
   transform: translateX(-50%);
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    bottom: -42px;
+  }
 `;
 
 const AddContextPopover = styled.div`
