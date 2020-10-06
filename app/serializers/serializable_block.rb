@@ -3,4 +3,5 @@ class SerializableBlock < JSONAPI::Serializable::Resource
 
   attributes :id, :blockable_type, :blockable_id, :block_type, :weight, :data
 
+  has_many :comments
 end

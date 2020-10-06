@@ -5,6 +5,7 @@ import styled from "styled-components";
 import * as Text from "#components/shared/Text";
 
 // assets
+import Comment from "#assets/icons/comment.svg";
 import Trash from "#assets/icons/trash.svg";
 import Edit from "#assets/icons/edit.svg";
 
@@ -31,9 +32,13 @@ const ActionButton = styled.button`
   }
 `;
 
-const BlockActions = ({ setEditing, handleDelete }) => {
+const BlockActions = ({ setEditing, handleDelete, setCommenting }) => {
   return (
     <Root>
+      <ActionButton type="button" onClick={() => setCommenting(true)}>
+        <Comment />
+        <Text.Screenreader>Comment</Text.Screenreader>
+      </ActionButton>
       <ActionButton type="button" onClick={() => setEditing(true)}>
         <Edit />
         <Text.Screenreader>Edit</Text.Screenreader>

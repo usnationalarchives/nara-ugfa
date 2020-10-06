@@ -6,4 +6,6 @@ class SerializableGuideSectionDescription < JSONAPI::Serializable::Resource
 
   belongs_to :description
   has_many :blocks
+
+  has_many :comments
 end

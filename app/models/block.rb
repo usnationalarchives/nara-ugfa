@@ -7,6 +7,9 @@ class Block < ApplicationRecord
 
   belongs_to :blockable, polymorphic: true
 
+  has_many :comments, lambda { where(resolved: false)}, as: :commentable, dependent: :destroy
+  has_many :all_comments, class_name: "Comment", as: :commentable, dependent: :destroy
+
   def prioritizable_collection
     blockable.blocks
   end
