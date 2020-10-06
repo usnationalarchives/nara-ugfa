@@ -94,7 +94,8 @@ const Comments = ({
   const Resolver = () => {
     const handleResolver = (event) => {
       if (event.target.checked) {
-        resolveComments(comments.map((c) => c.id)).then(() => {
+        const commentIds = comments.map((c) => c.id);
+        resolveComments(commentIds, commentableId, commentableType).then(() => {
           setCommenting(false);
           dispatchComments({ type: "clear" });
         });
