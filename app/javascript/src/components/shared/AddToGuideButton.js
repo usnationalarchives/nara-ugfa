@@ -12,6 +12,7 @@ import { startCase } from "lodash";
 
 // contexts
 import { EditorContext } from "#contexts/Editor";
+import { UserContext } from "#contexts/User";
 
 // components
 import RelatedContentAlert from "./RelatedContentAlert";
@@ -117,6 +118,7 @@ const AddToGuideButton = ({
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const wrapperRef = useRef(null);
   const history = useHistory();
+  const userContext = useContext(UserContext);
   const editorContext = useContext(EditorContext);
 
   const handleAdd = (event) => {
@@ -194,67 +196,72 @@ const AddToGuideButton = ({
   };
 
   return (
-    <Root>
-      <Button scheme="green-plus" onClick={handleAdd}>
-        {text}
-        <PlusCircle />
-      </Button>
+    <Fragment>
+      {userContext.state.user && (
+        <Root>
+          <Button scheme="green-plus" onClick={handleAdd}>
+            {text}
+            <PlusCircle />
+          </Button>
 
-      {addOptionsVisible && (
-        <AddOptions
-          menuPositionRight={menuPosition === "right"}
-          ref={wrapperRef}
-        >
-          <Get url="/current-user">
-            {(error, response, isLoading) => {
-              if (response) {
-                return (
-                  <Fragment>
-                    {response.data.included && (
-                      <GuideList>
-                        {response.data.included
-                          .filter((i) => i.type === "guides")
-                          .map((guide) => (
-                            <li key={guide.id}>
-                              <Guide
-                                disabled={
-                                  context !== "addAll" &&
-                                  guides
-                                    .map((g) => parseInt(g.guide_id))
-                                    .includes(parseInt(guide.id))
-                                }
-                                onClick={() => handleAddToGuide(guide.id)}
-                              >
-                                <GuideTitle>
-                                  {guide.attributes.title || "Untitled Guide"}
-                                </GuideTitle>
-                                <GuideMeta>
-                                  {startCase(guide.attributes.status)} | Last
-                                  Edited on {guide.attributes.updated}
-                                </GuideMeta>
-                              </Guide>
-                            </li>
-                          ))}
-                      </GuideList>
-                    )}
-                    <CreateGuide onClick={(event) => handleCreateGuide()}>
-                      Add to a New Guide
-                    </CreateGuide>
-                  </Fragment>
-                );
-              }
+          {addOptionsVisible && (
+            <AddOptions
+              menuPositionRight={menuPosition === "right"}
+              ref={wrapperRef}
+            >
+              <Get url="/current-user">
+                {(error, response, isLoading) => {
+                  if (response) {
+                    return (
+                      <Fragment>
+                        {response.data.included && (
+                          <GuideList>
+                            {response.data.included
+                              .filter((i) => i.type === "guides")
+                              .map((guide) => (
+                                <li key={guide.id}>
+                                  <Guide
+                                    disabled={
+                                      context !== "addAll" &&
+                                      guides
+                                        .map((g) => parseInt(g.guide_id))
+                                        .includes(parseInt(guide.id))
+                                    }
+                                    onClick={() => handleAddToGuide(guide.id)}
+                                  >
+                                    <GuideTitle>
+                                      {guide.attributes.title ||
+                                        "Untitled Guide"}
+                                    </GuideTitle>
+                                    <GuideMeta>
+                                      {startCase(guide.attributes.status)} |
+                                      Last Edited on {guide.attributes.updated}
+                                    </GuideMeta>
+                                  </Guide>
+                                </li>
+                              ))}
+                          </GuideList>
+                        )}
+                        <CreateGuide onClick={(event) => handleCreateGuide()}>
+                          Add to a New Guide
+                        </CreateGuide>
+                      </Fragment>
+                    );
+                  }
 
-              return null;
-            }}
-          </Get>
-        </AddOptions>
-      )}
+                  return null;
+                }}
+              </Get>
+            </AddOptions>
+          )}
 
-      {/* <RelatedContentAlert
+          {/* <RelatedContentAlert
           title="Miscellaneous, Staff and Stringer Photographs, 1961-1974"
           link="/"
         /> */}
-    </Root>
+        </Root>
+      )}
+    </Fragment>
   );
 };
 
