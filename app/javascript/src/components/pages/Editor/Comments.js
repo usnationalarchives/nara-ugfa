@@ -1,4 +1,4 @@
-import React, { useState, useRef, useReducer, Fragment } from "react";
+import React, { useRef, useReducer } from "react";
 import Popover, { ArrowContainer } from "react-tiny-popover";
 import styled, { css } from "styled-components";
 
@@ -20,6 +20,13 @@ const Root = styled.div`
   position: absolute;
   top: 30px;
   right: -80px;
+
+  ${(props) =>
+    props.context === "section" &&
+    css`
+      top: 50px;
+      right: -30px;
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -58,6 +65,7 @@ const ResolverRoot = styled.div`
 `;
 
 const Comments = ({
+  context,
   guide,
   commentableType,
   commentableId,
@@ -113,7 +121,7 @@ const Comments = ({
   const PopoverContent = () => {
     return (
       <StyledPopover>
-        <Resolver />
+        {comments.length > 0 && <Resolver />}
 
         <div>
           {comments.map((comment) => (
@@ -131,7 +139,7 @@ const Comments = ({
   };
 
   return (
-    <Root>
+    <Root context={context}>
       {(comments.length > 0 || commenting) && (
         <Popover
           isOpen={commenting}

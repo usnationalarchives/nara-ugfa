@@ -18,6 +18,7 @@ import {
 import { buttonReset } from "#styles/mixins";
 
 // assets
+import Comment from "#assets/icons/comment.svg";
 import Trash from "#assets/icons/trash.svg";
 import ArrowUp from "#assets/icons/arrow-up.svg";
 import ArrowDown from "#assets/icons/arrow-down.svg";
@@ -39,7 +40,14 @@ const ActionButton = styled.button`
   }
 `;
 
-const SectionActions = ({ guide, section, dispatchSections, first, last }) => {
+const SectionActions = ({
+  guide,
+  section,
+  dispatchSections,
+  first,
+  last,
+  setCommenting,
+}) => {
   const editorContext = useContext(EditorContext);
 
   const removeSection = () => {
@@ -92,6 +100,10 @@ const SectionActions = ({ guide, section, dispatchSections, first, last }) => {
 
   return (
     <Root>
+      <ActionButton onClick={() => setCommenting(true)}>
+        <Comment />
+        <Text.Screenreader>Comment</Text.Screenreader>
+      </ActionButton>
       <ActionButton disabled={first} onClick={moveUp}>
         <ArrowUp />
         <Text.Screenreader>Move Up</Text.Screenreader>

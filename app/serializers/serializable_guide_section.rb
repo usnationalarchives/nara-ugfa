@@ -11,4 +11,5 @@ class SerializableGuideSection < JSONAPI::Serializable::Resource
 
   has_many :descriptions
   has_many :guide_section_descriptions
+  has_many :comments
 end

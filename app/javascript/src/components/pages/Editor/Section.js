@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
 
@@ -10,6 +10,7 @@ import * as Text from "#components/shared/Text";
 import Description from "./Description";
 import SectionActions from "./SectionActions";
 import SectionAuthoring from "./SectionAuthoring";
+import Comments from "./Comments";
 
 // API
 import { updateGuideSection } from "#api/internal/guideSection";
@@ -21,6 +22,7 @@ const Root = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   margin: 20px 0;
+  position: relative;
 `;
 
 const Inner = styled.div`
@@ -80,6 +82,7 @@ const Section = ({
   last,
 }) => {
   const editorContext = useContext(EditorContext);
+  const [commenting, setCommenting] = useState(false);
 
   const handleChange = debounce((property, value) => {
     editorContext.actions.setSaving(true);
@@ -107,6 +110,7 @@ const Section = ({
         dispatchSections={dispatchSections}
         first={first}
         last={last}
+        setCommenting={setCommenting}
       />
 
       <Inner>
@@ -141,6 +145,15 @@ const Section = ({
           ))}
         </div>
       </Inner>
+
+      <Comments
+        context="section"
+        guide={guide}
+        commentableType="GuideSection"
+        commentableId={section.id}
+        commenting={commenting}
+        setCommenting={setCommenting}
+      />
     </Root>
   );
 };
