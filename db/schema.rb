@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_06_131601) do
+ActiveRecord::Schema.define(version: 2020_10_06_151210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(version: 2020_10_06_131601) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["blockable_type", "blockable_id"], name: "index_blocks_on_blockable_type_and_blockable_id"
     t.index ["weight"], name: "index_blocks_on_weight"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "resolved", default: false, null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "descriptions", force: :cascade do |t|

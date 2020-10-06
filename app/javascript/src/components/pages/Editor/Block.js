@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import SummaryBlock from "./SummaryBlock";
 import ResearchHighlightBlock from "./ResearchHighlightBlock";
 import BlockActions from "./BlockActions";
+import Comments from "./Comments";
 
 // API
 import { updateBlock, deleteBlock } from "#api/internal/block";
@@ -16,10 +17,15 @@ import { fl_static, fl_attention } from "#styles/frontline";
 const Root = styled.div`
   border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
   padding: 40px 25px;
+  position: relative;
 
   @media all and ${(props) => props.theme.breakpoints.medium} {
     margin: 0 -25px;
   }
+`;
+
+const ActionsWrapper = styled.div`
+  display: none;
 `;
 
 const Inner = styled.div`
@@ -33,6 +39,10 @@ const Inner = styled.div`
     css`
       &:hover {
         border-color: ${(props) => props.theme.colors.blue};
+
+        ${ActionsWrapper} {
+          display: block;
+        }
       }
     `}
 `;
@@ -91,15 +101,9 @@ export const Textarea = styled.textarea`
     `}
 `;
 
-const Block = ({ block, initialBlock, dispatchBlocks, blockableId }) => {
+const Block = ({ guide, block, initialBlock, dispatchBlocks, blockableId }) => {
   const [editing, setEditing] = useState(!initialBlock);
-  const [hovering, setHovering] = useState(false);
-
-  useEffect(() => {
-    if (!editing) {
-      setHovering(false);
-    }
-  }, [editing]);
+  const [commenting, setCommenting] = useState(false);
 
   const handleDelete = () => {
     deleteBlock(block.id).then(() => {
@@ -126,11 +130,7 @@ const Block = ({ block, initialBlock, dispatchBlocks, blockableId }) => {
 
   return (
     <Root>
-      <Inner
-        editing={editing}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-      >
+      <Inner editing={editing}>
         {block.attributes.block_type === "summary" && (
           <SummaryBlock
             block={block}
@@ -149,10 +149,22 @@ const Block = ({ block, initialBlock, dispatchBlocks, blockableId }) => {
           />
         )}
 
-        {!editing && hovering && (
-          <BlockActions handleDelete={handleDelete} setEditing={setEditing} />
-        )}
+        <ActionsWrapper>
+          <BlockActions
+            handleDelete={handleDelete}
+            setEditing={setEditing}
+            setCommenting={setCommenting}
+          />
+        </ActionsWrapper>
       </Inner>
+
+      <Comments
+        guide={guide}
+        commentableType="Block"
+        commentableId={block.id}
+        commenting={commenting}
+        setCommenting={setCommenting}
+      />
     </Root>
   );
 };

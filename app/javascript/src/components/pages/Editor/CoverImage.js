@@ -8,6 +8,7 @@ import Form, { TextInput } from "#components/shared/Form";
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
   border: 1px dashed ${(props) => props.theme.colors.blue};
+  height: 100%;
   padding: 50px 80px;
 `;
 

@@ -88,7 +88,7 @@ class API::V1::GuidesController < API::V1::BaseController
     @guide = current_user.guides.find_by_id(params[:id]) or return http404
 
     render jsonapi: @guide,
-      include: [guide_sections: [:descriptions, guide_section_descriptions: [:blocks]]],
+      include: [guide_sections: [:descriptions, guide_section_descriptions: [:comments, blocks: [:comments]]]],
       fields: {
         guides: [
           :id,
@@ -109,9 +109,10 @@ class API::V1::GuidesController < API::V1::BaseController
           :uuid,
           :background_image
         ],
-        blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
+        blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight, :unresolved_comments],
+        comments: [:id, :commentable_type, :commentable_id, :content, :user_name, :user_email, :created, :gravatar ],
         guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions],
-        guide_section_descriptions: [:id, :guide_section_id, :description_id, :blocks],
+        guide_section_descriptions: [:id, :guide_section_id, :description_id, :blocks, :comments],
         descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent]
       }
   end

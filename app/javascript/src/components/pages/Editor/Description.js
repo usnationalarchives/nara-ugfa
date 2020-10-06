@@ -9,6 +9,7 @@ import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
 import Context from "./Context";
+import Comments from "./Comments";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -19,10 +20,15 @@ const Root = styled.div`
   margin-bottom: 20px;
   margin-top: 8px;
   padding: 20px 0;
+  position: relative;
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
   }
+`;
+
+const Actions = styled.div`
+  display: none;
 `;
 
 const Inner = styled.div`
@@ -37,6 +43,10 @@ const Inner = styled.div`
 
   &:hover {
     border-color: ${(props) => props.theme.colors.blue};
+
+    ${Actions} {
+      display: block;
+    }
   }
 `;
 
@@ -122,11 +132,17 @@ const Description = ({
   first,
   last,
 }) => {
-  const [hovering, setHovering] = useState(false);
-  const [hoveringDescription, setHoveringDescription] = useState(false);
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
     defaultExpanded: false,
   });
+
+  const [commenting, setCommenting] = useState(false);
+
+  const sectionDescription = guide.included.filter(
+    (i) =>
+      i.type === "guide_section_descriptions" &&
+      i.attributes.description_id === parseInt(description.id)
+  )[0];
 
   const {
     creators,
@@ -158,15 +174,9 @@ const Description = ({
   };
 
   return (
-    <Root
-      onMouseEnter={() => setHoveringDescription(true)}
-      onMouseLeave={() => setHoveringDescription(false)}
-    >
-      <Inner
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-      >
-        {hovering && (
+    <Root>
+      <Inner>
+        <Actions>
           <DescriptionActions
             guide={guide}
             section={section}
@@ -175,8 +185,10 @@ const Description = ({
             dispatchDescriptions={dispatchDescriptions}
             first={first}
             last={last}
+            commenting={commenting}
+            setCommenting={setCommenting}
           />
-        )}
+        </Actions>
 
         <DescriptionHierarchy description={description} />
 
@@ -216,7 +228,15 @@ const Description = ({
         </Layout.Desktop>
       </Inner>
 
-      <Context guide={guide} description={description} />
+      <Comments
+        guide={guide}
+        commentableType="GuideSectionDescription"
+        commentableId={sectionDescription.id}
+        commenting={commenting}
+        setCommenting={setCommenting}
+      />
+
+      <Context guide={guide} sectionDescription={sectionDescription} />
     </Root>
   );
 };

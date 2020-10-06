@@ -50,6 +50,11 @@ Rails.application.routes.draw do
         delete "/:id", to: "blocks#destroy"
       end
 
+      scope "/comments" do
+        post "/", to: "comments#create"
+        put "/resolve", to: "comments#resolve"
+      end
+
       get "/audiences", to: "audiences#index"
     end
   end

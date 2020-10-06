@@ -90,13 +90,8 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Context = ({ guide, description }) => {
+const Context = ({ guide, sectionDescription }) => {
   const popoverEl = useRef();
-  const sectionDescription = guide.included.filter(
-    (i) =>
-      i.type === "guide_section_descriptions" &&
-      i.attributes.description_id === parseInt(description.id)
-  )[0];
 
   const initialBlocks = guide.included.filter(
     (i) =>
@@ -186,6 +181,7 @@ const Context = ({ guide, description }) => {
       {blocks.map((block) => (
         <Block
           key={block.id}
+          guide={guide}
           block={block}
           dispatchBlocks={dispatchBlocks}
           blockableId={sectionDescription.id}

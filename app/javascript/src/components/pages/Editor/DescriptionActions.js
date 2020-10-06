@@ -19,6 +19,7 @@ import {
 import { buttonReset } from "#styles/mixins";
 
 // assets
+import Comment from "#assets/icons/comment.svg";
 import Trash from "#assets/icons/trash.svg";
 import ArrowUp from "#assets/icons/arrow-up.svg";
 import ArrowDown from "#assets/icons/arrow-down.svg";
@@ -28,7 +29,8 @@ const Root = styled.div`
   right: 10px;
   top: 10px;
 
-  > button {
+  > button,
+  > span {
     margin-left: 10px;
   }
 `;
@@ -51,6 +53,8 @@ const DescriptionActions = ({
   dispatchDescriptions,
   first,
   last,
+  commenting,
+  setCommenting,
 }) => {
   const editorContext = useContext(EditorContext);
 
@@ -114,8 +118,18 @@ const DescriptionActions = ({
       });
   };
 
+  const comment = (event) => {
+    event.stopPropagation();
+    setCommenting(true);
+  };
+
   return (
     <Root>
+      <ActionButton onClick={comment}>
+        <Comment />
+        <Text.Screenreader>Add Comment</Text.Screenreader>
+      </ActionButton>
+
       <MoveTo
         guide={guide}
         section={section}
