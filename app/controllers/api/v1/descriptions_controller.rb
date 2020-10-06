@@ -11,6 +11,7 @@ class API::V1::DescriptionsController < API::V1::BaseController
 
     @descriptions = @all_descriptions.page(@page).per(@rows)
 
+    @guide_descriptions = []
     if current_user
       @guide_descriptions = current_user.guide_section_descriptions.where(description_id: @descriptions.map(&:id))
     end
