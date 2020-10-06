@@ -12,6 +12,7 @@ import backgroundColors from "#modules/backgroundColors";
 // components
 import * as Text from "#components/shared/Text";
 import Select from "#components/shared/Select";
+import CoverImage from "./CoverImage";
 import BackgroundColor from "./BackgroundColor";
 import AudienceSelect from "./AudienceSelect";
 
@@ -25,6 +26,12 @@ const Root = styled.div`
 
 const Hero = styled.div`
   background-color: ${(props) => props.backgroundColor};
+  display: flex;
+  flex-direction: column;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    flex-direction: row;
+  }
 `;
 
 const HeroInner = styled.div`
@@ -32,6 +39,13 @@ const HeroInner = styled.div`
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 60px;
+    width: 55%;
+  }
+`;
+
+const HeroAsset = styled.div`
+  @media ${(props) => props.theme.breakpoints.medium} {
+    width: 45%;
   }
 `;
 
@@ -170,6 +184,13 @@ const GuideFields = ({ guide }) => {
             handleChange={handleBackgroundColor}
           />
         </HeroInner>
+
+        <HeroAsset>
+          <CoverImage
+            defaultValue={guide.data.attributes.background_image}
+            handleChange={handleChange}
+          />
+        </HeroAsset>
       </Hero>
 
       <Fieldset>
