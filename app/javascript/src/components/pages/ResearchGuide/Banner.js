@@ -64,6 +64,9 @@ export const PublishedDate = styled.p`
 
 export const Image = styled.div`
   background-color: ${(props) => props.theme.colors.mediumGrey};
+  background-image: url(${(props) => props.imageUrl});
+  background-position: center;
+  background-size: cover;
   height: 150px;
   width: 100%;
 
@@ -95,7 +98,9 @@ const Banner = ({ data }) => {
           </PublishedDate>
         </Layout.Padding>
       </Content>
-      <Image></Image>
+      {data.attributes.background_image_url && (
+        <Image imageUrl={data.attributes.background_image_url} />
+      )}
     </Root>
   );
 };

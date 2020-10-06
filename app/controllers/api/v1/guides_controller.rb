@@ -76,7 +76,8 @@ class API::V1::GuidesController < API::V1::BaseController
             :nara_approved,
             :audience_ids,
             :status,
-            :uuid
+            :uuid,
+            :background_image
           ]
         }
     end
@@ -105,7 +106,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :nara_approved,
           :audience_ids,
           :guide_sections,
-          :uuid
+          :uuid,
+          :background_image
         ],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
         guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions],
@@ -138,7 +140,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :nara_approved,
           :audience_ids,
           :guide_sections,
-          :uuid
+          :uuid,
+          :background_image_url
         ],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
         guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions],
@@ -180,6 +183,7 @@ class API::V1::GuidesController < API::V1::BaseController
     params.require(:guide).permit(
       :title,
       :background_color,
+      :background_image,
       :about,
       :purpose,
       :complete_or_wip,
