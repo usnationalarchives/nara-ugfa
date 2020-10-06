@@ -25,7 +25,7 @@ class SerializableGuide < JSONAPI::Serializable::Resource
   end
 
   attribute :background_image_url do
-    naid = @object.background_image.split("/").last.try(:gsub, "/", "").try(:to_i)
+    naid = @object.background_image.try(:split, "/").try(:last).try(:gsub, "/", "").try(:to_i)
     description = Description.find_by_naid(naid)
     if description
       description.objects.first.try(:[], "files").try(:first).try(:[], "url")
