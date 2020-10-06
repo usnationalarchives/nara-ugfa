@@ -16,15 +16,12 @@ import { fl_attention, fl_allStates } from "#styles/frontline";
 
 const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
+  margin-bottom: 20px;
   margin-top: 8px;
   padding: 20px 0;
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
-  }
-
-  &:last-child {
-    margin-bottom: 20px;
   }
 `;
 
