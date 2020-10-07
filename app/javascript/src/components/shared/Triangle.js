@@ -6,8 +6,7 @@ const Triangle = styled.span`
   height: 0;
   border-style: solid;
   border-width: 6px 6px 0 6px;
-  border-color: ${(props) => props.theme.colors.blue} transparent transparent
-    transparent;
+  border-color: ${(props) => props.theme.colors.blue} transparent transparent transparent;
   transition: transform 0.5s;
   width: 0;
 

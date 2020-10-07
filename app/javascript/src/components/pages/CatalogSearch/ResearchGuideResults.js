@@ -73,6 +73,7 @@ const ResearchGuideResults = () => {
                 <ResearchGuideGrid>
                   {response.data.data.map((guide) => (
                     <ResearchGuideCard
+                      narrow={false}
                       key={guide.attributes.id}
                       title={guide.attributes.title}
                       image={true}

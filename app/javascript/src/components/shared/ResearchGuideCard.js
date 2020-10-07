@@ -23,7 +23,7 @@ export const Root = styled(Link)`
   `)}
 
   @media all and (min-width: ${(props) =>
-    props.theme.layout.catalogColumnMin}) {
+  props.theme.layout.catalogColumnMin}) {
     width: 48%;
   }
 
@@ -31,6 +31,23 @@ export const Root = styled(Link)`
     max-width: 250px;
     width: 23%;
   }
+
+  ${(props) =>
+    props.narrow &&
+    css`
+      min-height: 150px;
+
+      @media all and (min-width: 480px) {
+        width: 48%;
+      }
+      @media all and (min-width: 600px) {
+        width: 100%;
+      }
+      @media all and (min-width: ${(props) =>
+      props.theme.layout.maxWidthMedium}) {
+        width: 48%;
+      }
+    `}
 `;
 
 export const Image = styled.div`
@@ -95,11 +112,11 @@ const useHover = () => {
   return [ref, value];
 };
 
-const ResearchGuideCard = ({ image, title, link, approved }) => {
+const ResearchGuideCard = ({ image, title, link, approved, narrow }) => {
   const [hoverRef, isHovered] = useHover();
 
   return (
-    <Root to={link}>
+    <Root to={link} narrow={narrow ? 1 : 0}>
       {image ? <Image /> : ""}
       <Title>{title}</Title>
 

@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
 import { Link } from "react-router-dom";
+import Modal from 'react-modal';
 
 // context
 import { EditorContext } from "#contexts/Editor";
@@ -11,11 +12,14 @@ import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import EditorForm from "./EditorForm";
 import Search from "./Search";
+import ContentRecommendations from "../../shared/ContentRecommendations";
 import UtilityBar from "./UtilityBar";
 
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
 `;
+
+Modal.defaultStyles.overlay.backgroundColor = 'transparent';
 
 const Editor = ({ ...props }) => {
   const id = props.match.params.id;
@@ -54,6 +58,7 @@ const Editor = ({ ...props }) => {
                         <EditorForm guide={response.data} />
                       </Layout.Wrapper>
                     </Layout.Padding>
+                    <ContentRecommendations />
                     <UtilityBar guide={response.data} />
                   </Root>
                 )}

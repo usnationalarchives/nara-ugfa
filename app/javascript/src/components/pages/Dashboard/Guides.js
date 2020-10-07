@@ -13,6 +13,7 @@ const Guides = ({ guides }) => {
         <ResearchGuideGrid>
           {guides.map((guide) => (
             <ResearchGuideCard
+              narrow={false}
               key={guide.attributes.id}
               title={guide.attributes.title || "Untitled Guide"}
               image={true}

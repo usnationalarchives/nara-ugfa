@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState} from "react";
 import styled, {css} from 'styled-components';
 import { Link } from "react-router-dom";
 import ToggleContent from './ToggleContent';
@@ -13,17 +13,6 @@ import { buttonReset } from '#styles/mixins';
 import Close from '#assets/icons/close-x.svg';
 
 const ModalContent = styled.div`
-  background-color:#fff;
-  margin: auto 10px;
-  max-width: 600px;
-  padding: 20px;
-  position: relative;
-
-  @media all and (min-width: 600px) {
-    margin: auto 20px;
-    padding: 40px;
-  }
-
   p {
     a {
       ${fl_static(css`
@@ -73,17 +62,21 @@ const CloseButton = styled.button`
 `;
 
 const RelatedContentAlert = ({ title, link }) => {
+  const [modalIsOpen, setIsOpen] = useState(false);
 
+  function openModal() {
+    setIsOpen(true);
+  }
   return (
     <>
-      <ToggleContent
-        toggle={() => ''}
-        content={hide => (
-          <Modal>
+      <button onClick={openModal}>
+        Related Content
+      </button>
+        <Modal
+        toggleModal={setIsOpen}
+        isOpen={modalIsOpen}
+        contentLabel="Related Content">
             <ModalContent>
-              <CloseButton onClick={ hide }>
-                <Close/>
-              </CloseButton>
               <p>You've added 10 other items from this series:</p>
               <Title to={link}>{title}</Title>
               <Description>
@@ -93,8 +86,6 @@ const RelatedContentAlert = ({ title, link }) => {
               <p><Link to={ link }>Check out the Series</Link> to add the entire series to your research guide or browse additional items from the series.</p>
             </ModalContent>
           </Modal>
-        )}
-      />
     </>
   );
 };

@@ -12,6 +12,7 @@ export const colors = {
   lightGrey: "#f6f6f6",
   textLightGrey: "#585858",
   lightBlue: "#f2f4f8",
+  textLightBlue: "#BBD7FF",
 };
 
 export const breakpoints = {

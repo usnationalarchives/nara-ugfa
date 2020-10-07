@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from 'styled-components';
-import Modal from 'react-modal';
+import Modal from './Modal';
 import useClipboard from "react-use-clipboard";
 
 // components
@@ -16,23 +16,6 @@ import Headshot from "#assets/images/headshot.png";
 import Close from '#assets/icons/close-x.svg';
 import Share from '#assets/icons/share.svg';
 
-const Root = styled.div`
-   background-color: rgba(0,0,0,0, 0.5);
-`;
-
-const ModalContent = styled.div`
-  background-color:#fff;
-  margin: auto 10px;
-  max-width: 600px;
-  padding: 20px;
-  position: relative;
-
-  @media all and (min-width: 600px) {
-    margin: auto 20px;
-    padding: 40px;
-  }
-`;
-
 const OpenButton = styled.button`
   ${buttonReset}
   height: 20px;
@@ -41,15 +24,6 @@ const OpenButton = styled.button`
   svg {
     fill: ${props => props.theme.colors.yellow}
   }
-`;
-
-const CloseButton = styled.button`
-  ${buttonReset}
-  height: 20px;
-  position: absolute;
-  right: 7px;
-  top: -45px;
-  width: 20px;
 `;
 
 const DetailText = styled.p`
@@ -142,20 +116,6 @@ const CollaboratorInfo = styled.div`
   }
 `;
 
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-40%',
-    overflow: 'initial',
-    padding: '0',
-    transform: 'translate(-50%, -50%)'
-  }
-};
-
-Modal.defaultStyles.overlay.backgroundColor = 'rgba(0,0,0,0.7)';
 
 const CollabortaionModal = ({ publicLink }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -163,14 +123,6 @@ const CollabortaionModal = ({ publicLink }) => {
 
   function openModal() {
     setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
-
-  function closeModal() {
-    setIsOpen(false);
   }
 
   const copyToClipboard = (event) => {
@@ -183,21 +135,16 @@ const CollabortaionModal = ({ publicLink }) => {
   };
 
   return (
-    <Root>
+    <>
       <OpenButton onClick={openModal}>
+        <Text.Screenreader>Collaboration Tools</Text.Screenreader>
         <Share />
       </OpenButton>
       
       <Modal
+        toggleModal={setIsOpen}
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Collaboration Modal">
-        <ModalContent>
-          <CloseButton onClick={closeModal}>
-            <Close />
-          </CloseButton>
+        contentLabel="Collaboration Tools">
           <Text.H3>Share with Collaborators</Text.H3>
           <AddCollaborator>
             <TextInput 
@@ -262,10 +209,8 @@ const CollabortaionModal = ({ publicLink }) => {
             <Button scheme="green" onClick={copyToClipboard}>{isCopied ? "Copied!" : "Copy"}</Button>
           </AddCollaborator>
           <DetailText>The public share link allows people to view your guide wthout giving them access to the collaboration features.</DetailText>
-
-        </ModalContent>
       </Modal>
-    </Root>
+    </>
   );
 };
 
