@@ -30,7 +30,7 @@ const RecordDetail = ({ ...props }) => {
             } else if (isLoading) {
               return <div>Loading...</div>;
             } else if (response !== null) {
-              return <RecordDetailColumn data={response.data.data} />;
+              return <RecordDetailColumn response={response} />;
             }
 
             return <div>Loading...</div>;
