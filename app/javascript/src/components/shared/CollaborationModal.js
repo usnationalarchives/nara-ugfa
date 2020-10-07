@@ -48,9 +48,7 @@ const AddCollaborator = styled(Form)`
     position: relative;
     width: 50%;
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:hover {
       span {
         display: block !important;
       }
@@ -103,9 +101,7 @@ const Collaborator = styled.div`
     position: relative;
     width: fit-content;
 
-    &:hover,
-    &:focus,
-    &:active {
+    &:hover {
       span {
         display: block !important;
       }
