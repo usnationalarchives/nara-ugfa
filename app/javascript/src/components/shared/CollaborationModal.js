@@ -84,7 +84,7 @@ const Collaborator = styled.div`
   display:  flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 15px 0;
   width: 100%;
 
   @media (min-width: 450px) {
@@ -97,6 +97,7 @@ const Collaborator = styled.div`
   }
 
   button {
+    height: fit-content;
     margin-top: 10px;
     position: relative;
     width: fit-content;
@@ -119,8 +120,8 @@ const CollaboratorHeadshot = styled.img`
   background-color: ${props => props.theme.colors.textLightGrey};
   border-radius: 50%;
   display: block;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
 `;
 
 const CollaboratorEmail = styled.div`
@@ -204,7 +205,7 @@ const CollabortaionModal = ({ publicLink }) => {
               <Collaborator>
                   <CollaboratorHeadshot
                     src={HeadshotOne}
-                    alt=""
+                    alt="Alex Patel Headshot"
                     aria-hidden="true"
                     role="presentation"
                   />
@@ -220,7 +221,7 @@ const CollabortaionModal = ({ publicLink }) => {
               <Collaborator>
                   <CollaboratorHeadshot
                     src={HeadshotTwo}
-                    alt=""
+                    alt="Jessica Alvarez Headshot"
                     aria-hidden="true"
                     role="presentation"
                   />
@@ -236,7 +237,7 @@ const CollabortaionModal = ({ publicLink }) => {
               <Collaborator>
                   <CollaboratorHeadshot
                     src={HeadshotThree}
-                    alt=""
+                    alt="Keirsten Lange Headshot"
                     aria-hidden="true"
                     role="presentation"
                   />

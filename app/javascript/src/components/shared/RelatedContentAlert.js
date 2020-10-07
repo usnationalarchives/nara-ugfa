@@ -1,16 +1,12 @@
 import React, { useState} from "react";
 import styled, {css} from 'styled-components';
 import { Link } from "react-router-dom";
-import ToggleContent from './ToggleContent';
 import Modal from './Modal';
 
 // styles
 import { fl_static } from '#styles/frontline';
 import { fl_attention } from '#styles/frontline';
 import { buttonReset } from '#styles/mixins';
-
-// assets
-import Close from '#assets/icons/close-x.svg';
 
 const ModalContent = styled.div`
   p {
@@ -50,15 +46,6 @@ const Description = styled.div`
   color: ${props => props.theme.colors.textLightGrey};
   font-size: 0.9em;
   margin: 20px 0;
-`;
-
-const CloseButton = styled.button`
-  ${buttonReset}
-  height: 20px;
-  position: absolute;
-  right: 7px;
-  top: -45px;
-  width: 20px;
 `;
 
 const RelatedContentAlert = ({ title, link }) => {
