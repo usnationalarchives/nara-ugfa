@@ -75,6 +75,7 @@ const Collaborators = styled.div`
 
   @media ${(props) => props.theme.breakpoints.medium} {
     display: block;
+    overflow-x: inherit;
     max-height: none;
   }
 `; 
@@ -137,22 +138,23 @@ const CollaboratorInfo = styled.div`
 const DemoPopup = styled.span`
   background: #fff;
   border: 1px solid ${props => props.theme.colors.lightGrey};
-  border-radius: 3px;
-  box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.2);
   color: ${props => props.theme.colors.textLightGrey};
   display: none;
   font-size: 12px;
   height: fit-content;
   padding: 5px;
   position: absolute;
-  right: -50px;
+  right: -100px;
   text-transform: none;
   top: -20px;
   width: 120px;
   z-index: 100;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    right: 20px;
+    right: -25px;
+    top: -62px;
     width: 150px;
   }
 
