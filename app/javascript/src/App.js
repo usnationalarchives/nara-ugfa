@@ -103,6 +103,11 @@ const App = () => {
                           />
                           <Route
                             exact
+                            path="/guides/public/:uuid"
+                            component={ResearchGuide}
+                          />
+                          <Route
+                            exact
                             path="/search"
                             component={CatalogSearch}
                           />

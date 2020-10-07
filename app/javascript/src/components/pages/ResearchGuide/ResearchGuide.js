@@ -12,12 +12,13 @@ export const Root = styled.div``;
 
 const ResearchGuide = ({ ...props }) => {
   const id = props.match.params.id;
+  const uuid = props.match.params.uuid;
 
   return (
     <Root>
       <NavBar />
 
-      <Get url={`/guides/${id}`}>
+      <Get url={id ? `/guides/${id}` : `/guides/public/${uuid}`}>
         {(error, response, isLoading) => {
           if (error) {
             return <div>Error</div>;
