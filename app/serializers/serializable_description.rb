@@ -7,10 +7,6 @@ class SerializableDescription < JSONAPI::Serializable::Resource
     @object.naid
   end
 
-  attribute :current_user do
-    current_user
-  end
-
   attributes :level, :title
 
   attribute :scopeContent do

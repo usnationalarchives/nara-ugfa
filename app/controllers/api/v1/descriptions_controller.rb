@@ -32,9 +32,17 @@ class API::V1::DescriptionsController < API::V1::BaseController
   def show
     @description = Description.find_by_naid(params[:naid]) or return http404
 
+    @guide_descriptions = []
+    if current_user
+      @guide_descriptions = current_user.guide_section_descriptions.where(description_id: @description.id)
+    end
+
     render jsonapi: @description,
       fields: {
         description: [:id, :naId, :title, :scopeContent, :level, :data, :objects, :ancestors]
+      },
+      meta: {
+        guide_descriptions: @guide_descriptions.map(&:to_json)
       }
   end
 

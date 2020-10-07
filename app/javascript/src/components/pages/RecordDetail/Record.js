@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // components
 import AddToGuideButton from "../../shared/AddToGuideButton";
+import ExistingGuides from "#components/pages/CatalogSearch/ExistingGuides";
 import InfoToggle from "./InfoToggle";
 import ImageViewer from "./ImageViewer";
 
@@ -44,6 +45,12 @@ export const Heading = styled.div`
   }
 `;
 
+const Add = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const InspectArea = styled.div`
   border: 1px solid ${(props) => props.theme.colors.mediumGrey};
   content: "";
@@ -51,16 +58,29 @@ export const InspectArea = styled.div`
   width: 100%;
 `;
 
-const Record = ({ data }) => {
+const Record = ({ response }) => {
+  const [guides, setGuides] = useState(
+    response.data.meta.guide_descriptions.filter(
+      (d) => d.description_id === parseInt(response.data.data.id)
+    ) || []
+  );
+
   return (
     <Root>
       <Heading>
-        <h1>{data.attributes.title}</h1>
-        <AddToGuideButton added={false} text="Add to Guide" />
+        <h1>{response.data.data.attributes.title}</h1>
+        <Add>
+          <AddToGuideButton
+            guides={guides}
+            setGuides={setGuides}
+            descriptionIds={[response.data.data.id]}
+          />
+          <ExistingGuides guides={guides} />
+        </Add>
       </Heading>
-      {data.attributes.objects[0].imageTiles && (
+      {response.data.data.attributes.objects[0].imageTiles && (
         <InspectArea>
-          <ImageViewer objects={data.attributes.objects} />
+          <ImageViewer objects={response.data.data.attributes.objects} />
         </InspectArea>
       )}
       <InfoToggle heading="Additional Information About this Item" />

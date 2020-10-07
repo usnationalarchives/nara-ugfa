@@ -15,10 +15,10 @@ export const Root = styled.div`
   }
 `;
 
-const RecordDetailColumn = ({ data }) => {
+const RecordDetailColumn = ({ response }) => {
   return (
     <Root>
-      <Record data={data} />
+      <Record response={response} />
     </Root>
   );
 };
