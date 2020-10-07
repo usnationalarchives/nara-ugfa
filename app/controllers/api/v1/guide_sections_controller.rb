@@ -1,6 +1,6 @@
 class API::V1::GuideSectionsController < API::V1::BaseController
 
-  before_action :set_guide_and_section, only: [:update, :destroy, :move_up, :move_down]
+  before_action :set_guide_and_section, only: [:update, :destroy, :move_up, :move_down, :sort_descriptions]
 
   def create
     @guide = current_user.guides.find_by_id(params[:id]) or return http404
@@ -20,6 +20,16 @@ class API::V1::GuideSectionsController < API::V1::BaseController
           guide_sections: [:id, :title, :weight, :descriptions, :updatedAgo]
         }
     end
+  end
+
+  def sort_descriptions
+    @section.sort_descriptions_by_naid
+
+    render jsonapi: @section,
+      include: [:descriptions],
+      fields: {
+        guide_sections: [:id, :title, :weight, :descriptions, :updatedAgo]
+      }
   end
 
   def move_up

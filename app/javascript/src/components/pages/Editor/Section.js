@@ -11,6 +11,7 @@ import Description from "./Description";
 import SectionActions from "./SectionActions";
 import SectionAuthoring from "./SectionAuthoring";
 import Comments from "./Comments";
+import SortByNaid from "./SortByNaid";
 
 // API
 import { updateGuideSection } from "#api/internal/guideSection";
@@ -115,6 +116,13 @@ const Section = ({
 
       <Inner>
         <TitleWrapper>
+          <SortByNaid
+            guide={guide}
+            section={section}
+            descriptions={descriptions}
+            dispatchDescriptions={dispatchDescriptions}
+          />
+
           <label htmlFor={`section-title-${section.id}`}>
             <Text.Screenreader>Title</Text.Screenreader>
           </label>

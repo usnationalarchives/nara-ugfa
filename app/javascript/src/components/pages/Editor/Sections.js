@@ -127,6 +127,14 @@ const Sections = ({ guide }) => {
               currentIndex + 1
             ),
           };
+        case "sortSectionByNaid":
+          return {
+            ...descriptions,
+            [sectionId]: descriptions[sectionId].sort((a, b) =>
+              parseInt(a.attributes.naId) > parseInt(b.attributes.naId) ? 1 : -1
+            ),
+          };
+
         default:
           return descriptions;
       }
