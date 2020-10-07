@@ -12,8 +12,9 @@ import * as Text from "#components/shared/Text";
 import { buttonReset } from '#styles/mixins';
 
 // assets
-import Headshot from "#assets/images/headshot.png";
-import Close from '#assets/icons/close-x.svg';
+import HeadshotOne from "#assets/images/avatar_1_square.png";
+import HeadshotTwo from "#assets/images/avatar_2_square.png";
+import HeadshotThree from "#assets/images/avatar_3_square.png";
 import Share from '#assets/icons/share.svg';
 
 const OpenButton = styled.button`
@@ -44,7 +45,16 @@ const AddCollaborator = styled(Form)`
 
   button {
     margin-top: 10px;
+    position: relative;
     width: 50%;
+
+    &:hover,
+    &:focus,
+    &:active {
+      span {
+        display: block !important;
+      }
+    }
 
     @media (min-width: 530px) {
       margin-left: 20px;
@@ -88,7 +98,16 @@ const Collaborator = styled.div`
 
   button {
     margin-top: 10px;
+    position: relative;
     width: fit-content;
+
+    &:hover,
+    &:focus,
+    &:active {
+      span {
+        display: block !important;
+      }
+    }
 
     @media ${(props) => props.theme.breakpoints.medium} {
       margin-top: 0;
@@ -98,7 +117,6 @@ const Collaborator = styled.div`
 
 const CollaboratorHeadshot = styled.img`
   background-color: ${props => props.theme.colors.textLightGrey};
-  background-image: url('assets/images/headshot.png');
   border-radius: 50%;
   display: block;
   height: 50px;
@@ -110,10 +128,33 @@ const CollaboratorEmail = styled.div`
 `; 
 
 const CollaboratorInfo = styled.div`
-
   @media ${(props) => props.theme.breakpoints.medium} {
     width: 65%;
   }
+`;
+
+const DemoPopup = styled.span`
+  background: #fff;
+  border: 1px solid ${props => props.theme.colors.lightGrey};
+  border-radius: 3px;
+  box-shadow: 0px 0px 17px 2px rgba(0, 0, 0, 0.2);
+  color: ${props => props.theme.colors.textLightGrey};
+  display: none;
+  font-size: 12px;
+  height: fit-content;
+  padding: 5px;
+  position: absolute;
+  right: -50px;
+  text-transform: none;
+  top: -20px;
+  width: 120px;
+  z-index: 100;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    right: 20px;
+    width: 150px;
+  }
+
 `;
 
 
@@ -153,13 +194,16 @@ const CollabortaionModal = ({ publicLink }) => {
               name="collaboratorEmail"
               placeholder="Enter Email Address"
             />
-            <Button scheme="green" onClick={AddCollaboratorEmail}>Add</Button>
+            <Button scheme="green" onClick={AddCollaboratorEmail}>
+              Add
+              <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+            </Button>
           </AddCollaborator>
           <Text.H4>Current Collaborators</Text.H4>
           <Collaborators>
               <Collaborator>
                   <CollaboratorHeadshot
-                    src={Headshot}
+                    src={HeadshotOne}
                     alt=""
                     aria-hidden="true"
                     role="presentation"
@@ -168,11 +212,14 @@ const CollabortaionModal = ({ publicLink }) => {
                     <p>Alex Patel</p>
                   <CollaboratorEmail>apatel@gmu.com</CollaboratorEmail>
                   </CollaboratorInfo>
-                <Button type="submit" scheme="green-outline">Remove</Button>
+                <Button type="submit" scheme="green-outline">
+                  Remove
+                  <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                </Button>
               </Collaborator>
               <Collaborator>
                   <CollaboratorHeadshot
-                    src={Headshot}
+                    src={HeadshotTwo}
                     alt=""
                     aria-hidden="true"
                     role="presentation"
@@ -181,11 +228,14 @@ const CollabortaionModal = ({ publicLink }) => {
                     <p>Jessica Alvarez</p>
                   <CollaboratorEmail>Jalvarez@gmail.com</CollaboratorEmail>
                   </CollaboratorInfo>
-                <Button scheme="green-outline">Remove</Button>
+                  <Button type="submit" scheme="green-outline">
+                    Remove
+                    <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                  </Button>
               </Collaborator>
               <Collaborator>
                   <CollaboratorHeadshot
-                    src={Headshot}
+                    src={HeadshotThree}
                     alt=""
                     aria-hidden="true"
                     role="presentation"
@@ -194,7 +244,10 @@ const CollabortaionModal = ({ publicLink }) => {
                     <p>Keirsten Lange</p>
                   <CollaboratorEmail>keirsten.lange.72@gmail.com</CollaboratorEmail>
                   </CollaboratorInfo>
-                <Button type="submit" scheme="green-outline">Remove</Button>
+                <Button type="submit" scheme="green-outline">
+                  Remove
+                  <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                </Button>
               </Collaborator>
             </Collaborators>
           <Text.H3>Share via a Public Link</Text.H3>
