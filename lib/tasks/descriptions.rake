@@ -1,9 +1,17 @@
 namespace :descriptions do
-  
+
   task :seed => :environment do
     client = Catalog.new
 
     queries = [
+      # {
+      #   "type": "description",
+      #   "publicContributions.tags": "SIL!bp"
+      # },
+      {
+        "type": "description",
+        "publicContributions.tags": "lax_2017"
+      }
       {
         "type": "description",
         "description.item.variantControlNumberArray.variantControlNumber.number": "AMWEST"
@@ -47,7 +55,7 @@ namespace :descriptions do
     ]
 
     queries.each do |query|
-      results = client.get_all(params: query) 
+      results = client.get_all(params: query)
 
       results.each do |result|
         puts "RECORD: ************************"
