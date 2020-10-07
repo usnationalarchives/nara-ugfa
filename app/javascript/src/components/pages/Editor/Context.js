@@ -19,7 +19,7 @@ import StarIcon from "#assets/icons/star.svg";
 
 const Root = styled.div`
   position: relative;
-  z-index: 500;
+  z-index: 50;
 `;
 
 const AddContextRoot = styled.div`

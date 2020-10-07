@@ -119,6 +119,7 @@ const Section = ({
           <SortByNaid
             guide={guide}
             section={section}
+            descriptions={descriptions}
             dispatchDescriptions={dispatchDescriptions}
           />
 

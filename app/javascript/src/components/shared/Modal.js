@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import ReactModal from 'react-modal';
+import React, { useState } from "react";
+import styled from "styled-components";
+import ReactModal from "react-modal";
 
 // styles
-import { buttonReset } from '#styles/mixins';
+import { buttonReset } from "#styles/mixins";
 
 // assets
-import Close from '#assets/icons/close-x.svg';
+import Close from "#assets/icons/close-x.svg";
 
 const ModalContent = styled.div`
-  background-color:#fff;
+  background-color: #fff;
   margin: auto 10px;
   max-width: 600px;
   padding: 20px;
@@ -32,28 +32,28 @@ const CloseButton = styled.button`
 
 const customStyles = {
   content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-40%',
-    overflow: 'initial',
-    padding: '0',
-    transform: 'translate(-50%, -50%)'
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-40%",
+    overflow: "initial",
+    padding: "0",
+    transform: "translate(-50%, -50%)",
   },
   overlay: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.8)',
-    zIndex: '100'
-  }
+    backgroundColor: "rgba(0,0,0,0.8)",
+    zIndex: "100",
+  },
 };
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-ReactModal.setAppElement('#root')
+ReactModal.setAppElement("#root");
 
 const Modal = (props) => {
   const { toggleModal } = props;
@@ -62,11 +62,7 @@ const Modal = (props) => {
     // references are now sync'd and can be accessed.
   }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  return(
+  return (
     <ReactModal
       {...props}
       style={customStyles}
@@ -80,7 +76,7 @@ const Modal = (props) => {
         {props.children}
       </ModalContent>
     </ReactModal>
-  )
+  );
 };
 
 export default Modal;
