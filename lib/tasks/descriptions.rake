@@ -11,7 +11,7 @@ namespace :descriptions do
       {
         "type": "description",
         "publicContributions.tags": "lax_2017"
-      }
+      },
       {
         "type": "description",
         "description.item.variantControlNumberArray.variantControlNumber.number": "AMWEST"
