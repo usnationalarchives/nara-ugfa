@@ -25,6 +25,10 @@ export const moveDownGuideSection = (guideId, sectionId) => {
   return client.put(`/guides/${guideId}/sections/${sectionId}/move-down`);
 };
 
+export const sortGuideSectionByNaid = (guideId, sectionId) => {
+  return client.put(`/guides/${guideId}/sections/${sectionId}/sort`);
+};
+
 export const addDescriptionsToSection = (
   guideId,
   sectionId,

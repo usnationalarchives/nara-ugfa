@@ -14,4 +14,13 @@ class GuideSection < ApplicationRecord
     guide.guide_sections
   end
 
+  def sort_descriptions_by_naid
+    weight = 2
+
+    guide_section_descriptions.joins(:description).reorder("descriptions.naid ASC").each do |gsd|
+      gsd.update_columns(weight: weight)
+      weight += 2;
+    end
+  end
+
 end

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
         put "/:id/sections/:section_id", to: "guide_sections#update"
         put "/:id/sections/:section_id/move-up", to: "guide_sections#move_up"
         put "/:id/sections/:section_id/move-down", to: "guide_sections#move_down"
+        put "/:id/sections/:section_id/sort", to: "guide_sections#sort_descriptions"
         delete "/:id/sections/:section_id", to: "guide_sections#destroy"
 
         put "/:id/add-descriptions", to: "guide_section_descriptions#add"
