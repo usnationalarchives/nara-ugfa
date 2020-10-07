@@ -19,6 +19,7 @@ import WarningIcon from "#assets/icons/warning.svg";
 
 const Root = styled.div`
   margin-bottom: 20px;
+  margin-top: 20px;
 `;
 
 const StyledButton = styled.button`
