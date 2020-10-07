@@ -200,7 +200,7 @@ const UtilityBar = ({ guide }) => {
 
           <ShareHelp>
             <ShareButtons>
-              <CollaborationModal publicLink={`${urlArray[0] + "//" + urlArray[2]}/public/${guide.data.attributes.uuid}`}/>
+              <CollaborationModal publicLink={`${urlArray[0] + "//" + urlArray[2]}/guides/public/${guide.data.attributes.uuid}`}/>
             </ShareButtons>
 
             <ShareHelpOpen
