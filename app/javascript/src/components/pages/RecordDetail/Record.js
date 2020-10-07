@@ -65,10 +65,12 @@ const Record = ({ response }) => {
     ) || []
   );
 
+  const { title, objects } = response.data.data.attributes;
+
   return (
     <Root>
       <Heading>
-        <h1>{response.data.data.attributes.title}</h1>
+        <h1>{title}</h1>
         <Add>
           <AddToGuideButton
             guides={guides}
@@ -78,9 +80,9 @@ const Record = ({ response }) => {
           <ExistingGuides guides={guides} />
         </Add>
       </Heading>
-      {response.data.data.attributes.objects[0].imageTiles && (
+      {(objects[0] || {}).imageTiles && (
         <InspectArea>
-          <ImageViewer objects={response.data.data.attributes.objects} />
+          <ImageViewer objects={objects} />
         </InspectArea>
       )}
       <InfoToggle heading="Additional Information About this Item" />
