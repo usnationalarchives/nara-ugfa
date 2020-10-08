@@ -229,7 +229,6 @@ const Description = ({
       </Inner>
 
       <Comments
-        guide={guide}
         commentableType="GuideSectionDescription"
         commentableId={sectionDescription.id}
         commenting={commenting}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 
 const EditorContext = React.createContext();
 
@@ -9,6 +9,57 @@ const EditorProvider = ({ children }) => {
   const [addingRecords, setAddingRecords] = useState(false);
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState();
+  const [initialBlocks, setInitialBlocks] = useState([]);
+
+  const [comments, dispatchComments] = useReducer(
+    (comments, { type, value, commentIds = [] }) => {
+      switch (type) {
+        case "set":
+          return value;
+        case "add":
+          return [...comments, value];
+        case "clear":
+          return [];
+        case "clearCommentable":
+          return comments.filter((c) => !commentIds.includes(parseInt(c.id)));
+        // case "remove":
+        //   return comments.filter((c) => c.id !== value);
+        // case "update":
+        //   return comments.map((comment) => (comment.id === value.id ? value : comment));
+        default:
+          return blocks;
+      }
+    },
+    []
+  );
+
+  const [blocks, dispatchBlocks] = useReducer((blocks, { type, value }) => {
+    switch (type) {
+      case "set":
+        return value;
+      case "add":
+        return [...blocks, value];
+      case "remove":
+        return blocks.filter((b) => b.id !== value);
+      case "update":
+        return blocks.map((block) => (block.id === value.id ? value : block));
+      default:
+        return blocks;
+    }
+  }, []);
+
+  const init = ({ data }) => {
+    setInitialBlocks(data.included.filter((i) => i.type === "blocks"));
+    dispatchBlocks({
+      type: "set",
+      value: data.included.filter((i) => i.type === "blocks"),
+    });
+
+    dispatchComments({
+      type: "set",
+      value: data.included.filter((i) => i.type === "comments"),
+    });
+  };
 
   const state = {
     activeGuide,
@@ -17,6 +68,9 @@ const EditorProvider = ({ children }) => {
     addingRecords,
     saving,
     lastSaved,
+    blocks,
+    comments,
+    initialBlocks,
   };
 
   const actions = {
@@ -26,6 +80,10 @@ const EditorProvider = ({ children }) => {
     setAddingRecords,
     setSaving,
     setLastSaved,
+    init,
+    dispatchBlocks,
+    dispatchComments,
+    setInitialBlocks,
   };
 
   return (

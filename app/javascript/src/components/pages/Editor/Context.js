@@ -104,25 +104,11 @@ const Context = ({ guide, sectionDescription }) => {
   const popoverEl = useRef();
   const editorContext = useContext(EditorContext);
 
-  const initialBlocks = guide.included.filter(
-    (i) =>
-      i.type === "blocks" &&
-      i.attributes.blockable_type === "GuideSectionDescription" &&
-      i.attributes.blockable_id === parseInt(sectionDescription.id)
+  const blocks = editorContext.state.blocks.filter(
+    (b) =>
+      b.attributes.blockable_type === "GuideSectionDescription" &&
+      b.attributes.blockable_id === parseInt(sectionDescription.id)
   );
-
-  const [blocks, dispatchBlocks] = useReducer((blocks, { type, value }) => {
-    switch (type) {
-      case "add":
-        return [...blocks, value];
-      case "remove":
-        return blocks.filter((b) => b.id !== value);
-      case "update":
-        return blocks.map((block) => (block.id === value.id ? value : block));
-      default:
-        return blocks;
-    }
-  }, initialBlocks);
 
   const addBlock = ({ type }) => {
     createBlock({
@@ -130,7 +116,7 @@ const Context = ({ guide, sectionDescription }) => {
       blockable_id: sectionDescription.id,
       block_type: type,
     }).then((response) => {
-      dispatchBlocks({
+      editorContext.actions.dispatchBlocks({
         type: "add",
         value: response.data.data,
       });
@@ -209,11 +195,10 @@ const Context = ({ guide, sectionDescription }) => {
           key={block.id}
           guide={guide}
           block={block}
-          dispatchBlocks={dispatchBlocks}
+          dispatchBlocks={editorContext.actions.dispatchBlocks}
           blockableId={sectionDescription.id}
-          initialBlock={initialBlocks
-            .map((ib) => parseInt(ib.id))
-            .includes(parseInt(block.id))}
+          setInitialBlocks={editorContext.actions.setInitialBlocks}
+          initialBlocks={editorContext.state.initialBlocks}
         />
       ))}
       <AddContext />

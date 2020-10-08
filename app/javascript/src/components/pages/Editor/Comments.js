@@ -1,6 +1,10 @@
-import React, { useRef, useReducer } from "react";
+import React, { useRef, useContext } from "react";
 import Popover, { ArrowContainer } from "react-tiny-popover";
 import styled, { css } from "styled-components";
+
+// contexts
+
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Text from "#components/shared/Text";
@@ -66,46 +70,29 @@ const ResolverRoot = styled.div`
 
 const Comments = ({
   context,
-  guide,
   commentableType,
   commentableId,
   commenting,
   setCommenting,
 }) => {
   const popoverEl = useRef();
-
-  const initialComments = guide.included.filter(
-    (i) =>
-      i.type === "comments" &&
-      i.attributes.commentable_type === commentableType &&
-      parseInt(i.attributes.commentable_id) === parseInt(commentableId)
-  );
-
-  const [comments, dispatchComments] = useReducer(
-    (comments, { type, value }) => {
-      switch (type) {
-        case "add":
-          return [...comments, value];
-        case "clear":
-          return [];
-        // case "remove":
-        //   return comments.filter((c) => c.id !== value);
-        // case "update":
-        //   return comments.map((comment) => (comment.id === value.id ? value : comment));
-        default:
-          return blocks;
-      }
-    },
-    initialComments || []
+  const editorContext = useContext(EditorContext);
+  const comments = editorContext.state.comments.filter(
+    (c) =>
+      c.attributes.commentable_type === commentableType &&
+      parseInt(c.attributes.commentable_id) === parseInt(commentableId)
   );
 
   const Resolver = () => {
     const handleResolver = (event) => {
       if (event.target.checked) {
-        const commentIds = comments.map((c) => c.id);
+        const commentIds = comments.map((c) => parseInt(c.id));
         resolveComments(commentIds, commentableId, commentableType).then(() => {
           setCommenting(false);
-          dispatchComments({ type: "clear" });
+          editorContext.actions.dispatchComments({
+            type: "clearCommentable",
+            commentIds: commentIds,
+          });
         });
       }
     };
@@ -130,7 +117,7 @@ const Comments = ({
         </div>
 
         <CommentForm
-          dispatchComments={dispatchComments}
+          dispatchComments={editorContext.actions.dispatchComments}
           commentableType={commentableType}
           commentableId={commentableId}
         />
