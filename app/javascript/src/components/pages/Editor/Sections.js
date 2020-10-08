@@ -91,7 +91,7 @@ const Sections = ({ guide }) => {
           return {
             ...descriptions,
             [sectionId]: descriptions[sectionId]
-              ? uniqBy([...descriptions[sectionId], value], (d) => d.id)
+              ? uniqBy([value, ...descriptions[sectionId]], (d) => d.id)
               : [value],
           };
         case "remove":

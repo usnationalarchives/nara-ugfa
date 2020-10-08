@@ -104,10 +104,12 @@ const SortByNaid = ({ guide, section, descriptions, dispatchDescriptions }) => {
 
   return (
     <Root>
-      <StyledButton disabled={sorted} onClick={() => setModalOpen(true)}>
-        {sorted && "Section sorted by NAID"}
-        {!sorted && "Sort Section by NAID"}
-      </StyledButton>
+      {descriptions.length > 1 && (
+        <StyledButton disabled={sorted} onClick={() => setModalOpen(true)}>
+          {sorted && "Section sorted by NAID"}
+          {!sorted && "Sort Section by NAID"}
+        </StyledButton>
+      )}
 
       <Modal isOpen={modalOpen} toggleModal={() => setModalOpen(!open)}>
         <ModalInner>
