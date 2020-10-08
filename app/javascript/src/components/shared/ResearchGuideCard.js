@@ -226,20 +226,20 @@ const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo,
 
         {!approved && pending && (
           <>
-          { !userContext.state.user.catalog_attributes.isNaraStaff ? (
-            <Status>
-              <Pending />
+            {userContext.state.user.catalog_attributes.isNaraStaff ? (
+              <ModeratorButtons>
+                <StyledButton scheme="green-outline">
+                    Approve
+                </StyledButton>
+                <StyledButton scheme="red-outline">
+                    Reject
+                </StyledButton>
+              </ModeratorButtons>
+            ) : (
+              <Status>
+                <Pending />
               Pending Moderation
-            </Status>
-          ) : (
-            <ModeratorButtons>
-              <StyledButton scheme="green-outline">
-                Approve
-              </StyledButton>
-              <StyledButton scheme="red-outline">
-                Reject
-              </StyledButton>
-            </ModeratorButtons>
+              </Status>
             )}
           </>
         )}
