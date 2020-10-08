@@ -3,6 +3,8 @@ class API::V1::GuidesController < API::V1::BaseController
   def index
     if params[:q].present?
       @all_guides = Guide.published.fulltext_search(params[:q].to_s).by_relevance
+    elsif params[:pending] == "true"
+      @all_guides = Guide.pending_moderation
     else
       @all_guides = Guide.published
     end
@@ -25,6 +27,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :author,
           :updated,
           :nara_approved,
+          :pending,
           :audience_ids,
           :uuid
         ]
@@ -74,6 +77,7 @@ class API::V1::GuidesController < API::V1::BaseController
             :updated,
             :updatedAgo,
             :nara_approved,
+            :pending,
             :audience_ids,
             :status,
             :uuid,
@@ -104,6 +108,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :updatedAgo,
           :status,
           :nara_approved,
+          :pending,
           :audience_ids,
           :guide_sections,
           :uuid,
@@ -139,6 +144,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_names,
           :updated,
           :nara_approved,
+          :pending,
           :audience_ids,
           :guide_sections,
           :uuid,
@@ -169,6 +175,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_names,
           :updated,
           :nara_approved,
+          :pending,
           :audience_ids,
           :guide_sections,
           :uuid
@@ -188,6 +195,7 @@ class API::V1::GuidesController < API::V1::BaseController
       :about,
       :purpose,
       :complete_or_wip,
+      :pending,
       :looking_for_collaborators,
       :status,
       audience_ids: [],

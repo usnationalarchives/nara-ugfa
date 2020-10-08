@@ -51,6 +51,20 @@ export const buttonStyles = css`
       }
     `};
 
+
+  ${(props) =>
+    props.scheme === "red-outline" &&
+    css`
+      border: 1px solid ${(props) => props.theme.colors.mediumGrey};
+      color: ${(props) => props.theme.colors.red};
+      position: relative;
+
+      &:focus,
+      &:hover {
+        border: 1px solid ${(props) => props.theme.colors.red};
+      }
+    `};
+
   ${(props) =>
     props.scheme === "blue" &&
     css`

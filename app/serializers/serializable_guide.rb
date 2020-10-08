@@ -3,7 +3,7 @@ include ActionView::Helpers::DateHelper
 class SerializableGuide < JSONAPI::Serializable::Resource
   type 'guides'
 
-  attributes :id, :title, :background_color, :about, :purpose, :looking_for_collaborators, :complete_or_wip, :status, :nara_approved, :audience_ids, :uuid, :background_image
+  attributes :id, :title, :background_color, :about, :purpose, :looking_for_collaborators, :complete_or_wip, :status, :nara_approved, :pending, :audience_ids, :uuid, :background_image
 
   belongs_to :user
 

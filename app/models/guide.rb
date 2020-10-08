@@ -18,6 +18,11 @@ class Guide < ApplicationRecord
   accepts_nested_attributes_for :guide_sections, allow_destroy: true
 
   validates_presence_of :user
+  
+  scope :pending_moderation, lambda {
+    where(status: "published").
+    where('updated_at > ?', 24.hours.ago)
+  }
 
   modal_attribute :looking_for_collaborators, {
     no: "No",
@@ -43,7 +48,21 @@ class Guide < ApplicationRecord
   }
 
   def nara_approved
-    user.role == "NARA Staff"
+    if user.role == "NARA Staff"
+      return true
+    elsif (status == "published") && (updated_at < 1.day.ago)
+      return true
+    else
+      return false
+    end
+  end
+
+  def pending
+    if (status == "published") && (updated_at > 1.day.ago)
+      return true
+    else
+      return false
+    end
   end
 
 end

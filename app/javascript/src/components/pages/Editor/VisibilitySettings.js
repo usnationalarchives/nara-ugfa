@@ -23,6 +23,14 @@ const Label = styled.label`
   margin-bottom: 8px;
 `;
 
+const Notice = styled.p`
+  color: ${(props) => props.theme.colors.textLightGrey};
+  font-size: 12px;
+  line-height: 1.5;
+  padding-top: 20px;
+  text-align: left;
+`;
+
 const SettingsWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -64,6 +72,7 @@ const VisibilitySettings = ({ guide }) => {
           <option value="draft">Private</option>
           <option value="published">Public</option>
         </Select>
+        <Notice>In order to publish publicly, your guide must be reviewed by NARA. Your guide will be automatically shared with a NARA moderator and you  should expect to learn lorem.</Notice>
       </SettingsWrapper>
     );
   };
@@ -74,7 +83,7 @@ const VisibilitySettings = ({ guide }) => {
       position={["top", "right"]}
       disableReposition
       onClickOutside={() => setOpen(false)}
-      contentLocation={{ top: -130, left: -100 }}
+      contentLocation={{ top: -245, left: -100 }}
       content={<PopoverContent />}
       contentDestination={popoverEl.current}
       containerStyle={{ overflow: "visible", zIndex: "100" }}

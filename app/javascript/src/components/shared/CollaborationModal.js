@@ -48,7 +48,8 @@ const AddCollaborator = styled(Form)`
     position: relative;
     width: 50%;
 
-    &:hover {
+    &:active,
+    &:focus {
       span {
         display: block !important;
       }
@@ -101,7 +102,8 @@ const Collaborator = styled.div`
     position: relative;
     width: fit-content;
 
-    &:hover {
+    &:active,
+    &:focus {
       span {
         display: block !important;
       }
@@ -153,9 +155,7 @@ const DemoPopup = styled.span`
     top: -62px;
     width: 150px;
   }
-
 `;
-
 
 const CollabortaionModal = ({ publicLink }) => {
   const [modalIsOpen, setIsOpen] = useState(false);

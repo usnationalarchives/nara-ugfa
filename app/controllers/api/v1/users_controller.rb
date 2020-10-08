@@ -5,7 +5,7 @@ class API::V1::UsersController < API::V1::BaseController
       render jsonapi: @user,
         include: :guides,
         fields: {
-          guides: [:id, :title, :status, :updated, :nara_approved],
+          guides: [:id, :title, :status, :updated, :nara_approved, :pending],
           users: [:id, :name, :email, :catalog_attributes, :role, :gravatar, :guides]
         }
     else
