@@ -1,15 +1,10 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import styled from 'styled-components';
-import { Get } from "react-axios";
-
-// contexts
-import { UserContext } from "#contexts/User";
 
 // components
 import * as Text from "#components/shared/Text";
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
 import { ResearchGuideGrid } from "#components/pages/CatalogSearch/ResearchGuideResults";
-
 
 const GuidesSection = styled.div`
   & + & {
@@ -19,47 +14,11 @@ const GuidesSection = styled.div`
   }
 `; 
 
-const Guides = ({ guides }) => {
-  const userContext = useContext(UserContext);
-
+const Guides = ({ title, guides }) => {
   return (
-    <Fragment>
-
-      {userContext.state.user.isNaraStaff &&
-        <GuidesSection>
-          <Text.H2>Pending Moderation</Text.H2>
-          <Get url="/guides?pending=true">
-            {(error, response, isLoading) => {
-              if (response) {
-                console.log(response.data.data);
-                return (
-                  <Fragment>
-                    <ResearchGuideGrid>
-                    {response.data.data.map((guide) => (
-                      <ResearchGuideCard
-                        key={guide.attributes.id}
-                        title={guide.attributes.title || "Untitled Guide"}
-                        image={true}
-                        link={`#`}
-                        approved={guide.attributes.nara_approved}
-                        status={guide.attributes.status}
-                        pending={true}
-                        updated={guide.attributes.updated_at}
-                        demo={true}
-                      />
-                    ))}
-                    </ResearchGuideGrid>
-                  </Fragment>
-                );
-              }
-            return <div>Loading...</div>;
-          }}
-          </Get>
-        </GuidesSection>
-      }
-
+    <>
       <GuidesSection>
-        <Text.H2>My Guides to Records</Text.H2>
+        <Text.H2>{ title }</Text.H2>
         {guides && (
           <ResearchGuideGrid>
             {guides.map((guide) => (
@@ -78,7 +37,7 @@ const Guides = ({ guides }) => {
           </ResearchGuideGrid>
         )}
       </GuidesSection>
-    </Fragment>
+    </>
   );
 };
 

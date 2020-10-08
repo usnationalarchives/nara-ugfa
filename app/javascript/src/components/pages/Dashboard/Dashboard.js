@@ -27,7 +27,10 @@ const Dashboard = () => {
                   <Layout.Wrapper medium>
                     <PageWrapper>
                       {response.data.included && (
-                        <Guides guides={response.data.included.slice(0, 3)} />
+                        <Guides title="My Guides to Records" guides={response.data.included.slice(0, 3)} />
+                      )}
+                      {response.data.included && (
+                        <Guides title="Bookmarked Guides" guides={response.data.included.slice(0, 3)} />
                       )}
                     </PageWrapper>
                   </Layout.Wrapper>

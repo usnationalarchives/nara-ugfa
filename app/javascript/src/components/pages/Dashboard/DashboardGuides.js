@@ -1,5 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Get } from "react-axios";
+
+// contexts
+import { UserContext } from "#contexts/User";
 
 // components
 import * as Layout from "#components/shared/Layout";
@@ -9,6 +12,8 @@ import Guides from "./Guides";
 import PageWrapper from "#components/shared/PageWrapper";
 
 const DashboardGuides = () => {
+  const userContext = useContext(UserContext);
+
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
@@ -26,7 +31,24 @@ const DashboardGuides = () => {
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
-                      <Guides guides={response.data.included} />
+
+                      {!userContext.state.user.isNaraStaff &&
+                        <Get url="/guides?pending=true">
+                          {(error, response, isLoading) => {
+                            if (response) {
+                              return (
+                                <>
+                                  <Guides title="Pending Moderation" guides={response.data.data} />
+                                </>
+                              );
+                            }
+                            return <div>Loading...</div>;
+                          }}
+                        </Get>
+                      }
+
+                      <Guides title="My Guides to Records" guides={response.data.included} />
+
                     </PageWrapper>
                   </Layout.Wrapper>
                 </Layout.Padding>
