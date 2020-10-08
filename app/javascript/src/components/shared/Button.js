@@ -41,6 +41,7 @@ export const buttonStyles = css`
   ${(props) =>
     props.scheme === "green-outline" &&
     css`
+      background-color: #fff;
       border: 1px solid ${(props) => props.theme.colors.mediumGrey};
       color: ${(props) => props.theme.colors.green};
       position: relative;
@@ -55,6 +56,7 @@ export const buttonStyles = css`
   ${(props) =>
     props.scheme === "red-outline" &&
     css`
+      background-color: #fff;
       border: 1px solid ${(props) => props.theme.colors.mediumGrey};
       color: ${(props) => props.theme.colors.red};
       position: relative;
