@@ -196,7 +196,7 @@ class API::V1::GuidesController < API::V1::BaseController
       @description_ids.each do |id|
         @guides << Guide.published.includes(:descriptions).where.not(id: @guide.id).where("descriptions.id = ?", "#{id}").references(:descriptions)
       end
-      @guides = @guides.flatten
+      @guides = @guides.flatten.uniq.shuffle.take(3)
     else
       @guides = []
     end
