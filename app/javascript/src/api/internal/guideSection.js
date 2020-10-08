@@ -32,10 +32,12 @@ export const sortGuideSectionByNaid = (guideId, sectionId) => {
 export const addDescriptionsToSection = (
   guideId,
   sectionId,
-  descriptionIds
+  descriptionIds,
+  after = null
 ) => {
   return client.put(`/guides/${guideId}/add-descriptions/${sectionId}`, {
     description_ids: descriptionIds,
+    after: after,
   });
 };
 

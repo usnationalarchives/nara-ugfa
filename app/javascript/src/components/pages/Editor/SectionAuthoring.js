@@ -64,6 +64,7 @@ const SectionAuthoring = ({ section, guide }) => {
     editorContext.actions.setAddingRecords(true);
     editorContext.actions.setActiveSection(activeSectionId);
   };
+
   return (
     <Root>
       <Inner>

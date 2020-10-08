@@ -66,8 +66,7 @@ module CollectionPrioritizable
       end
 
       def init_weight
-        collection = self.prioritizable_collection
-        self.weight = (collection.maximum(:weight).presence || 0) + 2
+        self.weight ||= (self.prioritizable_collection.maximum(:weight).presence || 0) + 2
       end
 
       # ---------------------------------------------------------------------------

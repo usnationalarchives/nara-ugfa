@@ -1,6 +1,9 @@
-import React, { Fragment, useRef, useState, useReducer } from "react";
+import React, { useContext, useRef, useState, useReducer } from "react";
 import styled from "styled-components";
 import Popover from "react-tiny-popover";
+
+// context
+import { EditorContext } from "#contexts/Editor";
 
 // API
 import { createBlock } from "#api/internal/block";
@@ -23,15 +26,22 @@ const Root = styled.div`
 `;
 
 const AddContextRoot = styled.div`
-  background-color: ${(props) => props.theme.colors.white};
-  left: 50%;
-  min-height: 40px;
-  padding: 0 10px;
-  position: absolute;
-  transform: translateX(-50%);
+  @media ${(props) => props.theme.breakpoints.medium} {
+    background-color: ${(props) => props.theme.colors.white};
+    bottom: -42px;
+    left: 50%;
+    min-height: 40px;
+    padding: 0 10px;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  position: relative;
 
   @media ${(props) => props.theme.breakpoints.medium} {
-    bottom: -42px;
+    display: flex;
   }
 `;
 
@@ -92,6 +102,7 @@ const StyledButton = styled(Button)`
 
 const Context = ({ guide, sectionDescription }) => {
   const popoverEl = useRef();
+  const editorContext = useContext(EditorContext);
 
   const initialBlocks = guide.included.filter(
     (i) =>
@@ -124,6 +135,17 @@ const Context = ({ guide, sectionDescription }) => {
         value: response.data.data,
       });
     });
+  };
+
+  const handleAddRecords = () => {
+    editorContext.actions.setActiveGuide(guide.data.id);
+    editorContext.actions.setActiveSection(
+      sectionDescription.attributes.guide_section_id
+    );
+    editorContext.actions.setActiveDescription(
+      sectionDescription.attributes.description_id
+    );
+    editorContext.actions.setAddingRecords(true);
   };
 
   const AddContext = () => {
@@ -164,13 +186,17 @@ const Context = ({ guide, sectionDescription }) => {
           contentLocation={{ top: -30, left: -20 }}
           containerStyle={{ overflow: "visible", zIndex: "500" }}
         >
-          <div style={{ position: "relative" }}>
+          <ButtonWrapper>
+            <StyledButton scheme="outline" onClick={handleAddRecords}>
+              Add Records
+              <PlusCircle grey />
+            </StyledButton>
             <StyledButton scheme="outline" onClick={() => setOpen(!open)}>
               Add Context
               <PlusCircle grey />
             </StyledButton>
             <div ref={popoverEl}></div>
-          </div>
+          </ButtonWrapper>
         </Popover>
       </AddContextRoot>
     );
