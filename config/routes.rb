@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         get "/:id", to: "guides#show"
         put "/:id", to: "guides#update"
         get "/:id/edit", to: "guides#edit"
+        get "/:id/recommended-guides", to: "guides#recommended_guides"
+        get "/:id/recommended-descriptions", to: "guides#recommended_descriptions"
         get "/public/:uuid", to: "guides#public"
 
         post "/:id/sections", to: "guide_sections#create"

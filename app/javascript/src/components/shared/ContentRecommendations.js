@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled, { css } from 'styled-components';
 import Modal from 'react-modal';
 import { Link } from "react-router-dom";
+import { Get } from "react-axios";
 
 // components
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
+import DescriptionIcon from "#components/shared/DescriptionIcon";
 import { fl_static } from '#styles/frontline';
 import { fl_attention } from '#styles/frontline';
 
@@ -220,14 +222,15 @@ const customStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    zIndex: "100",
   }
 };
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root')
 
-const ContentRecommendations = () => {
+const ContentRecommendations = ({ guideid }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -266,68 +269,94 @@ const ContentRecommendations = () => {
           <ContentWrap>
             <CatalogContent>
               <Subheading>Catalog Content</Subheading>
-              <p>Based on your added records, you might be interested in the following catalog content.</p>
               <ul>
-                <li>
-                  <IconWrap>
-                    <FileUnitIcon />
-                    File Unit
-                  </IconWrap>
-                  <CatalogItemTitle to="#">
-                    March on Washington
-                  </CatalogItemTitle>
-                  <CatalogItemUtilities>
-                    <AddToGuide to="#">
-                      Add to Guide
-                      <PlusIcon/>
-                    </AddToGuide>
-                  </CatalogItemUtilities>
-                </li>
-                <li>
-                  <IconWrap>
-                    <SeriesIcon />
-                    Series
-                  </IconWrap>
-                  <CatalogItemTitle to="#">
-                    Civil Rights March
-                  </CatalogItemTitle>
-                  <CatalogItemUtilities>
-                    <AddToGuide to="#">
-                      Add to Guide
-                      <PlusIcon />
-                    </AddToGuide>
-                  </CatalogItemUtilities>
-                </li>
-                <li>
-                  <IconWrap>
-                    <ItemIcon />
-                    Item
-                  </IconWrap>
-                  <CatalogItemTitle to="#">
-                    White House Subject Files
-                  </CatalogItemTitle>
-                  <CatalogItemUtilities>
-                    <AddToGuide to="#">
-                      Add to Guide
-                      <PlusIcon />
-                    </AddToGuide>
-                  </CatalogItemUtilities>
-                </li>
+                <Get url={`/guides/${guideid}/recommended-descriptions`}>
+                  {(error, response, isLoading) => {
+                    if (error) {
+                      return <div>Error</div>;
+                    } else if (isLoading) {
+                      return <div>Loading...</div>;
+                    } else if (response !== null) {
+                      if (response.data.data.length) {
+                        return (
+                          <Fragment>
+                            <p>Based on your added records, you might be interested in the following catalog content.</p>
+                            {response.data.data.map((description) => (
+                              <li key={description.attributes.naId}>
+                                <IconWrap>
+                                  <DescriptionIcon level={description.attributes.level} />
+                                  {description.attributes.level}
+                                </IconWrap>
+                                <CatalogItemTitle to={`/${description.attributes.naId}`}>
+                                  {description.attributes.title}
+                                </CatalogItemTitle>
+                                <CatalogItemUtilities>
+                                  <AddToGuide to="#">
+                                    Add to Guide
+                                    <PlusIcon />
+                                  </AddToGuide>
+                                </CatalogItemUtilities>
+                              </li>
+                            ))}
+                          </Fragment>
+                        );
+                      } else {
+                        return (
+                          <Fragment>
+                            <p>There is not enough information to make Catalog recommendations yet. Continuing to add records to your guide will help us learn what you are looking for. Once we have recommendations for records and other guides, we will share them here.</p>
+                          </Fragment>
+                        );
+                      }
+                    } else {
+                      return <div>Something went wrong</div>
+                    }
+                  }}
+                </Get>
               </ul>
             </CatalogContent>
 
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
-              <p>These guides to records have some records in common with your guide.</p>
               <ResearchGuideGrid>
-                <ResearchGuideCard
-                    narrow={true}
-                    key='5'
-                    title='Cool Title'
-                    image={true}
-                    link={`/guides/5`}
-                    approved='no'
-                  />
+                <Get url={`/guides/${guideid}/recommended-guides`}>
+                  {(error, response, isLoading) => {
+                    if (error) {
+                      return <div>Error</div>;
+                    } else if (isLoading) {
+                      return <div>Loading...</div>;
+                    } else if (response !== null) {
+                      if (response.data.data.length) {
+                        return (
+                          <Fragment>
+                            <p>These guides to records have some records in common with your guide.</p>
+                            {response.data.data.map((guide) => (
+                              <ResearchGuideCard
+                                narrow={true}
+                                key={guide.attributes.id}
+                                title={guide.attributes.title || "Untitled Guide"}
+                                image={true}
+                                link={`/guides/${guide.attributes.id}`}
+                                approved={guide.attributes.nara_approved}
+                                status={guide.attributes.status}
+                                pending={guide.attributes.pending}
+                                updated={guide.attributes.updated_at}
+                                demo={false}
+                              />
+                            ))}
+                          </Fragment>
+                        );
+                      } else {
+                        return (
+                          <Fragment>
+                            <p>There is not enough information to make Guides to Records recommendations yet. Continuing to add records to your guide will help us learn what you are looking for. Once we have recommendations for records and other guides, we will share them here.</p>
+                          </Fragment>
+                        );
+                      }
+                    } else {
+                      return <div>Something went wrong</div>
+                    }
+                  }}
+                </Get>
               </ResearchGuideGrid>
             </GuidesContent>
           </ContentWrap>

@@ -58,7 +58,10 @@ const Editor = ({ ...props }) => {
                         <EditorForm guide={response.data} />
                       </Layout.Wrapper>
                     </Layout.Padding>
-                    <ContentRecommendations />
+                    
+                    {response.data.data.relationships.guide_sections.data.length &&
+                      <ContentRecommendations guideid={id} />
+                    }
                     <UtilityBar guide={response.data} />
                   </Root>
                 )}

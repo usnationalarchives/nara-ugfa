@@ -185,6 +185,89 @@ class API::V1::GuidesController < API::V1::BaseController
       }
   end
 
+  def recommended_guides
+    @guide = Guide.find_by_id(params[:id]) or return http404
+    if @guide.descriptions.any?
+      @description_ids = []
+      10.times.map { 
+        @description_ids << @guide.descriptions.pluck(:id).sample 
+      } 
+      @guides = []
+      @description_ids.each do |id|
+        @guides << Guide.published.includes(:descriptions).where.not(id: @guide.id).where("descriptions.id = ?", "#{id}").references(:descriptions)
+      end
+      @guides = @guides.flatten
+    else
+      @guides = []
+    end
+
+    render jsonapi: @guides,
+      fields: {
+        guides: [
+          :id,
+          :title,
+          :background_color,
+          :about,
+          :purpose,
+          :looking_for_collaborators,
+          :complete_or_wip,
+          :author,
+          :audience_names,
+          :updated,
+          :nara_approved,
+          :pending,
+          :audience_ids,
+          :guide_sections,
+          :uuid
+        ]
+      }
+  end
+
+  def recommended_descriptions
+    @guide = Guide.find_by_id(params[:id]) or return http404
+
+    if @guide.descriptions.any?
+      # Pick 3 random description records from the Guide
+      @guide_descriptions = []
+      3.times.map { 
+        @guide_descriptions << @guide.descriptions.sample
+      }
+
+      # Use the 3 descriptions to find related descriptions
+      @recommended_descriptions = []
+      @guide_descriptions.each do |description|
+        case description.level
+        when "item"
+          @recommended_descriptions << Description.where("data->'parentSeries'->>'naId' = ?", "#{description.data["parentSeries"]["naId"]}").limit(5)
+        when "series"
+          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.data["parentCollection"]["naId"]}").limit(5)
+        when "collection"
+          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.naid}").limit(5)
+        when "fileUnit"
+          @recommended_descriptions << Description.where("data->'parentSeries'->>'naId' = ?", "#{description.data["parentSeries"]["naId"]}").limit(5)
+        when "itemAv"
+          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.data["parentCollection"]["naId"]}").limit(5)
+        end
+      end
+
+      @descriptions = @recommended_descriptions.flatten.uniq.shuffle.take(3)
+    else
+      @descriptions = []
+    end
+
+    render jsonapi: @descriptions,
+      fields: {
+        descriptions: [
+          :id,
+          :naId,
+          :title,
+          :scopeContent,
+          :level,
+          :data
+        ]
+      }
+  end
+
   private
 
   def guide_params
