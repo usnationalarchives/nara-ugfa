@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 // components
@@ -101,8 +101,17 @@ export const Textarea = styled.textarea`
     `}
 `;
 
-const Block = ({ guide, block, initialBlock, dispatchBlocks, blockableId }) => {
-  const [editing, setEditing] = useState(!initialBlock);
+const Block = ({
+  guide,
+  block,
+  initialBlocks,
+  setInitialBlocks,
+  dispatchBlocks,
+  blockableId,
+}) => {
+  const [editing, setEditing] = useState(
+    !initialBlocks.map((ib) => parseInt(ib.id)).includes(parseInt(block.id))
+  );
   const [commenting, setCommenting] = useState(false);
 
   const handleDelete = () => {
@@ -120,6 +129,7 @@ const Block = ({ guide, block, initialBlock, dispatchBlocks, blockableId }) => {
       blockable_id: blockableId,
       data: data,
     }).then((response) => {
+      setInitialBlocks([...initialBlocks, response.data.data]);
       dispatchBlocks({
         type: "update",
         value: response.data.data,

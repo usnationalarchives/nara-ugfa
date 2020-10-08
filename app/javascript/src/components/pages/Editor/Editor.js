@@ -1,8 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
-import { Link } from "react-router-dom";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 
 // context
 import { EditorContext } from "#contexts/Editor";
@@ -19,7 +18,7 @@ const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
 `;
 
-Modal.defaultStyles.overlay.backgroundColor = 'transparent';
+Modal.defaultStyles.overlay.backgroundColor = "transparent";
 
 const Editor = ({ ...props }) => {
   const id = props.match.params.id;
@@ -29,7 +28,12 @@ const Editor = ({ ...props }) => {
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
-      <Get url={`/guides/${id}/edit`}>
+      <Get
+        url={`/guides/${id}/edit`}
+        onSuccess={(response) => {
+          editorContext.actions.init({ data: response.data });
+        }}
+      >
         {(error, response, isLoading) => {
           if (error) {
             return <div>Error</div>;
@@ -58,10 +62,9 @@ const Editor = ({ ...props }) => {
                         <EditorForm guide={response.data} />
                       </Layout.Wrapper>
                     </Layout.Padding>
-                    
-                    {response.data.data.relationships.guide_sections.data.length &&
-                      <ContentRecommendations guideid={id} />
-                    }
+
+                    {response.data.data.relationships.guide_sections.data
+                      .length && <ContentRecommendations guideid={id} />}
                     <UtilityBar guide={response.data} />
                   </Root>
                 )}
