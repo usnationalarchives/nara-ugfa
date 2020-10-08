@@ -32,7 +32,7 @@ const DashboardGuides = () => {
                   <Layout.Wrapper medium>
                     <PageWrapper>
 
-                      {!userContext.state.user.isNaraStaff &&
+                      {userContext.state.user.isNaraStaff &&
                         <Get url="/guides?pending=true">
                           {(error, response, isLoading) => {
                             if (response) {
