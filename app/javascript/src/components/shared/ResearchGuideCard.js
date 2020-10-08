@@ -226,7 +226,7 @@ const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo,
 
         {!approved && pending && (
           <>
-          { userContext.state.user.catalog_attributes.isNaraStaff ? (
+          { !userContext.state.user.catalog_attributes.isNaraStaff ? (
             <Status>
               <Pending />
               Pending Moderation
