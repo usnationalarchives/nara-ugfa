@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
         put "/:id/sections/:section_id/descriptions/:description_id/move-up", to: "guide_section_descriptions#move_up"
         put "/:id/sections/:section_id/descriptions/:description_id/move-down", to: "guide_section_descriptions#move_down"
+        put "/:id/sections/:section_id/descriptions/:description_id/move", to: "guide_section_descriptions#move"
       end
 
       scope "/blocks" do

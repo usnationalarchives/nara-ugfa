@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const EditorContext = React.createContext();
 
 const EditorProvider = ({ children }) => {
+  const [activeDescription, setActiveDescription] = useState();
   const [activeSection, setActiveSection] = useState();
   const [activeGuide, setActiveGuide] = useState();
   const [addingRecords, setAddingRecords] = useState(false);
@@ -12,6 +13,7 @@ const EditorProvider = ({ children }) => {
   const state = {
     activeGuide,
     activeSection,
+    activeDescription,
     addingRecords,
     saving,
     lastSaved,
@@ -20,6 +22,7 @@ const EditorProvider = ({ children }) => {
   const actions = {
     setActiveGuide,
     setActiveSection,
+    setActiveDescription,
     setAddingRecords,
     setSaving,
     setLastSaved,

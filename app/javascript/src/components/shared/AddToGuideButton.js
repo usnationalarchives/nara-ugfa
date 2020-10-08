@@ -121,13 +121,13 @@ const AddToGuideButton = ({
   const userContext = useContext(UserContext);
   const editorContext = useContext(EditorContext);
 
-  const handleAdd = (event) => {
+  const handleAdd = () => {
     if (editorContext.state.addingRecords) {
-      console.log("adding");
       addDescriptionsToSection(
         editorContext.state.activeGuide,
         editorContext.state.activeSection,
-        descriptionIds
+        descriptionIds,
+        editorContext.state.activeDescription
       )
         .then((response) => {
           const newGuide = {

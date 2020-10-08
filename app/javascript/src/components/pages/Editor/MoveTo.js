@@ -6,10 +6,7 @@ import styled from "styled-components";
 import * as Text from "#components/shared/Text";
 
 // API
-import {
-  removeDescriptions,
-  addDescriptionsToSection,
-} from "#api/internal/guideSection";
+import { moveDescription } from "#api/internal/guideSectionDescription";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -68,27 +65,23 @@ const MoveTo = ({
   const handleMove = (targetSectionId) => {
     setOpen(false);
 
-    removeDescriptions(guide.data.id, section.id, [description.id])
+    moveDescription(
+      guide.data.id,
+      section.id,
+      [description.id],
+      targetSectionId
+    )
       .then(() => {
         dispatchDescriptions({
           type: "remove",
           sectionId: section.id,
           value: description,
         });
-
-        addDescriptionsToSection(guide.data.id, targetSectionId, [
-          description.id,
-        ])
-          .then(() => {
-            dispatchDescriptions({
-              type: "add",
-              sectionId: targetSectionId,
-              value: description,
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        dispatchDescriptions({
+          type: "add",
+          sectionId: targetSectionId,
+          value: description,
+        });
       })
       .catch((error) => {
         console.log(error);
