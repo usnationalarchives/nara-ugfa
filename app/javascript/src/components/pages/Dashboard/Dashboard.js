@@ -29,9 +29,21 @@ const Dashboard = () => {
                       {response.data.included && (
                         <Guides title="My Guides to Records" guides={response.data.included.slice(0, 3)} />
                       )}
-                      {response.data.included && (
-                        <Guides title="Bookmarked Guides" guides={response.data.included.slice(0, 3)} />
-                      )}
+                      <Get url="/guides">
+                        {(error, response, isLoading) => {
+                          if (response) {
+                            console.log(response.data.data)
+                            return (
+                              <Fragment>
+                                {response.data.data && (
+                                  <Guides title="Bookmarked Guides" guides={response.data.data.slice(0, 3)} />
+                                )}
+                              </Fragment>
+                            );
+                          }
+                          return <div>Loading...</div>;
+                        }}
+                      </Get>
                     </PageWrapper>
                   </Layout.Wrapper>
                 </Layout.Padding>
