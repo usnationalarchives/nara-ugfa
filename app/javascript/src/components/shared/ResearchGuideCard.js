@@ -32,14 +32,13 @@ export const Root = styled(Link)`
     }
   `)}
 
-  @media all and (min-width: ${(props) =>
-    props.theme.layout.catalogColumnMin}) {
+  @media all and (min-width: 550px) {
     width: 48%;
   }
 
   @media all and (min-width: 1000px) {
-    max-width: 250px;
-    width: 23%;
+    max-width: 300px;
+    width: 32%;
   }
 
   ${props =>
@@ -74,6 +73,9 @@ export const Root = styled(Link)`
 
 export const Image = styled.div`
   background-color: ${(props) => props.theme.colors.darkGrey};
+  background-image: url(${(props) => props.imageUrl});
+  background-position: center;
+  background-size: cover;
   padding-top: 56.25%; /* 16:9 Aspect Ratio */
   position: relative;
   width: 100%;
@@ -208,10 +210,11 @@ const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo,
       <DemoPopover className="DemoPopover">
         <span>This feature is for demonstration purposes only.</span>
       </DemoPopover>
-      {image ? <Image /> : ""}
+      {image ? <Image imageUrl={image}/> : ""}
 
       <CardContent>
         <Title>{title}</Title>
+        <Title>{}</Title>
 
         {approved && !pending && (
           <VerifiedInfo ref={hoverRef}>

@@ -334,7 +334,7 @@ const ContentRecommendations = ({ guideid }) => {
                                 narrow={true}
                                 key={guide.attributes.id}
                                 title={guide.attributes.title || "Untitled Guide"}
-                                image={true}
+                                image={guide.attributes.background_image_url}
                                 link={`/guides/${guide.attributes.id}`}
                                 approved={guide.attributes.nara_approved}
                                 status={guide.attributes.status}

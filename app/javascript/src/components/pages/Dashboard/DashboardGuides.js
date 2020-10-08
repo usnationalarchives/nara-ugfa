@@ -20,6 +20,7 @@ const DashboardGuides = () => {
       <Get url="/current-user">
         {(error, response, isLoading) => {
           if (response) {
+            console.log(response);
             return (
               <Fragment>
                 <Banner

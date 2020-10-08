@@ -25,7 +25,7 @@ const Guides = ({ title, guides }) => {
               <ResearchGuideCard
                 key={guide.attributes.id}
                 title={guide.attributes.title || "Untitled Guide"}
-                image={true}
+                image={guide.attributes.background_image_url}
                 link={`/guides/${guide.attributes.id}/edit`}
                 approved={guide.attributes.nara_approved}
                 status={guide.attributes.status}

@@ -76,7 +76,7 @@ const ResearchGuideResults = () => {
                       narrow={false}
                       key={guide.attributes.id}
                       title={guide.attributes.title}
-                      image={true}
+                      image={guide.attributes.background_image_url}
                       link={`/guides/${guide.attributes.id}`}
                       approved={guide.attributes.nara_approved}
                     />
