@@ -25,7 +25,7 @@ const Guides = ({ guides }) => {
   return (
     <Fragment>
 
-      {!userContext.state.user.isNaraStaff &&
+      {userContext.state.user.isNaraStaff &&
         <GuidesSection>
           <Text.H2>Pending Moderation</Text.H2>
           <Get url="/guides?pending=true">

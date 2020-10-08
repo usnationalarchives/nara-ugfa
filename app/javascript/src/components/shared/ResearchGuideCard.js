@@ -212,7 +212,6 @@ const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo,
 
       <CardContent>
         <Title>{title}</Title>
-        <Title>{approved ? "approved"  : "not approved"}</Title>
 
         {approved && !pending && (
           <VerifiedInfo ref={hoverRef}>
