@@ -29,4 +29,24 @@ class GuideSectionDescription < ApplicationRecord
     }
   end
 
+  ####################################################################################
+  # Descriptions are ordered by descending weight so we have to override these methods
+  # defined in CollectionPrioritizable
+  def move_up_in_collection!
+    weight = self.weight
+
+    if previous_item = self.prioritizable_collection.where(['weight > ?', weight]).last
+      swap_weight_with_other_item!(previous_item)
+    end
+  end
+
+  def move_down_in_collection!
+    weight = self.weight
+
+    if next_item = self.prioritizable_collection.where(['weight < ?', weight]).first
+      swap_weight_with_other_item!(next_item)
+    end
+  end
+  ####################################################################################
+
 end

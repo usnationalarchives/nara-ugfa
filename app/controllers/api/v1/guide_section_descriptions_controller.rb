@@ -23,9 +23,9 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
     if params[:after]
       @after_section_description = @section.guide_section_descriptions.find_by_description_id(params[:after]) or return http404
 
-      # offset weight of following descriptions in the section
-      @following_section_descriptions = @section.guide_section_descriptions.where('weight > ?', @after_section_description.weight);
-      @following_section_descriptions.each do |gsd|
+      # offset weight of prior descriptions in the section
+      @prior_section_descriptions = @section.guide_section_descriptions.where('weight >= ?', @after_section_description.weight);
+      @prior_section_descriptions.each do |gsd|
         new_weight = (params[:description_ids].length * 2) + gsd.weight + 2
         gsd.update_columns(weight: new_weight);
       end
