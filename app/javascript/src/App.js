@@ -31,6 +31,9 @@ const DashboardGuides = lazy(() =>
 const DashboardSettings = lazy(() =>
   import("./components/pages/Dashboard/DashboardSettings")
 );
+const BookmarkedGuides = lazy(() =>
+  import("./components/pages/Dashboard/BookmarkedGuides")
+);
 const ResearchGuides = lazy(() =>
   import("./components/pages/ResearchGuides/ResearchGuides")
 );
@@ -67,6 +70,10 @@ const App = () => {
                         <PrivateRoute
                           path="/dashboard/guides"
                           component={DashboardGuides}
+                        />
+                        <PrivateRoute
+                          path="/dashboard/bookmarked-guides"
+                          component={BookmarkedGuides}
                         />
                         <PrivateRoute
                           path="/dashboard/settings"

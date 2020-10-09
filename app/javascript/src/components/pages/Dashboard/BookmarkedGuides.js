@@ -1,14 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Get } from "react-axios";
 
 // components
+import * as Text from "#components/shared/Text";
 import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import Banner from "./Banner";
 import Guides from "./Guides";
 import PageWrapper from "#components/shared/PageWrapper";
+import ResearchGuideCard from "#components/shared/ResearchGuideCard";
+import { ResearchGuideGrid } from "#components/pages/CatalogSearch/ResearchGuideResults";
 
-const Dashboard = () => {
+const DashboardGuides = () => {
+
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
@@ -26,18 +30,30 @@ const Dashboard = () => {
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
-                      {response.data.included && (
-                        <Guides title="My Guides to Records" guides={response.data.included.slice(0, 3)} />
-                      )}
                       <Get url="/guides">
                         {(error, response, isLoading) => {
                           if (response) {
                             return (
-                              <Fragment>
+                              <>
+                                <Text.H2>Bookmarked Guides</Text.H2>
                                 {response.data.data && (
-                                  <Guides title="Bookmarked Guides" guides={response.data.data.slice(0, 3)} />
+                                  <ResearchGuideGrid>
+                                    {response.data.data.map((guide) => (
+                                      <ResearchGuideCard
+                                        key={guide.attributes.id}
+                                        title={guide.attributes.title || "Untitled Guide"}
+                                        image={guide.attributes.background_image_url}
+                                        link={`/guides/${guide.attributes.id}`}
+                                        approved={guide.attributes.nara_approved}
+                                        status={guide.attributes.status}
+                                        pending={guide.attributes.pending}
+                                        updated={guide.attributes.updated_at}
+                                        demo={false}
+                                      />
+                                    ))}
+                                  </ResearchGuideGrid>
                                 )}
-                              </Fragment>
+                              </>
                             );
                           }
                           return <div>Loading...</div>;
@@ -57,4 +73,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardGuides;

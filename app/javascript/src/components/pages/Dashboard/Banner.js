@@ -1,6 +1,7 @@
 import React, { Fragment, useContext } from "react";
 import styled, { css } from "styled-components";
 import { NavLink } from "react-router-dom";
+import { Get } from "react-axios";
 
 // contexts
 import { UserContext } from "#contexts/User";
@@ -103,6 +104,27 @@ const Banner = ({ name, gravatar, role, guides }) => {
                 <ItemMeta>
                   ({guides.length} Guide
                   {guides.length > 1 ? "s" : null})
+                </ItemMeta>
+              </StyledNavLink>
+            </NavItem>
+            <NavItem>
+              <StyledNavLink exact to="/dashboard/bookmarked-guides">
+                Bookmarked Guides
+                <ItemMeta>
+                  <Get url="/guides">
+                    {(error, response, isLoading) => {
+                      if (response) {
+                        return (
+                          <>
+                            {response.data.data && (
+                              <span>({response.data.data.length} Guides)</span>
+                            )}
+                          </>
+                        );
+                      }
+                      return <div>Loading...</div>;
+                    }}
+                  </Get>
                 </ItemMeta>
               </StyledNavLink>
             </NavItem>
