@@ -1,5 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import { Get } from "react-axios";
+
+// contexts
+import { UserContext } from "#contexts/User";
 
 // components
 import * as Layout from "#components/shared/Layout";
@@ -9,25 +12,55 @@ import Guides from "./Guides";
 import PageWrapper from "#components/shared/PageWrapper";
 
 const Dashboard = () => {
+  const userContext = useContext(UserContext);
+
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
       <Get url="/current-user">
         {(error, response, isLoading) => {
           if (response) {
+            const {
+              name,
+              gravatar,
+              role,
+              admin,
+            } = response.data.data.attributes;
+
             return (
               <Fragment>
                 <Banner
-                  name={response.data.data.attributes.name}
-                  gravatar={response.data.data.attributes.gravatar}
-                  role={response.data.data.attributes.role}
+                  name={name}
+                  gravatar={gravatar}
+                  role={role}
                   guides={response.data.data.relationships.guides.data}
                 />
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
+                      {admin && (
+                        <Get url="/guides?pending=true">
+                          {(error, response, isLoading) => {
+                            if (response) {
+                              return (
+                                <>
+                                  <Guides
+                                    title="Pending Moderation"
+                                    guides={response.data.data}
+                                  />
+                                </>
+                              );
+                            }
+                            return <div>Loading...</div>;
+                          }}
+                        </Get>
+                      )}
+
                       {response.data.included && (
-                        <Guides title="My Guides to Records" guides={response.data.included.slice(0, 3)} />
+                        <Guides
+                          title="My Guides to Records"
+                          guides={response.data.included.slice(0, 3)}
+                        />
                       )}
                       <Get url="/guides">
                         {(error, response, isLoading) => {
@@ -35,7 +68,10 @@ const Dashboard = () => {
                             return (
                               <Fragment>
                                 {response.data.data && (
-                                  <Guides title="Bookmarked Guides" guides={response.data.data.slice(0, 3)} />
+                                  <Guides
+                                    title="Bookmarked Guides"
+                                    guides={response.data.data.slice(0, 3)}
+                                  />
                                 )}
                               </Fragment>
                             );

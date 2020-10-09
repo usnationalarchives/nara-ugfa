@@ -4,6 +4,7 @@ class API::V1::GuidesController < API::V1::BaseController
     if params[:q].present?
       @all_guides = Guide.published.fulltext_search(params[:q].to_s).by_relevance
     elsif params[:pending] == "true"
+      return render json: { message: "Forbidden", status: 403 } unless current_user.admin
       @all_guides = Guide.pending_moderation
     else
       @all_guides = Guide.published
@@ -20,6 +21,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :id,
           :title,
           :background_color,
+          :background_image_url,
           :about,
           :purpose,
           :looking_for_collaborators,

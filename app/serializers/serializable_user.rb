@@ -1,7 +1,7 @@
 class SerializableUser < JSONAPI::Serializable::Resource
   type 'users'
 
-  attributes :id, :name, :email, :catalog_attributes, :role
+  attributes :id, :name, :email, :catalog_attributes, :role, :admin
 
   attribute :gravatar do
     digest = Digest::MD5.hexdigest(@object.email)

@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 // styles
-import { fl_static } from "#styles/frontline";
 import { fl_attention } from "#styles/frontline";
 import Button from "#components/shared/Button";
 
@@ -41,12 +40,11 @@ export const Root = styled(Link)`
     width: 32%;
   }
 
-  ${props =>
+  ${(props) =>
     props.demo &&
     css`
       &:active,
-      &:focus
-       {
+      &:focus {
         .DemoPopover {
           display: flex !important;
         }
@@ -65,7 +63,7 @@ export const Root = styled(Link)`
         width: 100%;
       }
       @media all and (min-width: ${(props) =>
-      props.theme.layout.maxWidthMedium}) {
+          props.theme.layout.maxWidthMedium}) {
         width: 48%;
       }
     `}
@@ -150,7 +148,7 @@ export const VerifiedToolTip = styled.div`
 
 const DemoPopover = styled.div`
   align-items: center;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7);
   bottom: 0;
   display: none;
   justify-content: center;
@@ -162,9 +160,9 @@ const DemoPopover = styled.div`
 
   span {
     background: #fff;
-    border: 1px solid ${props => props.theme.colors.lightGrey};
+    border: 1px solid ${(props) => props.theme.colors.lightGrey};
     border-radius: 10px;
-    color: ${props => props.theme.colors.textLightGrey};
+    color: ${(props) => props.theme.colors.textLightGrey};
     font-size: 14px;
     line-height: 1.2;
     max-width: 200px;
@@ -201,16 +199,25 @@ const useHover = () => {
   return [ref, value];
 };
 
-const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo, pending }) => {
+const ResearchGuideCard = ({
+  image,
+  title,
+  link,
+  approved,
+  status,
+  narrow,
+  demo,
+  pending,
+}) => {
   const [hoverRef, isHovered] = useHover();
   const userContext = useContext(UserContext);
 
   return (
-    <Root to={link} narrow={narrow ? 1 : 0} demo={demo ? 1 : 0}> 
+    <Root to={link} narrow={narrow ? 1 : 0} demo={demo ? 1 : 0}>
       <DemoPopover className="DemoPopover">
         <span>This feature is for demonstration purposes only.</span>
       </DemoPopover>
-      {image ? <Image imageUrl={image}/> : ""}
+      {image ? <Image imageUrl={image} /> : ""}
 
       <CardContent>
         <Title>{title}</Title>
@@ -222,8 +229,8 @@ const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo,
             {isHovered ? (
               <VerifiedToolTip>Published By NARA</VerifiedToolTip>
             ) : (
-                ""
-              )}
+              ""
+            )}
           </VerifiedInfo>
         )}
 
@@ -231,17 +238,13 @@ const ResearchGuideCard = ({ image, title, link, approved, status, narrow, demo,
           <>
             {userContext.state.user.catalog_attributes.isNaraStaff ? (
               <ModeratorButtons>
-                <StyledButton scheme="green-outline">
-                    Approve
-                </StyledButton>
-                <StyledButton scheme="red-outline">
-                    Reject
-                </StyledButton>
+                <StyledButton scheme="green-outline">Approve</StyledButton>
+                <StyledButton scheme="red-outline">Reject</StyledButton>
               </ModeratorButtons>
             ) : (
               <Status>
                 <Pending />
-              Pending Moderation
+                Pending Moderation
               </Status>
             )}
           </>
