@@ -117,6 +117,7 @@ const Authoring = ({ handleAddRecords, resourceType, resourceId, context }) => {
       blockable_id: resourceId,
       block_type: type,
     }).then((response) => {
+      setOpen(false);
       editorContext.actions.dispatchBlocks({
         type: "add",
         value: response.data.data,
