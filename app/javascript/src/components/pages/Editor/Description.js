@@ -28,6 +28,9 @@ const Root = styled.div`
 
   &:first-child {
     border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
+    @media ${(props) => props.theme.breakpoints.medium} {
+      padding-top: 40px;
+    }
   }
 
   @media ${(props) => props.theme.breakpoints.medium} {
