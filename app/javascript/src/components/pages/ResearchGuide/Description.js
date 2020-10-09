@@ -23,6 +23,7 @@ import {
 const Root = styled.div`
   padding: 30px 0;
   margin-bottom: 30px;
+  position: relative;
 
   &:after {
     background-color: ${(props) => props.theme.colors.mediumGrey};
@@ -33,6 +34,21 @@ const Root = styled.div`
     top: 30px;
     position: relative;
     width: 110%;
+  }
+
+  &:first-child {
+    padding-top: 60px;
+
+    &:before {
+      background-color: ${(props) => props.theme.colors.mediumGrey};
+      content: "";
+      display: block;
+      height: 1px;
+      left: -5%;
+      top: -60px;
+      position: relative;
+      width: 110%;
+    }
   }
 
   &:last-child {
@@ -65,6 +81,12 @@ const Description = ({ description, guide }) => {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
     defaultExpanded: false,
   });
+
+  const sectionDescription = guide.included.filter(
+    (i) =>
+      i.type === "guide_section_descriptions" &&
+      i.attributes.description_id === parseInt(description.id)
+  )[0];
 
   const Metadata = () => {
     return (
@@ -129,7 +151,11 @@ const Description = ({ description, guide }) => {
         </Layout.Desktop>
       </Inner>
 
-      <Context guide={guide} description={description} />
+      <Context
+        guide={guide}
+        blockableType="GuideSectionDescription"
+        blockableId={sectionDescription.id}
+      />
     </Root>
   );
 };

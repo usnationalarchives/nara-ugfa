@@ -9,9 +9,11 @@ import { EditorContext } from "#contexts/Editor";
 import * as Text from "#components/shared/Text";
 import Description from "./Description";
 import SectionActions from "./SectionActions";
-import SectionAuthoring from "./SectionAuthoring";
-import Comments from "./Comments";
+// import SectionAuthoring from "./SectionAuthoring";
 import SortByNaid from "./SortByNaid";
+import Blocks from "./Blocks";
+import Comments from "./Comments";
+import Authoring from "./Authoring";
 
 // API
 import { updateGuideSection } from "#api/internal/guideSection";
@@ -39,6 +41,15 @@ const TitleWrapper = styled.div`
 
   @media ${(props) => props.theme.breakpoints.medium} {
     margin: 0 50px;
+  }
+`;
+
+const AuthoringWrapper = styled.div`
+  /* border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey}; */
+  padding-top: 80px;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    margin: 0 30px;
   }
 `;
 
@@ -103,6 +114,12 @@ const Section = ({
       });
   }, 300);
 
+  const handleAddRecords = () => {
+    editorContext.actions.setActiveGuide(guide.data.id);
+    editorContext.actions.setActiveSection(section.id);
+    editorContext.actions.setAddingRecords(true);
+  };
+
   return (
     <Root>
       <SectionActions
@@ -136,9 +153,17 @@ const Section = ({
           <StyledEditIcon />
         </TitleWrapper>
 
-        <SectionAuthoring guide={guide} section={section} />
+        <AuthoringWrapper>
+          <Authoring
+            handleAddRecords={handleAddRecords}
+            resourceType="GuideSection"
+            resourceId={section.id}
+          />
 
-        <div style={{ marginTop: "20px" }}>
+          <Blocks blockableType="GuideSection" blockableId={section.id} />
+        </AuthoringWrapper>
+
+        <div>
           {descriptions.map((description, i) => (
             <Description
               key={description.id}

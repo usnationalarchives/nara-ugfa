@@ -7,7 +7,10 @@ class GuideSectionDescription < ApplicationRecord
   has_one :guide, through: :guide_section
   has_one :user, through: :guide
 
+  # Only show un-resolved comments in the API
   has_many :comments, lambda { where(resolved: false)}, as: :commentable, dependent: :destroy
+
+  # Method for getting all comments
   has_many :all_comments, class_name: "Comment", as: :commentable, dependent: :destroy
 
   has_many :blocks,

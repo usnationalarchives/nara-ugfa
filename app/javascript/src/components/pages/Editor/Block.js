@@ -108,6 +108,7 @@ const Block = ({
   setInitialBlocks,
   dispatchBlocks,
   blockableId,
+  blockableType,
 }) => {
   const [editing, setEditing] = useState(
     !initialBlocks.map((ib) => parseInt(ib.id)).includes(parseInt(block.id))
@@ -125,7 +126,7 @@ const Block = ({
 
   const handleUpdate = (data = {}) => {
     updateBlock(block.id, {
-      blockable_type: "GuideSectionDescription",
+      blockable_type: blockableType,
       blockable_id: blockableId,
       data: data,
     }).then((response) => {

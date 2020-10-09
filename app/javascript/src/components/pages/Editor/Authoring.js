@@ -1,5 +1,5 @@
-import React, { useContext, useRef, useState, useReducer } from "react";
-import styled from "styled-components";
+import React, { useState, useContext, useRef } from "react";
+import styled, { css } from "styled-components";
 import Popover from "react-tiny-popover";
 
 // context
@@ -10,7 +10,6 @@ import { createBlock } from "#api/internal/block";
 
 // components
 import Button from "#components/shared/Button";
-import Block from "./Block";
 import PlusCircle from "#components/shared/PlusCircle";
 
 // styles
@@ -25,15 +24,21 @@ const Root = styled.div`
   z-index: 50;
 `;
 
-const AddContextRoot = styled.div`
-  @media ${(props) => props.theme.breakpoints.medium} {
+const Inner = styled.div`
+  @media all and ${(props) => props.theme.breakpoints.medium} {
     background-color: ${(props) => props.theme.colors.white};
-    bottom: -42px;
     left: 50%;
     min-height: 40px;
     padding: 0 10px;
     position: absolute;
     transform: translateX(-50%);
+    bottom: 20px;
+
+    ${(props) =>
+      props.context === "description" &&
+      css`
+        bottom: -42px;
+      `}
   }
 `;
 
@@ -100,20 +105,15 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Context = ({ guide, sectionDescription }) => {
+const Authoring = ({ handleAddRecords, resourceType, resourceId, context }) => {
   const popoverEl = useRef();
+  const [open, setOpen] = useState(false);
   const editorContext = useContext(EditorContext);
-
-  const blocks = editorContext.state.blocks.filter(
-    (b) =>
-      b.attributes.blockable_type === "GuideSectionDescription" &&
-      b.attributes.blockable_id === parseInt(sectionDescription.id)
-  );
 
   const addBlock = ({ type }) => {
     createBlock({
-      blockable_type: "GuideSectionDescription",
-      blockable_id: sectionDescription.id,
+      blockable_type: resourceType,
+      blockable_id: resourceId,
       block_type: type,
     }).then((response) => {
       editorContext.actions.dispatchBlocks({
@@ -123,46 +123,33 @@ const Context = ({ guide, sectionDescription }) => {
     });
   };
 
-  const handleAddRecords = () => {
-    editorContext.actions.setActiveGuide(guide.data.id);
-    editorContext.actions.setActiveSection(
-      sectionDescription.attributes.guide_section_id
+  const PopoverContent = () => {
+    return (
+      <AddContextPopover>
+        <ContextTypeButton onClick={() => addBlock({ type: "summary" })}>
+          <SummaryIcon />
+          Add Summary
+          <ContextTypeButtonHelp>
+            Add a brief summary to a section.
+          </ContextTypeButtonHelp>
+        </ContextTypeButton>
+
+        <ContextTypeButton
+          onClick={() => addBlock({ type: "research_highlight" })}
+        >
+          <StarIcon />
+          Add Research Highlight
+          <ContextTypeButtonHelp>
+            Call out key research takeaways.
+          </ContextTypeButtonHelp>
+        </ContextTypeButton>
+      </AddContextPopover>
     );
-    editorContext.actions.setActiveDescription(
-      sectionDescription.attributes.description_id
-    );
-    editorContext.actions.setAddingRecords(true);
   };
 
-  const AddContext = () => {
-    const [open, setOpen] = useState(false);
-
-    const PopoverContent = () => {
-      return (
-        <AddContextPopover>
-          <ContextTypeButton onClick={() => addBlock({ type: "summary" })}>
-            <SummaryIcon />
-            Add Summary
-            <ContextTypeButtonHelp>
-              Add a brief summary to a section.
-            </ContextTypeButtonHelp>
-          </ContextTypeButton>
-
-          <ContextTypeButton
-            onClick={() => addBlock({ type: "research_highlight" })}
-          >
-            <StarIcon />
-            Add Research Highlight
-            <ContextTypeButtonHelp>
-              Call out key research takeaways.
-            </ContextTypeButtonHelp>
-          </ContextTypeButton>
-        </AddContextPopover>
-      );
-    };
-
-    return (
-      <AddContextRoot>
+  return (
+    <Root>
+      <Inner context={context}>
         <Popover
           isOpen={open}
           disableReposition
@@ -184,26 +171,9 @@ const Context = ({ guide, sectionDescription }) => {
             <div ref={popoverEl}></div>
           </ButtonWrapper>
         </Popover>
-      </AddContextRoot>
-    );
-  };
-
-  return (
-    <Root>
-      {blocks.map((block) => (
-        <Block
-          key={block.id}
-          guide={guide}
-          block={block}
-          dispatchBlocks={editorContext.actions.dispatchBlocks}
-          blockableId={sectionDescription.id}
-          setInitialBlocks={editorContext.actions.setInitialBlocks}
-          initialBlocks={editorContext.state.initialBlocks}
-        />
-      ))}
-      <AddContext />
+      </Inner>
     </Root>
   );
 };
 
-export default Context;
+export default Authoring;

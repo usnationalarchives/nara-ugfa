@@ -17,6 +17,11 @@ class GuideSection < ApplicationRecord
   # Method for getting all comments
   has_many :all_comments, class_name: "Comment", as: :commentable, dependent: :destroy
 
+  has_many :blocks,
+    lambda { order(weight: :asc)},
+    as: :blockable,
+    dependent: :destroy
+
   def prioritizable_collection
     guide.guide_sections
   end

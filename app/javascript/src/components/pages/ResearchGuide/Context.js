@@ -6,24 +6,18 @@ import Block from "./Block";
 
 const Root = styled.div``;
 
-const Context = ({ guide, description }) => {
-  const sectionDescription = guide.included.filter(
-    (i) =>
-      i.type === "guide_section_descriptions" &&
-      i.attributes.description_id === parseInt(description.id)
-  )[0];
-
+const Context = ({ guide, blockableType, blockableId, context }) => {
   const blocks = guide.included.filter(
     (i) =>
       i.type === "blocks" &&
-      i.attributes.blockable_type === "GuideSectionDescription" &&
-      i.attributes.blockable_id === parseInt(sectionDescription.id)
+      i.attributes.blockable_type === blockableType &&
+      parseInt(i.attributes.blockable_id) === parseInt(blockableId)
   );
 
   return (
     <Root>
       {blocks.map((block) => (
-        <Block key={block.id} block={block} />
+        <Block key={block.id} block={block} context={context} />
       ))}
     </Root>
   );
