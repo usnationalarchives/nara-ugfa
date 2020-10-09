@@ -9,7 +9,6 @@ import { EditorContext } from "#contexts/Editor";
 import * as Text from "#components/shared/Text";
 import Description from "./Description";
 import SectionActions from "./SectionActions";
-// import SectionAuthoring from "./SectionAuthoring";
 import SortByNaid from "./SortByNaid";
 import Blocks from "./Blocks";
 import Comments from "./Comments";
@@ -45,8 +44,7 @@ const TitleWrapper = styled.div`
 `;
 
 const AuthoringWrapper = styled.div`
-  /* border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey}; */
-  padding-top: 80px;
+  padding-top: 40px;
 
   @media ${(props) => props.theme.breakpoints.medium} {
     margin: 0 30px;

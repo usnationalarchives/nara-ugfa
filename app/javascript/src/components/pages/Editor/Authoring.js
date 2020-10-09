@@ -33,6 +33,7 @@ const Inner = styled.div`
     position: absolute;
     transform: translateX(-50%);
     bottom: 20px;
+    bottom: -32px;
 
     ${(props) =>
       props.context === "description" &&
