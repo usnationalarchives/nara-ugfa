@@ -109,12 +109,6 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
   def set_guide_and_section
     @guide = current_user.guides.find_by_id(params[:id]) or return http404
     @section = @guide.guide_sections.find_by_id(params[:section_id]) or return http404
-
-    puts "****************************"
-    puts "section id: #{@section.id}"
-    puts "guide id: #{@guide.id}"
-    puts "****************************"
-
   end
 
 end

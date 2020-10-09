@@ -24,7 +24,7 @@ class GuideSection < ApplicationRecord
   def sort_descriptions_by_naid
     weight = 2
 
-    guide_section_descriptions.joins(:description).reorder("descriptions.naid ASC").each do |gsd|
+    guide_section_descriptions.joins(:description).reorder("descriptions.naid DESC").each do |gsd|
       gsd.update_columns(weight: weight)
       weight += 2;
     end
