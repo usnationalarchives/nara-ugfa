@@ -14,6 +14,8 @@ import PageWrapper from "#components/shared/PageWrapper";
 const DashboardGuides = () => {
   const userContext = useContext(UserContext);
 
+  console.log(userContext.state.user);
+
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
@@ -31,24 +33,10 @@ const DashboardGuides = () => {
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
-
-                      {userContext.state.user.isNaraStaff &&
-                        <Get url="/guides?pending=true">
-                          {(error, response, isLoading) => {
-                            if (response) {
-                              return (
-                                <>
-                                  <Guides title="Pending Moderation" guides={response.data.data} />
-                                </>
-                              );
-                            }
-                            return <div>Loading...</div>;
-                          }}
-                        </Get>
-                      }
-
-                      <Guides title="My Guides to Records" guides={response.data.included} />
-
+                      <Guides
+                        title="My Guides to Records"
+                        guides={response.data.included}
+                      />
                     </PageWrapper>
                   </Layout.Wrapper>
                 </Layout.Padding>

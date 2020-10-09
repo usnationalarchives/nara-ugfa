@@ -17,6 +17,7 @@ class User < ApplicationRecord
       "name": name,
       "email": email,
       "catalog_attributes": catalog_attributes,
+      "admin": admin,
     }.to_json
   end
 
