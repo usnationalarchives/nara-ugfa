@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import SummaryBlock from "./SummaryBlock";
 import ResearchHighlightBlock from "./ResearchHighlightBlock";
@@ -9,7 +9,11 @@ const Root = styled.div`
   padding: 40px 25px;
 
   &:last-child {
-    padding-bottom: 0;
+    ${(props) =>
+      props.context !== "section" &&
+      css`
+        padding-bottom: 10px;
+      `}
   }
 
   @media all and ${(props) => props.theme.breakpoints.medium} {
@@ -17,9 +21,9 @@ const Root = styled.div`
   }
 `;
 
-const Block = ({ block }) => {
+const Block = ({ block, context }) => {
   return (
-    <Root>
+    <Root context={context}>
       {block.attributes.block_type === "summary" && (
         <SummaryBlock block={block} />
       )}

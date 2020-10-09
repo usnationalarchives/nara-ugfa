@@ -9,6 +9,7 @@ class SerializableGuideSection < JSONAPI::Serializable::Resource
     time_ago_in_words(@object.updated_at)
   end
 
+  has_many :blocks
   has_many :descriptions
   has_many :guide_section_descriptions
   has_many :comments

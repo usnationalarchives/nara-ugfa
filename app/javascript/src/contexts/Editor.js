@@ -10,6 +10,7 @@ const EditorProvider = ({ children }) => {
   const [saving, setSaving] = useState(false);
   const [lastSaved, setLastSaved] = useState();
   const [initialBlocks, setInitialBlocks] = useState([]);
+  const [guide, setGuide] = useState();
 
   const [comments, dispatchComments] = useReducer(
     (comments, { type, value, commentIds = [] }) => {
@@ -49,6 +50,8 @@ const EditorProvider = ({ children }) => {
   }, []);
 
   const init = ({ data }) => {
+    setGuide(data);
+
     setInitialBlocks(data.included.filter((i) => i.type === "blocks"));
     dispatchBlocks({
       type: "set",
@@ -62,6 +65,7 @@ const EditorProvider = ({ children }) => {
   };
 
   const state = {
+    guide,
     activeGuide,
     activeSection,
     activeDescription,

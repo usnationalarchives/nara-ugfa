@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // components
+import Context from "./Context";
 import Description from "./Description";
 
 export const Root = styled.div`
@@ -34,13 +35,23 @@ const Section = ({ guide, section }) => {
   return (
     <Root>
       <Title>{title}</Title>
-      {descriptions.map((description) => (
-        <Description
-          key={description.id}
-          description={description}
-          guide={guide}
-        />
-      ))}
+
+      <Context
+        guide={guide}
+        blockableType="GuideSection"
+        blockableId={section.id}
+        context="section"
+      />
+
+      <div>
+        {descriptions.map((description) => (
+          <Description
+            key={description.id}
+            description={description}
+            guide={guide}
+          />
+        ))}
+      </div>
     </Root>
   );
 };

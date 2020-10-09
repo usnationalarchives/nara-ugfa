@@ -1,6 +1,9 @@
-import React, { useState, Fragment } from "react";
+import React, { useContext, useState, Fragment } from "react";
 import styled, { css } from "styled-components";
 import useCollapse from "react-collapsed";
+
+// context
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Layout from "#components/shared/Layout";
@@ -8,8 +11,9 @@ import DescriptionActions from "./DescriptionActions";
 import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
-import Context from "./Context";
+import Blocks from "./Blocks";
 import Comments from "./Comments";
+import Authoring from "./Authoring";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -21,6 +25,10 @@ const Root = styled.div`
   margin-top: 8px;
   padding: 20px 0;
   position: relative;
+
+  &:first-child {
+    border-top: 1px solid ${(props) => props.theme.colors.mediumGrey};
+  }
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
@@ -132,6 +140,8 @@ const Description = ({
   first,
   last,
 }) => {
+  const editorContext = useContext(EditorContext);
+
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse({
     defaultExpanded: false,
   });
@@ -151,6 +161,17 @@ const Description = ({
     thumbnailUrl,
     title,
   } = description.attributes;
+
+  const handleAddRecords = () => {
+    editorContext.actions.setActiveGuide(guide.data.id);
+    editorContext.actions.setActiveSection(
+      sectionDescription.attributes.guide_section_id
+    );
+    editorContext.actions.setActiveDescription(
+      sectionDescription.attributes.description_id
+    );
+    editorContext.actions.setAddingRecords(true);
+  };
 
   const Metadata = () => {
     return (
@@ -235,7 +256,17 @@ const Description = ({
         setCommenting={setCommenting}
       />
 
-      <Context guide={guide} sectionDescription={sectionDescription} />
+      <Blocks
+        blockableType="GuideSectionDescription"
+        blockableId={sectionDescription.id}
+      />
+
+      <Authoring
+        handleAddRecords={handleAddRecords}
+        resourceType="GuideSectionDescription"
+        resourceId={sectionDescription.id}
+        context="description"
+      />
     </Root>
   );
 };

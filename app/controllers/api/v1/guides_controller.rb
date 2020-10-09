@@ -92,7 +92,7 @@ class API::V1::GuidesController < API::V1::BaseController
     @guide = current_user.guides.find_by_id(params[:id]) or return http404
 
     render jsonapi: @guide,
-      include: [guide_sections: [:descriptions, :comments, guide_section_descriptions: [:comments, blocks: [:comments]]]],
+      include: [guide_sections: [:descriptions, :comments, blocks: [:comments], guide_section_descriptions: [:comments, blocks: [:comments]]]],
       fields: {
         guides: [
           :id,
@@ -116,7 +116,7 @@ class API::V1::GuidesController < API::V1::BaseController
         ],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight, :unresolved_comments],
         comments: [:id, :commentable_type, :commentable_id, :content, :user_name, :user_email, :created, :gravatar ],
-        guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions, :comments],
+        guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions, :comments, :blocks],
         guide_section_descriptions: [:id, :guide_section_id, :description_id, :blocks, :comments],
         descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent]
       }
@@ -130,7 +130,7 @@ class API::V1::GuidesController < API::V1::BaseController
     end
 
     render jsonapi: @guide,
-      include: [guide_sections: [:descriptions, guide_section_descriptions: [:blocks]]],
+      include: [guide_sections: [:descriptions, :blocks, guide_section_descriptions: [:blocks]]],
       fields: {
         guides: [
           :id,
@@ -151,7 +151,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :background_image_url
         ],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
-        guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions],
+        guide_sections: [:id, :title, :weight, :blocks, :descriptions, :guide_section_descriptions],
         guide_section_descriptions: [:id, :guide_section_id, :description_id, :blocks],
         descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent],
       }
@@ -192,9 +192,9 @@ class API::V1::GuidesController < API::V1::BaseController
     @guide = Guide.find_by_id(params[:id]) or return http404
     if @guide.descriptions.any?
       @description_ids = []
-      10.times.map { 
-        @description_ids << @guide.descriptions.pluck(:id).sample 
-      } 
+      10.times.map {
+        @description_ids << @guide.descriptions.pluck(:id).sample
+      }
       @guides = []
       @description_ids.each do |id|
         @guides << Guide.published.includes(:descriptions).where.not(id: @guide.id).where("descriptions.id = ?", "#{id}").references(:descriptions)
@@ -232,7 +232,7 @@ class API::V1::GuidesController < API::V1::BaseController
     if @guide.descriptions.any?
       # Pick 3 random description records from the Guide
       @guide_descriptions = []
-      3.times.map { 
+      3.times.map {
         @guide_descriptions << @guide.descriptions.sample
       }
 
