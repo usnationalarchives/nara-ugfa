@@ -25,6 +25,7 @@ const Root = styled.div`
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   margin: 20px 0;
   position: relative;
+  padding-bottom: 40px;
 `;
 
 const Inner = styled.div`
