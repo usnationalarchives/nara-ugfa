@@ -2,12 +2,12 @@ class API::V1::GuidesController < API::V1::BaseController
 
   def index
     if params[:q].present?
-      @all_guides = Guide.published.fulltext_search(params[:q].to_s).by_relevance
+      @all_guides = Guide.catalog_ready.fulltext_search(params[:q].to_s).by_relevance
     elsif params[:pending] == "true"
       return render json: { message: "Forbidden", status: 403 } unless current_user.admin
       @all_guides = Guide.pending_moderation
     else
-      @all_guides = Guide.published
+      @all_guides = Guide.catalog_ready
     end
 
     @rows = params[:rows].present? ? params[:rows].to_i : 20
@@ -125,7 +125,7 @@ class API::V1::GuidesController < API::V1::BaseController
   end
 
   def show
-    @guide = Guide.published.find_by_id(params[:id])
+    @guide = Guide.catalog_ready.find_by_id(params[:id])
 
     unless @guide
       @guide = current_user.guides.find_by_id(params[:id]) or return http404
@@ -198,8 +198,13 @@ class API::V1::GuidesController < API::V1::BaseController
         @description_ids << @guide.descriptions.pluck(:id).sample
       }
       @guides = []
-      @description_ids.each do |id|
-        @guides << Guide.published.includes(:descriptions).where.not(id: @guide.id).where("descriptions.id = ?", "#{id}").references(:descriptions)
+      @description_ids.flatten.uniq.each do |id|
+        @guides << Guide.published.
+        includes(:descriptions).
+        where.not(id: @guide.id).
+        where("descriptions.id = ?", "#{id}").
+        where('guides.updated_at < ?', 24.hours.ago).
+        references(:descriptions)
       end
       @guides = @guides.flatten.uniq.shuffle.take(3)
     else

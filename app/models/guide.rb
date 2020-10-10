@@ -25,6 +25,11 @@ class Guide < ApplicationRecord
     where('updated_at > ?', 24.hours.ago)
   }
 
+  scope :catalog_ready, lambda {
+    where(status: "published").
+    where('updated_at < ?', 24.hours.ago)
+  }
+
   modal_attribute :looking_for_collaborators, {
     no: "No",
     yes: "Yes"
