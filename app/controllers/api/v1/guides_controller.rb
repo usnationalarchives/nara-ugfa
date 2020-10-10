@@ -228,7 +228,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :pending,
           :audience_ids,
           :guide_sections,
-          :uuid
+          :uuid,
+          :background_image_url
         ]
       }
   end
