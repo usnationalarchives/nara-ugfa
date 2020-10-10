@@ -16,10 +16,6 @@ import { buttonReset } from '#styles/mixins';
 
 // assets
 import Close from '#assets/icons/close-x.svg';
-import SeriesIcon from "#assets/icons/hierarchy-series.svg";
-import ItemIcon from "#assets/icons/hierarchy-item.svg";
-import BoxIcon from "#assets/icons/hierarchy-record-group.svg";
-import FileUnitIcon from "#assets/icons/hierarchy-file-unit.svg";
 
 const ModalContent = styled.div`
   background-color: ${props => props.theme.colors.blue};

@@ -13,6 +13,7 @@ import { UserContext } from "#contexts/User";
 import Verified from "#assets/icons/verified.svg";
 import VerifiedSolid from "#assets/icons/verified-solid.svg";
 import Pending from "#assets/icons/pending.svg";
+import Star from "#assets/icons/star.svg";
 
 export const Root = styled(Link)`
   background-color: ${(props) => props.theme.colors.white};
@@ -125,6 +126,55 @@ export const ModeratorButtons = styled.div`
   right: 0;
 `;
 
+export const UserRecommendations = styled.div`
+  align-items: center;
+  bottom: 20px;
+  color: ${(props) => props.theme.colors.darkGrey};
+  display: flex;
+  font-size: 0.8em;
+  position: absolute;
+
+  &:hover {
+    div {
+      display: block;
+    }
+  }
+  
+  svg {
+    height: 15px;
+    margin-right: 5px;
+    width: 15px;
+  }
+`;
+
+export const UserRecommendationsTooltip = styled.div`
+  background-color: ${(props) => props.theme.colors.darkGrey};
+  border-radius: 3px;
+  bottom: 25px;
+  color: ${(props) => props.theme.colors.white};
+  display: none;
+  font-size: 0.65rem;
+  left: -75px;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 160px;
+  z-index: 10;
+`;
+
+const Triangle = styled.div`
+  border-style: solid;
+  border-width: 6px 6px 0 6px;
+  border-color: ${(props) => props.theme.colors.darkGrey} transparent transparent transparent;
+  bottom: -5px;
+  display: inline-block;
+  height: 0;
+  left: 45%;
+  position: absolute;
+  width: 0;
+`;
+
 export const VerifiedInfo = styled.div`
   bottom: 10px;
   cursor: pointer;
@@ -137,12 +187,13 @@ export const VerifiedToolTip = styled.div`
   border-radius: 3px;
   bottom: 35px;
   color: ${(props) => props.theme.colors.white};
-  font-size: 0.8em;
-  left: -75px;
-  padding: 10px;
+  font-size: 0.65rem;
+  left: -55px;
+  padding: 5px;
   position: absolute;
+  text-align: center;
   text-transform: uppercase;
-  width: 150px;
+  width: 130px;
   z-index: 10;
 `;
 
@@ -159,7 +210,7 @@ const DemoPopover = styled.div`
   z-index: 10;
 
   span {
-    background: #fff;
+    background: ${(props) => props.theme.colors.white};
     border: 1px solid ${(props) => props.theme.colors.lightGrey};
     border-radius: 10px;
     color: ${(props) => props.theme.colors.textLightGrey};
@@ -221,17 +272,29 @@ const ResearchGuideCard = ({
 
       <CardContent>
         <Title>{title}</Title>
-        <Title>{}</Title>
 
         {approved && !pending && (
-          <VerifiedInfo ref={hoverRef}>
-            {isHovered ? <VerifiedSolid /> : <Verified />}
-            {isHovered ? (
-              <VerifiedToolTip>Published By NARA</VerifiedToolTip>
-            ) : (
-              ""
-            )}
-          </VerifiedInfo>
+          <>
+            <UserRecommendations>
+              <Star/> 13
+              <UserRecommendationsTooltip>
+                User Recommendations
+                <Triangle />
+              </UserRecommendationsTooltip>
+            </UserRecommendations>
+
+            <VerifiedInfo ref={hoverRef}>
+              {isHovered ? <VerifiedSolid /> : <Verified />}
+              {isHovered ? (
+                <VerifiedToolTip>
+                  Published By NARA
+                  <Triangle />
+                </VerifiedToolTip>
+              ) : (
+                ""
+              )}
+            </VerifiedInfo>
+          </>
         )}
 
         {!approved && pending && (

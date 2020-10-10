@@ -11,6 +11,9 @@ import { UserContext } from "#contexts/User";
 // modules
 import backgroundColors from "#modules/backgroundColors";
 
+// assets
+import Star from "#assets/icons/star.svg";
+
 export const Root = styled.div`
   align-items: stretch;
   background-color: ${(props) => props.backgroundColor};
@@ -131,6 +134,60 @@ export const Image = styled.div`
   }
 `;
 
+export const UserRecommendations = styled.div`
+  align-items: center;
+  border: 1px solid ${(props) => props.theme.colors.white};
+  border-radius: 5px;
+  color: ${(props) => props.theme.colors.white};
+  cursor: pointer;
+  display: flex;
+  font-size: 0.8em;
+  margin-top: 20px;
+  padding: 5px 10px;
+  width: 150px;
+
+  &:hover {
+    div {
+      display: block;
+    }
+  }
+  
+  svg {
+    height: 15px;
+    fill: ${(props) => props.theme.colors.white};
+    margin-right: 5px;
+    width: 15px;
+  }
+`;
+
+export const UserRecommendationsTooltip = styled.div`
+  background-color: ${(props) => props.theme.colors.white};
+  border-radius: 3px;
+  bottom: 55px;
+  color: ${(props) => props.theme.colors.darkGrey};
+  display: none;
+  font-size: 0.65rem;
+  left: -5px;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 200px;
+  z-index: 10;
+`;
+
+const Triangle = styled.div`
+  border-style: solid;
+  border-width: 6px 6px 0 6px;
+  border-color: ${(props) => props.theme.colors.white} transparent transparent transparent;
+  bottom: -5px;
+  display: inline-block;
+  height: 0;
+  left: 90px;
+  position: absolute;
+  width: 0;
+`;
+
 const Banner = ({ data }) => {
   const userContext = useContext(UserContext);
 
@@ -167,6 +224,15 @@ const Banner = ({ data }) => {
           <PublishedDate textColor={textColor}>
             Last Edit {data.attributes.updated}
           </PublishedDate>
+          {data.attributes.nara_approved && (
+            <UserRecommendations>
+              <Star /> You and 12 Others
+                <UserRecommendationsTooltip>
+                  This guide is recommended by you  and 12 others.
+                  <Triangle/>
+                </UserRecommendationsTooltip>
+            </UserRecommendations>
+          )}
         </Layout.Padding>
       </Content>
       {data.attributes.background_image_url && (
