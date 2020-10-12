@@ -83,7 +83,8 @@ class API::V1::GuidesController < API::V1::BaseController
             :audience_ids,
             :status,
             :uuid,
-            :background_image
+            :background_image,
+            :background_image_url
           ]
         }
     end
@@ -114,7 +115,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_ids,
           :guide_sections,
           :uuid,
-          :background_image
+          :background_image,
+          :background_image_url
         ],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight, :unresolved_comments],
         comments: [:id, :commentable_type, :commentable_id, :content, :user_name, :user_email, :created, :gravatar ],
