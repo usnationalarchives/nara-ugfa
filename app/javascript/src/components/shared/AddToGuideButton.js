@@ -138,6 +138,7 @@ const AddToGuideButton = ({
           };
           setAddOptionsVisible(false);
           setGuides([...guides, newGuide]);
+          editorContext.actions.init({ data: response.data });
         })
         .catch((error) => {
           console.log(error);

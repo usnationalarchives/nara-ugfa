@@ -92,9 +92,10 @@ const Search = () => {
   const handleClose = () => {
     editorContext.actions.setActiveSection(null);
     editorContext.actions.setActiveGuide(null);
+    editorContext.actions.setAddingRecords(false);
 
     // force a page reload to bring in any new descriptions added
-    window.location = `/guides/${editorContext.state.activeGuide}/edit`;
+    // window.location = `/guides/${editorContext.state.activeGuide}/edit`;
   };
 
   const handleChange = (event) => {
