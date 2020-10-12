@@ -11,6 +11,7 @@ import * as Text from "#components/shared/Text";
 import VisibilitySettings from "./VisibilitySettings";
 import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
 import CollaborationModal from "#components/shared/CollaborationModal";
+import BulkActions from "./BulkActions";
 
 // assets
 import HelpIcon from "#assets/icons/help.svg";
@@ -178,20 +179,23 @@ const UtilityBar = ({ guide }) => {
     <Root>
       <Layout.Padding>
         <Inner>
-          <Status>
-            <MobileStatus>
-              {/* TODO: add spinner */}
-              {editorContext.state.saving && <p>...</p>}
-            </MobileStatus>
+          {editorContext.state.bulkItems.length > 0 && <BulkActions />}
+          {editorContext.state.bulkItems.length === 0 && (
+            <Status>
+              <MobileStatus>
+                {/* TODO: add spinner */}
+                {editorContext.state.saving && <p>...</p>}
+              </MobileStatus>
 
-            <DesktopStatus>
-              {editorContext.state.saving && <p>Saving...</p>}
-              {!editorContext.state.saving && (
-                <p>Last saved {editorContext.state.lastSaved} ago</p>
-              )}
-              <GlobalCollapse inline />
-            </DesktopStatus>
-          </Status>
+              <DesktopStatus>
+                {editorContext.state.saving && <p>Saving...</p>}
+                {!editorContext.state.saving && (
+                  <p>Last saved {editorContext.state.lastSaved} ago</p>
+                )}
+                <GlobalCollapse inline />
+              </DesktopStatus>
+            </Status>
+          )}
 
           <div>
             <StyledLink to={`/guides/${guide.data.id}`}>Preview</StyledLink>
@@ -200,7 +204,11 @@ const UtilityBar = ({ guide }) => {
 
           <ShareHelp>
             <ShareButtons>
-              <CollaborationModal publicLink={`${urlArray[0] + "//" + urlArray[2]}/guides/public/${guide.data.attributes.uuid}`}/>
+              <CollaborationModal
+                publicLink={`${
+                  urlArray[0] + "//" + urlArray[2]
+                }/guides/public/${guide.data.attributes.uuid}`}
+              />
             </ShareButtons>
 
             <ShareHelpOpen

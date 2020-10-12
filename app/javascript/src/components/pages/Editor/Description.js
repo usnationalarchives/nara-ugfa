@@ -11,6 +11,7 @@ import DescriptionActions from "./DescriptionActions";
 import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
+import BulkSelect from "./BulkSelect";
 import Blocks from "./Blocks";
 import Comments from "./Comments";
 import Authoring from "./Authoring";
@@ -18,6 +19,20 @@ import Authoring from "./Authoring";
 // styles
 import { buttonReset } from "#styles/mixins";
 import { fl_attention, fl_allStates } from "#styles/frontline";
+
+const Bulk = styled.div`
+  display: none;
+
+  ${(props) =>
+    props.show &&
+    css`
+      display: block;
+    `}
+`;
+
+const Actions = styled.div`
+  display: none;
+`;
 
 const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -33,13 +48,15 @@ const Root = styled.div`
     }
   }
 
+  &:hover {
+    ${Bulk} {
+      display: block;
+    }
+  }
+
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
   }
-`;
-
-const Actions = styled.div`
-  display: none;
 `;
 
 const Inner = styled.div`
@@ -213,6 +230,10 @@ const Description = ({
             setCommenting={setCommenting}
           />
         </Actions>
+
+        <Bulk show={editorContext.state.bulkItems.length}>
+          <BulkSelect description={description} />
+        </Bulk>
 
         <DescriptionHierarchy description={description} />
 

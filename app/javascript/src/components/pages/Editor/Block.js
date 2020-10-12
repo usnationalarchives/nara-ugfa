@@ -170,7 +170,6 @@ const Block = ({
       </Inner>
 
       <Comments
-        guide={guide}
         commentableType="Block"
         commentableId={block.id}
         commenting={commenting}
