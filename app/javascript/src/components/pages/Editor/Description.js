@@ -275,20 +275,20 @@ const Description = ({
 
       <Comments
         commentableType="GuideSectionDescription"
-        commentableId={sectionDescription.id}
+        commentableId={(sectionDescription || {}).id}
         commenting={commenting}
         setCommenting={setCommenting}
       />
 
       <Blocks
         blockableType="GuideSectionDescription"
-        blockableId={sectionDescription.id}
+        blockableId={(sectionDescription || {}).id}
       />
 
       <Authoring
         handleAddRecords={handleAddRecords}
         resourceType="GuideSectionDescription"
-        resourceId={sectionDescription.id}
+        resourceId={(sectionDescription || {}).id}
         context="description"
       />
     </Root>

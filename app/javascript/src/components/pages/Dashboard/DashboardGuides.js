@@ -14,8 +14,6 @@ import PageWrapper from "#components/shared/PageWrapper";
 const DashboardGuides = () => {
   const userContext = useContext(UserContext);
 
-  console.log(userContext.state.user);
-
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />

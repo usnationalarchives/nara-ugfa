@@ -187,8 +187,9 @@ const GuideFields = ({ guide }) => {
 
         <HeroAsset>
           <CoverImage
+            guide={guide}
             defaultValue={guide.data.attributes.background_image}
-            handleChange={handleChange}
+            defaultImageUrl={guide.data.attributes.background_image_url}
           />
         </HeroAsset>
       </Hero>
