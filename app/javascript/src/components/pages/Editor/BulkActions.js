@@ -64,7 +64,8 @@ const PopoverWrapper = styled.div`
   padding: 20px;
   position: absolute;
   text-align: left;
-  width: 200px;
+  min-width: 200px;
+  max-width: 400px;
 `;
 
 const Action = styled.button`
@@ -74,16 +75,21 @@ const Action = styled.button`
   display: flex;
   font-size: 1rem;
   margin-top: 10px;
+  text-align: left;
+  padding-left: 35px;
+  position: relative;
 
   &:first-child {
     margin-top: 0;
   }
 
   svg {
+    position: absolute;
+    top: -1px;
+    left: 0;
     fill: ${(props) => props.theme.colors.blue};
-    height: 20px;
-    margin-right: 10px;
-    width: 20px;
+    height: 18px;
+    width: 28px;
   }
 `;
 
@@ -175,6 +181,7 @@ const BulkActions = () => {
           <div>
             {editorContext.state.sections.map((section) => (
               <Action key={section.id} onClick={() => handleMove(section.id)}>
+                <MoveIcon />
                 {section.attributes.title || "Untitled Section"}
               </Action>
             ))}

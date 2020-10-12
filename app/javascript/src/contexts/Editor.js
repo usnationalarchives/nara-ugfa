@@ -84,10 +84,14 @@ const EditorProvider = ({ children }) => {
             movedDescriptions = [...movedDescriptions, ...moved];
           }
 
-          newDescriptions[sectionId] = [
-            ...newDescriptions[sectionId],
-            ...movedDescriptions,
-          ];
+          if (newDescriptions[sectionId]) {
+            newDescriptions[sectionId] = [
+              ...newDescriptions[sectionId],
+              ...movedDescriptions,
+            ];
+          } else {
+            newDescriptions[sectionId] = movedDescriptions;
+          }
 
           return newDescriptions;
         case "moveUp":
