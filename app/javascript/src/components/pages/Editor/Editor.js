@@ -65,6 +65,7 @@ const Editor = ({ ...props }) => {
 
                     {response.data.data.relationships.guide_sections.data
                       .length && <ContentRecommendations guideid={id} />}
+
                     <UtilityBar guide={response.data} />
                   </Root>
                 )}

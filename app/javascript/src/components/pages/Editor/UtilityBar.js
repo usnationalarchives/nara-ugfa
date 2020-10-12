@@ -11,6 +11,7 @@ import * as Text from "#components/shared/Text";
 import VisibilitySettings from "./VisibilitySettings";
 import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
 import CollaborationModal from "#components/shared/CollaborationModal";
+import BulkActions from "./BulkActions";
 
 // assets
 import HelpIcon from "#assets/icons/help.svg";
@@ -178,6 +179,8 @@ const UtilityBar = ({ guide }) => {
     <Root>
       <Layout.Padding>
         <Inner>
+          <BulkActions />
+
           <Status>
             <MobileStatus>
               {/* TODO: add spinner */}
@@ -200,7 +203,11 @@ const UtilityBar = ({ guide }) => {
 
           <ShareHelp>
             <ShareButtons>
-              <CollaborationModal publicLink={`${urlArray[0] + "//" + urlArray[2]}/guides/public/${guide.data.attributes.uuid}`}/>
+              <CollaborationModal
+                publicLink={`${
+                  urlArray[0] + "//" + urlArray[2]
+                }/guides/public/${guide.data.attributes.uuid}`}
+              />
             </ShareButtons>
 
             <ShareHelpOpen

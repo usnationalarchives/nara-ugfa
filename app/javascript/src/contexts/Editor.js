@@ -49,6 +49,22 @@ const EditorProvider = ({ children }) => {
     }
   }, []);
 
+  const [bulkItems, dispatchBulkItems] = useReducer(
+    (bulkItems, { type, value }) => {
+      switch (type) {
+        case "add":
+          return [...bulkItems, value];
+        case "remove":
+          return bulkItems.filter((b) => b !== value);
+        case "clear":
+          return [];
+        default:
+          return bulkItems;
+      }
+    },
+    []
+  );
+
   const init = ({ data }) => {
     setGuide(data);
 
@@ -75,6 +91,7 @@ const EditorProvider = ({ children }) => {
     blocks,
     comments,
     initialBlocks,
+    bulkItems,
   };
 
   const actions = {
@@ -88,6 +105,7 @@ const EditorProvider = ({ children }) => {
     dispatchBlocks,
     dispatchComments,
     setInitialBlocks,
+    dispatchBulkItems,
   };
 
   return (

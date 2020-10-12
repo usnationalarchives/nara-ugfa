@@ -11,6 +11,7 @@ import DescriptionActions from "./DescriptionActions";
 import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
+import BulkSelect from "./BulkSelect";
 import Blocks from "./Blocks";
 import Comments from "./Comments";
 import Authoring from "./Authoring";
@@ -224,6 +225,11 @@ const Description = ({
             role="presentation"
           />
         )}
+
+        <BulkSelect
+          description={description}
+          guideSectionDescription={sectionDescription}
+        />
 
         <Title>
           <a href={`/${naId}`}>{title}</a>
