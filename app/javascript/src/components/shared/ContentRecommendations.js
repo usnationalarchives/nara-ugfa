@@ -1,25 +1,26 @@
 import React, { Fragment, useState } from "react";
-import styled, { css } from 'styled-components';
-import Modal from 'react-modal';
+import styled, { css } from "styled-components";
+import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import { Get } from "react-axios";
 
 // components
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
 import DescriptionIcon from "#components/shared/DescriptionIcon";
-import { fl_static } from '#styles/frontline';
-import { fl_attention } from '#styles/frontline';
+import AddRecommendation from "./AddRecommendation";
+import { fl_static } from "#styles/frontline";
+import { fl_attention } from "#styles/frontline";
 
 // styles
 import * as Layout from "#components/shared/Layout";
-import { buttonReset } from '#styles/mixins';
+import { buttonReset } from "#styles/mixins";
 
 // assets
-import Close from '#assets/icons/close-x.svg';
+import Close from "#assets/icons/close-x.svg";
 
 const ModalContent = styled.div`
-  background-color: ${props => props.theme.colors.blue};
-  color: ${props => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.blue};
+  color: ${(props) => props.theme.colors.white};
   padding: 20px;
   position: relative;
 
@@ -30,7 +31,7 @@ const ModalContent = styled.div`
 
 const OpenButton = styled.button`
   ${buttonReset}
-  background-color: ${props => props.theme.colors.blue};
+  background-color: ${(props) => props.theme.colors.blue};
   bottom: 56px;
   color: ${(props) => props.theme.colors.textLightBlue};
   font-size: 0.8em;
@@ -41,14 +42,15 @@ const OpenButton = styled.button`
   text-transform: uppercase;
 
   svg {
-    fill: ${props => props.theme.colors.yellow}
+    fill: ${(props) => props.theme.colors.yellow};
   }
 `;
 
 const Triangle = styled.div`
   border-style: solid;
   border-width: 0 6px 6px 6px;
-  border-color: transparent transparent ${(props) => props.theme.colors.textLightBlue} transparent;
+  border-color: transparent transparent
+    ${(props) => props.theme.colors.textLightBlue} transparent;
   display: inline-block;
   height: 0;
   margin: 0 5px 3px 0;
@@ -88,7 +90,6 @@ const ContentWrap = styled.div`
 `;
 
 export const CatalogContent = styled.div`
-
   @media (min-width: 600px) {
     border-right: 1px solid ${(props) => props.theme.colors.darkGrey};
     padding-right: 5%;
@@ -123,7 +124,7 @@ export const IconWrap = styled.p`
 `;
 
 const CatalogItemTitle = styled(Link)`
-  color: ${props => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
   display: inline-block;
   font-size: 1.1em;
   font-weight: bold;
@@ -138,55 +139,7 @@ const CatalogItemTitle = styled(Link)`
   `)}
 `;
 
-const CatalogItemUtilities = styled.div`
-`;
-
-export const AddToGuide = styled(Link)`
-  align-items: center;
-  color: ${props => props.theme.colors.yellow};
-  display: flex;
-  font-size: 0.8em;
-  font-weight: bold;
-  text-transform: uppercase;
-
-  ${fl_static(css`
-    text-decoration: none;
-  `)}
-
-  ${fl_attention(css`
-    text-decoration: underline;
-  `)}
-`;
-
-export const PlusIcon = styled.div`
-  display: inline-block;
-  height: 24px;
-  position: relative;
-  vertical-align: middle;
-  width: 24px;
-
-  &:before,
-  &:after {
-    background: ${(props) => props.theme.colors.yellow};
-    bottom: 3px;
-    content: "";
-    left: 3px;
-    position: absolute;
-    right: 3px;
-    top: 3px;
-  }
-
-  &:before {
-    width: 2px;
-    margin: 3px auto;
-  }
-
-  &:after {
-    margin: auto 3px;
-    height: 2px;
-    box-shadow: none;
-  }
-`;
+const CatalogItemUtilities = styled.div``;
 
 export const GuidesContent = styled.div`
   @media (min-width: 600px) {
@@ -203,30 +156,30 @@ export const ResearchGuideGrid = styled.div`
 
 const customStyles = {
   content: {
-    border: 'none',
-    left: '0',
-    right: '0',
-    bottom: '56px',
-    overflow: 'initial',
-    padding: '0',
-    right: '0',
-    top: 'initial'
+    border: "none",
+    left: "0",
+    right: "0",
+    bottom: "56px",
+    overflow: "initial",
+    padding: "0",
+    right: "0",
+    top: "initial",
   },
   overlay: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     zIndex: "100",
-  }
+  },
 };
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
 
-const ContentRecommendations = ({ guideid }) => {
+const ContentRecommendations = ({ guideId }) => {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -253,7 +206,8 @@ const ContentRecommendations = ({ guideid }) => {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Content Recommendations">
+        contentLabel="Content Recommendations"
+      >
         <ModalContent>
           <CloseButton onClick={closeModal}>
             <Close />
@@ -266,7 +220,7 @@ const ContentRecommendations = ({ guideid }) => {
             <CatalogContent>
               <Subheading>Catalog Content</Subheading>
               <ul>
-                <Get url={`/guides/${guideid}/recommended-descriptions`}>
+                <Get url={`/guides/${guideId}/recommended-descriptions`}>
                   {(error, response, isLoading) => {
                     if (error) {
                       return <div>Error</div>;
@@ -276,21 +230,29 @@ const ContentRecommendations = ({ guideid }) => {
                       if (response.data.data.length) {
                         return (
                           <Fragment>
-                            <p>Based on your added records, you might be interested in the following catalog content.</p>
+                            <p>
+                              Based on your added records, you might be
+                              interested in the following catalog content.
+                            </p>
                             {response.data.data.map((description) => (
                               <li key={description.attributes.naId}>
                                 <IconWrap>
-                                  <DescriptionIcon level={description.attributes.level} />
+                                  <DescriptionIcon
+                                    level={description.attributes.level}
+                                  />
                                   {description.attributes.level}
                                 </IconWrap>
-                                <CatalogItemTitle to={`/${description.attributes.naId}`}>
-                                  {description.attributes.title} (NAID {description.attributes.naId})
+                                <CatalogItemTitle
+                                  to={`/${description.attributes.naId}`}
+                                >
+                                  {description.attributes.title} (NAID{" "}
+                                  {description.attributes.naId})
                                 </CatalogItemTitle>
                                 <CatalogItemUtilities>
-                                  <AddToGuide to="#">
-                                    Add to Guide
-                                    <PlusIcon />
-                                  </AddToGuide>
+                                  <AddRecommendation
+                                    description={description}
+                                    guideId={guideId}
+                                  />
                                 </CatalogItemUtilities>
                               </li>
                             ))}
@@ -299,12 +261,18 @@ const ContentRecommendations = ({ guideid }) => {
                       } else {
                         return (
                           <Fragment>
-                            <p>There is not enough information to make Catalog recommendations yet. Continuing to add records to your guide will help us learn what you are looking for. Once we have recommendations for records and other guides, we will share them here.</p>
+                            <p>
+                              There is not enough information to make Catalog
+                              recommendations yet. Continuing to add records to
+                              your guide will help us learn what you are looking
+                              for. Once we have recommendations for records and
+                              other guides, we will share them here.
+                            </p>
                           </Fragment>
                         );
                       }
                     } else {
-                      return <div>Something went wrong</div>
+                      return <div>Something went wrong</div>;
                     }
                   }}
                 </Get>
@@ -314,7 +282,7 @@ const ContentRecommendations = ({ guideid }) => {
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
               <ResearchGuideGrid>
-                <Get url={`/guides/${guideid}/recommended-guides`}>
+                <Get url={`/guides/${guideId}/recommended-guides`}>
                   {(error, response, isLoading) => {
                     if (error) {
                       return <div>Error</div>;
@@ -324,12 +292,17 @@ const ContentRecommendations = ({ guideid }) => {
                       if (response.data.data.length) {
                         return (
                           <Fragment>
-                            <p>These guides to records have some records in common with your guide.</p>
+                            <p>
+                              These guides to records have some records in
+                              common with your guide.
+                            </p>
                             {response.data.data.map((guide) => (
                               <ResearchGuideCard
                                 narrow={true}
                                 key={guide.attributes.id}
-                                title={guide.attributes.title || "Untitled Guide"}
+                                title={
+                                  guide.attributes.title || "Untitled Guide"
+                                }
                                 image={guide.attributes.background_image_url}
                                 link={`/guides/${guide.attributes.id}`}
                                 approved={guide.attributes.nara_approved}
@@ -344,19 +317,24 @@ const ContentRecommendations = ({ guideid }) => {
                       } else {
                         return (
                           <Fragment>
-                            <p>There is not enough information to make Guides to Records recommendations yet. Continuing to add records to your guide will help us learn what you are looking for. Once we have recommendations for records and other guides, we will share them here.</p>
+                            <p>
+                              There is not enough information to make Guides to
+                              Records recommendations yet. Continuing to add
+                              records to your guide will help us learn what you
+                              are looking for. Once we have recommendations for
+                              records and other guides, we will share them here.
+                            </p>
                           </Fragment>
                         );
                       }
                     } else {
-                      return <div>Something went wrong</div>
+                      return <div>Something went wrong</div>;
                     }
                   }}
                 </Get>
               </ResearchGuideGrid>
             </GuidesContent>
           </ContentWrap>
-
         </ModalContent>
       </Modal>
     </>
