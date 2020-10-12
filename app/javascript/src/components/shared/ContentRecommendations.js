@@ -284,7 +284,7 @@ const ContentRecommendations = ({ guideid }) => {
                                   {description.attributes.level}
                                 </IconWrap>
                                 <CatalogItemTitle to={`/${description.attributes.naId}`}>
-                                  {description.attributes.title}
+                                  {description.attributes.title} (NAID {description.attributes.naId})
                                 </CatalogItemTitle>
                                 <CatalogItemUtilities>
                                   <AddToGuide to="#">
