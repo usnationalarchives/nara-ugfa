@@ -168,7 +168,7 @@ const Description = ({
 
   const [commenting, setCommenting] = useState(false);
 
-  const sectionDescription = guide.included.filter(
+  const sectionDescription = editorContext.state.guide.included.filter(
     (i) =>
       i.type === "guide_section_descriptions" &&
       i.attributes.description_id === parseInt(description.id)
@@ -226,7 +226,6 @@ const Description = ({
             dispatchDescriptions={dispatchDescriptions}
             first={first}
             last={last}
-            commenting={commenting}
             setCommenting={setCommenting}
           />
         </Actions>

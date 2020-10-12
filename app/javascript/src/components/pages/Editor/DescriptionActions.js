@@ -54,7 +54,6 @@ const DescriptionActions = ({
   dispatchDescriptions,
   first,
   last,
-  commenting,
   setCommenting,
 }) => {
   const editorContext = useContext(EditorContext);
