@@ -15,6 +15,7 @@ class Guide < ApplicationRecord
   has_and_belongs_to_many :audiences
 
   has_many :guide_sections, lambda { order(weight: :asc) }, dependent: :destroy
+  has_many :guide_section_descriptions, through: :guide_sections
   has_many :descriptions, through: :guide_sections
   accepts_nested_attributes_for :guide_sections, allow_destroy: true
 

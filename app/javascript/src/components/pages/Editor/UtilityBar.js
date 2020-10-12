@@ -179,22 +179,23 @@ const UtilityBar = ({ guide }) => {
     <Root>
       <Layout.Padding>
         <Inner>
-          <BulkActions />
+          {editorContext.state.bulkItems.length > 0 && <BulkActions />}
+          {editorContext.state.bulkItems.length === 0 && (
+            <Status>
+              <MobileStatus>
+                {/* TODO: add spinner */}
+                {editorContext.state.saving && <p>...</p>}
+              </MobileStatus>
 
-          <Status>
-            <MobileStatus>
-              {/* TODO: add spinner */}
-              {editorContext.state.saving && <p>...</p>}
-            </MobileStatus>
-
-            <DesktopStatus>
-              {editorContext.state.saving && <p>Saving...</p>}
-              {!editorContext.state.saving && (
-                <p>Last saved {editorContext.state.lastSaved} ago</p>
-              )}
-              <GlobalCollapse inline />
-            </DesktopStatus>
-          </Status>
+              <DesktopStatus>
+                {editorContext.state.saving && <p>Saving...</p>}
+                {!editorContext.state.saving && (
+                  <p>Last saved {editorContext.state.lastSaved} ago</p>
+                )}
+                <GlobalCollapse inline />
+              </DesktopStatus>
+            </Status>
+          )}
 
           <div>
             <StyledLink to={`/guides/${guide.data.id}`}>Preview</StyledLink>

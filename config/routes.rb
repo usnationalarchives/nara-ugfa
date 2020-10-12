@@ -59,6 +59,11 @@ Rails.application.routes.draw do
         put "/resolve", to: "comments#resolve"
       end
 
+      scope "/bulk" do
+        put "/:guide_id/remove-descriptions", to: "bulk_descriptions#remove"
+        put "/:guide_id/move-descriptions", to: "bulk_descriptions#move"
+      end
+
       get "/audiences", to: "audiences#index"
     end
   end

@@ -20,6 +20,20 @@ import Authoring from "./Authoring";
 import { buttonReset } from "#styles/mixins";
 import { fl_attention, fl_allStates } from "#styles/frontline";
 
+const Bulk = styled.div`
+  display: none;
+
+  ${(props) =>
+    props.show &&
+    css`
+      display: block;
+    `}
+`;
+
+const Actions = styled.div`
+  display: none;
+`;
+
 const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
   margin-bottom: 20px;
@@ -34,13 +48,15 @@ const Root = styled.div`
     }
   }
 
+  &:hover {
+    ${Bulk} {
+      display: block;
+    }
+  }
+
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
   }
-`;
-
-const Actions = styled.div`
-  display: none;
 `;
 
 const Inner = styled.div`
@@ -215,6 +231,10 @@ const Description = ({
           />
         </Actions>
 
+        <Bulk show={editorContext.state.bulkItems.length}>
+          <BulkSelect description={description} />
+        </Bulk>
+
         <DescriptionHierarchy description={description} />
 
         {thumbnailUrl && (
@@ -225,11 +245,6 @@ const Description = ({
             role="presentation"
           />
         )}
-
-        <BulkSelect
-          description={description}
-          guideSectionDescription={sectionDescription}
-        />
 
         <Title>
           <a href={`/${naId}`}>{title}</a>
