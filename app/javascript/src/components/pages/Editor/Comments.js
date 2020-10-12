@@ -36,7 +36,7 @@ const Root = styled.div`
 const StyledButton = styled.button`
   ${buttonReset}
 
-  background-color: ${(props) => props.theme.colors.red};
+  background-color: ${(props) => props.theme.colors.orange};
   border-radius: 100%;
   padding: 15px;
 
