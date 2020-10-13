@@ -196,6 +196,7 @@ const Triangle = styled.div`
 const Banner = ({ data }) => {
   const userContext = useContext(UserContext);
   const published = data.attributes.status == "published";
+  const pending = data.attributes.pending;
 
   const backgroundColor = backgroundColors.filter(
     (c) => c.value === data.attributes.background_color
@@ -219,7 +220,7 @@ const Banner = ({ data }) => {
 
                 return (
                   <>
-                    {admin && (
+                    {admin && pending && (
                       <ModeratorButtons>
                         <StyledButton scheme="green-outline">
                           Approve
