@@ -53,7 +53,7 @@ const Banner = () => {
         <Layout.Wrapper narrow>
           <PageWrapper>
             <Title>Getting Started</Title>
-            <Description>Learn How cepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Description>
+            <Description>Learn how the new Guides to Records tool can enhance your Catalog research and browsing experience</Description>
           </PageWrapper>
         </Layout.Wrapper>
       </Layout.Padding>
