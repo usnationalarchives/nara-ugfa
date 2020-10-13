@@ -6,6 +6,9 @@ class API::V1::GuidesController < API::V1::BaseController
     elsif params[:pending] == "true"
       return render json: { message: "Forbidden", status: 403 } unless current_user.admin
       @all_guides = Guide.pending_moderation
+    elsif params[:bookmarked] == "true"
+      return render json: { message: "Forbidden", status: 403 } unless current_user.present?
+      @all_guides = current_user.bookmarked_guides
     else
       @all_guides = Guide.catalog_ready
     end
@@ -134,7 +137,7 @@ class API::V1::GuidesController < API::V1::BaseController
     end
 
     render jsonapi: @guide,
-      include: [guide_sections: [:descriptions, :blocks, guide_section_descriptions: [:blocks]]],
+      include: [:bookmarks, guide_sections: [:descriptions, :blocks, guide_section_descriptions: [:blocks]]],
       fields: {
         guides: [
           :id,
@@ -154,6 +157,7 @@ class API::V1::GuidesController < API::V1::BaseController
           :uuid,
           :background_image_url
         ],
+        bookmarks: [:id, :user_id],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
         guide_sections: [:id, :title, :weight, :blocks, :descriptions, :guide_section_descriptions],
         guide_section_descriptions: [:id, :guide_section_id, :description_id, :blocks],

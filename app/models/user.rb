@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :guide_sections, through: :guides
   has_many :guide_section_descriptions, through: :guide_sections
   has_many :comments, dependent: :destroy
+  has_many :bookmarks
+  has_many :bookmarked_guides, through: :bookmarks, source: :guide
 
   def to_json
     {

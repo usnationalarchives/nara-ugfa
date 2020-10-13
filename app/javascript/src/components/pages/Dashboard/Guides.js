@@ -14,7 +14,7 @@ const GuidesSection = styled.div`
   }
 `; 
 
-const Guides = ({ title, guides }) => {
+const Guides = ({ title, guides, editable }) => {
   return (
     <>
       <GuidesSection>
@@ -26,7 +26,7 @@ const Guides = ({ title, guides }) => {
                 key={guide.attributes.id}
                 title={guide.attributes.title || "Untitled Guide"}
                 image={guide.attributes.background_image_url}
-                link={`/guides/${guide.attributes.id}/edit`}
+                link={`/guides/${guide.attributes.id}${editable ? '/edit' : ''}`}
                 approved={guide.attributes.nara_approved}
                 status={guide.attributes.status}
                 pending={guide.attributes.pending}

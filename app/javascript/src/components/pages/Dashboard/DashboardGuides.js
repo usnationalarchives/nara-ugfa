@@ -34,6 +34,7 @@ const DashboardGuides = () => {
                       <Guides
                         title="My Guides to Records"
                         guides={response.data.included}
+                        editable={true}
                       />
                     </PageWrapper>
                   </Layout.Wrapper>

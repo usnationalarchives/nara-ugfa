@@ -47,6 +47,7 @@ const Dashboard = () => {
                                   <Guides
                                     title="Pending Moderation"
                                     guides={response.data.data}
+                                    editable={false}
                                   />
                                 </>
                               );
@@ -60,9 +61,10 @@ const Dashboard = () => {
                         <Guides
                           title="My Guides to Records"
                           guides={response.data.included.slice(0, 3)}
+                          editable={true}
                         />
                       )}
-                      <Get url="/guides">
+                      <Get url="/guides?bookmarked=true">
                         {(error, response, isLoading) => {
                           if (response) {
                             return (
@@ -71,6 +73,7 @@ const Dashboard = () => {
                                   <Guides
                                     title="Bookmarked Guides"
                                     guides={response.data.data.slice(0, 3)}
+                                    editable={false}
                                   />
                                 )}
                               </Fragment>

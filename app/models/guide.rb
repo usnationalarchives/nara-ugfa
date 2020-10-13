@@ -18,6 +18,7 @@ class Guide < ApplicationRecord
   has_many :guide_section_descriptions, through: :guide_sections
   has_many :descriptions, through: :guide_sections
   accepts_nested_attributes_for :guide_sections, allow_destroy: true
+  has_many :bookmarks
 
   validates_presence_of :user
   

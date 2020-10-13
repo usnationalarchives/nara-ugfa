@@ -30,7 +30,7 @@ const DashboardGuides = () => {
                 <Layout.Padding>
                   <Layout.Wrapper medium>
                     <PageWrapper>
-                      <Get url="/guides">
+                      <Get url="/guides?bookmarked=true">
                         {(error, response, isLoading) => {
                           if (response) {
                             return (

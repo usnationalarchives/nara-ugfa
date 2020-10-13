@@ -1,9 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { Get } from "react-axios";
 
 // components
 import * as Layout from "#components/shared/Layout";
 import Button from "#components/shared/Button";
+import Bookmark from "./Bookmark";
 
 // contexts
 import { UserContext } from "#contexts/User";
@@ -89,6 +91,13 @@ const DemoPopup = styled.span`
     top: -62px;
     width: 150px;
   }
+`;
+
+export const HeadingWrap = styled.div`
+  display: flex;
+`;
+
+export const MetaWrap = styled.div`
 `;
 
 export const Title = styled.h1`
@@ -217,22 +226,39 @@ const Banner = ({ data }) => {
               </StyledButton>
             </ModeratorButtons>
           )}
-          <Title textColor={textColor}>{data.attributes.title}</Title>
-          <Attribution textColor={textColor}>
-            {data.attributes.author.name}, {data.attributes.author.role}
-          </Attribution>
-          <PublishedDate textColor={textColor}>
-            Last Edit {data.attributes.updated}
-          </PublishedDate>
-          {data.attributes.nara_approved && (
-            <UserRecommendations>
-              <Star /> You and 12 Others
-                <UserRecommendationsTooltip>
-                  This guide is recommended by you  and 12 others.
-                  <Triangle/>
-                </UserRecommendationsTooltip>
-            </UserRecommendations>
-          )}
+          <HeadingWrap>
+            <Get url="/guides?bookmarked=true">
+              {(error, response, isLoading) => {
+                if (response) {
+                  return (
+                    <>
+                      <Bookmark guideId={data.attributes.id} bookmark={response.data.data.map(a => a.id).includes(data.attributes.id.toString())}/>
+                    </>
+                  );
+                }
+
+                return <div>Loading...</div>;
+              }}
+            </Get>
+            <MetaWrap>
+              <Title textColor={textColor}>{data.attributes.title}</Title>
+              <Attribution textColor={textColor}>
+                {data.attributes.author.name}, {data.attributes.author.role}
+              </Attribution>
+              <PublishedDate textColor={textColor}>
+                Last Edit {data.attributes.updated}
+              </PublishedDate>
+              {data.attributes.nara_approved && (
+                <UserRecommendations>
+                  <Star /> You and 12 Others
+                    <UserRecommendationsTooltip>
+                      This guide is recommended by you  and 12 others.
+                      <Triangle/>
+                    </UserRecommendationsTooltip>
+                </UserRecommendations>
+              )}
+            </MetaWrap>
+          </HeadingWrap>
         </Layout.Padding>
       </Content>
       {data.attributes.background_image_url && (

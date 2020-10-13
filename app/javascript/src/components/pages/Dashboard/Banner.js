@@ -103,7 +103,7 @@ const Banner = ({ name, gravatar, role, guides }) => {
                 My Guides to Records
                 <ItemMeta>
                   ({guides.length} Guide
-                  {guides.length > 1 ? "s" : null})
+                  {guides.length != 1 ? "s" : null})
                 </ItemMeta>
               </StyledNavLink>
             </NavItem>
@@ -111,13 +111,16 @@ const Banner = ({ name, gravatar, role, guides }) => {
               <StyledNavLink exact to="/dashboard/bookmarked-guides">
                 Bookmarked Guides
                 <ItemMeta>
-                  <Get url="/guides">
+                  <Get url="/guides?bookmarked=true">
                     {(error, response, isLoading) => {
                       if (response) {
                         return (
                           <>
                             {response.data.data && (
-                              <span>({response.data.data.length} Guides)</span>
+                              <span>
+                                ({response.data.data.length} Guide
+                                {response.data.data.length.length != 1 ? "s" : null})
+                              </span>
                             )}
                           </>
                         );

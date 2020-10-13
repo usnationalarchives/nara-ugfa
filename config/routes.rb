@@ -64,6 +64,12 @@ Rails.application.routes.draw do
         put "/:guide_id/move-descriptions", to: "bulk_descriptions#move"
       end
 
+      scope "/bookmarks" do
+        get "/", to: "bookmarks#index"
+        post "/", to: "bookmarks#create"
+        delete "/:guide_id", to: "bookmarks#destroy"
+      end
+
       get "/audiences", to: "audiences#index"
     end
   end
