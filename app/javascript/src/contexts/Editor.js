@@ -191,41 +191,43 @@ const EditorProvider = ({ children }) => {
   const init = ({ data }) => {
     setGuide(data);
 
-    dispatchSections({
-      type: "set",
-      value: data.included.filter((s) => s.type === "guide_sections"),
-    });
+    const included = data.included || [];
 
-    let initialDescriptions = {};
-    for (let section of data.included.filter(
-      (s) => s.type === "guide_sections"
-    )) {
-      let descriptionIds = [];
-      if (section.relationships) {
-        descriptionIds = section.relationships.descriptions.data.map(
-          (r) => r.id
+    if (included.length > 0) {
+      dispatchSections({
+        type: "set",
+        value: included.filter((s) => s.type === "guide_sections"),
+      });
+
+      let initialDescriptions = {};
+      for (let section of included.filter((s) => s.type === "guide_sections")) {
+        let descriptionIds = [];
+        if (section.relationships) {
+          descriptionIds = section.relationships.descriptions.data.map(
+            (r) => r.id
+          );
+        }
+        initialDescriptions[section.id] = included.filter(
+          (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
         );
       }
-      initialDescriptions[section.id] = data.included.filter(
-        (i) => i.type === "descriptions" && descriptionIds.includes(i.id)
-      );
+
+      dispatchDescriptions({
+        type: "set",
+        value: initialDescriptions,
+      });
+
+      setInitialBlocks(included.filter((i) => i.type === "blocks"));
+      dispatchBlocks({
+        type: "set",
+        value: included.filter((i) => i.type === "blocks"),
+      });
+
+      dispatchComments({
+        type: "set",
+        value: included.filter((i) => i.type === "comments"),
+      });
     }
-
-    dispatchDescriptions({
-      type: "set",
-      value: initialDescriptions,
-    });
-
-    setInitialBlocks(data.included.filter((i) => i.type === "blocks"));
-    dispatchBlocks({
-      type: "set",
-      value: data.included.filter((i) => i.type === "blocks"),
-    });
-
-    dispatchComments({
-      type: "set",
-      value: data.included.filter((i) => i.type === "comments"),
-    });
   };
 
   const state = {
