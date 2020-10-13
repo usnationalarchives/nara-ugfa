@@ -134,7 +134,7 @@ class API::V1::GuidesController < API::V1::BaseController
 
     unless @guide
       if current_user.admin
-        @guide = Guide.published.find_by_id(params[:id]) or return http404
+        @guide = Guide.find_by_id(params[:id]) or return http404
       else
         @guide = current_user.guides.find_by_id(params[:id]) or return http404
       end
