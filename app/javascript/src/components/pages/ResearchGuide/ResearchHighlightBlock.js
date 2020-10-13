@@ -20,6 +20,7 @@ const DisplayRoot = styled.div`
     props.backgroundImageUrl &&
     css`
       background-image: url(${(props) => props.backgroundImageUrl});
+      background-position: center;
       background-size: cover;
     `}
 `;
