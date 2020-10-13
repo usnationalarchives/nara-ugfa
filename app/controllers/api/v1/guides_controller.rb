@@ -133,7 +133,11 @@ class API::V1::GuidesController < API::V1::BaseController
     @guide = Guide.catalog_ready.find_by_id(params[:id])
 
     unless @guide
-      @guide = current_user.guides.find_by_id(params[:id]) or return http404
+      if current_user.admin
+        @guide = Guide.published.find_by_id(params[:id]) or return http404
+      else
+        @guide = current_user.guides.find_by_id(params[:id]) or return http404
+      end
     end
 
     render jsonapi: @guide,
