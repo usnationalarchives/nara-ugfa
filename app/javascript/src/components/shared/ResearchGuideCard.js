@@ -103,6 +103,7 @@ export const Status = styled.span`
   text-transform: none;
 
   svg {
+    fill: ${(props) => props.theme.colors.textLightGrey};
     height: 20px;
     margin-right: 10px;
   }

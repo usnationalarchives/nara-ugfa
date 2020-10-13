@@ -195,6 +195,7 @@ const Triangle = styled.div`
 
 const Banner = ({ data }) => {
   const userContext = useContext(UserContext);
+  const published = data.attributes.status == "published";
 
   const backgroundColor = backgroundColors.filter(
     (c) => c.value === data.attributes.background_color
@@ -260,7 +261,7 @@ const Banner = ({ data }) => {
               <PublishedDate textColor={textColor}>
                 Last Edit {data.attributes.updated}
               </PublishedDate>
-              {!data.attributes.nara_approved && (
+              {published && !data.attributes.pending && (
                 <UserRecommendations>
                   <Star /> You and 12 Others
                     <UserRecommendationsTooltip>

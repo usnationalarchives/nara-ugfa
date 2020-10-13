@@ -155,7 +155,8 @@ class API::V1::GuidesController < API::V1::BaseController
           :audience_ids,
           :guide_sections,
           :uuid,
-          :background_image_url
+          :background_image_url,
+          :status
         ],
         bookmarks: [:id, :user_id],
         blocks: [:id, :blockable_type, :blockable_id, :block_type, :data, :weight],
