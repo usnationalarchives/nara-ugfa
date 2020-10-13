@@ -72,7 +72,13 @@ const VisibilitySettings = ({ guide }) => {
           <option value="draft">Private</option>
           <option value="published">Public</option>
         </Select>
-        <Notice>In order to publish publicly, your guide must be reviewed by NARA. Your guide will be automatically shared with a NARA moderator and you  should expect to learn lorem.</Notice>
+        <Notice>
+          Privately published guides are only accessible to you, your
+          collaborators, and users you share your guide with. Publicly published
+          guides will be visible in the NARA Catalog once a NARA archivist has
+          reviewed and approved your guide. Your guide will automatically be
+          sent to NARA for review when you set it to public.
+        </Notice>
       </SettingsWrapper>
     );
   };

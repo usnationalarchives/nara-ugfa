@@ -48,7 +48,15 @@ export const ResearchGuideGridWrap = styled.div`
 export const ResearchGuideGrid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: left;
+
+  > * {
+    margin-right: 40px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 `;
 
 const ResearchGuideResults = () => {

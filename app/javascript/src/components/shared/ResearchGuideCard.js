@@ -150,7 +150,7 @@ export const UserRecommendations = styled.div`
       display: block;
     }
   }
-  
+
   svg {
     height: 15px;
     margin-right: 5px;
@@ -177,7 +177,8 @@ export const UserRecommendationsTooltip = styled.div`
 const Triangle = styled.div`
   border-style: solid;
   border-width: 6px 6px 0 6px;
-  border-color: ${(props) => props.theme.colors.darkGrey} transparent transparent transparent;
+  border-color: ${(props) => props.theme.colors.darkGrey} transparent
+    transparent transparent;
   bottom: -5px;
   display: inline-block;
   height: 0;
@@ -210,10 +211,10 @@ export const VerifiedToolTip = styled.div`
 
 const DemoPopup = styled.span`
   background: #fff;
-  border: 1px solid ${props => props.theme.colors.lightGrey};
+  border: 1px solid ${(props) => props.theme.colors.lightGrey};
   border-radius: 10px;
   box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.2);
-  color: ${props => props.theme.colors.textLightGrey};
+  color: ${(props) => props.theme.colors.textLightGrey};
   display: none;
   font-size: 12px;
   height: fit-content;
@@ -281,7 +282,7 @@ const ResearchGuideCard = ({
         {approved && !pending && (
           <>
             <UserRecommendations>
-              <Star/> 13
+              <Star /> 13
               <UserRecommendationsTooltip>
                 User Recommendations
                 <Triangle />
@@ -306,9 +307,7 @@ const ResearchGuideCard = ({
           <Get url="/current-user">
             {(error, response, isLoading) => {
               if (response) {
-                const {
-                  admin,
-                } = response.data.data.attributes;
+                const { admin } = response.data.data.attributes;
 
                 return (
                   <>
@@ -316,19 +315,23 @@ const ResearchGuideCard = ({
                       <ModeratorButtons>
                         <StyledButton scheme="green-outline">
                           Approve
-                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                          <DemoPopup>
+                            This feature is for demonstration purposes only.
+                          </DemoPopup>
                         </StyledButton>
                         <StyledButton scheme="red-outline">
                           Reject
-                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                          <DemoPopup>
+                            This feature is for demonstration purposes only.
+                          </DemoPopup>
                         </StyledButton>
                       </ModeratorButtons>
                     ) : (
-                        <Status>
-                          <Pending />
-                          Pending Moderation
-                        </Status>
-                      )}
+                      <Status>
+                        <Pending />
+                        Pending Moderation
+                      </Status>
+                    )}
                   </>
                 );
               }
@@ -337,7 +340,6 @@ const ResearchGuideCard = ({
             }}
           </Get>
         )}
-
       </CardContent>
     </Root>
   );
