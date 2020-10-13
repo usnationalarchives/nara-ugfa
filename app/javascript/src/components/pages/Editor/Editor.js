@@ -9,10 +9,11 @@ import { EditorContext } from "#contexts/Editor";
 // components
 import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
-import EditorForm from "./EditorForm";
 import Search from "./Search";
 import ContentRecommendations from "../../shared/ContentRecommendations";
 import UtilityBar from "./UtilityBar";
+import GuideFields from "./GuideFields";
+import Sections from "./Sections";
 
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
@@ -52,14 +53,15 @@ const Editor = ({ ...props }) => {
                   </Layout.Padding>
                 )}
 
-                {!addingRecords && (
+                {!addingRecords && editorContext.state.guide && (
                   <Root>
                     <Layout.Padding>
                       <Layout.Wrapper
                         medium
                         style={{ paddingTop: "40px", paddingBottom: "40px" }}
                       >
-                        <EditorForm guide={response.data} />
+                        <GuideFields />
+                        <Sections />
                       </Layout.Wrapper>
                     </Layout.Padding>
 

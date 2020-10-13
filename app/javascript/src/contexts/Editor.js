@@ -14,6 +14,15 @@ const EditorProvider = ({ children }) => {
   const [initialBlocks, setInitialBlocks] = useState([]);
   const [guide, setGuide] = useState();
 
+  const clear = () => {
+    setGuide();
+    dispatchSections({ type: "set", value: [] });
+    dispatchDescriptions({ type: "set", value: {} });
+    dispatchBlocks({ type: "set", value: [] });
+    dispatchComments({ type: "set", value: [] });
+    dispatchBulkItems({ type: "clear" });
+  };
+
   const [sections, dispatchSections] = useReducer(
     (sections, { type, value }) => {
       let currentIndex;
@@ -132,7 +141,7 @@ const EditorProvider = ({ children }) => {
           return descriptions;
       }
     },
-    []
+    {}
   );
 
   const [comments, dispatchComments] = useReducer(
@@ -247,6 +256,7 @@ const EditorProvider = ({ children }) => {
   };
 
   const actions = {
+    clear,
     setActiveGuide,
     setActiveSection,
     setActiveDescription,

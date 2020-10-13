@@ -109,8 +109,10 @@ const Textarea = styled.textarea`
   padding: 12px 16px;
 `;
 
-const GuideFields = ({ guide }) => {
+const GuideFields = () => {
   const editorContext = useContext(EditorContext);
+
+  const guide = editorContext.state.guide;
 
   const [backgroundColor, setBackgroundColor] = useState(
     backgroundColors.filter(

@@ -38,8 +38,9 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Sections = ({ guide }) => {
+const Sections = () => {
   const editorContext = useContext(EditorContext);
+  const guide = editorContext.state.guide;
 
   const addSection = () => {
     editorContext.actions.setSaving(true);

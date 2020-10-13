@@ -4,6 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 
 // contexts
 import { UserContext } from "#contexts/User";
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import DropdownMenu, { DropdownLink } from "#components/shared/DropdownMenu";
@@ -46,6 +47,7 @@ const LoginLink = styled(Link)`
 
 const DesktopUserNav = () => {
   const userContext = useContext(UserContext);
+  const editorContext = useContext(EditorContext);
   const history = useHistory();
 
   const logout = () => {
@@ -54,9 +56,12 @@ const DesktopUserNav = () => {
   };
 
   const handleCreate = () => {
+    editorContext.actions.clear();
+
     createGuide()
       .then((response) => {
         const id = response.data.data.id;
+
         history.push(`/guides/${id}/edit`);
       })
       .catch((error) => {
