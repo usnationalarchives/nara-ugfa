@@ -47,12 +47,8 @@ export const ModeratorButtons = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-evenly;
-  left: 0;
-  margin-top: 20px;
+  margin: 20px auto 10px 20px;
   max-width: 250px;
-  position: absolute;
-  right: 20px;
-  top: -45px;
 `;
 
 export const StyledButton = styled(Button)`
@@ -212,20 +208,36 @@ const Banner = ({ data }) => {
     <Root backgroundColor={backgroundColor}>
       <Content>
         <Layout.Padding>
-          {data.attributes.pending && 
-          !data.attributes.nara_approved && 
-          userContext.state.user.catalog_attributes.isNaraStaff && (
-            <ModeratorButtons>
-              <StyledButton scheme="green-outline">
-                Approve
-                <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-              </StyledButton>
-              <StyledButton scheme="red-outline">
-                Reject
-                <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-              </StyledButton>
-            </ModeratorButtons>
-          )}
+
+          <Get url="/current-user">
+            {(error, response, isLoading) => {
+              if (response) {
+                const {
+                  admin,
+                } = response.data.data.attributes;
+
+                return (
+                  <>
+                    {admin && (
+                      <ModeratorButtons>
+                        <StyledButton scheme="green-outline">
+                          Approve
+                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                        </StyledButton>
+                        <StyledButton scheme="red-outline">
+                          Reject
+                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                        </StyledButton>
+                      </ModeratorButtons>
+                    )}
+                  </>
+                );
+              }
+
+              return <div>Loading...</div>;
+            }}
+          </Get>
+          
           <HeadingWrap>
             <Get url="/guides?bookmarked=true">
               {(error, response, isLoading) => {
@@ -248,7 +260,7 @@ const Banner = ({ data }) => {
               <PublishedDate textColor={textColor}>
                 Last Edit {data.attributes.updated}
               </PublishedDate>
-              {data.attributes.nara_approved && (
+              {!data.attributes.nara_approved && (
                 <UserRecommendations>
                   <Star /> You and 12 Others
                     <UserRecommendationsTooltip>
