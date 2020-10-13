@@ -219,7 +219,7 @@ const UtilityBar = ({ guide }) => {
             </ShareHelpOpen>
 
             <DesktopShareHelpMenu shareHelpOpen={shareHelpOpen}>
-              <Link to="#">
+              <Link to="/getting-started">
                 Help
                 <HelpIcon />
               </Link>
