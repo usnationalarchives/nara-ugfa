@@ -119,7 +119,7 @@ const Banner = ({ name, gravatar, role, guides }) => {
                             {response.data.data && (
                               <span>
                                 ({response.data.data.length} Guide
-                                {response.data.data.length.length != 1 ? "s" : null})
+                                {response.data.data.length != 1 ? "s" : null})
                               </span>
                             )}
                           </>
