@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { Get } from "react-axios";
 
 // styles
 import { fl_attention } from "#styles/frontline";
@@ -125,6 +126,15 @@ export const ModeratorButtons = styled.div`
   margin-top: 20px;
   position: absolute;
   right: 0;
+
+  button {
+    &:active,
+    &:focus {
+      span {
+        display: block !important;
+      }
+    }
+  }
 `;
 
 export const UserRecommendations = styled.div`
@@ -198,30 +208,27 @@ export const VerifiedToolTip = styled.div`
   z-index: 10;
 `;
 
-const DemoPopover = styled.div`
-  align-items: center;
-  background: rgba(0, 0, 0, 0.7);
-  bottom: 0;
+const DemoPopup = styled.span`
+  background: #fff;
+  border: 1px solid ${props => props.theme.colors.lightGrey};
+  border-radius: 10px;
+  box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.2);
+  color: ${props => props.theme.colors.textLightGrey};
   display: none;
-  justify-content: center;
-  left: 0;
+  font-size: 12px;
+  height: fit-content;
+  padding: 5px;
   position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 10;
+  right: -100px;
+  text-transform: none;
+  top: -20px;
+  width: 120px;
+  z-index: 100;
 
-  span {
-    background: ${(props) => props.theme.colors.white};
-    border: 1px solid ${(props) => props.theme.colors.lightGrey};
-    border-radius: 10px;
-    color: ${(props) => props.theme.colors.textLightGrey};
-    font-size: 14px;
-    line-height: 1.2;
-    max-width: 200px;
-    padding: 10px;
-    position: relative;
-    width: 80%;
-    z-index: 10;
+  @media ${(props) => props.theme.breakpoints.medium} {
+    right: -25px;
+    top: -62px;
+    width: 150px;
   }
 `;
 
@@ -265,10 +272,7 @@ const ResearchGuideCard = ({
   const userContext = useContext(UserContext);
 
   return (
-    <Root to={link} narrow={narrow ? 1 : 0} demo={demo ? 1 : 0}>
-      <DemoPopover className="DemoPopover">
-        <span>This feature is for demonstration purposes only.</span>
-      </DemoPopover>
+    <Root to={link} narrow={narrow ? 1 : 0}>
       {image ? <Image imageUrl={image} /> : ""}
 
       <CardContent>
@@ -299,20 +303,41 @@ const ResearchGuideCard = ({
         )}
 
         {!approved && pending && (
-          <>
-            {userContext.state.user.catalog_attributes.isNaraStaff ? (
-              <ModeratorButtons>
-                <StyledButton scheme="green-outline">Approve</StyledButton>
-                <StyledButton scheme="red-outline">Reject</StyledButton>
-              </ModeratorButtons>
-            ) : (
-              <Status>
-                <Pending />
-                Pending Moderation
-              </Status>
-            )}
-          </>
+          <Get url="/current-user">
+            {(error, response, isLoading) => {
+              if (response) {
+                const {
+                  admin,
+                } = response.data.data.attributes;
+
+                return (
+                  <>
+                    {admin ? (
+                      <ModeratorButtons>
+                        <StyledButton scheme="green-outline">
+                          Approve
+                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                        </StyledButton>
+                        <StyledButton scheme="red-outline">
+                          Reject
+                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                        </StyledButton>
+                      </ModeratorButtons>
+                    ) : (
+                        <Status>
+                          <Pending />
+                          Pending Moderation
+                        </Status>
+                      )}
+                  </>
+                );
+              }
+
+              return <div>Loading...</div>;
+            }}
+          </Get>
         )}
+
       </CardContent>
     </Root>
   );
