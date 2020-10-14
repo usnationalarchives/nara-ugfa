@@ -7,7 +7,7 @@ class SerializableDescription < JSONAPI::Serializable::Resource
     @object.naid
   end
 
-  attributes :level, :title
+  attributes :parent_naid, :level, :title
 
   attribute :scopeContent do
     @object.scope_content

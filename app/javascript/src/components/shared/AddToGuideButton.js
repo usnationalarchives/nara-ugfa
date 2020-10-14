@@ -9,6 +9,7 @@ import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
 import { Get } from "react-axios";
 import { startCase } from "lodash";
+import Cookies from "js-cookie";
 
 // contexts
 import { EditorContext } from "#contexts/Editor";
@@ -120,6 +121,9 @@ const AddToGuideButton = ({
   const history = useHistory();
   const userContext = useContext(UserContext);
   const editorContext = useContext(EditorContext);
+  const [trendingGuide, setTrendingGuide] = useState();
+  const [trendingParent, setTrendingParent] = useState();
+  const [trendingCount, setTrendingCount] = useState();
 
   const handleAdd = () => {
     if (editorContext.state.addingRecords) {
@@ -136,6 +140,18 @@ const AddToGuideButton = ({
             status: response.data.data.attributes.status,
             updated: response.data.data.attributes.updated,
           };
+
+          // Only show the related content alert unless previously opted out
+          const guideId = response.data.data.id;
+          if (
+            response.data.meta.trending_parent &&
+            !Cookies.get(`optOutRelated-${guideId}`)
+          ) {
+            setTrendingGuide(response.data.data);
+            setTrendingParent(response.data.meta.trending_parent);
+            setTrendingCount(response.data.meta.trending_count);
+          }
+
           setAddOptionsVisible(false);
           setGuides([...guides, newGuide]);
           editorContext.actions.init({ data: response.data });
@@ -188,8 +204,19 @@ const AddToGuideButton = ({
           status: response.data.data.attributes.status,
           updated: response.data.data.attributes.updated,
         };
+
         setAddOptionsVisible(false);
         setGuides([...guides, newGuide]);
+
+        const guideId = response.data.data.id;
+        if (
+          response.data.meta.trending_parent &&
+          !Cookies.get(`optOutTrending-${guideId}`)
+        ) {
+          setTrendingGuide(response.data.data);
+          setTrendingParent(response.data.meta.trending_parent);
+          setTrendingCount(response.data.meta.trending_count);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -256,10 +283,15 @@ const AddToGuideButton = ({
             </AddOptions>
           )}
 
-          {/* <RelatedContentAlert
-          title="Miscellaneous, Staff and Stringer Photographs, 1961-1974"
-          link="/"
-        /> */}
+          {trendingParent && trendingGuide && (
+            <RelatedContentAlert
+              guideId={trendingGuide.id}
+              count={trendingCount}
+              description={trendingParent}
+              clearDescription={setTrendingParent}
+              clearCount={setTrendingCount}
+            />
+          )}
         </Root>
       )}
     </Fragment>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_12_192651) do
+ActiveRecord::Schema.define(version: 2020_10_14_134950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_10_12_192651) do
     t.jsonb "data", default: "{}", null: false
     t.jsonb "objects", default: "{}", null: false
     t.tsvector "search_vector"
+    t.integer "parent_naid"
     t.index ["naid"], name: "index_descriptions_on_naid", unique: true
     t.index ["search_vector"], name: "index_descriptions_on_search_vector", using: :gin
   end
