@@ -89,6 +89,7 @@ export const Hierarchy = styled.div`
 `;
 
 const SearchResultListing = ({
+  parentNaid,
   id,
   title,
   naId,
