@@ -91,14 +91,14 @@ const ContentWrap = styled.div`
 
 export const CatalogContent = styled.div`
   @media (min-width: 600px) {
-    border-right: 1px solid ${(props) => props.theme.colors.darkGrey};
+    border-right: 1px solid ${(props) => props.theme.colors.borderGrey};
     padding-right: 5%;
     width: 50%;
   }
 
   ul {
     li {
-      border-top: 1px solid ${(props) => props.theme.colors.darkGrey};
+      border-top: 1px solid ${(props) => props.theme.colors.borderGrey};
       margin-bottom: 20px;
       padding-top: 20px;
 
