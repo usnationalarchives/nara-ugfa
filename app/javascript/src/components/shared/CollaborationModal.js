@@ -10,6 +10,7 @@ import Form, { TextInput } from "#components/shared/Form";
 // styles
 import * as Text from "#components/shared/Text";
 import { buttonReset } from '#styles/mixins';
+import { fl_static, fl_attention } from "#styles/frontline";
 
 // assets
 import HeadshotOne from "#assets/images/avatar_1_square.png";
@@ -23,7 +24,13 @@ const OpenButton = styled.button`
   width: 20px;
 
   svg {
-    fill: ${props => props.theme.colors.yellow}
+    fill: ${props => props.theme.colors.white};
+  }
+
+  &:hover {
+    svg {
+      fill: ${props => props.theme.colors.yellow};
+    }
   }
 `;
 
@@ -77,7 +84,7 @@ const Collaborators = styled.div`
     overflow-x: inherit;
     max-height: none;
   }
-`; 
+`;
 
 const Collaborator = styled.div`
   color: ${props => props.theme.colors.textLightGrey};
@@ -125,7 +132,7 @@ const CollaboratorHeadshot = styled.img`
 
 const CollaboratorEmail = styled.div`
   font-size: 0.9em;
-`; 
+`;
 
 const CollaboratorInfo = styled.div`
   @media ${(props) => props.theme.breakpoints.medium} {
@@ -167,7 +174,7 @@ const CollabortaionModal = ({ publicLink }) => {
 
   const copyToClipboard = (event) => {
     event.preventDefault();
-    setCopied( publicLink );
+    setCopied(publicLink);
   };
 
   const AddCollaboratorEmail = (event) => {
@@ -180,87 +187,87 @@ const CollabortaionModal = ({ publicLink }) => {
         <Text.Screenreader>Collaboration Tools</Text.Screenreader>
         <Share />
       </OpenButton>
-      
+
       <Modal
         toggleModal={setIsOpen}
         isOpen={modalIsOpen}
         contentLabel="Collaboration Tools">
-          <Text.H3>Share with Collaborators</Text.H3>
-          <AddCollaborator>
-            <TextInput 
-              id="collaboratorEmail"
-              type="text"
-              name="collaboratorEmail"
-              placeholder="Enter Email Address"
-            />
-            <Button scheme="green" onClick={AddCollaboratorEmail}>
-              Add
+        <Text.H3>Share with Collaborators</Text.H3>
+        <AddCollaborator>
+          <TextInput
+            id="collaboratorEmail"
+            type="text"
+            name="collaboratorEmail"
+            placeholder="Enter Email Address"
+          />
+          <Button scheme="green" onClick={AddCollaboratorEmail}>
+            Add
               <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-            </Button>
-          </AddCollaborator>
-          <Text.H4>Current Collaborators</Text.H4>
-          <Collaborators>
-              <Collaborator>
-                  <CollaboratorHeadshot
-                    src={HeadshotOne}
-                    alt="Alex Patel Headshot"
-                    aria-hidden="true"
-                    role="presentation"
-                  />
-                  <CollaboratorInfo>
-                    <p>Alex Patel</p>
-                  <CollaboratorEmail>apatel@gmu.com</CollaboratorEmail>
-                  </CollaboratorInfo>
-                <Button type="submit" scheme="green-outline">
-                  Remove
-                  <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-                </Button>
-              </Collaborator>
-              <Collaborator>
-                  <CollaboratorHeadshot
-                    src={HeadshotTwo}
-                    alt="Jessica Alvarez Headshot"
-                    aria-hidden="true"
-                    role="presentation"
-                  />
-                  <CollaboratorInfo>
-                    <p>Jessica Alvarez</p>
-                  <CollaboratorEmail>Jalvarez@gmail.com</CollaboratorEmail>
-                  </CollaboratorInfo>
-                  <Button type="submit" scheme="green-outline">
-                    Remove
-                    <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-                  </Button>
-              </Collaborator>
-              <Collaborator>
-                  <CollaboratorHeadshot
-                    src={HeadshotThree}
-                    alt="Keirsten Lange Headshot"
-                    aria-hidden="true"
-                    role="presentation"
-                  />
-                  <CollaboratorInfo>
-                    <p>Keirsten Lange</p>
-                  <CollaboratorEmail>keirsten.lange.72@gmail.com</CollaboratorEmail>
-                  </CollaboratorInfo>
-                <Button type="submit" scheme="green-outline">
-                  Remove
-                  <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-                </Button>
-              </Collaborator>
-            </Collaborators>
-          <Text.H3>Share via a Public Link</Text.H3>
-          <AddCollaborator>
-            <TextInput
-              id="publicLink"
-              type="text"
-              name="publicLink"
-              value={publicLink}
-              readOnly
+          </Button>
+        </AddCollaborator>
+        <Text.H4>Current Collaborators</Text.H4>
+        <Collaborators>
+          <Collaborator>
+            <CollaboratorHeadshot
+              src={HeadshotOne}
+              alt="Alex Patel Headshot"
+              aria-hidden="true"
+              role="presentation"
             />
-            <Button scheme="green" onClick={copyToClipboard}>{isCopied ? "Copied!" : "Copy"}</Button>
-          </AddCollaborator>
-          <DetailText>The public share link allows people to view your guide wthout giving them access to the collaboration features.</DetailText>
+            <CollaboratorInfo>
+              <p>Alex Patel</p>
+              <CollaboratorEmail>apatel@gmu.com</CollaboratorEmail>
+            </CollaboratorInfo>
+            <Button type="submit" scheme="green-outline">
+              Remove
+                  <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+            </Button>
+          </Collaborator>
+          <Collaborator>
+            <CollaboratorHeadshot
+              src={HeadshotTwo}
+              alt="Jessica Alvarez Headshot"
+              aria-hidden="true"
+              role="presentation"
+            />
+            <CollaboratorInfo>
+              <p>Jessica Alvarez</p>
+              <CollaboratorEmail>Jalvarez@gmail.com</CollaboratorEmail>
+            </CollaboratorInfo>
+            <Button type="submit" scheme="green-outline">
+              Remove
+                    <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+            </Button>
+          </Collaborator>
+          <Collaborator>
+            <CollaboratorHeadshot
+              src={HeadshotThree}
+              alt="Keirsten Lange Headshot"
+              aria-hidden="true"
+              role="presentation"
+            />
+            <CollaboratorInfo>
+              <p>Keirsten Lange</p>
+              <CollaboratorEmail>keirsten.lange.72@gmail.com</CollaboratorEmail>
+            </CollaboratorInfo>
+            <Button type="submit" scheme="green-outline">
+              Remove
+                  <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+            </Button>
+          </Collaborator>
+        </Collaborators>
+        <Text.H3>Share via a Public Link</Text.H3>
+        <AddCollaborator>
+          <TextInput
+            id="publicLink"
+            type="text"
+            name="publicLink"
+            value={publicLink}
+            readOnly
+          />
+          <Button scheme="green" onClick={copyToClipboard}>{isCopied ? "Copied!" : "Copy"}</Button>
+        </AddCollaborator>
+        <DetailText>The public share link allows people to view your guide wthout giving them access to the collaboration features.</DetailText>
       </Modal>
     </>
   );
