@@ -99,8 +99,8 @@ export const CatalogContent = styled.div`
   ul {
     li {
       border-top: 1px solid ${(props) => props.theme.colors.borderGrey};
-      margin-bottom: 20px;
-      padding-top: 20px;
+      margin-bottom: 30px;
+      padding-top: 30px;
 
       &:first-of-type {
         border-top: none;
