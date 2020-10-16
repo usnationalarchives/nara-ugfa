@@ -8,12 +8,12 @@ import { Get } from "react-axios";
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
 import DescriptionIcon from "#components/shared/DescriptionIcon";
 import AddRecommendation from "./AddRecommendation";
-import { fl_static } from "#styles/frontline";
-import { fl_attention } from "#styles/frontline";
+import { Grid, GridItem } from "#components/shared/Grid";
 
 // styles
 import * as Layout from "#components/shared/Layout";
 import { buttonReset } from "#styles/mixins";
+import { fl_static, fl_attention } from "#styles/frontline";
 
 // assets
 import Close from "#assets/icons/close-x.svg";
@@ -281,7 +281,7 @@ const ContentRecommendations = ({ guideId }) => {
 
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
-              <ResearchGuideGrid>
+              <Grid>
                 <Get url={`/guides/${guideId}/recommended-guides`}>
                   {(error, response, isLoading) => {
                     if (error) {
@@ -297,20 +297,21 @@ const ContentRecommendations = ({ guideId }) => {
                               common with your guide.
                             </p>
                             {response.data.data.map((guide) => (
-                              <ResearchGuideCard
-                                narrow={true}
-                                key={guide.attributes.id}
-                                title={
-                                  guide.attributes.title || "Untitled Guide"
-                                }
-                                image={guide.attributes.background_image_url}
-                                link={`/guides/${guide.attributes.id}`}
-                                approved={guide.attributes.nara_approved}
-                                status={guide.attributes.status}
-                                pending={guide.attributes.pending}
-                                updated={guide.attributes.updated_at}
-                                demo={false}
-                              />
+                              <GridItem key={guide.attributes.id}>
+                                <ResearchGuideCard
+                                  narrow={true}
+                                  title={
+                                    guide.attributes.title || "Untitled Guide"
+                                  }
+                                  image={guide.attributes.background_image_url}
+                                  link={`/guides/${guide.attributes.id}`}
+                                  approved={guide.attributes.nara_approved}
+                                  status={guide.attributes.status}
+                                  pending={guide.attributes.pending}
+                                  updated={guide.attributes.updated_at}
+                                  demo={false}
+                                />
+                              </GridItem>
                             ))}
                           </Fragment>
                         );
@@ -332,7 +333,7 @@ const ContentRecommendations = ({ guideId }) => {
                     }
                   }}
                 </Get>
-              </ResearchGuideGrid>
+              </Grid>
             </GuidesContent>
           </ContentWrap>
         </ModalContent>

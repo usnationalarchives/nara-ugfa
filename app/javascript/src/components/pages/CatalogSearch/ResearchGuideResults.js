@@ -10,6 +10,7 @@ import { SearchContext } from "#contexts/Search";
 import * as Layout from "#components/shared/Layout";
 import * as Text from "#components/shared/Text";
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
+import { Grid, GridItem } from "#components/shared/Grid";
 
 // styles
 import { fl_allStates } from "#styles/frontline";
@@ -45,20 +46,6 @@ export const ResearchGuideGridWrap = styled.div`
   }
 `;
 
-export const ResearchGuideGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-
-  > * {
-    margin-right: 40px;
-
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-`;
-
 const ResearchGuideResults = () => {
   const searchContext = useContext(SearchContext);
 
@@ -78,18 +65,19 @@ const ResearchGuideResults = () => {
                   The following guides to records are related to your search
                   topic.
                 </p>
-                <ResearchGuideGrid>
+                <Grid>
                   {response.data.data.map((guide) => (
-                    <ResearchGuideCard
-                      narrow={false}
-                      key={guide.attributes.id}
-                      title={guide.attributes.title}
-                      image={guide.attributes.background_image_url}
-                      link={`/guides/${guide.attributes.id}`}
-                      approved={guide.attributes.nara_approved}
-                    />
+                    <GridItem key={guide.attributes.id}>
+                      <ResearchGuideCard
+                        narrow={false}
+                        title={guide.attributes.title}
+                        image={guide.attributes.background_image_url}
+                        link={`/guides/${guide.attributes.id}`}
+                        approved={guide.attributes.nara_approved}
+                      />
+                    </GridItem>
                   ))}
-                </ResearchGuideGrid>
+                </Grid>
                 <Layout.Right>
                   <Link to="/research-guides">View All</Link>
                 </Layout.Right>

@@ -9,10 +9,9 @@ import Banner from "./Banner";
 import Guides from "./Guides";
 import PageWrapper from "#components/shared/PageWrapper";
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
-import { ResearchGuideGrid } from "#components/pages/CatalogSearch/ResearchGuideResults";
+import { Grid, GridItem } from "#components/shared/Grid";
 
 const DashboardGuides = () => {
-
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
@@ -37,21 +36,30 @@ const DashboardGuides = () => {
                               <>
                                 <Text.H2>Bookmarked Guides</Text.H2>
                                 {response.data.data && (
-                                  <ResearchGuideGrid>
+                                  <Grid>
                                     {response.data.data.map((guide) => (
-                                      <ResearchGuideCard
-                                        key={guide.attributes.id}
-                                        title={guide.attributes.title || "Untitled Guide"}
-                                        image={guide.attributes.background_image_url}
-                                        link={`/guides/${guide.attributes.id}`}
-                                        approved={guide.attributes.nara_approved}
-                                        status={guide.attributes.status}
-                                        pending={guide.attributes.pending}
-                                        updated={guide.attributes.updated_at}
-                                        demo={false}
-                                      />
+                                      <GridItem key={guide.attributes.id}>
+                                        <ResearchGuideCard
+                                          title={
+                                            guide.attributes.title ||
+                                            "Untitled Guide"
+                                          }
+                                          image={
+                                            guide.attributes
+                                              .background_image_url
+                                          }
+                                          link={`/guides/${guide.attributes.id}`}
+                                          approved={
+                                            guide.attributes.nara_approved
+                                          }
+                                          status={guide.attributes.status}
+                                          pending={guide.attributes.pending}
+                                          updated={guide.attributes.updated_at}
+                                          demo={false}
+                                        />
+                                      </GridItem>
                                     ))}
-                                  </ResearchGuideGrid>
+                                  </Grid>
                                 )}
                               </>
                             );
