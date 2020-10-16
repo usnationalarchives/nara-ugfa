@@ -137,7 +137,7 @@ const Description = ({ description, response }) => {
         </Hierarchy>
         {scopeContent && <p>{scopeContent}</p>}
         <p style={{ fontSize: "0.9rem", marginTop: "5px" }}>
-          <b>National Archive Identifier:</b> {naId}
+          <b>National Archives Identifier:</b> {naId}
         </p>
       </Text>
       <ActionWrap>
