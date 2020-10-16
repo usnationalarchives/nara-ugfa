@@ -39,7 +39,7 @@ class API::V1::DescriptionsController < API::V1::BaseController
 
     render jsonapi: @description,
       fields: {
-        description: [:id, :naId, :title, :scopeContent, :level, :data, :objects, :ancestors]
+        description: [:id, :naId, :title, :scopeContent, :level, :data, :objects, :ancestors, :creators]
       },
       meta: {
         guide_descriptions: @guide_descriptions.map(&:to_json)

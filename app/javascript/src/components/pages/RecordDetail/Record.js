@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled from "styled-components";
 
 // components
@@ -65,7 +65,24 @@ const Record = ({ response }) => {
     ) || []
   );
 
-  const { title, objects } = response.data.data.attributes;
+  const {
+    title,
+    objects,
+    naId,
+    creators,
+    scopeContent,
+    ancestors,
+  } = response.data.data.attributes;
+
+  const parent = ancestors[ancestors.length - 1];
+
+  const Creator = ({ creator }) => {
+    return (
+      <a href={`https://catalog.archives.gov/id/${creator.naId}`}>
+        {creator.name}
+      </a>
+    );
+  };
 
   return (
     <Root>
@@ -85,11 +102,40 @@ const Record = ({ response }) => {
           <ImageViewer objects={objects} />
         </InspectArea>
       )}
-      <InfoToggle heading="Additional Information About this Item" />
-      <InfoToggle heading="Details" />
-      <InfoToggle heading="Scope and Content" />
-      <InfoToggle heading="Variant Control Numbers" />
-      <InfoToggle heading="Archived Copies" />
+      <InfoToggle heading="Additional Information About this Item">
+        <div>
+          <p>National Archives Identifier:</p>
+          <p>{naId}</p>
+        </div>
+        <div>
+          <p>Creators:</p>
+          <p>
+            {creators.map((creator, i) => (
+              <Fragment key={creator.naId}>
+                <Creator key={creator.naId} creator={creator} />
+                {i === 0 && " (Most Recent)"}
+                {i !== 0 && " (Predecessor)"}
+                <br />
+              </Fragment>
+            ))}
+          </p>
+        </div>
+
+        <div>
+          <p>From:</p>
+          <p>
+            {parent.level}:{" "}
+            <a href={`https://catalog.archives.gov/id/${parent.naId}`}>
+              {parent.title}
+            </a>
+          </p>
+        </div>
+      </InfoToggle>
+      {scopeContent && (
+        <InfoToggle heading="Scope and Content">
+          <p>{scopeContent}</p>
+        </InfoToggle>
+      )}
     </Root>
   );
 };
