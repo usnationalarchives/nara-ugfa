@@ -23,14 +23,26 @@ import { resolveComments } from "#api/internal/comment";
 const Root = styled.div`
   position: absolute;
   top: 30px;
-  right: -80px;
+  right: -40px;
 
   ${(props) =>
     props.context === "section" &&
     css`
       top: 50px;
-      right: -30px;
+      right: -25px;
     `}
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    top: 30px;
+    right: -80px;
+
+    ${(props) =>
+      props.context === "section" &&
+      css`
+        top: 50px;
+        right: -30px;
+      `}
+  }
 `;
 
 const StyledButton = styled.button`

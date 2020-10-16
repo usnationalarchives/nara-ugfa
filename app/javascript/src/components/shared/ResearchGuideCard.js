@@ -33,15 +33,6 @@ export const Root = styled(Link)`
     }
   `)}
 
-  @media all and (min-width: 550px) {
-    width: 48%;
-  }
-
-  @media all and (min-width: 1000px) {
-    max-width: 300px;
-    width: 32%;
-  }
-
   ${(props) =>
     props.demo &&
     css`
@@ -50,23 +41,6 @@ export const Root = styled(Link)`
         .DemoPopover {
           display: flex !important;
         }
-      }
-    `}
-
-  ${(props) =>
-    props.narrow &&
-    css`
-      min-height: 150px;
-
-      @media all and (min-width: 480px) {
-        width: 48%;
-      }
-      @media all and (min-width: 600px) {
-        width: 100%;
-      }
-      @media all and (min-width: ${(props) =>
-          props.theme.layout.maxWidthMedium}) {
-        width: 48%;
       }
     `}
 `;

@@ -1,5 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import Autolinker from "autolinker";
+
+// styles
+import { fl_allStates } from "#styles/frontline";
 
 const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -20,6 +24,12 @@ const MetaRoot = styled.div`
 const Content = styled.p`
   font-size: 0.9rem;
   margin-top: 20px;
+
+  a {
+    ${fl_allStates(css`
+      color: ${(props) => props.theme.colors.blue};
+    `)}
+  }
 `;
 
 const MetaAvatar = styled.img`
@@ -61,7 +71,11 @@ const Comment = ({ comment }) => {
   return (
     <Root>
       <Meta />
-      <Content>{comment.attributes.content}</Content>
+      <Content
+        dangerouslySetInnerHTML={{
+          __html: Autolinker.link(comment.attributes.content),
+        }}
+      />
     </Root>
   );
 };

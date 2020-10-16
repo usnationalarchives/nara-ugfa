@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // components
-import SearchResultListing from "./SearchResultListing";
+import Description from "./Description";
 import AddToGuideButton from "#components/shared/AddToGuideButton";
 
 export const Root = styled.div`
@@ -35,15 +35,9 @@ const SearchResults = ({ results, response }) => {
         )}
       </div>
       {results.map((description) => (
-        <SearchResultListing
-          key={description.attributes.naId}
-          id={description.id}
-          naId={description.attributes.naId}
-          title={description.attributes.title}
-          hierarchy="Ut enim ad minim veniam."
-          identifier={description.attributes.scopeContent}
-          added={false}
-          recordType={description.attributes.level}
+        <Description
+          key={description.id}
+          description={description}
           response={response}
         />
       ))}
