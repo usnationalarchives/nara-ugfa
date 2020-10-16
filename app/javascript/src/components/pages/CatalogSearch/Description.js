@@ -37,6 +37,10 @@ export const Image = styled.div`
   width: 10%;
 `;
 
+const Title = styled(Link)`
+  font-weight: bold;
+`;
+
 export const Text = styled.div`
   margin-bottom: 20px;
 
@@ -88,23 +92,26 @@ export const Hierarchy = styled.div`
   font-style: italic;
 `;
 
-const SearchResultListing = ({
-  parentNaid,
-  id,
-  title,
-  naId,
-  hierarchy,
-  identifier,
-  image,
-  recordType,
-  response,
-}) => {
+const Description = ({ description, response }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const [guides, setGuides] = useState(
     response.data.meta.guide_descriptions.filter(
       (d) => d.description_id === parseInt(id)
     ) || []
   );
+
+  console.log(description);
+
+  const {
+    id,
+    level,
+    naId,
+    title,
+    scopeContent,
+    ancestors,
+  } = description.attributes;
+
+  const parent = ancestors[ancestors.length - 1];
 
   const clickedOut = () => {
     setAddOptionsVisible(false);
@@ -120,13 +127,18 @@ const SearchResultListing = ({
   return (
     <Root>
       <ImageWrap>
-        {recordType == "series" ? <SeriesPlaceholder /> : ""}
-        {recordType == "fileUnit" ? <FileUnitPlaceholder /> : ""}
+        {level == "series" ? <SeriesPlaceholder /> : ""}
+        {level == "fileUnit" ? <FileUnitPlaceholder /> : ""}
       </ImageWrap>
       <Text>
-        <Link to={`/${naId}`}>{title}</Link>
-        <Hierarchy>{hierarchy}</Hierarchy>
-        <p>{identifier}</p>
+        <Title to={`/${naId}`}>{title}</Title>
+        <Hierarchy>
+          From {parent.level}: {parent.title}
+        </Hierarchy>
+        {scopeContent && <p>{scopeContent}</p>}
+        <p style={{ fontSize: "0.9rem", marginTop: "5px" }}>
+          <b>National Archive Identifier:</b> {naId}
+        </p>
       </Text>
       <ActionWrap>
         <AddToGuideButton
@@ -140,4 +152,4 @@ const SearchResultListing = ({
   );
 };
 
-export default SearchResultListing;
+export default Description;
