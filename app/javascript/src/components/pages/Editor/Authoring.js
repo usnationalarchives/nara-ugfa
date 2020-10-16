@@ -86,7 +86,7 @@ const ContextTypeButton = styled.button`
 const ContextTypeButtonHelp = styled.span`
   color: ${(props) => props.theme.colors.textLightGrey};
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   margin-top: 5px;
 `;
 
