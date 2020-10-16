@@ -37,6 +37,11 @@ const OpenButton = styled.button`
 const ModalContent = styled.div`
   max-height: 500px;
   overflow: auto;
+
+  @media (min-width: 530px) {
+    max-height: 600px;
+    overflow: hidden;
+  }
 `;
 
 const DetailText = styled.p`
