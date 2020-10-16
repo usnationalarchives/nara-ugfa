@@ -123,6 +123,11 @@ const ExpandToggle = styled.button`
   vertical-align: middle;
 `;
 
+const MetaToggleInner = styled.span`
+  display: flex;
+  align-items: center;
+`;
+
 export const Meta = styled.dl`
   display: flex;
   flex-wrap: wrap;
@@ -132,12 +137,13 @@ export const Meta = styled.dl`
 export const MetaTerm = styled.dt`
   color: ${(props) => props.theme.colors.textLightGrey};
   font-size: 0.75rem;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   text-transform: uppercase;
   width: 100%;
 
   @media all and ${(props) => props.theme.breakpoints.medium} {
     width: 20%;
+    margin-bottom: 20px;
   }
 `;
 
@@ -260,7 +266,10 @@ const Description = ({
 
         <Layout.Mobile>
           <ExpandToggle {...getToggleProps()}>
-            Metadata <Triangle toggleOpen={isExpanded} />
+            <MetaToggleInner>
+              Metadata{" "}
+              <Triangle style={{ marginLeft: "5px" }} toggleOpen={isExpanded} />
+            </MetaToggleInner>
           </ExpandToggle>
           <div {...getCollapseProps()}>
             <Metadata />
