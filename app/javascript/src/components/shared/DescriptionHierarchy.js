@@ -26,12 +26,12 @@ export const Ancestors = styled.ol`
 const svgStyles = css`
   svg {
     fill: currentColor;
-    height: 20px;
+    height: 18px;
     margin-right: 8px;
     position: absolute;
-    top: -2px;
+    top: 0;
     left: 0;
-    width: 20px;
+    width: 18px;
   }
 `;
 
@@ -47,7 +47,7 @@ export const Ancestor = styled.li`
     content: "";
     display: block;
     height: 15px;
-    left: 10px;
+    left: 9px;
     position: absolute;
     top: 25px;
     width: 1px;
