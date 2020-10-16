@@ -38,9 +38,9 @@ const ModalContent = styled.div`
   max-height: 500px;
   overflow: auto;
 
-  @media (min-width: 530px) {
+  @media ${(props) => props.theme.breakpoints.medium} {
     max-height: 600px;
-    overflow: hidden;
+    overflow: inherit;
   }
 `;
 
@@ -89,7 +89,6 @@ const Collaborators = styled.div`
 
   @media ${(props) => props.theme.breakpoints.medium} {
     display: block;
-    overflow-x: inherit;
     max-height: none;
   }
 `;
@@ -156,6 +155,7 @@ const DemoPopup = styled.span`
   color: ${props => props.theme.colors.textLightGrey};
   display: none;
   font-size: 12px;
+  font-weight: normal;
   height: fit-content;
   padding: 5px;
   position: absolute;
@@ -168,7 +168,7 @@ const DemoPopup = styled.span`
   @media ${(props) => props.theme.breakpoints.medium} {
     right: -25px;
     top: -62px;
-    width: 150px;
+    width: 145px;
   }
 `;
 
@@ -245,7 +245,7 @@ const CollabortaionModal = ({ publicLink }) => {
               </CollaboratorInfo>
               <Button type="submit" scheme="green-outline">
                 Remove
-                      <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
               </Button>
             </Collaborator>
             <Collaborator>
@@ -261,7 +261,7 @@ const CollabortaionModal = ({ publicLink }) => {
               </CollaboratorInfo>
               <Button type="submit" scheme="green-outline">
                 Remove
-                    <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
+                <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
               </Button>
             </Collaborator>
           </Collaborators>
