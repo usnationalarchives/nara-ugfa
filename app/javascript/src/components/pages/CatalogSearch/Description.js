@@ -96,7 +96,7 @@ const Description = ({ description, response }) => {
   const [addOptionsVisible, setAddOptionsVisible] = useState();
   const [guides, setGuides] = useState(
     response.data.meta.guide_descriptions.filter(
-      (d) => d.description_id === parseInt(id)
+      (d) => d.description_id === parseInt(description.id)
     ) || []
   );
 
