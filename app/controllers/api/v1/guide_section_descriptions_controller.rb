@@ -76,6 +76,16 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
       @section.description_ids = (@section.description_ids += params[:description_ids].map(&:to_i)).uniq
     end
 
+    @descriptions = Description.where(id: params[:description_ids])
+    @descriptions.each do |desc|
+      @siblings = @guide.descriptions.where(parent_naid: desc.parent_naid)
+
+      if @siblings.count > 2
+        @trending_parent_description = Description.select(:id, :level, :naid, :parent_naid, :data, :title).find_by_naid(desc.parent_naid);
+        break
+      end
+    end
+
     render jsonapi: @guide,
       include: [guide_sections: [:descriptions, :comments, blocks: [:comments], guide_section_descriptions: [:comments, blocks: [:comments]]]],
       fields: {
@@ -105,6 +115,10 @@ class API::V1::GuideSectionDescriptionsController < API::V1::BaseController
         guide_sections: [:id, :title, :weight, :descriptions, :guide_section_descriptions, :comments, :blocks],
         guide_section_descriptions: [:id, :guide_section_id, :description_id, :blocks, :comments],
         descriptions: [:title, :naId, :thumbnailUrl, :level, :creators, :ancestors, :scopeContent]
+      },
+      meta: {
+        trending_count: @siblings.count,
+        trending_parent: @trending_parent_description
       }
   end
 

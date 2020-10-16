@@ -48,8 +48,6 @@ const RelatedContentAlert = ({
   clearDescription,
   clearCount,
 }) => {
-  console.log(description);
-
   const [isOpen, setIsOpen] = useState(true);
   const { level, title, data, naid } = description;
 
