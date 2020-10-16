@@ -8,7 +8,7 @@ import { Get } from "react-axios";
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
 import DescriptionIcon from "#components/shared/DescriptionIcon";
 import AddRecommendation from "./AddRecommendation";
-import { Grid, GridItem } from "#components/shared/Grid";
+import { Grid, NarrowGridItem } from "#components/shared/Grid";
 
 // styles
 import * as Layout from "#components/shared/Layout";
@@ -24,7 +24,7 @@ const ModalContent = styled.div`
   padding: 20px;
   position: relative;
 
-  @media all and (min-width: 600px) {
+  @media all and ${(props) => props.theme.breakpoints.medium} {
     padding: 40px;
   }
 `;
@@ -84,13 +84,13 @@ const ContentWrap = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  @media (min-width: 600px) {
+  @media ${(props) => props.theme.breakpoints.medium} {
     flex-direction: row;
   }
 `;
 
 export const CatalogContent = styled.div`
-  @media (min-width: 600px) {
+  @media ${(props) => props.theme.breakpoints.medium} {
     border-right: 1px solid ${(props) => props.theme.colors.borderGrey};
     padding-right: 5%;
     width: 50%;
@@ -142,7 +142,7 @@ const CatalogItemTitle = styled(Link)`
 const CatalogItemUtilities = styled.div``;
 
 export const GuidesContent = styled.div`
-  @media (min-width: 600px) {
+  @media ${(props) => props.theme.breakpoints.medium} {
     padding-left: 5%;
     width: 50%;
   }
@@ -281,6 +281,8 @@ const ContentRecommendations = ({ guideId }) => {
 
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
+              <p>These guides to records have some records in
+                common with your guide.</p>
               <Grid>
                 <Get url={`/guides/${guideId}/recommended-guides`}>
                   {(error, response, isLoading) => {
@@ -292,12 +294,8 @@ const ContentRecommendations = ({ guideId }) => {
                       if (response.data.data.length) {
                         return (
                           <Fragment>
-                            <p>
-                              These guides to records have some records in
-                              common with your guide.
-                            </p>
                             {response.data.data.map((guide) => (
-                              <GridItem key={guide.attributes.id}>
+                              <NarrowGridItem key={guide.attributes.id}>
                                 <ResearchGuideCard
                                   narrow={true}
                                   title={
@@ -311,7 +309,7 @@ const ContentRecommendations = ({ guideId }) => {
                                   updated={guide.attributes.updated_at}
                                   demo={false}
                                 />
-                              </GridItem>
+                              </NarrowGridItem>
                             ))}
                           </Fragment>
                         );

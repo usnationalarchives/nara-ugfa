@@ -28,4 +28,23 @@ const GridItem = styled.li`
   }
 `;
 
-export { Grid, GridItem };
+const NarrowGridItem = styled.li`
+  padding: ${verticalGutter / 2}px ${horizontalGutter / 2}px;
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+
+  @media all and ${(props) => props.theme.breakpoints.mediumSmall} {
+    width: 50%;
+  }
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    width: 100%;
+  }
+
+  @media all and ${(props) => props.theme.breakpoints.large} {
+    width: 50%;
+  }
+`;
+
+export { Grid, GridItem, NarrowGridItem };
