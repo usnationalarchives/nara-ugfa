@@ -27,13 +27,13 @@ const Root = styled.div`
 const Inner = styled.div`
   @media all and ${(props) => props.theme.breakpoints.medium} {
     background-color: ${(props) => props.theme.colors.white};
+    bottom: -32px;
     left: 50%;
     min-height: 40px;
     padding: 0 10px;
     position: absolute;
     transform: translateX(-50%);
-    bottom: 20px;
-    bottom: -32px;
+    width: auto;
 
     ${(props) =>
       props.context === "description" &&
@@ -102,6 +102,7 @@ const StyledButton = styled(Button)`
 
   @media all and ${(props) => props.theme.breakpoints.medium} {
     margin: 0 10px;
+    white-space: nowrap;
     width: auto;
   }
 `;
