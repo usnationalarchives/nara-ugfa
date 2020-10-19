@@ -1,8 +1,11 @@
-import React, { Fragment, useState, useRef } from "react";
+import React, { useContext, Fragment, useState, useRef } from "react";
 import styled, { css } from "styled-components";
 import Popover from "react-tiny-popover";
 import { Link } from "react-router-dom";
 import { startCase } from "lodash";
+
+// contexts
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import { GuideTitle, GuideMeta } from "#components/shared/AddToGuideButton";
@@ -50,6 +53,7 @@ const ExistingGuidesPopover = styled.div`
 `;
 
 const ExistingGuides = ({ guides }) => {
+  const editorContext = useContext(EditorContext);
   const [open, setOpen] = useState(false);
   const popoverEl = useRef();
 
@@ -60,7 +64,10 @@ const ExistingGuides = ({ guides }) => {
           {guides.map((guide, i) => (
             <Guide key={i}>
               <GuideTitle>
-                <StyledLink to={`/guides/${guide.guide_id}/edit`}>
+                <StyledLink
+                  to={`/guides/${guide.guide_id}/edit`}
+                  onClick={() => editorContext.actions.setAddingRecords(false)}
+                >
                   {guide.guide_title || "Untitled Guide"}
                 </StyledLink>
               </GuideTitle>
