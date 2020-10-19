@@ -262,19 +262,24 @@ class API::V1::GuidesController < API::V1::BaseController
       @guide_descriptions.each do |description|
         case description.level
         when "item"
-          @recommended_descriptions << Description.where("data->'parentSeries'->>'naId' = ?", "#{description.data["parentSeries"]["naId"]}").limit(5)
+          @recommended_descriptions << Description.where("data->'parentSeries'->>'naId' = ?", "#{description.data["parentSeries"]["naId"]}").limit(10)
         when "series"
-          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.data["parentCollection"]["naId"]}").limit(5)
+          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.data["parentCollection"]["naId"]}").limit(10)
         when "collection"
-          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.naid}").limit(5)
+          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.naid}").limit(10)
         when "fileUnit"
-          @recommended_descriptions << Description.where("data->'parentSeries'->>'naId' = ?", "#{description.data["parentSeries"]["naId"]}").limit(5)
+          @recommended_descriptions << Description.where("data->'parentSeries'->>'naId' = ?", "#{description.data["parentSeries"]["naId"]}").limit(10)
         when "itemAv"
-          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.data["parentCollection"]["naId"]}").limit(5)
+          @recommended_descriptions << Description.where("data->'parentCollection'->>'naId' = ?", "#{description.data["parentCollection"]["naId"]}").limit(10)
         end
       end
 
-      @descriptions = @recommended_descriptions.flatten.uniq.shuffle.take(3)
+      # Remove descriptions that are already included in the guide
+      @fresh_descriptions = @recommended_descriptions.flatten.reject{|x| 
+        @guide.descriptions.pluck(:id).include? x.id
+      }
+
+      @descriptions = @fresh_descriptions.uniq.shuffle.take(3)
     else
       @descriptions = []
     end

@@ -59,11 +59,11 @@ const Triangle = styled.div`
 
 const CloseButton = styled.button`
   ${buttonReset}
-  height: 15px;
+  height: 30px;
   position: absolute;
   right: 40px;
   top: 25px;
-  width: 15px;
+  width: 30px;
 `;
 
 export const Heading = styled.h3`
@@ -159,7 +159,7 @@ const customStyles = {
     bottom: "56px",
     border: "none",
     left: "0",
-    maxHeight: "60%",
+    maxHeight: "70%",
     overflow: "auto",
     padding: "0",
     right: "0",
