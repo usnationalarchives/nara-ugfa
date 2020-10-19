@@ -1,30 +1,45 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import { buttonReset } from "#styles/mixins";
 import styled, { css } from "styled-components";
 
 // contexts
 import { UserContext } from "#contexts/User";
 
+// components
+import { Screenreader } from "#components/shared/Text";
+
 // assets
 import Chev from "#assets/icons/chevron.svg";
 
-const UserButton = styled.button`
-  ${buttonReset}
+const Root = styled.div`
+  display: flex;
 
-  display: block;
-  position: relative;
-  padding-right: 20px;
+  &:before {
+    background-color: ${(props) => props.theme.colors.white};
+    content: "";
+    display: inline-block;
+    height: 35px;
+    margin: 0 15px;
+    opacity: 0.3;
+    width: 1px;
+  }
 
   @media all and (min-width: 1000px) {
     display: none;
   }
 `;
 
+const UserButton = styled.button`
+  ${buttonReset}
+  display: flex;
+  align-items: center;
+`;
+
 const StyledChevron = styled(Chev)`
-  position: absolute;
-  right: 0;
-  top: 4px;
   transition: transform 0.5s;
+  height: 10px;
+  width: 10px;
+  margin-left: 4px;
 
   ${(props) =>
     !props.open &&
@@ -47,15 +62,39 @@ const StyledChevron = styled(Chev)`
   }
 `;
 
+const StyledAvatar = styled.img`
+  display: block;
+  border-radius: 100%;
+  padding: 0;
+  width: 30px;
+  margin-top: 2px;
+`;
+
 const MobileUserNavToggle = ({ open, setOpen }) => {
   const userContext = useContext(UserContext);
 
+  const Avatar = () => {
+    return (
+      <Fragment>
+        <StyledAvatar
+          src={userContext.state.user.gravatar}
+          alt=""
+          aria-hidden="true"
+          role="presentation"
+        />
+        <Screenreader>Menu</Screenreader>
+      </Fragment>
+    );
+  };
+
   return (
-    <UserButton onClick={() => setOpen(!open)}>
-      {userContext.state.user && userContext.state.user.name}
-      {!userContext.state.user && "Menu"}
-      <StyledChevron open={open} />
-    </UserButton>
+    <Root>
+      <UserButton onClick={() => setOpen(!open)}>
+        {userContext.state.user && <Avatar />}
+        {!userContext.state.user && "Menu"}
+        <StyledChevron open={open} />
+      </UserButton>
+    </Root>
   );
 };
 

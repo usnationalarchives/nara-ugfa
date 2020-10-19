@@ -20,11 +20,17 @@ class User < ApplicationRecord
       "email": email,
       "catalog_attributes": catalog_attributes,
       "admin": admin,
+      "gravatar": gravatar
     }.to_json
   end
 
   def role
     catalog_attributes.try(:[], "isNaraStaff") ? "NARA Staff" : "Citizen Archivist"
+  end
+
+  def gravatar
+    digest = Digest::MD5.hexdigest(email)
+    "https://secure.gravatar.com/avatar/#{digest}?d=retro&s=90"
   end
 
   private
