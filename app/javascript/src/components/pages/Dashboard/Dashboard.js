@@ -6,6 +6,7 @@ import { UserContext } from "#contexts/User";
 
 // components
 import * as Layout from "#components/shared/Layout";
+import { ButtonLink } from "#components/shared/Button";
 import NavBar from "#components/shared/NavBar";
 import Banner from "./Banner";
 import Guides from "./Guides";
@@ -58,11 +59,25 @@ const Dashboard = () => {
                       )}
 
                       {response.data.included && (
-                        <Guides
-                          title="My Guides to Records"
-                          guides={response.data.included.slice(0, 3)}
-                          editable={true}
-                        />
+                        <Fragment>
+                          <Guides
+                            title="My Guides to Records"
+                            guides={response.data.included.slice(0, 3)}
+                            editable={true}
+                          />
+
+                          <Layout.Center
+                            style={{ marginTop: "10px", marginBottom: "30px" }}
+                          >
+                            <ButtonLink
+                              exact
+                              href="/dashboard/guides"
+                              scheme="green"
+                            >
+                              View All
+                            </ButtonLink>
+                          </Layout.Center>
+                        </Fragment>
                       )}
                       <Get url="/guides?bookmarked=true">
                         {(error, response, isLoading) => {
@@ -76,6 +91,21 @@ const Dashboard = () => {
                                     editable={false}
                                   />
                                 )}
+
+                                <Layout.Center
+                                  style={{
+                                    marginTop: "10px",
+                                    marginBottom: "30px",
+                                  }}
+                                >
+                                  <ButtonLink
+                                    exact
+                                    href="/dashboard/bookmarked-guides"
+                                    scheme="green"
+                                  >
+                                    View All
+                                  </ButtonLink>
+                                </Layout.Center>
                               </Fragment>
                             );
                           }
