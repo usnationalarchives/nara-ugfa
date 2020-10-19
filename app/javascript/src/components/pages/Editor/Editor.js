@@ -26,6 +26,14 @@ const Editor = ({ ...props }) => {
   const editorContext = useContext(EditorContext);
   const { addingRecords } = editorContext.state;
 
+  // Check if any records have been added in order to conditionally render content recommendations
+  for (var i = 0; i < editorContext.state.sections.length; i++) {
+    if (editorContext.state.sections[i].relationships && editorContext.state.sections[i].relationships.descriptions.data.length) {
+      props.anyDescriptions = true;
+      break;
+    }
+  }
+
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />
@@ -65,8 +73,7 @@ const Editor = ({ ...props }) => {
                       </Layout.Wrapper>
                     </Layout.Padding>
 
-                    {response.data.data.relationships.guide_sections.data
-                      .length && <ContentRecommendations guideId={id} />}
+                    {props.anyDescriptions && <ContentRecommendations guideId={id} />}
 
                     <UtilityBar guide={response.data} />
                   </Root>
