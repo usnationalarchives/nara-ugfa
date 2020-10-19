@@ -156,11 +156,11 @@ export const ResearchGuideGrid = styled.div`
 
 const customStyles = {
   content: {
+    bottom: "56px",
     border: "none",
     left: "0",
-    right: "0",
-    bottom: "56px",
-    overflow: "initial",
+    maxHeight: "60%",
+    overflow: "auto",
     padding: "0",
     right: "0",
     top: "initial",
