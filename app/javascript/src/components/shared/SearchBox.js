@@ -42,10 +42,14 @@ export const SubmitButton = styled.button`
 `;
 
 export const AdvancedSearch = styled.p`
-  font-size: 0.9em;
-  opacity: 0.3;
-  padding-left: 10px;
-  width: 30%;
+  display: none;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    font-size: 0.9em;
+    opacity: 0.3;
+    padding-left: 10px;
+    width: 30%;
+  }
 `;
 
 const SearchBox = () => {

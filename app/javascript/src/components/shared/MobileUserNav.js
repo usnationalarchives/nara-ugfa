@@ -39,12 +39,6 @@ const MenuItemContent = styled.div`
   padding: 20px 16px;
 `;
 
-const LoginLink = styled(Link)`
-  ${fl_allStates(css`
-    color: ${(props) => props.theme.colors.white};
-  `)}
-`;
-
 const MobileUserNav = () => {
   const userContext = useContext(UserContext);
   const [open, setOpen] = useState(true);
@@ -99,7 +93,21 @@ const MobileUserNav = () => {
               </Fragment>
             </MenuItem>
           )}
-          {!userContext.state.user && <LoginLink to="/login">Login</LoginLink>}
+          {!userContext.state.user && (
+            <MenuItem>
+              <MenuItemLabel>Account Login</MenuItemLabel>
+              <MenuItemContent>
+                <ButtonLink
+                  style={{ marginTop: "20px" }}
+                  block
+                  scheme="outline"
+                  href="/login"
+                >
+                  Login
+                </ButtonLink>
+              </MenuItemContent>
+            </MenuItem>
+          )}
         </Menu>
       )}
     </Root>
