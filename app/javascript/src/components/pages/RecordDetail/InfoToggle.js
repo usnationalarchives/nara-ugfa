@@ -22,7 +22,7 @@ const Root = styled.div`
     border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
     text-align: left;
     margin-top: 20px;
-    padding: 10px;
+    padding: 10px 40px 10px 10px;
     position: relative;
     width: 100%;
   }
@@ -31,7 +31,8 @@ const Root = styled.div`
 const ToggleChev = styled.div`
   position: absolute;
   right: 20px;
-  top: 10px;
+  top: 50%;
+  transform: translateY(-50%);
 
   svg {
     transition: transform 0.5s;
