@@ -35,7 +35,10 @@ const SectionSelect = ({ guide }) => {
     (s) => s.type === "guide_sections"
   );
 
-  const handleChange = (event) => {};
+  const handleChange = (event) => {
+    const target = document.querySelector(`#${event.target.value}`);
+    target.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <Root>
@@ -43,11 +46,11 @@ const SectionSelect = ({ guide }) => {
         <label>
           <Text.Screenreader>Jump to a Section</Text.Screenreader>
         </label>
-        <Select>
+        <Select onChange={handleChange}>
           <option value="">Jump to a section</option>
           {sections.map((section) => (
             <option key={section.id} value={`section-${section.id}`}>
-              March on Washignton Program
+              {section.attributes.title || "Untitled Section"}
             </option>
           ))}
         </Select>

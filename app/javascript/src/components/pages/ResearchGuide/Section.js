@@ -33,7 +33,7 @@ const Section = ({ guide, section }) => {
   );
 
   return (
-    <Root>
+    <Root id={`section-${section.id}`}>
       <Title>{title}</Title>
 
       <Context
