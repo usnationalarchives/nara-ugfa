@@ -27,8 +27,6 @@ const ListItem = styled.li`
 
 const Creators = ({ creators }) => {
   const Creator = ({ creator }) => {
-    console.log(creator);
-
     return (
       <Fragment>
         <a href={`https://catalog.archives.gov/id/${creator.naId}`}>

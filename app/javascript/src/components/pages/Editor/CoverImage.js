@@ -153,7 +153,9 @@ const CoverImage = ({ guide, defaultValue, defaultImageUrl }) => {
               defaultValue={value}
               onChange={handleChange}
             />
-            <Submit type="submit" />
+            <Submit type="submit">
+              <Text.Screenreader>Save Cover Image</Text.Screenreader>
+            </Submit>
           </InputWrapper>
         </StyledForm>
       )}
