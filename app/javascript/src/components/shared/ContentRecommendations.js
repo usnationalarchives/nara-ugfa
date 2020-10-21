@@ -40,6 +40,7 @@ const OpenButton = styled.button`
   position: fixed;
   right: 0;
   text-transform: uppercase;
+  z-index: 50;
 
   svg {
     fill: ${(props) => props.theme.colors.yellow};
@@ -281,8 +282,10 @@ const ContentRecommendations = ({ guideId }) => {
 
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
-              <p>These guides to records have some records in
-                common with your guide.</p>
+              <p>
+                These guides to records have some records in common with your
+                guide.
+              </p>
               <Grid>
                 <Get url={`/guides/${guideId}/recommended-guides`}>
                   {(error, response, isLoading) => {
