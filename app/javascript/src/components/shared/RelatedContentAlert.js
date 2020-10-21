@@ -8,8 +8,20 @@ import Cookies from "js-cookie";
 import { Checkbox } from "#components/shared/Form";
 
 // styles
-import { fl_static } from "#styles/frontline";
-import { fl_attention } from "#styles/frontline";
+import { fl_static, fl_attention } from "#styles/frontline";
+
+const Inner = styled.div`
+  a {
+    ${fl_static(css`
+      color: ${(props) => props.theme.colors.blue};
+      text-decoration: none; ;
+    `)}
+
+    ${fl_attention(css`
+      text-decoration: underline;
+    `)}
+  }
+`;
 
 const Title = styled(Link)`
   color: ${(props) => props.theme.colors.blue};
@@ -67,27 +79,29 @@ const RelatedContentAlert = ({
 
   return (
     <Modal toggleModal={setIsOpen} isOpen={isOpen}>
-      <p>
-        You've added {parseInt(count) - 1} other items from this {level}:
-      </p>
-      <Title to={`/${naid}`}>{title}</Title>
-      <Description>
-        <p>{data.scopeContent}</p>
-      </Description>
-      <p>
-        <Link to={`/${naid}`}>Check out the {level}</Link> to add the entire
-        series to your research guide or browse additional items from the
-        series.
-      </p>
+      <Inner>
+        <p>
+          You've added {parseInt(count) - 1} other items from this {level}:
+        </p>
+        <Title to={`/${naid}`}>{title}</Title>
+        <Description>
+          <p>{data.scopeContent}</p>
+        </Description>
+        <p>
+          <Link to={`/${naid}`}>Check out the {level}</Link> to add the entire
+          series to your research guide or browse additional items from the
+          series.
+        </p>
 
-      <OptOut>
-        <Checkbox
-          id="dontShowAgain"
-          value={guideId}
-          onChange={handleOptOut}
-          label="Don't show me this again"
-        />
-      </OptOut>
+        <OptOut>
+          <Checkbox
+            id="dontShowAgain"
+            value={guideId}
+            onChange={handleOptOut}
+            label="Don't show me this again"
+          />
+        </OptOut>
+      </Inner>
     </Modal>
   );
 };
