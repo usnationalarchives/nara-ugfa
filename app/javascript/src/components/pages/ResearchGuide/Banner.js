@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { Fragment, useContext } from "react";
 import styled from "styled-components";
 import { Get } from "react-axios";
 
@@ -67,10 +67,10 @@ export const StyledButton = styled(Button)`
 
 const DemoPopup = styled.span`
   background: #fff;
-  border: 1px solid ${props => props.theme.colors.lightGrey};
+  border: 1px solid ${(props) => props.theme.colors.lightGrey};
   border-radius: 10px;
   box-shadow: 0px 0px 11px 2px rgba(0, 0, 0, 0.2);
-  color: ${props => props.theme.colors.textLightGrey};
+  color: ${(props) => props.theme.colors.textLightGrey};
   display: none;
   font-size: 12px;
   height: fit-content;
@@ -93,8 +93,7 @@ export const HeadingWrap = styled.div`
   display: flex;
 `;
 
-export const MetaWrap = styled.div`
-`;
+export const MetaWrap = styled.div``;
 
 export const Title = styled.h1`
   color: ${(props) => props.textColor};
@@ -156,7 +155,7 @@ export const UserRecommendations = styled.div`
       display: block;
     }
   }
-  
+
   svg {
     height: 15px;
     fill: ${(props) => props.theme.colors.white};
@@ -184,7 +183,8 @@ export const UserRecommendationsTooltip = styled.div`
 const Triangle = styled.div`
   border-style: solid;
   border-width: 6px 6px 0 6px;
-  border-color: ${(props) => props.theme.colors.white} transparent transparent transparent;
+  border-color: ${(props) => props.theme.colors.white} transparent transparent
+    transparent;
   bottom: -5px;
   display: inline-block;
   height: 0;
@@ -210,43 +210,30 @@ const Banner = ({ data }) => {
     <Root backgroundColor={backgroundColor}>
       <Content>
         <Layout.Padding>
-
-          <Get url="/current-user">
-            {(error, response, isLoading) => {
-              if (response) {
-                const {
-                  admin,
-                } = response.data.data.attributes;
-
-                return (
-                  <>
-                    {admin && pending && (
-                      <ModeratorButtons>
-                        <StyledButton scheme="green-outline">
-                          Approve
-                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-                        </StyledButton>
-                        <StyledButton scheme="red-outline">
-                          Reject
-                          <DemoPopup>This feature is for demonstration purposes only.</DemoPopup>
-                        </StyledButton>
-                      </ModeratorButtons>
-                    )}
-                  </>
-                );
-              }
-
-              return <div>Loading...</div>;
-            }}
-          </Get>
-          
-          <HeadingWrap>
-            <Get url="/guides?bookmarked=true">
+          {userContext.state.user && (
+            <Get url="/current-user">
               {(error, response, isLoading) => {
                 if (response) {
+                  const { admin } = response.data.data.attributes;
+
                   return (
                     <>
-                      <Bookmark guideId={data.attributes.id} bookmark={response.data.data.map(a => a.id).includes(data.attributes.id.toString())}/>
+                      {admin && pending && (
+                        <ModeratorButtons>
+                          <StyledButton scheme="green-outline">
+                            Approve
+                            <DemoPopup>
+                              This feature is for demonstration purposes only.
+                            </DemoPopup>
+                          </StyledButton>
+                          <StyledButton scheme="red-outline">
+                            Reject
+                            <DemoPopup>
+                              This feature is for demonstration purposes only.
+                            </DemoPopup>
+                          </StyledButton>
+                        </ModeratorButtons>
+                      )}
                     </>
                   );
                 }
@@ -254,6 +241,29 @@ const Banner = ({ data }) => {
                 return <div>Loading...</div>;
               }}
             </Get>
+          )}
+
+          <HeadingWrap>
+            {userContext.state.user && (
+              <Get url="/guides?bookmarked=true">
+                {(error, response, isLoading) => {
+                  if (response) {
+                    return (
+                      <Fragment>
+                        <Bookmark
+                          guideId={data.attributes.id}
+                          bookmark={response.data.data
+                            .map((a) => a.id)
+                            .includes(data.attributes.id.toString())}
+                        />
+                      </Fragment>
+                    );
+                  }
+
+                  return <div>Loading...</div>;
+                }}
+              </Get>
+            )}
             <MetaWrap>
               <Title textColor={textColor}>{data.attributes.title}</Title>
               <Attribution textColor={textColor}>
@@ -265,10 +275,10 @@ const Banner = ({ data }) => {
               {published && !data.attributes.pending && (
                 <UserRecommendations>
                   <Star /> You and 12 Others
-                    <UserRecommendationsTooltip>
-                      This guide is recommended by you  and 12 others.
-                      <Triangle/>
-                    </UserRecommendationsTooltip>
+                  <UserRecommendationsTooltip>
+                    This guide is recommended by you and 12 others.
+                    <Triangle />
+                  </UserRecommendationsTooltip>
                 </UserRecommendations>
               )}
             </MetaWrap>
