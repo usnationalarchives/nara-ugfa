@@ -16,6 +16,7 @@ import Header from "#components/chrome/Header/Header";
 import ScrollToTop from "#components/shared/ScrollToTop";
 import PrivateRoute from "#components/shared/PrivateRoute";
 import AnonymousRoute from "#components/shared/AnonymousRoute";
+import PageLoader from "#components/shared/PageLoader";
 
 // styles
 import BaseStyles from "#styles/base";
@@ -65,7 +66,7 @@ const App = () => {
                   <Fragment>
                     <Header />
 
-                    <Suspense fallback={<p>Loading...</p>}>
+                    <Suspense fallback={<PageLoader />}>
                       <Switch>
                         <PrivateRoute
                           path="/dashboard/guides"

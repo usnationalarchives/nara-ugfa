@@ -9,6 +9,7 @@ import { SearchContext } from "#contexts/Search";
 import ResultsNavigation from "./ResultsNavigation";
 import ResearchGuideResults from "./ResearchGuideResults";
 import SearchResults from "./SearchResults";
+import PageLoader from "#components/shared/PageLoader";
 
 export const Root = styled.div`
   border-left: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -37,7 +38,7 @@ const ResultsColumn = () => {
           if (error) {
             return <div>Error</div>;
           } else if (isLoading) {
-            return <div>Loading...</div>;
+            return <PageLoader />;
           } else if (response !== null) {
             return (
               <>
@@ -58,7 +59,7 @@ const ResultsColumn = () => {
             );
           }
 
-          return <div>Loading...</div>;
+          return <PageLoader />;
         }}
       </Get>
     </Root>

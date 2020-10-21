@@ -11,6 +11,7 @@ import * as Text from "#components/shared/Text";
 import SearchResults from "#components/pages/CatalogSearch/SearchResults";
 import SearchPagination from "./SearchPagination";
 import FilterColumn from "#components/shared/FilterColumn";
+import PageLoader from "#components/shared/PageLoader";
 
 // styles
 import { buttonReset } from "#styles/mixins";
@@ -135,7 +136,7 @@ const Search = () => {
                 if (error) {
                   return <div>Error</div>;
                 } else if (isLoading) {
-                  return <div>Loading...</div>;
+                  return <PageLoader />;
                 } else if (response !== null) {
                   return (
                     <>
@@ -154,7 +155,7 @@ const Search = () => {
                   );
                 }
 
-                return <div>Loading...</div>;
+                return <PageLoader />;
               }}
             </Get>
           </ResultsColumn>

@@ -8,6 +8,7 @@ import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Layout from "#components/shared/Layout";
+import PageLoader from "#components/shared/PageLoader";
 import NavBar from "#components/shared/NavBar";
 import Search from "./Search";
 import ContentRecommendations from "../../shared/ContentRecommendations";
@@ -28,7 +29,10 @@ const Editor = ({ ...props }) => {
 
   // Check if any records have been added in order to conditionally render content recommendations
   for (var i = 0; i < editorContext.state.sections.length; i++) {
-    if (editorContext.state.sections[i].relationships && editorContext.state.sections[i].relationships.descriptions.data.length) {
+    if (
+      editorContext.state.sections[i].relationships &&
+      editorContext.state.sections[i].relationships.descriptions.data.length
+    ) {
       props.anyDescriptions = true;
       break;
     }
@@ -47,7 +51,7 @@ const Editor = ({ ...props }) => {
           if (error) {
             return <div>Error</div>;
           } else if (isLoading) {
-            return <div>Loading...</div>;
+            return <PageLoader />;
           } else if (response !== null) {
             return (
               <Fragment>
@@ -73,7 +77,9 @@ const Editor = ({ ...props }) => {
                       </Layout.Wrapper>
                     </Layout.Padding>
 
-                    {props.anyDescriptions && <ContentRecommendations guideId={id} />}
+                    {props.anyDescriptions && (
+                      <ContentRecommendations guideId={id} />
+                    )}
 
                     <UtilityBar guide={response.data} />
                   </Root>
@@ -82,7 +88,7 @@ const Editor = ({ ...props }) => {
             );
           }
 
-          return <div>Loading...</div>;
+          return <PageLoader />;
         }}
       </Get>
     </Fragment>

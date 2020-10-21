@@ -8,6 +8,7 @@ import * as Layout from "#components/shared/Layout";
 import NavBar from "#components/shared/NavBar";
 import Banner from "./Banner";
 import PageWrapper from "#components/shared/PageWrapper";
+import PageLoader from "#components/shared/PageLoader";
 
 // sytles
 import { fl_allStates } from "#styles/frontline";
@@ -109,7 +110,7 @@ const DashboardSettings = () => {
             );
           }
 
-          return <div>Loading...</div>;
+          return <PageLoader />;
         }}
       </Get>
     </Fragment>

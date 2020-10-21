@@ -7,6 +7,7 @@ import UtilityBar from "./UtilityBar";
 import FilterColumn from "../../shared/FilterColumn";
 import RecordDetailColumn from "./RecordDetailColumn";
 import NavBar from "#components/shared/NavBar";
+import PageLoader from "#components/shared/PageLoader";
 
 export const Root = styled.div``;
 
@@ -28,12 +29,12 @@ const RecordDetail = ({ ...props }) => {
             if (error) {
               return <div>Error</div>;
             } else if (isLoading) {
-              return <div>Loading...</div>;
+              return <PageLoader />;
             } else if (response !== null) {
               return <RecordDetailColumn response={response} />;
             }
 
-            return <div>Loading...</div>;
+            return <PageLoader />;
           }}
         </Get>
       </ColumnWrap>

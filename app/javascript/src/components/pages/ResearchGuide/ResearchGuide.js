@@ -7,6 +7,7 @@ import Banner from "./Banner";
 import GuideIntro from "./GuideIntro";
 import Sections from "./Sections";
 import NavBar from "#components/shared/NavBar";
+import PageLoader from "#components/shared/PageLoader";
 
 export const Root = styled.div``;
 
@@ -23,7 +24,7 @@ const ResearchGuide = ({ ...props }) => {
           if (error) {
             return <div>Error</div>;
           } else if (isLoading) {
-            return <div>Loading...</div>;
+            return <PageLoader />;
           } else if (response !== null) {
             return (
               <Fragment>
@@ -34,7 +35,7 @@ const ResearchGuide = ({ ...props }) => {
             );
           }
 
-          return <div>Loading...</div>;
+          return <PageLoader />;
         }}
       </Get>
     </Root>
