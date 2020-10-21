@@ -27,11 +27,25 @@ class SerializableDescription < JSONAPI::Serializable::Resource
           naId: o.try(:[], "creator").try(:[], "naId")
         }
       }
-    else
+    elsif @object.data.try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:class).try(:name) == "Array"
+      @object.data["creatingOrganizationArray"]["creatingOrganization"].map { |o|
+        {
+          name: o.try(:[], "creator").try(:[], "termName"),
+          naId: o.try(:[], "creator").try(:[], "naId")
+        }
+      }
+    elsif @object.data.try(:[], "parentSeries")
       [
         {
           name: @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName"),
           naId: @object.data.try(:[], "parentSeries").try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "naId")
+        }
+      ]
+    elsif @object.data.try(:[], "creatingOrganizationArray")
+      [
+        {
+          name: @object.data.try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "termName"),
+          naId: @object.data.try(:[], "creatingOrganizationArray").try(:[], "creatingOrganization").try(:[], "creator").try(:[], "naId")
         }
       ]
     end

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled, { css } from "styled-components";
 
 // styles
@@ -27,10 +27,14 @@ const ListItem = styled.li`
 
 const Creators = ({ creators }) => {
   const Creator = ({ creator }) => {
+    console.log(creator);
+
     return (
-      <a href={`https://catalog.archives.gov/id/${creator.naId}`}>
-        {creator.name}
-      </a>
+      <Fragment>
+        <a href={`https://catalog.archives.gov/id/${creator.naId}`}>
+          {creator.name}
+        </a>
+      </Fragment>
     );
   };
 
