@@ -9,8 +9,7 @@ import * as Layout from "#components/shared/Layout";
 import Chev from "#assets/icons/chevron.svg";
 
 // styles
-import { fl_static } from "#styles/frontline";
-import { fl_attention } from "#styles/frontline";
+import { fl_static, fl_attention } from "#styles/frontline";
 
 export const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
@@ -80,7 +79,7 @@ const UtilityBar = () => {
       <Layout.Padding>
         <Layout.Wrapper>
           <Utilties>
-            <BackLink to="/">
+            <BackLink to="/search">
               <Chev />
               Back to results
             </BackLink>
