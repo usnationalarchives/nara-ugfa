@@ -8,7 +8,7 @@ import { Get } from "react-axios";
 import ResearchGuideCard from "#components/shared/ResearchGuideCard";
 import DescriptionIcon from "#components/shared/DescriptionIcon";
 import AddRecommendation from "./AddRecommendation";
-import { Grid, NarrowGridItem } from "#components/shared/Grid";
+import { Grid, GridItem, NarrowGridItem } from "#components/shared/Grid";
 
 // styles
 import * as Layout from "#components/shared/Layout";
@@ -282,10 +282,6 @@ const ContentRecommendations = ({ guideId }) => {
 
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
-              <p>
-                These guides to records have some records in common with your
-                guide.
-              </p>
               <Grid>
                 <Get url={`/guides/${guideId}/recommended-guides`}>
                   {(error, response, isLoading) => {
@@ -297,6 +293,10 @@ const ContentRecommendations = ({ guideId }) => {
                       if (response.data.data.length) {
                         return (
                           <Fragment>
+                            <p>
+                              These guides to records have some records in
+                              common with your guide.
+                            </p>
                             {response.data.data.map((guide) => (
                               <NarrowGridItem key={guide.attributes.id}>
                                 <ResearchGuideCard
@@ -318,15 +318,13 @@ const ContentRecommendations = ({ guideId }) => {
                         );
                       } else {
                         return (
-                          <Fragment>
-                            <p>
-                              There is not enough information to make Guides to
-                              Records recommendations yet. Continuing to add
-                              records to your guide will help us learn what you
-                              are looking for. Once we have recommendations for
-                              records and other guides, we will share them here.
-                            </p>
-                          </Fragment>
+                          <p style={{ padding: "0 15px" }}>
+                            There is not enough information to make Guides to
+                            Records recommendations yet. Continuing to add
+                            records to your guide will help us learn what you
+                            are looking for. Once we have recommendations for
+                            records and other guides, we will share them here.
+                          </p>
                         );
                       }
                     } else {
