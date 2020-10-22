@@ -6,6 +6,9 @@ import { useLocation, useHistory } from "react-router-dom";
 // contexts
 import { SearchContext } from "#contexts/Search";
 
+// components
+import { Screenreader } from "#components/shared/Text";
+
 // assets
 import Chev from "#assets/icons/chevron.svg";
 import DoubleChev from "#assets/icons/double-chev.svg";
@@ -153,11 +156,13 @@ const Pagination = ({ data }) => {
         <li>
           <First onClick={handleFirst} disabled={data.page === 1}>
             <DoubleChev width="13" />
+            <Screenreader>Go to First Page</Screenreader>
           </First>
         </li>
         <li>
           <Prev onClick={handlePrev} disabled={data.page === 1}>
             <Chev width="10" />
+            <Screenreader>Go to Previous Page</Screenreader>
           </Prev>
         </li>
         <li>
@@ -176,11 +181,13 @@ const Pagination = ({ data }) => {
         <li>
           <Next onClick={handleNext} disabled={data.page === data.pages}>
             <Chev width="10" style={{ transform: "rotate(180deg)" }} />
+            <Screenreader>Go to Next Page</Screenreader>
           </Next>
         </li>
         <li>
           <Last onClick={handleLast} disabled={data.page === data.pages}>
             <DoubleChev width="13" style={{ transform: "rotate(180deg)" }} />
+            <Screenreader>Go to Last Page</Screenreader>
           </Last>
         </li>
       </ul>
