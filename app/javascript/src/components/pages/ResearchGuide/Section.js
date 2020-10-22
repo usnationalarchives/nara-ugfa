@@ -34,7 +34,7 @@ const Section = ({ guide, section }) => {
 
   return (
     <Root id={`section-${section.id}`}>
-      <Title>{title}</Title>
+      <Title>{title || "Untitled Section"}</Title>
 
       <Context
         guide={guide}
