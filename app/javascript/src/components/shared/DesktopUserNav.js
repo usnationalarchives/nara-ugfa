@@ -78,15 +78,17 @@ const DesktopUserNav = () => {
           </DropdownLink>
           <DropdownLink to="/getting-started">Getting Started</DropdownLink>
 
-          <Button
-            onClick={handleCreate}
-            style={{ marginTop: "20px" }}
-            block
-            scheme="outline"
-            href="/research-guides"
-          >
-            Create a Guide
-          </Button>
+          {userContext.state.user && (
+            <Button
+              onClick={handleCreate}
+              style={{ marginTop: "20px" }}
+              block
+              scheme="outline"
+              href="/research-guides"
+            >
+              Create a Guide
+            </Button>
+          )}
         </DropdownMenu>
       </Item>
       <Item>

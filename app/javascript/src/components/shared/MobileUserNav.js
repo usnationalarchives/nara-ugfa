@@ -61,14 +61,16 @@ const MobileUserNav = () => {
 
               <DropdownLink to="/getting-started">Getting Started</DropdownLink>
 
-              <ButtonLink
-                style={{ marginTop: "20px" }}
-                block
-                scheme="outline"
-                href="/research-guides"
-              >
-                Create a Guide
-              </ButtonLink>
+              {userContext.state.user && (
+                <ButtonLink
+                  style={{ marginTop: "20px" }}
+                  block
+                  scheme="outline"
+                  href="/research-guides"
+                >
+                  Create a Guide
+                </ButtonLink>
+              )}
             </MenuItemContent>
           </MenuItem>
           {userContext.state.user && (
