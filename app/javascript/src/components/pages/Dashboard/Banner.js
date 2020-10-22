@@ -17,31 +17,51 @@ import { fl_allStates } from "#styles/frontline";
 const Root = styled.div`
   background-color: ${(props) => props.theme.colors.darkBlue};
   color: ${(props) => props.theme.colors.white};
-  padding: 60px 0 0;
+  padding: 20px 0 0;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    padding: 60px 0 0;
+  }
 `;
 
 const Nav = styled.ul`
   display: flex;
-  margin-top: 60px;
-  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    align-items: center;
+    flex-direction: row;
+    margin-top: 60px;
+  }
 `;
 
 const NavItem = styled.li`
-  margin-right: 30px;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    font-size: 1rem;
+    margin-bottom: 0;
+    padding-right: 30px;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
   display: inline-block;
-  padding: 0 0 30px;
-  border-bottom: 4px solid transparent;
 
   ${fl_allStates(css`
     color: ${(props) => props.theme.colors.white};
     text-decoration: none;
   `)}
 
-  &[aria-current] {
-    border-color: ${(props) => props.theme.colors.yellow};
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    border-bottom: 4px solid transparent;
+    padding: 0 0 30px;
+
+    &[aria-current] {
+      border-color: ${(props) => props.theme.colors.yellow};
+    }
   }
 `;
 
@@ -52,7 +72,13 @@ const ItemMeta = styled.span`
 
 const SignOut = styled.button`
   ${buttonStyles}
-  transform: translateY(-30%);
+  margin-bottom: 12px;
+  margin-top: 12px;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    margin: 0;
+    transform: translateY(-30%);
+  }
 `;
 
 const UserInfo = styled.div`
@@ -102,8 +128,10 @@ const Banner = ({ name, gravatar, role, guides }) => {
               <StyledNavLink exact to="/dashboard/guides">
                 My Guides to Records
                 <ItemMeta>
-                  ({guides.length} Guide
-                  {guides.length != 1 ? "s" : null})
+                  <Text.NoWrap>
+                    ({guides.length} Guide
+                    {guides.length != 1 ? "s" : null})
+                  </Text.NoWrap>
                 </ItemMeta>
               </StyledNavLink>
             </NavItem>
@@ -117,10 +145,10 @@ const Banner = ({ name, gravatar, role, guides }) => {
                         return (
                           <>
                             {response.data.data && (
-                              <span>
+                              <Text.NoWrap>
                                 ({response.data.data.length} Guide
                                 {response.data.data.length != 1 ? "s" : null})
-                              </span>
+                              </Text.NoWrap>
                             )}
                           </>
                         );

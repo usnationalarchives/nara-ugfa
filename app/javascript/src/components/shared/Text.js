@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { fl_visuallyHidden } from '#styles/frontline';
+import styled from "styled-components";
+import { fl_visuallyHidden } from "#styles/frontline";
 
 export const H1 = styled.h1`
   font-weight: bold;
   font-size: 2rem;
   line-height: 1.18;
 
-  @media ${(props) => props.theme.breakpoints.mediLabelum} {
+  @media ${(props) => props.theme.breakpoints.medium} {
     font-size: 3rem;
     line-height: 1.2;
   }
@@ -240,4 +240,8 @@ export const Rich = styled.div`
   small {
     display: inline-block;
   }
+`;
+
+export const NoWrap = styled.span`
+  white-space: nowrap;
 `;
