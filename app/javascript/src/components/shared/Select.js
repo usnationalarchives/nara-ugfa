@@ -64,7 +64,7 @@ const SelectMenu = styled.select`
 
 const Select = ({ style, ...rest }) => {
   return (
-    <SelectWrapper style={style} {...rest}>
+    <SelectWrapper style={style}>
       <SelectMenu {...rest}>{rest.children}</SelectMenu>
     </SelectWrapper>
   );

@@ -243,7 +243,7 @@ const GuideFields = () => {
         <AudienceSelect guide={guide} />
 
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
-          <Label htmlFor="looking_for_collaborators">
+          <Label htmlFor="complete_or_wip">
             Is your guide to records complete or in progress?
           </Label>
           <Select
