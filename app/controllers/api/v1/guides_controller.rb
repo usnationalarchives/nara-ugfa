@@ -297,6 +297,13 @@ class API::V1::GuidesController < API::V1::BaseController
       }
   end
 
+  def destroy
+    @guide = current_user.guides.find_by_id(params[:id]) or return http404
+    @guide.destroy
+
+    render json: { message: "guide deleted"}, status: 204
+  end
+
   private
 
   def guide_params

@@ -12,6 +12,7 @@ import VisibilitySettings from "./VisibilitySettings";
 import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
 import CollaborationModal from "#components/shared/CollaborationModal";
 import BulkActions from "./BulkActions";
+import DeleteGuide from "./DeleteGuide";
 
 // assets
 import HelpIcon from "#assets/icons/help.svg";
@@ -209,6 +210,7 @@ const UtilityBar = ({ guide }) => {
                   urlArray[0] + "//" + urlArray[2]
                 }/guides/public/${guide.data.attributes.uuid}`}
               />
+              <DeleteGuide guideId={guide.data.id} />
             </ShareButtons>
 
             <ShareHelpOpen

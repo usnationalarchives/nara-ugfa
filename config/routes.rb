@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         post "/", to: "guides#create"
         get "/:id", to: "guides#show"
         put "/:id", to: "guides#update"
+        delete "/:id", to: "guides#destroy"
         get "/:id/edit", to: "guides#edit"
         get "/:id/recommended-guides", to: "guides#recommended_guides"
         get "/:id/recommended-descriptions", to: "guides#recommended_descriptions"
