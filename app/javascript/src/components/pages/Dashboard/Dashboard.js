@@ -11,6 +11,7 @@ import NavBar from "#components/shared/NavBar";
 import Banner from "./Banner";
 import Guides from "./Guides";
 import PageWrapper from "#components/shared/PageWrapper";
+import PageLoader from "#components/shared/PageLoader";
 
 const Dashboard = () => {
   const userContext = useContext(UserContext);
@@ -119,7 +120,7 @@ const Dashboard = () => {
             );
           }
 
-          return <div>Loading...</div>;
+          return <PageLoader />;
         }}
       </Get>
     </Fragment>
