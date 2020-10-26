@@ -65,10 +65,14 @@ const Home = () => {
         <Layout.Padding>
           <Layout.Wrapper narrow>
             <Search onSubmit={handleSubmit(search)}>
+              <label htmlFor="query">
+                <Text.Screenreader>Search the catalog</Text.Screenreader>
+              </label>
               <Query
                 placeholder="Search the NARA Catalog"
                 type="text"
                 name="query"
+                id="query"
                 ref={register}
               />
               <Submit type="submit">
