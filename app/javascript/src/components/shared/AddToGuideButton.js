@@ -67,7 +67,7 @@ export const GuideMeta = styled.p`
   color: #888888;
 `;
 
-export const AddOptions = styled.span`
+export const AddOptions = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border: 1px solid ${(props) => props.theme.colors.mediumGrey};
   border-radius: 10px;
@@ -227,13 +227,24 @@ const AddToGuideButton = ({
     <Fragment>
       {userContext.state.user && (
         <Root>
-          <Button scheme="green-plus" onClick={handleAdd}>
+          <Button
+            scheme="green-plus"
+            onClick={handleAdd}
+            aria-describedby={
+              addOptionsVisible
+                ? `add-popover-${descriptionIds.join("")}`
+                : null
+            }
+          >
             {text}
             <PlusCircle />
           </Button>
 
           {addOptionsVisible && (
             <AddOptions
+              role="tooltip"
+              aria-live="polite"
+              id={`add-popover-${descriptionIds.join("")}`}
               menuPositionRight={menuPosition === "right"}
               ref={wrapperRef}
             >
