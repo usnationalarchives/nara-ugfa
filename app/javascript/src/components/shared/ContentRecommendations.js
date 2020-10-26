@@ -12,6 +12,7 @@ import { Grid, GridItem, NarrowGridItem } from "#components/shared/Grid";
 
 // styles
 import * as Layout from "#components/shared/Layout";
+import { Screenreader } from "#components/shared/Text";
 import { buttonReset } from "#styles/mixins";
 import { fl_static, fl_attention } from "#styles/frontline";
 
@@ -209,10 +210,7 @@ const ContentRecommendations = ({ guideId }) => {
         style={customStyles}
         contentLabel="Content Recommendations"
       >
-        <ModalContent>
-          <CloseButton onClick={closeModal}>
-            <Close />
-          </CloseButton>
+        <ModalContent aria-live="polite">
           <Layout.Center>
             <Heading>Content Recommendations</Heading>
           </Layout.Center>
@@ -335,6 +333,11 @@ const ContentRecommendations = ({ guideId }) => {
               </Grid>
             </GuidesContent>
           </ContentWrap>
+
+          <CloseButton onClick={closeModal}>
+            <Close />
+            <Screenreader>Close Content Recommendations</Screenreader>
+          </CloseButton>
         </ModalContent>
       </Modal>
     </>
