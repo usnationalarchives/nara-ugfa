@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styled from 'styled-components';
+import styled from "styled-components";
+
+// components
+import { Screenreader } from "#components/shared/Text";
 
 // assets
-import CatalogLogo from '#assets/catalog_logo.svg';
+import CatalogLogo from "#assets/catalog_logo.svg";
 
 export const Root = styled.div`
   align-items: center;
@@ -24,7 +27,8 @@ const Logo = () => {
   return (
     <Root>
       <LogoLink to="/">
-        <CatalogLogo/>
+        <CatalogLogo />
+        <Screenreader>National Archives Catalog</Screenreader>
       </LogoLink>
     </Root>
   );
