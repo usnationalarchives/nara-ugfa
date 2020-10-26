@@ -119,7 +119,11 @@ const DropdownMenu = ({ label, ...props }) => {
         {label}
         <StyledChevron open={open} />
       </StyledButton>
-      {open && <Content>{props.children}</Content>}
+      {open && (
+        <Content aria-live="polite" role="dialog">
+          {props.children}
+        </Content>
+      )}
     </Root>
   );
 };
