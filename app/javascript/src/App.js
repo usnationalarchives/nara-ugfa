@@ -103,10 +103,6 @@ const App = () => {
                               component={GettingStarted}
                             />
                             <Route
-                              path="/research-guides"
-                              component={ResearchGuides}
-                            />
-                            <Route
                               exact
                               path="/guides/:id"
                               component={ResearchGuide}
@@ -116,6 +112,7 @@ const App = () => {
                               path="/guides/public/:uuid"
                               component={ResearchGuide}
                             />
+                            <Route path="/guides" component={ResearchGuides} />
                             <Route
                               exact
                               path="/search"

@@ -1,8 +1,5 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import { Get } from "react-axios";
-
-// contexts
-import { UserContext } from "#contexts/User";
 
 // components
 import * as Layout from "#components/shared/Layout";
@@ -14,8 +11,6 @@ import PageWrapper from "#components/shared/PageWrapper";
 import PageLoader from "#components/shared/PageLoader";
 
 const Dashboard = () => {
-  const userContext = useContext(UserContext);
-
   return (
     <Fragment>
       <NavBar title="Guides to Records Editor" />

@@ -79,7 +79,7 @@ const ResearchGuideResults = () => {
                   ))}
                 </Grid>
                 <Layout.Right>
-                  <Link to="/research-guides">View All</Link>
+                  <Link to="/guides">View All</Link>
                 </Layout.Right>
               </ResearchGuideGridWrap>
             </Root>
