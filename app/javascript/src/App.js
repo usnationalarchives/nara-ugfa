@@ -12,6 +12,7 @@ import { EditorProvider } from "#contexts/Editor";
 import { GuideProvider } from "#contexts/Guide";
 
 // components
+import SkipLinks from "#components/shared/SkipLinks";
 import Header from "#components/chrome/Header/Header";
 import ScrollToTop from "#components/shared/ScrollToTop";
 import PrivateRoute from "#components/shared/PrivateRoute";
@@ -56,6 +57,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BaseStyles />
+      <SkipLinks />
       <AxiosProvider instance={client}>
         <Router>
           <UserProvider>
@@ -65,65 +67,70 @@ const App = () => {
                   <ScrollToTop />
                   <Fragment>
                     <Header />
-
-                    <Suspense fallback={<PageLoader />}>
-                      <Switch>
-                        <PrivateRoute
-                          path="/dashboard/guides"
-                          component={DashboardGuides}
-                        />
-                        <PrivateRoute
-                          path="/dashboard/bookmarked-guides"
-                          component={BookmarkedGuides}
-                        />
-                        <PrivateRoute
-                          path="/dashboard/settings"
-                          component={DashboardSettings}
-                        />
-                        <PrivateRoute
-                          exact
-                          path="/dashboard"
-                          component={Dashboard}
-                        />
-                        <AnonymousRoute
-                          path="/login"
-                          component={Login}
-                          redirect="/dashboard"
-                        />
-                        <PrivateRoute
-                          exact
-                          path="/guides/:id/edit"
-                          component={Editor}
-                        />
+                    <div id="main">
+                      <Suspense fallback={<PageLoader />}>
                         <Switch>
-                          <Route
-                            path="/getting-started"
-                            component={GettingStarted}
+                          <PrivateRoute
+                            path="/dashboard/guides"
+                            component={DashboardGuides}
                           />
-                          <Route
-                            path="/research-guides"
-                            component={ResearchGuides}
+                          <PrivateRoute
+                            path="/dashboard/bookmarked-guides"
+                            component={BookmarkedGuides}
                           />
-                          <Route
+                          <PrivateRoute
+                            path="/dashboard/settings"
+                            component={DashboardSettings}
+                          />
+                          <PrivateRoute
                             exact
-                            path="/guides/:id"
-                            component={ResearchGuide}
+                            path="/dashboard"
+                            component={Dashboard}
                           />
-                          <Route
+                          <AnonymousRoute
+                            path="/login"
+                            component={Login}
+                            redirect="/dashboard"
+                          />
+                          <PrivateRoute
                             exact
-                            path="/guides/public/:uuid"
-                            component={ResearchGuide}
+                            path="/guides/:id/edit"
+                            component={Editor}
                           />
-                          <Route
-                            exact
-                            path="/search"
-                            component={CatalogSearch}
-                          />
-                          <Route exact path="/:naId" component={RecordDetail} />
-                          <Route exact path="/" exact component={Home} />
+                          <Switch>
+                            <Route
+                              path="/getting-started"
+                              component={GettingStarted}
+                            />
+                            <Route
+                              path="/research-guides"
+                              component={ResearchGuides}
+                            />
+                            <Route
+                              exact
+                              path="/guides/:id"
+                              component={ResearchGuide}
+                            />
+                            <Route
+                              exact
+                              path="/guides/public/:uuid"
+                              component={ResearchGuide}
+                            />
+                            <Route
+                              exact
+                              path="/search"
+                              component={CatalogSearch}
+                            />
+                            <Route
+                              exact
+                              path="/:naId"
+                              component={RecordDetail}
+                            />
+                            <Route exact path="/" exact component={Home} />
+                          </Switch>
                         </Switch>
-                      </Switch>
-                    </Suspense>
+                      </Suspense>
+                    </div>
                   </Fragment>
                 </GuideProvider>
               </SearchProvider>

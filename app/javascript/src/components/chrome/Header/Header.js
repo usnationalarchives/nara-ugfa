@@ -18,7 +18,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <Root>
+    <Root id="header">
       <Layout.Padding>
         <UtilityNav>
           <Logo />
