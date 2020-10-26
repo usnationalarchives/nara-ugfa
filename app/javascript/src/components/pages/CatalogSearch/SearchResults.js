@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // components
+import { Screenreader } from "#components/shared/Text";
 import Description from "./Description";
 import AddToGuideButton from "#components/shared/AddToGuideButton";
 
@@ -18,6 +19,7 @@ export const Root = styled.div`
 const SearchResults = ({ results, response }) => {
   return (
     <Root>
+      <Screenreader aria-live="assertive">Results Loaded</Screenreader>
       <div
         style={{
           display: "inline-block",

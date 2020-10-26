@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Screenreader } from "#components/shared/Text";
+
 const Root = styled.div`
   height: calc(100vh - 100px);
   position: relative;
@@ -33,6 +35,9 @@ const PageLoader = () => {
   return (
     <Root>
       <Inner>
+        <Screenreader role="alert" aria-live="assertive">
+          Loading
+        </Screenreader>
         <svg
           width="98px"
           height="98px"
