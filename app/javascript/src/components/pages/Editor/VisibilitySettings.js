@@ -61,7 +61,7 @@ const VisibilitySettings = ({ guide }) => {
 
   const PopoverContent = () => {
     return (
-      <SettingsWrapper>
+      <SettingsWrapper role="alert" aria-live="polite">
         <Label htmlFor="publishing_status">Visibility Settings</Label>
         <Select
           style={{ width: "100%" }}
