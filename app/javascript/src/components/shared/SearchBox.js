@@ -77,7 +77,7 @@ const SearchBox = () => {
       </Label>
       <SubmitButton type="submit" value="Submit">
         <SearchIcon height="20" fill="currentColor" />
-        <Text.Screenreader>Search</Text.Screenreader>
+        <Text.Screenreader>Submit Search</Text.Screenreader>
       </SubmitButton>
       <AdvancedSearch>Advanced Search</AdvancedSearch>
     </Root>
