@@ -121,7 +121,6 @@ export const PublishedDate = styled.p`
   font-size: 0.8em;
   margin-top: 20px;
   text-transform: uppercase;
-  opacity: 0.7;
 `;
 
 export const Image = styled.div`
