@@ -120,7 +120,7 @@ const Section = ({
   };
 
   return (
-    <Root>
+    <Root id={`section-${section.id}`}>
       <SectionActions
         guide={guide}
         section={section}

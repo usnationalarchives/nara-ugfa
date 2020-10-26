@@ -54,6 +54,10 @@ const Sections = () => {
           response.data.data.attributes.updatedAgo
         );
         editorContext.actions.setSaving(false);
+
+        document
+          .querySelector(`#section-title-${response.data.data.id}`)
+          .focus();
       })
       .catch((error) => {
         console.log(error);
