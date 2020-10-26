@@ -102,7 +102,7 @@ const InfoToggle = ({ heading, ...rest }) => {
         </ToggleChev>
       </button>
       <SlideToggleContent isVisible={isVisible}>
-        <InfoWrap>{rest.children}</InfoWrap>
+        <InfoWrap aria-live="polite">{rest.children}</InfoWrap>
       </SlideToggleContent>
     </Root>
   );
