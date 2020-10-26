@@ -1,16 +1,17 @@
 import React, { Fragment, useContext, useState } from "react";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // contexts
 import { UserContext } from "#contexts/User";
+import { EditorContext } from "#contexts/Editor";
 
 // components
 import { DropdownLink } from "#components/shared/DropdownMenu";
 import Button, { ButtonLink } from "#components/shared/Button";
 
-// styles
-import { fl_allStates } from "#styles/frontline";
+// api
+import { createGuide } from "#api/internal/guide";
 
 const Root = styled.div`
   display: block;
@@ -41,11 +42,27 @@ const MenuItemContent = styled.div`
 
 const MobileUserNav = () => {
   const userContext = useContext(UserContext);
+  const editorContext = useContext(EditorContext);
+  const history = useHistory();
   const [open, setOpen] = useState(true);
 
   const logout = () => {
     window.location = "/";
     userContext.actions.logout();
+  };
+
+  const handleCreate = () => {
+    editorContext.actions.clear();
+
+    createGuide()
+      .then((response) => {
+        const id = response.data.data.id;
+
+        history.push(`/guides/${id}/edit`);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
@@ -62,14 +79,15 @@ const MobileUserNav = () => {
               <DropdownLink to="/getting-started">Getting Started</DropdownLink>
 
               {userContext.state.user && (
-                <ButtonLink
+                <Button
+                  onClick={handleCreate}
                   style={{ marginTop: "20px" }}
                   block
                   scheme="outline"
                   href="/research-guides"
                 >
                   Create a Guide
-                </ButtonLink>
+                </Button>
               )}
             </MenuItemContent>
           </MenuItem>
