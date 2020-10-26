@@ -9,7 +9,7 @@ export const Root = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.colors.mediumGrey};
 `;
 
-export const Wrap = styled.ul`
+export const Wrap = styled.div`
   display: flex;
   flex-direction: column-reverse;
   max-width: ${(props) => props.theme.layout.maxWidth};
