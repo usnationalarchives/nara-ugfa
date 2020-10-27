@@ -7,7 +7,6 @@ import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Layout from "#components/shared/Layout";
-import * as Text from "#components/shared/Text";
 import VisibilitySettings from "./VisibilitySettings";
 import GlobalCollapse from "#components/pages/ResearchGuide/GlobalCollapse";
 import CollaborationModal from "#components/shared/CollaborationModal";
@@ -175,6 +174,50 @@ const MobileShareHelpMenu = styled.div`
   }
 `;
 
+const StyledSpinner = styled.div`
+  @keyframes loadspin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  animation: loadspin 1s linear infinite;
+  height: 30px;
+  transition: 300ms;
+  width: 30px;
+
+  svg {
+    display: block;
+  }
+`;
+
+const Spinner = () => {
+  return (
+    <StyledSpinner>
+      <svg
+        width="30px"
+        height="30px"
+        viewBox="0 0 98 98"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <g transform="translate(3.000000, 3.000000)" strokeWidth="3">
+            <circle stroke="#ffffff" cx="46" cy="46" r="46"></circle>
+            <path
+              d="M28.7975511,88.6754941 C34.1116252,90.8196378 39.9179684,92 46,92 C71.4050985,92 92,71.4050985 92,46 C92,20.5949015 71.4050985,0 46,0"
+              stroke="#333"
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </StyledSpinner>
+  );
+};
+
 const UtilityBar = ({ guide }) => {
   const [shareHelpOpen, setShareHelpOpen] = useState(false);
   const editorContext = useContext(EditorContext);
@@ -210,7 +253,7 @@ const UtilityBar = ({ guide }) => {
           {editorContext.state.bulkItems.length === 0 && (
             <Status>
               <MobileStatus>
-                {editorContext.state.saving && <p>...</p>}
+                {editorContext.state.saving && <Spinner />}
               </MobileStatus>
 
               <DesktopStatus>
