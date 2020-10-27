@@ -4,7 +4,6 @@ import styled from "styled-components";
 // components
 import * as Layout from "#components/shared/Layout";
 import Logo from "./Logo";
-import MenuToggle from "./MenuToggle";
 
 export const Root = styled.div``;
 
@@ -22,7 +21,6 @@ const Header = () => {
       <Layout.Padding>
         <UtilityNav>
           <Logo />
-          <MenuToggle menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
         </UtilityNav>
       </Layout.Padding>
     </Root>
