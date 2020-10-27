@@ -95,7 +95,7 @@ const DeleteGuide = ({ guideId }) => {
           </Warning>
           <H3 style={{ marginBottom: "20px" }}>Delete this Guide</H3>
           <p>
-            Are you sure you want to delete this guide. This action cannot be
+            Are you sure you want to delete this guide? This action cannot be
             undone.
           </p>
 
