@@ -72,8 +72,8 @@ const ShareHelp = styled.div`
   color: ${(props) => props.theme.colors.white};
   display: flex;
   font-size: 0.8rem;
-  right: 0;
   position: absolute;
+  right: 0;
   text-transform: uppercase;
   top: 50%;
   transform: translateY(-50%);

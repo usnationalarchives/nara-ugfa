@@ -11,6 +11,10 @@ import styled from "styled-components";
 // contexts
 import { EditorContext } from "#contexts/Editor";
 
+// components
+import * as Layout from "#components/shared/Layout";
+import * as Text from "#components/shared/Text";
+
 // API
 import {
   removeDescriptions,
@@ -23,6 +27,7 @@ import { buttonReset } from "#styles/mixins";
 // assets
 import TrashIcon from "#assets/icons/trash.svg";
 import MoveIcon from "#assets/icons/move-to-section.svg";
+import Check from "#assets/icons/check.svg";
 
 const Root = styled.div`
   left: 0;
@@ -91,6 +96,40 @@ const Action = styled.button`
     height: 18px;
     width: 28px;
   }
+`;
+
+const Checked = styled.button`
+  ${buttonReset}
+
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.green};
+  display: flex;
+  height: 20px;
+  width: 20px;
+  position: relative;
+
+  svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+    fill: ${(props) => props.theme.colors.white};
+    position: relative;
+    top: 3px;
+    left: 4px;
+  }
+`;
+
+const Number = styled.span`
+  background-color: ${(props) => props.theme.colors.blue};
+  border-radius: 14px;
+  color: ${(props) => props.theme.colors.white};
+  height: 18px;
+  padding: 4px;
+  position: absolute;
+  left: 13px;
+  top: -9px;
+  min-width: 18px;
+  font-size: 0.7rem;
 `;
 
 const BulkActions = () => {
@@ -206,10 +245,27 @@ const BulkActions = () => {
         }}
       >
         <div>
-          <StyledButton onClick={() => setOpen(!open)}>
-            {editorContext.state.bulkItems.length} item
-            {editorContext.state.bulkItems.length > 1 ? "s" : null} selected
-          </StyledButton>
+          <Layout.Desktop>
+            <StyledButton onClick={() => setOpen(!open)}>
+              {editorContext.state.bulkItems.length} item
+              {editorContext.state.bulkItems.length > 1 ? "s" : null} selected
+            </StyledButton>
+          </Layout.Desktop>
+
+          <Layout.Mobile>
+            <Checked onClick={() => setOpen(!open)}>
+              <Check />
+              <Number aria-hidden="true">
+                {editorContext.state.bulkItems.length}
+              </Number>
+              <Text.Screenreader>
+                {editorContext.state.bulkItems.length} item
+                {editorContext.state.bulkItems.length > 1 ? "s" : null} selected
+                Perform Bulk Actions
+              </Text.Screenreader>
+            </Checked>
+          </Layout.Mobile>
+
           <div ref={popoverEl}></div>
         </div>
       </Popover>
