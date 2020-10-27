@@ -280,21 +280,21 @@ const ContentRecommendations = ({ guideId }) => {
 
             <GuidesContent>
               <Subheading>Guides to Records</Subheading>
-              <Grid>
-                <Get url={`/guides/${guideId}/recommended-guides`}>
-                  {(error, response, isLoading) => {
-                    if (error) {
-                      return <div>Error</div>;
-                    } else if (isLoading) {
-                      return <div>Loading...</div>;
-                    } else if (response !== null) {
-                      if (response.data.data.length) {
-                        return (
-                          <Fragment>
-                            <p>
-                              These guides to records have some records in
-                              common with your guide.
-                            </p>
+              <Get url={`/guides/${guideId}/recommended-guides`}>
+                {(error, response, isLoading) => {
+                  if (error) {
+                    return <div>Error</div>;
+                  } else if (isLoading) {
+                    return <div>Loading...</div>;
+                  } else if (response !== null) {
+                    if (response.data.data.length) {
+                      return (
+                        <Fragment>
+                          <p>
+                            These guides to records have some records in common
+                            with your guide.
+                          </p>
+                          <Grid>
                             {response.data.data.map((guide) => (
                               <NarrowGridItem key={guide.attributes.id}>
                                 <ResearchGuideCard
@@ -312,25 +312,25 @@ const ContentRecommendations = ({ guideId }) => {
                                 />
                               </NarrowGridItem>
                             ))}
-                          </Fragment>
-                        );
-                      } else {
-                        return (
-                          <p style={{ padding: "0 15px" }}>
-                            There is not enough information to make Guides to
-                            Records recommendations yet. Continuing to add
-                            records to your guide will help us learn what you
-                            are looking for. Once we have recommendations for
-                            records and other guides, we will share them here.
-                          </p>
-                        );
-                      }
+                          </Grid>
+                        </Fragment>
+                      );
                     } else {
-                      return <div>Something went wrong</div>;
+                      return (
+                        <p>
+                          There is not enough information to make Guides to
+                          Records recommendations yet. Continuing to add records
+                          to your guide will help us learn what you are looking
+                          for. Once we have recommendations for records and
+                          other guides, we will share them here.
+                        </p>
+                      );
                     }
-                  }}
-                </Get>
-              </Grid>
+                  } else {
+                    return <div>Something went wrong</div>;
+                  }
+                }}
+              </Get>
             </GuidesContent>
           </ContentWrap>
 
