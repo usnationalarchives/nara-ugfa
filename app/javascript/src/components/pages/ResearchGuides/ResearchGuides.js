@@ -26,7 +26,10 @@ const ResearchGuides = () => {
             <PageWrapper>
               <Text.Rich>
                 <Text.H1>All Guides to Records</Text.H1>
-                <Text.Intro>Lorem Ipsum</Text.Intro>
+                <Text.Intro>
+                  Explore all public Guides to Records created by NARA staff and
+                  citizen archivist.
+                </Text.Intro>
               </Text.Rich>
             </PageWrapper>
           </Layout.Wrapper>
