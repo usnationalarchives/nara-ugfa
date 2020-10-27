@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 // components
@@ -14,8 +14,6 @@ export const UtilityNav = styled.div`
 `;
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <Root id="header">
       <Layout.Padding>
