@@ -19,8 +19,13 @@ import { buttonReset } from "#styles/mixins";
 import { fl_allStates } from "#styles/frontline";
 
 export const Ancestors = styled.ol`
-  color: ${(props) => props.theme.colors.textLightGrey};
-  font-size: 0.8rem;
+  display: none;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    color: ${(props) => props.theme.colors.textLightGrey};
+    display: block;
+    font-size: 0.8rem;
+  }
 `;
 
 const svgStyles = css`
@@ -66,7 +71,7 @@ const AncestorLevel = styled.span`
   text-transform: uppercase;
 `;
 
-export const Level = styled.button`
+const levelStyles = css`
   ${buttonReset}
 
   font-size: 0.8rem;
@@ -85,6 +90,23 @@ export const Level = styled.button`
   span {
     position: relative;
     top: -3px;
+  }
+`;
+
+export const Level = styled.button`
+  display: none;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    ${levelStyles}
+    display: block;
+  }
+`;
+
+export const LevelLabel = styled.p`
+  ${levelStyles}
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    display: none;
   }
 `;
 
@@ -145,6 +167,13 @@ const DescriptionHierarchy = ({ description }) => {
         ))}
       </Ancestors>
 
+      {/* Only display a labal on mobile */}
+      <LevelLabel>
+        <Icon level={description.attributes.level} />
+        <LevelInner>{description.attributes.level}</LevelInner>
+      </LevelLabel>
+
+      {/* Display a toggle on Desktop */}
       <Level
         {...getToggleProps({
           onClick: () => setExpanded((prevExpanded) => !prevExpanded),

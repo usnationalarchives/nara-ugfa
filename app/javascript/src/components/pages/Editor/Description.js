@@ -21,13 +21,15 @@ import { buttonReset } from "#styles/mixins";
 import { fl_attention, fl_allStates } from "#styles/frontline";
 
 const Bulk = styled.div`
-  display: none;
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: none;
 
-  ${(props) =>
-    props.show &&
-    css`
-      display: block;
-    `}
+    ${(props) =>
+      props.show &&
+      css`
+        display: block;
+      `}
+  }
 `;
 
 const Actions = styled.div`
@@ -61,19 +63,18 @@ const Root = styled.div`
 
 const Inner = styled.div`
   border: 1px solid transparent;
-  padding: 20px 25px;
   position: relative;
   transition: border-color 200ms ease-in-out;
 
   @media ${(props) => props.theme.breakpoints.medium} {
     padding: 20px 25px;
-  }
 
-  &:hover {
-    border-color: ${(props) => props.theme.colors.blue};
+    &:hover {
+      border-color: ${(props) => props.theme.colors.blue};
 
-    ${Actions} {
-      display: block;
+      ${Actions} {
+        display: block;
+      }
     }
   }
 `;
@@ -119,6 +120,7 @@ const ExpandToggle = styled.button`
 
   color: ${(props) => props.theme.colors.blue};
   font-size: 0.8rem;
+  margin: 10px 0 20px;
   text-transform: uppercase;
   vertical-align: middle;
 `;

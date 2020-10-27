@@ -20,6 +20,14 @@ const Root = styled.div`
   background-color: ${(props) => props.theme.colors.lightGrey};
 `;
 
+const Inner = styled.div`
+  margin: 8px 0;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    margin: 40px 0;
+  }
+`;
+
 Modal.defaultStyles.overlay.backgroundColor = "transparent";
 
 const Editor = ({ ...props }) => {
@@ -68,12 +76,11 @@ const Editor = ({ ...props }) => {
                 {!addingRecords && editorContext.state.guide && (
                   <Root>
                     <Layout.Padding>
-                      <Layout.Wrapper
-                        medium
-                        style={{ paddingTop: "40px", paddingBottom: "40px" }}
-                      >
-                        <GuideFields />
-                        <Sections />
+                      <Layout.Wrapper medium>
+                        <Inner>
+                          <GuideFields />
+                          <Sections />
+                        </Inner>
                       </Layout.Wrapper>
                     </Layout.Padding>
 

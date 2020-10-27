@@ -6,14 +6,22 @@ import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Text from "#components/shared/Text";
+import * as Layout from "#components/shared/Layout";
 
 // assets
 import CheckIcon from "#assets/icons/check.svg";
 
 const Root = styled.div`
   position: absolute;
-  left: -25px;
-  top: 20px;
+  top: 4px;
+  right: 0;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    position: absolute;
+    top: auto;
+    left: -25px;
+    top: 20px;
+  }
 `;
 
 const Input = styled.input`
@@ -64,7 +72,7 @@ const BulkSelect = ({ description }) => {
       />
       <label htmlFor={`bulkSelect-${description.id}`}>
         <Text.Screenreader>
-          Select Description for Bulk Action
+          Select Description {description.attributes.title} for bulk action
         </Text.Screenreader>
         <CheckIcon />
       </label>

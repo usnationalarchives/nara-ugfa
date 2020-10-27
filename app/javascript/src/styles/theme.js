@@ -40,7 +40,7 @@ export const layout = {
   maxWidthNarrow: "800px",
   maxWidthMedium: "1000px",
   maxWidthWide: "1400px",
-  minPadding: "15px",
+  minPadding: "8px",
   maxPadding: "20px",
 };
 

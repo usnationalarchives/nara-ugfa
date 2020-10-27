@@ -33,18 +33,26 @@ const ModalContent = styled.div`
 const OpenButton = styled.button`
   ${buttonReset}
   background-color: ${(props) => props.theme.colors.blue};
+  border-radius: 0;
   bottom: 56px;
   color: ${(props) => props.theme.colors.textLightBlue};
   font-size: 0.8em;
   height: fit-content;
+  left: 0;
   padding: 10px;
   position: fixed;
   right: 0;
   text-transform: uppercase;
+  width: 100%;
   z-index: 50;
 
   svg {
     fill: ${(props) => props.theme.colors.yellow};
+  }
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    left: auto;
+    width: auto;
   }
 `;
 
@@ -72,7 +80,12 @@ export const Heading = styled.h3`
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: left;
   text-transform: uppercase;
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    text-align: center;
+  }
 `;
 
 export const Subheading = styled.h4`

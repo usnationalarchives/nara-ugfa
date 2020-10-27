@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import styled, { css } from "styled-components";
 import { isEqual } from "lodash";
 
@@ -103,38 +103,40 @@ const SortByNaid = ({ guide, section, descriptions, dispatchDescriptions }) => {
   const sorted = isEqual(descriptionIds, sortedDescriptionIds);
 
   return (
-    <Root>
+    <Fragment>
       {descriptions.length > 1 && (
-        <StyledButton disabled={sorted} onClick={() => setModalOpen(true)}>
-          {sorted && "Section sorted by NAID"}
-          {!sorted && "Sort Section by NAID"}
-        </StyledButton>
+        <Root>
+          <StyledButton disabled={sorted} onClick={() => setModalOpen(true)}>
+            {sorted && "Section sorted by NAID"}
+            {!sorted && "Sort Section by NAID"}
+          </StyledButton>
+
+          <Modal isOpen={modalOpen} toggleModal={() => setModalOpen(!open)}>
+            <ModalInner>
+              <Warning>
+                <WarningIcon />
+                This cannot be undone
+              </Warning>
+              <Text.H3 style={{ marginBottom: "20px" }}>
+                Sort This Section by NAID
+              </Text.H3>
+              <p>
+                Are you sure you want to sort this section in ascending order by
+                NAID? This will overwrite any custom ordering you may have done
+                and it cannot be undone.
+              </p>
+
+              <Actions>
+                <Cancel onClick={() => setModalOpen(false)}>Cancel</Cancel>
+                <Button onClick={handleSort} scheme="green">
+                  Sort By NAID
+                </Button>
+              </Actions>
+            </ModalInner>
+          </Modal>
+        </Root>
       )}
-
-      <Modal isOpen={modalOpen} toggleModal={() => setModalOpen(!open)}>
-        <ModalInner>
-          <Warning>
-            <WarningIcon />
-            This cannot be undone
-          </Warning>
-          <Text.H3 style={{ marginBottom: "20px" }}>
-            Sort This Section by NAID
-          </Text.H3>
-          <p>
-            Are you sure you want to sort this section in ascending order by
-            NAID? This will overwrite any custom ordering you may have done and
-            it cannot be undone.
-          </p>
-
-          <Actions>
-            <Cancel onClick={() => setModalOpen(false)}>Cancel</Cancel>
-            <Button onClick={handleSort} scheme="green">
-              Sort By NAID
-            </Button>
-          </Actions>
-        </ModalInner>
-      </Modal>
-    </Root>
+    </Fragment>
   );
 };
 

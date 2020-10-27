@@ -25,7 +25,10 @@ const Root = styled.div`
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   margin: 20px 0;
   position: relative;
-  padding-bottom: 40px;
+
+  @media ${(props) => props.theme.breakpoints.medium} {
+    padding-bottom: 40px;
+  }
 `;
 
 const Inner = styled.div`
@@ -61,7 +64,7 @@ const TitleInput = styled.input`
   font-weight: bold;
   line-height: 1.625;
   outline: 0;
-  padding: 4px 0;
+  padding: 4px 30px 4px 0;
   position: relative;
   width: 100%;
   z-index: 10;
@@ -142,14 +145,17 @@ const Section = ({
           <label htmlFor={`section-title-${section.id}`}>
             <Text.Screenreader>Title</Text.Screenreader>
           </label>
-          <TitleInput
-            id={`section-title-${section.id}`}
-            type="text"
-            defaultValue={section.attributes.title}
-            onChange={(event) => handleChange("title", event.target.value)}
-            placeholder="Add a Section Title"
-          />
-          <StyledEditIcon />
+
+          <div style={{ position: "relative" }}>
+            <TitleInput
+              id={`section-title-${section.id}`}
+              type="text"
+              defaultValue={section.attributes.title}
+              onChange={(event) => handleChange("title", event.target.value)}
+              placeholder="Add a Section Title"
+            />
+            <StyledEditIcon />
+          </div>
         </TitleWrapper>
 
         <AuthoringWrapper>

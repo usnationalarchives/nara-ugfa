@@ -22,7 +22,7 @@ import { resolveComments } from "#api/internal/comment";
 
 const Root = styled.div`
   position: absolute;
-  top: 30px;
+  top: 80px;
   right: -40px;
 
   ${(props) =>
@@ -49,13 +49,23 @@ const StyledButton = styled.button`
   ${buttonReset}
 
   background-color: ${(props) => props.theme.colors.orange};
-  border-radius: 100%;
-  padding: 15px;
+  border-radius: 20px 0 0 20px;
+  padding: 10px 30px 10px 15px;
 
   svg {
-    width: 25px;
-    height: 25px;
+    width: 18px;
+    height: 18px;
     fill: ${(props) => props.theme.colors.white};
+  }
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    border-radius: 100%;
+    padding: 15px;
+
+    svg {
+      width: 25px;
+      height: 25px;
+    }
   }
 `;
 
@@ -69,11 +79,11 @@ const StyledPopover = styled.div`
 `;
 
 const ResolverRoot = styled.div`
+  align-items: center;
   color: ${(props) => props.theme.colors.textLightGrey};
+  display: flex;
   font-size: 0.8rem;
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
 
   input {
     margin-right: 6px;
