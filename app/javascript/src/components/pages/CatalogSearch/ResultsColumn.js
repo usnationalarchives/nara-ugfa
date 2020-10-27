@@ -40,23 +40,33 @@ const ResultsColumn = () => {
           } else if (isLoading) {
             return <PageLoader />;
           } else if (response !== null) {
-            return (
-              <>
-                <ResultsNavigation
-                  data={{
-                    pages: response.data.meta.pages,
-                    page: response.data.meta.page,
-                    rows: response.data.meta.rows,
-                    total: response.data.meta.total,
-                  }}
-                />
-                <ResearchGuideResults />
-                <SearchResults
-                  response={response}
-                  results={response.data.data}
-                />
-              </>
-            );
+            console.log(response.data.data);
+
+            if (response.data.data.length > 0) {
+              return (
+                <>
+                  <ResultsNavigation
+                    data={{
+                      pages: response.data.meta.pages,
+                      page: response.data.meta.page,
+                      rows: response.data.meta.rows,
+                      total: response.data.meta.total,
+                    }}
+                  />
+                  <ResearchGuideResults />
+                  <SearchResults
+                    response={response}
+                    results={response.data.data}
+                  />
+                </>
+              );
+            } else {
+              return (
+                <p style={{ padding: "40px" }}>
+                  There are no search results found using the search term.
+                </p>
+              );
+            }
           }
 
           return <PageLoader />;

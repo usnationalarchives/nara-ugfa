@@ -100,8 +100,6 @@ const Description = ({ description, response }) => {
     ) || []
   );
 
-  console.log(description);
-
   const {
     id,
     level,
