@@ -72,7 +72,7 @@ const MobileUserNav = () => {
           <MenuItem>
             <MenuItemLabel>Guides to Records</MenuItemLabel>
             <MenuItemContent>
-              <DropdownLink to="/research-guides">
+              <DropdownLink to="/guides">
                 Explore Guides to Records
               </DropdownLink>
 
@@ -84,7 +84,6 @@ const MobileUserNav = () => {
                   style={{ marginTop: "20px" }}
                   block
                   scheme="outline"
-                  href="/research-guides"
                 >
                   Create a Guide
                 </Button>

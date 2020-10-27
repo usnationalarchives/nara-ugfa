@@ -73,9 +73,7 @@ const DesktopUserNav = () => {
     <Root>
       <Item>
         <DropdownMenu label="Guides to Records">
-          <DropdownLink to="/research-guides">
-            Explore Guides to Records
-          </DropdownLink>
+          <DropdownLink to="/guides">Explore Guides to Records</DropdownLink>
           <DropdownLink to="/getting-started">Getting Started</DropdownLink>
 
           {userContext.state.user && (
@@ -84,7 +82,6 @@ const DesktopUserNav = () => {
               style={{ marginTop: "20px" }}
               block
               scheme="outline"
-              href="/research-guides"
             >
               Create a Guide
             </Button>
