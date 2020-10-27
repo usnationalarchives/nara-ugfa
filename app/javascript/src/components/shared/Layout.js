@@ -56,6 +56,12 @@ export const Right = styled.div`
 `;
 
 export const Mobile = styled.div`
+  ${(props) =>
+    props.inline &&
+    css`
+      display: inline-block;
+    `}
+
   @media all and ${(props) => props.theme.breakpoints.medium} {
     display: none;
   }
@@ -63,6 +69,21 @@ export const Mobile = styled.div`
 
 export const Desktop = styled.div`
   display: none;
+
+  ${(props) =>
+    props.inline &&
+    css`
+      display: inline-block;
+    `}
+
+  @media all and ${(props) => props.theme.breakpoints.medium} {
+    display: block;
+  }
+`;
+
+export const InlineDesktop = styled.span`
+  display: none;
+
   @media all and ${(props) => props.theme.breakpoints.medium} {
     display: block;
   }

@@ -7,7 +7,10 @@ import { EditorContext } from "#contexts/Editor";
 
 // components
 import * as Layout from "#components/shared/Layout";
-import DescriptionActions from "./DescriptionActions";
+import {
+  MobileDescriptionActions,
+  DesktopDescriptionActions,
+} from "./DescriptionActions";
 import Creators from "#components/shared/Creators";
 import Triangle from "#components/shared/Triangle";
 import DescriptionHierarchy from "#components/shared/DescriptionHierarchy";
@@ -226,7 +229,7 @@ const Description = ({
     <Root>
       <Inner>
         <Actions>
-          <DescriptionActions
+          <DesktopDescriptionActions
             guide={guide}
             section={section}
             sections={sections}
@@ -267,12 +270,29 @@ const Description = ({
         )}
 
         <Layout.Mobile>
-          <ExpandToggle {...getToggleProps()}>
-            <MetaToggleInner>
-              Metadata{" "}
-              <Triangle style={{ marginLeft: "5px" }} toggleOpen={isExpanded} />
-            </MetaToggleInner>
-          </ExpandToggle>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <ExpandToggle {...getToggleProps()}>
+              <MetaToggleInner>
+                Metadata{" "}
+                <Triangle
+                  style={{ marginLeft: "5px" }}
+                  toggleOpen={isExpanded}
+                />
+              </MetaToggleInner>
+            </ExpandToggle>
+
+            <MobileDescriptionActions
+              guide={guide}
+              section={section}
+              sections={sections}
+              description={description}
+              dispatchDescriptions={dispatchDescriptions}
+              first={first}
+              last={last}
+              setCommenting={setCommenting}
+            />
+          </div>
+
           <div {...getCollapseProps()}>
             <Metadata />
           </div>

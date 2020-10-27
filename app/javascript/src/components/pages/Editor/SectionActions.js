@@ -100,7 +100,12 @@ const SectionActions = ({
 
   return (
     <Root>
-      <ActionButton onClick={() => setCommenting(true)}>
+      <ActionButton
+        onClick={(event) => {
+          event.stopPropagation();
+          setCommenting(true);
+        }}
+      >
         <Comment />
         <Text.Screenreader>Comment</Text.Screenreader>
       </ActionButton>
