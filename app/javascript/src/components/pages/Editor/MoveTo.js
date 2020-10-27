@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 // components
 import * as Text from "#components/shared/Text";
+import * as Layout from "#components/shared/Layout";
 
 // API
 import { moveDescription } from "#api/internal/guideSectionDescription";
@@ -18,9 +19,15 @@ const Move = styled.button`
   ${buttonReset}
 
   svg {
+    display: inline-block;
     fill: ${(props) => props.theme.colors.blue};
     height: 17px;
     width: 17px;
+    margin-right: 10px;
+
+    @media all and ${(props) => props.theme.breakpoints.medium} {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -119,10 +126,13 @@ const MoveTo = ({
       contentDestination={popoverEl.current}
       containerStyle={{ overflow: "visible", zIndex: "100" }}
     >
-      <span style={{ position: "relative" }}>
+      <span style={{ height: "19px", position: "relative" }}>
         <Move onClick={() => setOpen(!open)}>
-          <Icon />
-          <Text.Screenreader>Move</Text.Screenreader>
+          <Icon aria-hidden="true" focusable="false" />
+          <Layout.InlineDesktop>
+            <Text.Screenreader>Move</Text.Screenreader>
+          </Layout.InlineDesktop>
+          <Layout.Mobile inline>Move</Layout.Mobile>
         </Move>
         <span ref={popoverEl}></span>
       </span>
