@@ -1,9 +1,8 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.14.1"
 
-server '34.197.152.218', port: 7171, roles: [:web, :app, :db], primary: true
+server '34.197.152.218', port: 122, roles: [:web, :app, :db], primary: true
 
-set :port, 122
 set :repo_url,        'git@github.com:Threespot/nara-ugfa.git'
 set :application,     'nara-ugfa'
 set :user,            'dboggs'
