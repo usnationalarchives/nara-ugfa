@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import Popover, { ArrowContainer } from "react-tiny-popover";
 import styled, { css } from "styled-components";
 
@@ -98,12 +98,20 @@ const Comments = ({
   setCommenting,
 }) => {
   const popoverEl = useRef();
+  const buttonEl = useRef();
   const editorContext = useContext(EditorContext);
   const comments = editorContext.state.comments.filter(
     (c) =>
       c.attributes.commentable_type === commentableType &&
       parseInt(c.attributes.commentable_id) === parseInt(commentableId)
   );
+
+  useEffect(() => {
+    // set focus to commenting button when opening commenting popover
+    if (commenting) {
+      buttonEl.current.focus();
+    }
+  }, [commenting]);
 
   const Resolver = () => {
     const handleResolver = (event) => {
@@ -155,6 +163,8 @@ const Comments = ({
           position="bottom"
           onClickOutside={() => setCommenting(false)}
           containerStyle={{ overflow: "visible", zIndex: "500" }}
+          contentDestination={popoverEl.current}
+          contentLocation={{ top: 70, left: -250 }}
           content={({ position, targetRect, popoverRect }) => (
             <ArrowContainer
               position={position}
@@ -168,7 +178,12 @@ const Comments = ({
           )}
         >
           <div style={{ position: "relative" }}>
-            <StyledButton onClick={() => setCommenting(!commenting)}>
+            <StyledButton
+              ref={buttonEl}
+              onClick={() => {
+                setCommenting(!commenting);
+              }}
+            >
               <Text.Screenreader>Comments</Text.Screenreader>
               <CommentIcon />
             </StyledButton>
