@@ -131,6 +131,10 @@ export const Image = styled.div`
   height: 150px;
   width: 100%;
 
+  @media all and (min-width: 480px) {
+    height: 200px;
+  }
+
   @media all and (min-width: 700px) {
     height: inherit;
     width: 33%;
