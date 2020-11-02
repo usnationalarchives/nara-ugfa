@@ -260,7 +260,7 @@ const GettingStarted = () => {
                 Guides to Records landing page. If a guide is published
                 privately, only the guide creator and anyone else that has
                 received a share link or has been invited as a collaborator can
-                view the guide.{" "}
+                view the guide.
               </p>
 
               <Text.H3>
@@ -268,13 +268,15 @@ const GettingStarted = () => {
               </Text.H3>
 
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                The series is a group of records that are related as the result
+                of being created, received, or used in the same activity. In the
+                NARA's archival hierarchy, beneath the series are file units or
+                items. File units contain a more specific collection of related
+                records within a series. A file unit often contains multiple
+                discrete records, for example a grouping of memos. An item
+                reflects a specific record, for example a single memo. Both file
+                units and items can have digital objects, such as digitized
+                pages produced from analog holdings
               </p>
 
               <Separator />
