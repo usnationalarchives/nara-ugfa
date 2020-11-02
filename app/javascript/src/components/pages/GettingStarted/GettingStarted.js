@@ -82,9 +82,9 @@ const GettingStarted = () => {
               <Text.H3>How to Create Your First Guide to Records</Text.H3>
 
               <p>
-                First, login to your NARA Catalog account or create an account
-                here. Once logged in, you may create a new guide in multiple
-                ways depending on your research preferences. From your
+                First, login to your National Archives Catalog account or create
+                an account here. Once logged in, you may create a new guide in
+                multiple ways depending on your research preferences. From your
                 dashboard, you may create a new guide by clicking on the “Create
                 a Guide” button within the “Guides to Records” menu.{" "}
               </p>
