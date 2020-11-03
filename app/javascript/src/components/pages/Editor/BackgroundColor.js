@@ -10,7 +10,7 @@ import backgroundColors from "#modules/backgroundColors";
 
 // styles
 import { buttonReset } from "#styles/mixins";
-import { fl_visuallyHidden } from "#styles/frontline";
+import { fl_visuallyHidden, fl_attention } from "#styles/frontline";
 
 // assets
 import Check from "#assets/icons/check.svg";
@@ -25,6 +25,12 @@ const Radio = styled.input`
     border-radius: 100%;
     border: 1px solid ${(props) => props.theme.colors.mediumGrey};
   }
+
+  ${fl_attention(css`
+    + label {
+      border-color: ${(props) => props.theme.colors.blue};
+    }
+  `)}
 `;
 
 const StyledCheck = styled(Check)`
@@ -100,7 +106,7 @@ const BackgroundColor = ({
 
   const PopoverContent = () => {
     return (
-      <MenuWrapper>
+      <MenuWrapper data-bg-menu>
         {backgroundColors.map((color) => (
           <MenuItem key={color.value}>
             <Radio
@@ -109,6 +115,10 @@ const BackgroundColor = ({
               value={color.value}
               name="background-color"
               onChange={handleChange}
+              autoFocus={
+                backgroundColorValue === color.value ||
+                backgroundColor === color.code
+              }
               defaultChecked={
                 backgroundColorValue === color.value ||
                 backgroundColor === color.code
@@ -135,7 +145,12 @@ const BackgroundColor = ({
       isOpen={open}
       position={["bottom", "right"]}
       disableReposition
-      onClickOutside={() => setOpen(false)}
+      onClickOutside={(event) => {
+        // dont close when changing colors, only when clicking outside of the popover
+        if (!event.target.closest("[data-bg-menu]")) {
+          setOpen(false);
+        }
+      }}
       contentLocation={{ top: 30, left: 0 }}
       content={<PopoverContent />}
       contentDestination={popoverEl.current}
