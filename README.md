@@ -113,3 +113,17 @@ If your dependencies are installed and the environment is A-OK, you should be ab
 ```shell
 yarn start
 ```
+
+## AWS Environment
+
+This application is hosted on an AWS EC2 instance provisioned by NARA (bia.test.drupalme.net) and is available publicly at [http://record.test.drupalme.net](https://record.test.drupalme.net).
+
+### Deployment
+
+The deployment script is owned by the account on the above server created by NARA for use by Threespot (dboggs). In order to deploy updates to this environment you must have an appropriate SSH public key added to this account's `~/.ssh/authorized_keys` file. Once this is configured a collaborator may deploy the application by running:
+
+```
+ssh dboggs@34.197.152.218 -p 122 './sites/ugfa/deploy.sh'
+```
+
+This script will pull the latest code down from the `master` branch on GitHub, install any missing dependencies, build the application, and promotes the production build to the web server directory at `/appdata/www/nara-ugfa` using `rsync`.
