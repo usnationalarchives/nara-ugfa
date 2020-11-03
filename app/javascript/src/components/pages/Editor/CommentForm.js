@@ -73,7 +73,6 @@ const CommentForm = ({ dispatchComments, commentableType, commentableId }) => {
           defaultValue={content}
           onChange={(event) => setContent(event.target.value)}
           placeholder="Add a new comment"
-          autoFocus
           rows="3"
         />
 

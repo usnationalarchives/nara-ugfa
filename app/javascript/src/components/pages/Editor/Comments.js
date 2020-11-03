@@ -187,10 +187,10 @@ const Comments = ({
               <Text.Screenreader>Comments</Text.Screenreader>
               <CommentIcon />
             </StyledButton>
-            <div ref={popoverEl}></div>
           </div>
         </Popover>
       )}
+      <div ref={popoverEl}></div>
     </Root>
   );
 };
