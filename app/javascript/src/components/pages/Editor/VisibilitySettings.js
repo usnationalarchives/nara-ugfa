@@ -49,14 +49,32 @@ const VisibilitySettings = ({ guide }) => {
   const popoverEl = useRef();
 
   const handleChange = (property, value) => {
-    updateGuide(guide.data.id, {
-      [property]: value,
-    }).then((response) => {
-      setStatus(response.data.data.attributes.status);
-      editorContext.actions.setLastSaved(
-        response.data.data.attributes.updatedAgo
-      );
-    });
+    if (
+      value === "published" &&
+      !editorContext.state.guide.data.attributes.about
+    ) {
+      editorContext.actions.dispatchErrors({
+        type: "set",
+        key: "about",
+        message:
+          "This description is required to publish your guide to records.",
+      });
+    } else {
+      editorContext.actions.dispatchErrors({
+        type: "remove",
+        key: "about",
+      });
+
+      updateGuide(guide.data.id, {
+        [property]: value,
+      }).then((response) => {
+        editorContext.actions.setGuide(response.data);
+        setStatus(response.data.data.attributes.status);
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
+      });
+    }
   };
 
   const PopoverContent = () => {

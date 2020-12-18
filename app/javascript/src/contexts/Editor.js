@@ -13,9 +13,26 @@ const EditorProvider = ({ children }) => {
   const [lastSaved, setLastSaved] = useState();
   const [initialBlocks, setInitialBlocks] = useState([]);
   const [guide, setGuide] = useState();
+  const [errors, dispatchErrors] = useReducer(
+    (errors, { type, key, message }) => {
+      switch (type) {
+        case "clear":
+          return {};
+        case "set":
+          return { ...errors, [key]: message };
+        case "remove":
+          delete errors[key];
+          return errors;
+        default:
+          return errors;
+      }
+    },
+    {}
+  );
 
   const clear = () => {
     setGuide();
+    dispatchErrors({ type: "clear" });
     dispatchSections({ type: "set", value: [] });
     dispatchDescriptions({ type: "set", value: {} });
     dispatchBlocks({ type: "set", value: [] });
@@ -240,6 +257,7 @@ const EditorProvider = ({ children }) => {
   };
 
   const state = {
+    errors,
     guide,
     activeGuide,
     activeSection,
@@ -257,6 +275,8 @@ const EditorProvider = ({ children }) => {
 
   const actions = {
     clear,
+    setGuide,
+    dispatchErrors,
     setActiveGuide,
     setActiveSection,
     setActiveDescription,

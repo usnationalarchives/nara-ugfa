@@ -104,6 +104,11 @@ const Label = styled.label`
   margin-bottom: 8px;
 `;
 
+const Error = styled.span`
+  color: red;
+  display: block;
+`;
+
 const Textarea = styled.textarea`
   border: 1px solid ${(props) => props.theme.colors.mediumGrey};
   padding: 12px 16px;
@@ -132,14 +137,34 @@ const GuideFields = () => {
 
   const handleChange = debounce((property, value) => {
     editorContext.actions.setSaving(true);
-    updateGuide(guide.data.id, {
-      [property]: value,
-    }).then((response) => {
-      editorContext.actions.setSaving(false);
-      editorContext.actions.setLastSaved(
-        response.data.data.attributes.updatedAgo
-      );
-    });
+
+    if (
+      property === "about" &&
+      value === "" &&
+      editorContext.state.guide.data.attributes.status === "published"
+    ) {
+      editorContext.actions.dispatchErrors({
+        type: "set",
+        key: "about",
+        message:
+          "This description is required to publish your guide to records.",
+      });
+    } else {
+      editorContext.actions.dispatchErrors({
+        type: "remove",
+        key: "about",
+      });
+
+      updateGuide(guide.data.id, {
+        [property]: value,
+      }).then((response) => {
+        editorContext.actions.setGuide(response.data);
+        editorContext.actions.setSaving(false);
+        editorContext.actions.setLastSaved(
+          response.data.data.attributes.updatedAgo
+        );
+      });
+    }
   }, 300);
 
   const handleBackgroundColor = (event) => {
@@ -198,8 +223,14 @@ const GuideFields = () => {
 
       <Fieldset>
         <Legend>Guide to Records Background</Legend>
+
         <div style={{ marginBottom: "40px" }}>
-          <Label htmlFor="about">What is your guide to records about?</Label>
+          <Label htmlFor="about">
+            What is your guide to records about?
+            {editorContext.state.errors.about && (
+              <Error>{editorContext.state.errors.about}</Error>
+            )}
+          </Label>
           <Textarea
             id="about"
             rows="6"
